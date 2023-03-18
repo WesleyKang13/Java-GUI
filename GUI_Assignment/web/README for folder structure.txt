@@ -2,7 +2,7 @@ asset - contains asset files such as images, videos, or audio files used by the 
 
 css - contains CSS files that define the styling of the web app's user interface
 
-include - contains header and footer component and also helper
+include - Helper file store here
 
 js - Javascript file store in here
 
