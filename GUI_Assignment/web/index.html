@@ -5,16 +5,43 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
 -->
 <html>
 <!-- Start CSS -->
+<!-- Font Awesome -->
+<link href="css/fontawesome.css" rel="stylesheet">
+<link href="css/brands.css" rel="stylesheet">
+<link href="css/solid.css" rel="stylesheet">
+
+
 <style>
-    footer {
+
+body {
+   margin: 0;
+}
+
+
+.image-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.body-container {
+  display: grid;
+  grid-template-columns: 100px 100px 100px;
+  padding: px 0px 0px 5px;
+  margin-left: -9em;
+  margin-right: 23em;
+  color: #fff;
+}
+
+footer {
   background-color: #333333;
+  font-size: 20px;
 }
 
 .footer-container {
   display: grid;
-  grid-template-columns: 200px 300px 200px;
-  grid-gap: 20px;
-  padding: 20px;
+  grid-template-columns: 250px 300px 200px;
+  padding: 0px 0px 50px 5px;
+  margin-left: 3em;
   color: #fff;
 }
 
@@ -30,7 +57,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
 .footer-find-us h5,
 .footer-social h5 {
   margin-bottom: 10px;
-  font-size: 20px;
+  font-size: 25px;
 }
 
 .footer-links a,
@@ -40,19 +67,35 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
 }
 
 .footer-social p {
-  font-size: 12px;
+  font-size: 15px;
+}
+
+button {
+  width: 120px;
+  margin-top: 20px;
+  padding: 12px 20px;
+  cursor: pointer;
+  text-align: center; 
+  font-size: 20px;
+  border-style: none;
+  font-family: Verdana, sans-serif;
+}
+
+button:hover{
+    background-color: #B8B8B8;
 }
 
 </style>
 <!-- End CSS Here -->
 
-<!-- Header -->
+<!-- Header DELETE AFTER INCLUDE -->
 <header>
+            <img src="./pexels-web-donut-19090.jpg" style="width: 510px; height:450px;" alt="image1">
   <!-- Container 1 -->
   <div style="background-color:#909090; padding:5px;">
       <div class="Main-container" style="display:flex">
           <ul style="display:flex; list-style:none; letter-spacing: 0.1em;">
-              <li style="margin-left: 58em;"><a href="#" style="text-decoration:none; color:#333;">Help</a></li>
+              <li style="margin-left: 90em;"><a href="#" style="text-decoration:none; color:#333;">Help</a></li>
               <li style="margin-left: 1em;"><a href="#" style="text-decoration:none; color:#333;">Join us</a></li>
               <li style="margin-left: 1em;"><a href="#" style="text-decoration:none; color:#333;">Sign in</a></li>
               
@@ -61,19 +104,19 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
   </div>
   <!-- Container 2 -->
   <div style="background-color:#fff; padding:10px;">
-    <div class="container" style="display:flex; justify-content:space-between; align-items:center;">
-      <ul style="display:flex; list-style:none; letter-spacing: 0.2em;">
-        <li style="margin-left: 10em; margin-right: 2em;"><a href="#" style="text-decoration:none; color:#333;">New &amp; Featured</a></li>
+    <div class="container" style="display:flex; justify-content:space-between; align-items:center; font-size: 20px;">
+      <ul style="display:flex; list-style:none; letter-spacing: 0.1em;">
+        <li style="margin-left: 21em; margin-right: 2em;"><a href="#" style="text-decoration:none; color:#333;">New &amp; Featured</a></li>
         <li style="margin-right: 2em;"><a href="#" style="text-decoration:none; color:#333;">Brand</a></li>
         <li style="margin-right: 2em;"><a href="#" style="text-decoration:none; color:#333;">About Us</a></li>
         <li style="margin-right: 2em;"><a href="#" style="text-decoration:none; color:#333;">Men</a></li>
         <li style="margin-right: 2em;"><a href="#" style="text-decoration:none; color:#333;">Women</a></li>
         <li style="margin-right: 2em;"><a href="#" style="text-decoration:none; color:#333;">Kids</a></li>
       </ul>
-      <div style="display:flex; align-items:center;">
-        <form action="#" method="get" style="display:flex; align-items:center; letter-spacing: 0.2em;">
+      <div style="display:flex; align-items:center; margin-right: 5em;">
+        <form action="#" method="get" style="display:flex; align-items:center; letter-spacing: 0.2em; ">
           <input type="text" placeholder="Search" style="padding:8px 8px 8px 32px; border:none; border-radius:35px; margin-right:10px;">
-          <button type="submit" style="background-color:#333; color:#fff; padding:8px 16px; border:none; border-radius:4px;">Search</button>
+          <button type="submit" style="background-color:#333; color:#fff; padding:8px 16px; margin: 10px; border:none; border-radius:4px;">Search</button>
         </form>
       </div>
     </div>
@@ -83,15 +126,67 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
 
 <!--Main Page -->
 <body>
-    <div style="background-color:#C0C0C0; padding:150px;">
-        <div class="Main-body">
-           <!-- Add Content Here -->
+     <div class="image-container" style="background-color:white; padding: 10px 200px 50px 200px;">
+        <div style="position: relative;">
+        <div class="body-container">
+        <img src="istockphoto-1324624694-170667a.jpg" style="width: 1570px; height:800px;" alt="image1">
+        <a href="#" class="button-link" style="position: absolute; top: 85%; left: -80px;"><button style="border-radius: 50px;">Shop</button></a>
         </div>
+        </div>
+     </div>
+    <!-- Promotion -->
+    <h1 style="margin-left: 1.85em;">Promotion</h1>
+    <div class="image-container" style="background-color:white; padding: 10px 200px 50px 200px;">
+      <div class="body-container">
+            <img src="/assets/homepage/pexels-web-donut-19090.jpg" style="width: 510px; height:450px;" alt="image1">
+      </div>
+    <div class="body-container">
+        <img src="photo-1542291026-7eec264c27ff.jfif"  style="width: 510px; height:450px;" alt="image2">
     </div>
+      <div class="body-container">
+        <img src="old-men-s-shoes-black-white-background-old-men-s-shoes-black-white-background-174778757.jpg"  style="width: 510px; height:450px;" alt="image2">
+       </div>
+    </div>
+    <!--Gear Up-->
+    <h1 style="margin-left: 1.85em;">Gear Up</h1>
+    <div class="image-container" style="background-color:white; padding: 10px 200px 50px 200px;">
+        <div class="body-container">
+        <img src="60e758e0731c6d633c086b5eed9b7598.jpg" style="width: 510px; height:550px;" alt="image1">
+        </div>
+        <div class="body-container">
+        <img src="96df68e9775b7ff9c2d6c974e15d3bb8.jpg"  style="width: 510px; height:550px;" alt="image2">
+        </div>
+        <div class="body-container">
+        <img src="b7deacabf5b6bca0e2b697d341d7a822.jpg"  style="width: 510px; height:550px;" alt="image2">
+        </div>
+        </div>
+    <!--Essentials-->
+    <h1 style="margin-left: 1.85em;">The Essentials</h1>
+        <div class="image-container" style="background-color:white; padding: 10px 200px 50px 200px;">
+        <div style="position: relative;">
+        <div class="body-container">
+        <img src="best-shoe-brands-nike-asics-celine.jpg" style="width: 510px; height:500px;" alt="image1">
+        <a href="#" class="button-link" style="position: absolute; top: 80%; left: -80px;"><button style="border-radius: 50px;">Men's</button></a>
+        </div>
+        </div>
+        <div style="position: relative;">
+        <div class="body-container">
+        <img src="depositphotos_42117323-stock-photo-woman-feet-and-multiple-shoes.jpg"  style="width: 510px; height:500px;" alt="image2">
+        <a href="#" class="button-link" style="position: absolute; top: 80%; left: -80px;"><button style="border-radius: 50px;">Women's</button></a>
+        </div>
+        </div>
+        <div style="position: relative;">    
+        <div class="body-container">
+        <img src="d0d6eb3d58388dc27809b3699fe82ffc.jpg"  style="width: 510px; height:500px;" alt="image2">
+         <a href="#" class="button-link" style="position: absolute; top: 80%; left: -80px;"><button style="border-radius: 50px;">Kids's</button></a>
+        </div>
+        </div>
+        </div>
 </body>
+
 <!-- Main Page End -->
 
-<!-- footer -->
+<!-- footer  DELETE AFTER INCLUDE -->
 <footer>
   <div class="footer-container">
     <div class="footer-links">
@@ -111,11 +206,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
     <div class="footer-find-us">
       <h5>Find Us</h5>
       <ul>
-        <li>123 Main St, Anytown USA</li>
+        <li>123 Banana Town</li>
         <br>
         <li>Phone: 555-123-4567</li>
         <br>
-        <li>Email: info@eggplantshoe.com</li>
+        <li>Email: info@BananaShoe.com</li>
       </ul>
     </div>
     <div class="footer-social">
@@ -126,7 +221,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
         <li><a href="#">Instagram</a></li>
         <br>
       </ul>
-      <p>© 2023 EggPlant Shoe - All Rights Reserved</p>
+      <p>© 2023 Banana Shoe - All Rights Reserved</p>
     </div>
   </div>
 </footer>
