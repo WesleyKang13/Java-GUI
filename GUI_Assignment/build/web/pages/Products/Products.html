@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<!--
+    created by: wesley kang 
+    date: 19/3/2023
+-->
+<html>
+    <head>
+        <title>Products</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="products.css" rel="stylesheet" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;
+        0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700
+        ;1,800;1,900&display=swap" rel="stylesheet">
+</head>
+<script src="https://kit.fontawesome.com/8156a33a91.js" crossorigin="anonymous"></script>
+    
+    <body>
+        <main>
+            <header>
+                <div class="filter-btn">
+                    <button type="button" id="toggleBtn" class="filterBtn">Show Filters<i class="fa fa-filter"></i></button>
+                </div>
+
+                <ul class="categories-filtering" style="display: none;"><!--Filter using java-->
+                    <li data-filter="">Lifestyles</li>
+                    <li data-filter="">Jordan</li>
+                    <li data-filter="">Basketball</li>
+                    <li data-filter="">Football</li>
+                    <li data-filter="">Running</li>
+                </ul>
+            </header>
+        </main>
+
+        <table class="searching-container">
+            <tr>
+                <td><h1 class="product-title">Get your kicks!</h1></td>
+                <td>
+                    <div class="search">
+                        <input type="text" name="search-filter" placeholder="e.g Nike, Adidas"/>
+                        <i class="fa fa-search" style="cursor:pointer;"></i>
+                    </div>
+                </td>
+                <td class="third-col">
+                    <div class="filter-condition">
+                        <span>View as a</span>
+                        <select name="filtering" id="filtering">
+                            <option value="Default">Default</option>
+                            <option value="LowToHigh">Low to high</option>
+                            <option value="HighToLow">High to low</option>
+                        </select>
+                    </div>  
+                </td>
+            </tr>
+        </table>
+
+        <div class="product-field">
+            <ul class="shoes">
+                <li shoe-category="">
+                    <picture>
+                        <img src="../Products/images/dummy1.jpg" alt="">
+                    </picture>
+                    <div class="details">
+                        <p class="icon">
+                            <span><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></span>
+                            <span><i class="fa fa-share" aria-hidden="true"></i></span>
+                        </p>
+                        <strong>Nike run 2017</strong>
+                        <small>Lorem ipsum dolor sit amet consectetur</small>
+                    </div>
+                    <h4>Rm<br> 599.99</h4>
+                </li>
+
+                <li shoe-category="">
+                    <picture>
+                        <img src="../Products/images/dummy1.jpg" alt="">
+                    </picture>
+                    <div class="details">
+                        <p class="icon">
+                            <span><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></span>
+                            <span><i class="fa fa-share" aria-hidden="true"></i></span>
+                        </p>
+                        <strong>Nike run 2017</strong>
+                        <small>Lorem ipsum dolor sit amet consectetur</small>
+                    </div>
+                    <h4>Rm<br> 599.99</h4>
+                </li>
+
+                <li shoe-category="">
+                    <picture>
+                        <img src="../Products/images/dummy2.png" alt="">
+                    </picture>
+                    <div class="details">
+                        <p class="icon">
+                            <span><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></span>
+                            <span><i class="fa fa-share" aria-hidden="true"></i></span>
+                        </p>
+                        <strong>Nike hype</strong>
+                        <small>Lorem ipsum dolor sit amet consectetur</small>
+                    </div>
+                    <h4>Rm<br> 650.99</h4>
+                </li>
+
+                <li shoe-category="">
+                    <picture>
+                        <img src="../Products/images/dummy1.jpg" alt="">
+                    </picture>
+                    <div class="details">
+                        <p class="icon">
+                            <span><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></span>
+                            <span><i class="fa fa-share" aria-hidden="true"></i></span>
+                        </p>
+                        <strong>Nike run 2017</strong>
+                        <small>Lorem ipsum dolor sit amet consectetur</small>
+                    </div>
+                    <h4>Rm<br> 599.99</h4>
+                </li>
+
+                <li shoe-category="">
+                    <picture>
+                        <img src="../Products/images/dummy2.png" alt="">
+                    </picture>
+                    <div class="details">
+                        <p class="icon">
+                            <span><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></span>
+                            <span><i class="fa fa-share" aria-hidden="true"></i></span>
+                        </p>
+                        <strong>Nike hype</strong>
+                        <small>Lorem ipsum dolor sit amet consectetur</small>
+                    </div>
+                    <h4>Rm<br> 599.99</h4>
+                </li>
+            </ul>
+        </div>
+         
+    </body>
+    <script src="products.js"></script>
+</html>
