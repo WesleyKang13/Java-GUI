@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Banana's Shoe Store</title>
+<!-- Font Awesome -->
+<link href="./vendor/fontawesome-free-6.3.0-web/css/fontawesome.css" rel="stylesheet">
+<link href="./vendor/fontawesome-free-6.3.0-web/css/brands.css" rel="stylesheet">
+<link href="./vendor/fontawesome-free-6.3.0-web/css/solid.css" rel="stylesheet">
+
+<style>
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+.icon{
+  transform: translateY(-7px);
+}
+
+.image-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.body-container {
+  display: grid;
+  grid-template-columns: 70px 70px 70px;
+  padding: 0px 0px 0px 5px;
+  margin-left: -9em;
+  color: #fff;
+}
+
+footer {
+  background-color: #333333;
+  font-size: 11px;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+
+.footer-container {
+  display: grid;
+  grid-template-columns: 250px 300px 200px;
+  padding: 0px 0px 50px 5px;
+  margin-left: 3em;
+  color: #fff;
+}
+
+.footer-links ul,
+.footer-find-us ul,
+.footer-social ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.footer-links h5,
+.footer-find-us h5,
+.footer-social h5 {
+  margin-bottom: 10px;
+  font-size: 13px;
+}
+
+.footer-links a,
+.footer-social a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.footer-social p {
+  font-size: 10px;
+  padding-right: 5em;
+}
+
+.search-button{
+  height: 30px; 
+  width: 30px;
+  background-color: white;
+}
+
+.search-button:hover{
+  background-color: white;
+}
+
+.favourite-button{
+  height: 30px; 
+  width: 30px;
+  background-color: white;
+}
+
+.cart-button{
+  height: 30px; 
+  width: 30px;
+  background-color: white;
+}
+
+.user-registration{
+  height: 30px; 
+  width: 30px;
+  background-color: white;
+}
+
+button {
+  width: 80px;
+  margin-top: 20px;
+  padding: 12px 10px;
+  cursor: pointer;
+  text-align: center; 
+  font-size: 15px;
+  border-style: none;
+  font-family: Verdana, sans-serif;
+}
+
+button:hover{
+    background-color: #B8B8B8;
+}
+
+.button-promotion{
+  background-color: transparent;
+  font-weight: bold;
+  color: red;
+  width: 120px;
+}
+
+.arrival-button{
+  background-color:black;
+  color:white;
+}
+
+.arrival-button:hover{
+  background-color:#606060;
+}
+
+.essential-button{
+  background-color:black;
+  color:white;
+}
+
+.essential-button:hover{
+  background-color:#606060;
+}
+
+.fa {
+  padding: 5px 20px 20px 10px;
+  margin: 0px 0px 0px 0px;
+  font-size: 15px;
+  width: 15px;
+  height: 10px;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 50px;
+}
+
+.fa:hover {
+    opacity: 0.7;
+}
+
+.fa-facebook {
+  background: #3B5998;
+  color: white;
+}
+
+.fa-twitter {
+  background: #55ACEE;
+  color: white;
+}
+
+.fa-instagram {
+  background: #125688;
+  color: white;
+}
+
+* {box-sizing: border-box}
+body {font-family: Verdana, sans-serif; margin:0}
+.mySlides {display: none}
+img {vertical-align: middle;}
+
+/* Slideshow container */
+.slideshow-container {
+  max-width: 1200px;
+  position: relative;
+  margin: auto;
+}
+
+/* Next & previous buttons */
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  padding: 16px;
+  margin-top: -22px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+  margin-left: 62.7em;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+
+/* Caption text */
+.text-promo {
+  color: red;
+  font-size: 30px;
+  padding: 8px 12px;
+  position: absolute;
+  bottom: 8px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+/* The dots/bullets/indicators */
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active, .dot:hover {
+  background-color: #717171;
+}
+
+/* Fading animation */
+.fade {
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+/* On smaller screens, decrease text size */
+@media only screen and (max-width: 300px) {
+  .prev, .next,.text {font-size: 11px}
+}
+</style>
+<!-- End CSS Here -->
+<!-- Header DELETE AFTER INCLUDE -->
+<header>
+  <!-- Header 2 -->
+  <div style="background-color:#BEBEBE; padding-top: 15px;">
+    <div class="container" style="display:flex; justify-content:space-between; align-items:center; font-size: 15px;">
+      <ul style="display:flex; list-style:none; letter-spacing: 0.1em;">
+        <li style="margin-left: 0em; margin-right: 1.5em;"><a href="#" style="text-decoration:none; color:#333;"><img src="./assets/homepage/banana.png"  class="icon" style="width: 40px; top:35px;" alt="image1"></a></li>
+        <li style="margin-left: 11em; margin-right: 0.5em;"><a href="index.html" style="text-decoration:none; color:#333;">Home</a></li>
+        <li style="margin-left: 1em; margin-right: 1em;"><a href="#" style="text-decoration:none; color:#333;">New &amp; Featured</a></li>
+        <li style="margin-right: 1em;"><a href="#" style="text-decoration:none; color:#333;">Brand</a></li>
+        <li style="margin-right: 1em;"><a href="#" style="text-decoration:none; color:#333;">About Us</a></li>
+        <li style="margin-right: 1em;"><a href="#" style="text-decoration:none; color:#333;">Men</a></li>
+        <li style="margin-right: 1em;"><a href="#" style="text-decoration:none; color:#333;">Women</a></li>
+        <li style="margin-right: 1em;"><a href="#" style="text-decoration:none; color:#333;">Kids</a></li>
+        <li style="margin-right: 1em;"><a href="pages/contact_us.html" style="text-decoration:none; color:#333;">Help</a></li>
+      </ul>
+      <div style="display:flex; align-items:center; margin-right: 2.3em; padding-bottom: 10px;">
+        <form action="#" method="get" style="letter-spacing: 0.2em;">
+          <div style="position:relative;">
+            <input type="text" placeholder="Search" style="padding:8px 8px 8px 10px; border-radius:50px; border-style: ridge; margin-right:15px; width: 180px;">
+            <button type="submit" class="search-button" style="padding: 0px 0px; margin: 2px 30px 0px 10px; border:none; border-radius:50px; position:absolute; top:0; right:0;"><i class="fa-solid fa-magnifying-glass"></i></button>
+          </div>
+        </form>
+        <form action="#" method="get" >
+        <button type="submit" class="favourite-button"  style="padding: 0px 0px; margin: 0px 0px 0px 0px; border:none; border-radius:50px;"><i class="fa-solid fa-heart"></i></button>
+        </form>
+        <form action="#" method="get">
+        <button type="submit" class="cart-button"  style="padding: 0px 0px; margin: 0px 0px 0px 0px; border:none; border-radius:50px; margin-left: 1em;"><i class="fa-solid fa-cart-shopping"></i></button>
+      </form>
+      <form action="#" method="get">
+        <button type="submit" class="user-registration"  style="padding: 0px 0px; margin: 0px 0px 0px 0px; border:none; border-radius:50px; margin-left: 1em;"><i class="fa-solid fa-user"></i></button>
+      </form>
+      </div>
+    </div>
+  </div>
+</header>
+<!-- End Header -->
+
+<!--Main Page -->
+<body>
+  <h1 style="margin-left: 2em;">Featured</h1>
+     <div class="image-container" style="background-color:white; padding: 10px 200px 50px 200px;">
+        <div style="position: relative;">
+        <div class="body-container">
+        <img src="./assets/homepage/istockphoto-1324624694-170667a.jpg" style="width: 1170px; height:700px;" alt="image1">
+        <a href="#" class="button-link" style="position: absolute; top: 85%; left: -80px;"><button style="border-radius: 50px;">Shop</button></a>
+        </div>
+        </div>
+    </div>
+    <!-- Promotion -->
+    <h1 style="margin-left: 1.85em;">Promotion</h1>
+    <div style="margin-right: 0.5em;"class="slideshow-container">
+      <div class="mySlides fade">
+        <div class="numbertext">1 / 5</div>
+        <img src="./assets/homepage/5d2df70f21a86126ee75f087.webp" style="width:1170px; height: 510px;">
+        <a href="#" class="button-link" style="position: absolute; top: 87%; left: 520px; "><button class="button-promotion" style="border-radius: 50px; size: 1000px; "><strong>BUY NOW</strong></button></a>
+      </div>
+      <div class="mySlides fade">
+        <div class="numbertext">2 / 5</div>
+        <img src="./assets/homepage/landscape-1490382030-nike-2by1.jpg" style="width:1170px; height: 510px;">
+        <a href="#" class="button-link" style="position: absolute; top: 87%; left: 520px;"><button class="button-promotion" style="border-radius: 50px;"><strong>BUY NOW</strong></button></a>
+      </div> 
+      <div class="mySlides fade">
+        <div class="numbertext">3 / 5</div>
+        <img src="./assets/homepage/landscape-1504099087-lead-ajxxxii-rossa-scissors-tw-original.jpg" style="width:1170px; height: 510px;">
+        <a href="#" class="button-link" style="position: absolute; top: 87%; left: 520px;"><button class="button-promotion" style="border-radius: 50px;"><strong>BUY NOW</strong></button></a>
+      </div>
+      <div class="mySlides fade">
+        <div class="numbertext">4 / 5</div>
+        <img src="./assets/homepage/E-4aSHXVcBEnsWN.jpg" style="width:1170px; height: 510px;">
+        <a href="#" class="button-link" style="position: absolute; top: 87%; left: 520px;"><button class="button-promotion" style="border-radius: 50px;"><strong>BUY NOW</strong></button></a>
+      </div>
+      <div class="mySlides fade">
+        <div class="numbertext">5 / 5</div>
+        <img src="./assets/homepage/5b71921c959f341c008b4efe.webp" style="width:1170px; height: 510px;">
+        <a href="#" class="button-link" style="position: absolute; top: 87%; left: 520px;"><button class="button-promotion" style="border-radius: 50px;"><strong>BUY NOW</strong></button></a>
+      </div>
+      <a class="prev" onclick="plusSlides(-1)"><i class="fa-solid fa-chevron-left"></i></a>
+      <a class="next" onclick="plusSlides(1)"><i class="fa-solid fa-chevron-right"></i></a>
+      </div>
+      <br>
+      <div style="text-align:center">
+        <span class="dot" onclick="currentSlide(1)"></span> 
+        <span class="dot" onclick="currentSlide(2)"></span> 
+        <span class="dot" onclick="currentSlide(3)"></span> 
+        <span class="dot" onclick="currentSlide(4)"></span> 
+        <span class="dot" onclick="currentSlide(5)"></span> 
+      </div>
+    <!--End Promotion-->
+    <!--New Arrivals-->
+    <h1 style="margin-left: 1.85em;">New Arrivals</h1>
+    <div class="image-container" style="background-color:white; padding: 10px 200px 50px 200px;">
+        <div class="body-container">
+        <img src="./assets/homepage/79b50ced-3832-4aa4-bc3a-a963c5950e1b.webp" style="width: 380px; height:450px;" alt="image1">
+        <a href="#" class="button-link" style="position: absolute; margin-left: 50px; margin-top: 350px;"><button class="arrival-button" style="border-radius: 50px;" class="arrial-button">Men's</button></a>
+        </div>
+        <div class="body-container">
+        <img src="./assets/homepage/69bb9b94-5771-4b28-b436-4053764876c6.webp"  style="width: 380px; height:450px;" alt="image2">
+        <a href="#" class="button-link" style="position: absolute; margin-left: 35px; margin-top: 350px;"><button class="arrival-button" style="border-radius: 50px; padding-right:80px;">Women's</button></a>
+        </div>
+        <div class="body-container">
+        <img src="./assets/homepage/cee09af6-6ecc-4eb0-8148-eac6f9153931.webp"  style="width: 380px; height:450px;" alt="image3">
+        <a href="#" class="button-link"style="position: absolute; margin-left: 30px; margin-top: 350px;"><button class="arrival-button" style="border-radius: 50px;">Kids's</button></a>
+        </div>
+        </div>
+    <!--End New Arrivals-->
+    <!--Essentials-->
+    <h1 style="margin-left: 1.85em;">The Essentials</h1>
+        <div class="image-container" style="background-color:white; padding: 10px 200px 50px 200px;">
+        <div style="position: relative;">
+        <div class="body-container">
+        <img src="./assets/homepage/renew-run-4-road-running-shoes-lxfK8c.jfif" style="width: 380px; height:400px;" alt="image1">
+        <a href="#" class="button-link" style="position: absolute; top: 80%; left: -80px;"><button class="essential-button" style="border-radius: 50px;">Men's</button></a>
+        </div>
+        </div>
+        <div style="position: relative;">
+        <div class="body-container">
+        <img src="./assets/homepage/d8e2dff5-ce00-4cda-849b-641e6157ef92.webp"  style="width: 380px; height:400px;" alt="image2">
+        <a href="#" class="button-link" style="position: absolute; top: 80%; left: -80px;"><button  class="essential-button"  style="border-radius: 50px; padding-right:80px;">Women's</button></a>
+        </div>
+        </div>
+        <div style="position: relative;">    
+        <div class="body-container">
+        <img src="./assets/homepage/1990f818-45b2-49a8-92fb-595aa580bf55.webp"  style="width: 380px; height:400px;" alt="image2">
+        <a href="#" class="button-link" style="position: absolute; top: 80%; left: -80px;"><button  class="essential-button" style="border-radius: 50px;">Kids's</button></a>
+        </div>
+        </div>
+        </div>
+    <!--End Essentials-->
+    <!--Slider function-->
+        <script>
+          let slideIndex = 1;
+          showSlides(slideIndex);
+          
+          function plusSlides(n) {
+            showSlides(slideIndex += n);
+          }
+          
+          function currentSlide(n) {
+            showSlides(slideIndex = n);
+          }
+          
+          function showSlides(n) {
+            let i;
+            let slides = document.getElementsByClassName("mySlides");
+            let dots = document.getElementsByClassName("dot");
+            if (n > slides.length) {slideIndex = 1}    
+            if (n < 1) {slideIndex = slides.length}
+            for (i = 0; i < slides.length; i++) {
+              slides[i].style.display = "none";  
+            }
+            for (i = 0; i < dots.length; i++) {
+              dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slides[slideIndex-1].style.display = "block";  
+            dots[slideIndex-1].className += " active";
+          }
+          </script>
+    <!--End slider-->
+</body>
+
+<!-- Main Page End -->
+
+<!-- footer  DELETE AFTER INCLUDE -->
+<footer>
+  <div class="footer-container">
+    <div class="footer-links">
+      <h5>LINKS</h5>
+      <ul>
+        <li><a href="#">Become A Member</a></li>
+        <br>
+        <li><a href="#">Student Discount</a></li>
+        <br>
+        <li><a href="#">Sign Up</a></li>
+        <br>
+        <li><a href="pages/contact_us.html">Help</a></li>
+        <br>
+        <li><a href="#">Send Us A Feedback</a></li>
+      </ul>
+    </div>
+    <div class="footer-find-us">
+      <h5>FIND US</h5>
+      <ul>
+        <li>123 Banana Town</li>
+        <br>
+        <li>Phone: 555-123-4567</li>
+        <br>
+        <li>Email: info@BananaShoe.com</li>
+      </ul>
+    </div>
+    <div class="footer-social">
+      <h5 style="margin-right: 0.9em;">SOCIAL</h5>
+      <ul style="display:flex; justify-content:space-between; align-items:center; ">
+        <li style="margin-right: 1em;"><i class="fa-brands fa-square-facebook"></i></li>
+        <li style="margin-right: 1em;"><i class="fa-brands fa-square-instagram"></i></li>
+        <li style="padding-right: 100px;"><i class="fa-brands fa-square-twitter"></i></li>
+      </ul>
+      <p>© 2023 Banana Shoe - All Rights Reserved</p>
+    </div>
+  </div>
+</footer>
+
+</html>
