@@ -1,0 +1,86 @@
+.container .table{
+    margin-bottom: 0;
+}
+
+.container .text h1{
+    margin-bottom: .5rem;
+}
+
+/* Product List - START */
+.productList .addNew{
+  position: absolute;
+  top: 5.5rem;
+  right: 5rem;
+  background-color: var(--color-white);
+  color: var(--color-font);
+  font-weight: 700;
+  border: 0.2rem solid var(--color-font);
+  border-radius: var(--border-radius-4);
+  transition: var(--tran-2);
+}
+
+.productList .addNew:hover{
+  transform: scale(1.05);
+}
+
+.productDetail, .addProduct{
+  padding-bottom: 5.5rem;
+}
+
+/* Action Column */
+.productList table th:last-child,
+.productList table td:last-child{
+  margin: 0;
+  padding: 0 1rem;
+  text-align: center;
+  width: 0;
+}
+
+.actionRoundBtn{
+  color: var(--color-font);
+  background: transparent;
+  display: block;
+  margin: 0 auto;
+  padding: 0;
+  font-size: 1rem;
+  border: 0;
+  border-radius: var(--border-radius-3);
+  cursor: pointer;
+  transform: scale(1.3);
+  opacity: 0.8;
+  text-align: center;
+}
+
+.actionRoundBtn:hover{
+  transform: scale(1.5);
+  opacity: 1;
+}
+
+/* FORM ACTION BUTTON */
+.productDetail .btn, .addProduct .btn {
+  border-radius: var(--border-radius-4);
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin: 1rem .5rem;
+  transition: var(--tran-2);
+  opacity: .95;
+  float: right;
+}
+
+.productDetail .btn:hover, .addProduct .btn:hover {
+  opacity: 1;
+  transform: translate(-0.1rem, -0.1rem);
+}
+
+/* Search Bar */
+.searchBar{
+  position: absolute;
+  top: 5.5rem;
+  right: 12rem;
+}
+
+.searchBar i{
+  position: absolute;
+  top: 0.5rem;
+  right: 1rem;
+}

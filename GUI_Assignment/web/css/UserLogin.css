@@ -1,0 +1,262 @@
+html{
+  background-image:url('../assets/login.jpg');
+  background-size:cover;
+  background-attachment:fixed;
+  background-repeat:no-repeat;
+  background-position:center;
+}
+
+body{
+  font-family: 'Poppins', sans-serif;
+  color:black;
+}
+
+h1 {
+  max-width: 40ch;
+  text-align: center;
+  transform: scale(0.94);
+  animation: scale 3s forwards cubic-bezier(0.5, 1, 0.89, 1);
+}
+@keyframes scale {
+  100% {
+    transform: scale(1);
+  }
+}
+
+#register,#welcome,#back {
+  display: inline-block;
+  opacity: 0;
+  filter: blur(4px);
+}
+
+
+#register,#welcome {
+  animation: fade-in 0.8s 0.1s forwards cubic-bezier(0.11, 0, 0.5, 0);
+}
+#back {
+  animation: fade-in 0.8s 0.2s forwards cubic-bezier(0.11, 0, 0.5, 0);
+}
+@keyframes fade-in {
+  100% {
+    opacity: 1;
+    filter: blur(0);
+}
+}
+
+label{
+  font-size:1vw;
+}
+
+.socialmedia{
+  position:relative;
+  top:100px;
+  border:1px solid black;
+  padding:5px;
+  width:40%;
+  font-size:1.3em;
+  font-weight:bold;
+  text-decoration:none;
+  color:black;
+}
+#facebook{
+ position:relative; 
+  top:70px;
+}
+#facebook:hover{
+  color:#3B5998;
+  border:2px solid black;
+}
+#google:hover{
+  color:#dd4b39;
+  border:2px solid black;
+}
+#key{
+  margin-right: -3px;
+}
+#togglePassword {
+  margin-left: -24px;
+  cursor: pointer;
+}
+
+#registerwel{ 
+  font-weight:bold;
+  margin-bottom:50px;
+}
+
+.user_loginbutton{
+  position:relative;
+  top:40px;
+  border:1px solid black;
+  color:black;
+  padding:10px;
+  text-decoration:none;
+}
+
+.user_registerbutton{
+  border:1px solid black;
+  color:black;
+  padding:10px;
+  text-decoration:none;
+}
+
+
+
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto;
+  padding: 10px;
+}
+.grid-item {
+  background-color:white;
+  opacity:0.8;
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  border-radius:10px;
+  margin:30px;
+  padding: 50px;  
+  height:90%;
+  text-align:center;
+}
+
+#user_login{  
+  transition:0.7s;
+}
+#user_register{
+transition:0.7s;
+}
+form .user_loginbutton,.user_registerbutton {
+  position: relative;
+  display: inline-block;
+  color: #313738;
+  font-size: 16px;
+  text-decoration: none;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: .5s;
+  letter-spacing: 4px
+}
+
+.user_loginbutton:hover,.user_registerbutton:hover {
+  background: #004043;
+  color: white;
+  border-radius: 5px;
+  box-shadow: 0 0 5px #004043,
+              0 0 25px #004043,
+              0 0 50px #004043,
+              0 0 100px #004043;
+}
+.user_loginbutton span,.user_registerbutton span {
+  position: absolute;
+  display: block;
+}
+.user_loginbutton span:nth-child(1),.user_registerbutton span:nth-child(1){
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #004043);
+  animation: btn-anim1 1s linear infinite;
+}
+.registerMessage{
+ 
+  margin-top:100px;
+ 
+}
+
+@keyframes btn-anim1 {
+  0% {
+    left: -100%;
+  }
+  50%,100% {
+    left: 100%;
+  }
+}
+
+.user_loginbutton span:nth-child(2),.user_registerbutton span:nth-child(2) {
+  top: -100%;
+  right: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent, #004043);
+  animation: btn-anim2 1s linear infinite;
+  animation-delay: .25s
+}
+
+@keyframes btn-anim2 {
+  0% {
+    top: -100%;
+  }
+  50%,100% {
+    top: 100%;
+  }
+}
+
+.user_loginbutton span:nth-child(3),.user_registerbutton span:nth-child(3) {
+  bottom: 0;
+  right: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(270deg, transparent, #004043);
+  animation: btn-anim3 1s linear infinite;
+  animation-delay: .5s
+}
+
+@keyframes btn-anim3 {
+  0% {
+    right: -100%;
+  }
+  50%,100% {
+    right: 100%;
+  }
+}
+
+.user_loginbutton span:nth-child(4),.user_registerbutton span:nth-child(4) {
+  bottom: -100%;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(360deg, transparent, #004043);
+  animation: btn-anim4 1s linear infinite;
+  animation-delay: .75s
+}
+
+@keyframes btn-anim4 {
+  0% {
+    bottom: -100%;
+  }
+  50%,100% {
+    bottom: 100%;
+  }
+}
+
+
+@media only screen and (max-width:600px){
+  .grid-container {
+    display: grid;
+    grid-template-columns: auto;
+    padding: 10px;
+  }
+  #user_login {
+    margin-top:100px;
+  }
+  .registerBtn{
+    padding:10px;
+    color:red;
+
+  }
+}
+@media only screen and (max-width:800px){
+  .grid-container {
+    display: grid;
+    grid-template-columns: auto;
+    padding: 10px;
+  }
+  #user_login {
+    margin-top:100px;
+  }
+  .registerBtn{
+    padding:10px;
+    color:red;
+
+  }
+}
+

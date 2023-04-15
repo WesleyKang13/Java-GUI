@@ -1,0 +1,235 @@
+.sidebar{
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 14rem;
+    padding: var(--padding-2);
+    background: var(--color-white);
+    transition: var(--tran-3);
+    z-index: 100;
+    box-shadow: var(--box-shadow-1);
+}
+.sidebar.close{
+    width: 4.7rem;
+}
+
+.sidebar header{
+    position: relative;
+}
+
+/* Profile */
+.sidebar header .profile{
+    display: flex;
+    align-items: center;
+}
+.sidebar header .profile-text{
+    margin-left: 0.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar header .position{
+    margin-top: .3rem;
+}
+
+.sidebar header .picture{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sidebar header .picture img{
+    width: 3rem;
+    border-radius: var(--border-radius-3);
+}
+
+/* Link List */
+.sidebar .menu{
+    margin-top: 1rem;
+}
+
+.sidebar li{
+    height: 2.2rem;
+    display: flex;
+    align-items: center;
+    margin-top: 0.5rem;
+}
+
+.sidebar .icon{
+    min-width: 3rem;
+    border-radius: var(--border-radius-3);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    transition: all 0.05s ease;
+}
+
+.sidebar .text{
+    color: var(--color-font);
+    transition: var(--tran-4);
+    opacity: 1;
+}
+
+.sidebar.close .text{
+    opacity: 0;
+    transition: var(--tran-1);
+}
+
+.sidebar li a{
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    border-radius: var(--border-radius-3);
+    text-decoration: none;
+    transition: var(--tran-3);
+}
+
+.sidebar li a:hover{
+    background-color: var(--color-primary);
+}
+
+.sidebar li a:hover .icon,
+.sidebar li a:hover .text{
+    transition: var(--tran-1);
+    color: var(--color-white);
+}
+
+.sidebar .menu-bar{
+    height: calc(100% - 3.2rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow-y: scroll;
+}
+
+.menu-bar::-webkit-scrollbar{
+    display: none;
+}
+
+/* Active Page */
+.sidebar .active a, .sidebar .active a:hover{
+    background: var(--color-primary-light);
+    transition: var(--tran-3);
+}
+
+.sidebar .active a .icon,
+.sidebar .active a .text,
+.sidebar .active a:hover .icon,
+.sidebar .active a:hover .text{
+    color: var(--color-font);
+    transition: var(--tran-3);
+}
+
+
+/* Expand and Collapse button */
+.sidebar header .toggle{
+    position: absolute;
+    top: 125%;
+    right: -1.7rem;
+    transform: translateY(-50%) rotate(180deg);
+    height: 1.5rem;
+    width: 1.5rem;
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: var(--tran-4);
+}
+
+.sidebar.close .toggle{
+    transform: translateY(-50%) rotate(0deg);
+}
+
+/* Dark and Light Mode */
+.sidebar .menu-bar .mode{
+    border-radius: var(--border-radius-3);
+    background-color: var(--color-primary-light);
+    position: relative;
+    transition: var(--tran-4);
+    cursor: pointer;
+}
+
+.menu-bar .mode .sun-moon{
+    height: 2.25rem;
+    width: 3rem;
+}
+
+.mode .sun-moon i{
+    color: var(--color-font);
+    position: absolute;
+}
+
+.mode .sun-moon i.moon{
+    opacity: 0;
+}
+
+body.dark .mode .sun-moon i.sun{
+    opacity: 0;
+}
+
+body.dark .mode .sun-moon i.moon{
+    opacity: 1;
+}
+
+/* Toggle switch for dark mode */
+.menu-bar .bottom-content .toggle-switch{
+    position: absolute;
+    right: 0;
+    height: 100%;
+    min-width: 3.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--border-radius-3);
+}
+
+.toggle-switch .switch{
+    position: relative;
+    height: 1.3rem;
+    width: 2.2rem;
+    border-radius: var(--border-radius-2);
+    transition: var(--tran-3);
+    background-color: var(--color-font);
+}
+
+.switch::before{
+    content: '';
+    position: absolute;
+    height: 0.8rem;
+    width: 0.8rem;
+    border-radius: 50%;
+    top: 50%;
+    left: 0.35rem;
+    transform: translateY(-50%);
+    background-color: var(--color-white);
+    transition: var(--tran-2);
+}
+
+body.dark .switch::before{
+    left: 1.15rem;
+}
+
+
+/* Main Section - Move when toggle SideBar */
+main{
+    position: absolute;
+    top: 0;
+    left: 15rem;
+    width: calc(100% - 15rem);
+    background-color: var(--color-background);
+    transition: var(--tran-2);
+}
+
+.sidebar.close ~ main{
+    left: 5.5rem;
+    width: calc(100% - 5.5rem);
+}
