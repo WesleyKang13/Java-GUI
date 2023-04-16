@@ -1,11 +1,20 @@
-<% String ROOT_PATH = "../../"; %>
+<% String ROOT_PATH = ""; %>
 <jsp:include page="<%= ROOT_PATH + "pages/header.jsp"%>">
     <jsp:param name="ROOT_PATH" value="<%=ROOT_PATH%>" />
 </jsp:include>
 
-<link href="../../css/product/ProductDetails.css" rel="stylesheet" />
-<script src="https://kit.fontawesome.com/8156a33a91.js" crossorigin="anonymous"></script>
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../../css/product/ProductDetails.css" rel="stylesheet" />
+    <link href=<%= ROOT_PATH + "vendor/fontawesome-free-6.3.0-web/css/fontawesome.css"%> rel="stylesheet" type="text/css">
+    <link href=<%= ROOT_PATH + "vendor/fontawesome-free-6.3.0-web/css/brands.css"%> rel="stylesheet" type="text/css">
+    <link href=<%= ROOT_PATH + "vendor/fontawesome-free-6.3.0-web/css/solid.css"%> rel="stylesheet" type="text/css">
+    <title>Products</title>
+</head>
 <body>
     <div class="product-container">
         <table class="product-details">
