@@ -39,20 +39,20 @@
 .full-details h1{
     font-size:40px;
     position: absolute;
-    top:20px;
+    top:80px;
 }
 
 .full-details h4{
     font-size:20px;
     position: absolute;
-    top:90px;
+    top:150px;
     color:rgb(89, 89, 89);
 }
 
 .full-details h5{
     font-size:20px;
     position: absolute;
-    top:65px;
+    top:125px;
 }
 
 .size-container{
@@ -61,10 +61,11 @@
     gap:5px;
     overflow: hidden;
     position:absolute;
-    top: 125px;
+    top: 185px;
 }
 
 .size-container button{
+    border:2px solid grey;
     font-size:20px;
     width:130px;
     padding:20px;
@@ -79,26 +80,24 @@
 
 .full-details p{
     position:absolute;
-    top:90%;
+    top:105%;
     width:32%;
     font-size:20px;
     letter-spacing: 1.5px;
     line-height:2rem;
-    border-bottom: 2px solid grey;
 }
 
 .full-details h3{
     position: absolute;
-    top: 90px;
-    right: 70px;
+    top: 145px;
+    right: 50px;
 }
 
 .shipping-details{
     position:absolute;
     margin-left:50px;
-    bottom:-44%;
+    bottom:-55%;
     font-size:20px;
-    border-bottom: 2px solid grey;
     line-height: 5rem;
 }
 
@@ -110,9 +109,8 @@
 .reviews{
     position:absolute;
     margin-left:50px;
-    bottom:-58%;
+    bottom:-65%;
     font-size:20px;
-    border-bottom: 2px solid grey;
     line-height: 5rem;
 }
 

@@ -16,6 +16,8 @@
                             <img src="../../assets/product/dummy1.jpg" alt=""/>
                             <img src="../../assets/product/dummy1.jpg" alt=""/>
                             <img src="../../assets/product/dummy1.jpg" alt=""/>
+                            <img src="../../assets/product/dummy1.jpg" alt=""/>
+                            <img src="../../assets/product/dummy1.jpg" alt=""/>
                         </picture>
                     </div>
                 </td>
@@ -49,7 +51,7 @@
                         <button type="button" 
                         style="
                         position:absolute; 
-                        top:77%;
+                        top:93%;
                         width:32%;
                         padding:10px;
                         border-radius:20px;
@@ -79,10 +81,9 @@
 
                     </div>
 
-                    <div class="reviews">
+                   <div class="reviews">
                         <h3>Reviews (0) 
-                            <i class="fa fa-star" style="
-                            margin-left:115px;"></i>
+                            <i class="fa fa-star" style="margin-left:44px;"></i>
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
