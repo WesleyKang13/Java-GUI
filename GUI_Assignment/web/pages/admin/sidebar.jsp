@@ -1,23 +1,23 @@
+<% String ROOT_PATH = request.getParameter("ROOT_PATH"); %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     
-    <link rel="stylesheet" href="../../css/reset.css">
-    <link rel="stylesheet" href="../../css/admin/admin_general.css">
-    <link rel="stylesheet" href="../../css/admin/sidebar.css">
+    <link href=<%=ROOT_PATH + "css/reset.css"%> rel="stylesheet">
+    <link href=<%=ROOT_PATH + "css/admin/admin_general.css"%> rel="stylesheet">
+    <link href=<%=ROOT_PATH + "css/admin/sidebar.css"%> rel="stylesheet">
     
     <!-- Font Awesome -->
-    <link href="../../vendor/fontawesome-free-6.3.0-web/css/fontawesome.css" rel="stylesheet">
-    <link href="../../vendor/fontawesome-free-6.3.0-web/css/brands.css" rel="stylesheet">
-    <link href="../../vendor/fontawesome-free-6.3.0-web/css/solid.css" rel="stylesheet">
+    <link href=<%=ROOT_PATH + "vendor/fontawesome-free-6.3.0-web/css/fontawesome.css"%> rel="stylesheet">
+    <link href=<%=ROOT_PATH + "vendor/fontawesome-free-6.3.0-web/css/brands.css"%> rel="stylesheet">
+    <link href=<%=ROOT_PATH + "vendor/fontawesome-free-6.3.0-web/css/solid.css"%> rel="stylesheet">
     
-    <title>Dashboard Sidebar Menu</title> 
+    <title>Admin Panel | Banana's Shoe Store</title> 
 </head>
 <body>
-    <nav class="sidebar close">
+    <nav class="sidebar">
         <header>
             <div class="profile">
                 <span class="picture">
@@ -37,49 +37,49 @@
             <div class="menu">
                 <ul class="menu-links">
                     <li class="nav-link dashboard">
-                        <a href="dashboard.html">
+                        <a href="dashboard.jsp">
                             <i class="fa-solid fa-chart-line icon"></i>
                             <span class="text nav-text">Dashboard</span>
                         </a>
                     </li>
                     
                     <li class="nav-link customer">
-                        <a href="customer.html">
+                        <a href="customer.jsp">
                             <i class="fa-solid fa-address-book icon"></i>
                             <span class="text nav-text">Customer</span>
                         </a>
                     </li>
 
                     <li class="nav-link product">
-                        <a href="product.html">
+                        <a href="product.jsp">
                             <i class="fa-solid fa-boxes-stacked icon"></i>
                             <span class="text nav-text">Product</span>
                         </a>
                     </li>
 
                     <li class="nav-link order">
-                        <a href="order.html">
+                        <a href="order.jsp">
                             <i class="fa-solid fa-cart-flatbed icon"></i>
                             <span class="text nav-text">Order</span>
                         </a>
                     </li>
 
                     <li class="nav-link staff">
-                        <a href="staff.html">
+                        <a href="staff.jsp">
                             <i class="fa-solid fa-id-card-clip icon"></i>
                             <span class="text nav-text">Staff *</span>
                         </a>
                     </li>
 
                     <li class="nav-link report">
-                        <a href="report.html">
+                        <a href="report.jsp">
                             <i class="fa-solid fa-chart-pie icon"></i>
                             <span class="text nav-text">Report *</span>
                         </a>
                     </li>
 
                     <li class="nav-link home">
-                        <a href="#">
+                        <a href="<%=ROOT_PATH+"index.html"%>">
                             <i class="fa-solid fa-house icon"></i>
                             <span class="text nav-text">Home Page</span>
                         </a>
@@ -88,7 +88,7 @@
             </div>
 
             <div class="bottom-content">
-                <li class="setting">
+                <li>
                     <a href="#">
                         <i class="fa-solid fa-gears icon"></i>
                         <span class="text nav-text">Setting</span>
@@ -117,20 +117,4 @@
         </div>
     </nav>
 
-    <script src="../../js/admin/sidebar.js"></script>
-    
-    <!-- ========================================= -->
-    <!-- ****************START HERE*************** -->
-    <!-- ========================================= -->
-    
-    <script>
-        body.querySelector(".nav-link.dashboard").classList.add("active");
-    </script>
-
-
-    <link rel="stylesheet" href="../../css/admin/customer.css">
-    
-    <main>
-    </main>
-</body>
-</html>
+    <script src=<%=ROOT_PATH + "../../js/admin/sidebar.js"%>></script>

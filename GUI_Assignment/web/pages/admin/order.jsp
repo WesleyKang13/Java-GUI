@@ -1,142 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <link rel="stylesheet" href="../../css/reset.css">
-    <link rel="stylesheet" href="../../css/admin/admin_general.css">
-    <link rel="stylesheet" href="../../css/admin/sidebar.css">
-    
-    <!-- Font Awesome -->
-    <link href="../../vendor/fontawesome-free-6.3.0-web/css/fontawesome.css" rel="stylesheet">
-    <link href="../../vendor/fontawesome-free-6.3.0-web/css/brands.css" rel="stylesheet">
-    <link href="../../vendor/fontawesome-free-6.3.0-web/css/solid.css" rel="stylesheet">
-    
-    <title>Dashboard Sidebar Menu</title> 
-</head>
-<body>
-    <nav class="sidebar close">
-        <header>
-            <div class="profile">
-                <span class="picture">
-                    <img src="https://dummyimage.com/300" alt="Profile Picture">
-                </span>
+<% String ROOT_PATH = "../../"; %>
+<jsp:include page="<%= ROOT_PATH + "pages/admin/sidebar.jsp"%>">
+    <jsp:param name="ROOT_PATH" value="<%=ROOT_PATH%>" />
+</jsp:include>
 
-                <div class="text profile-text">
-                    <h3 class="username text">Timothythythy</h3>
-                    <p class="position text">Administrator</p>
-                </div>
-            </div>
+<script>
+    body.querySelector(".nav-link.order").classList.add("active");
+</script>
 
-            <i class="fa-solid fa-chevron-right toggle"></i>
-        </header>
-
-        <div class="menu-bar">
-            <div class="menu">
-                <ul class="menu-links">
-                    <li class="nav-link dashboard">
-                        <a href="dashboard.html">
-                            <i class="fa-solid fa-chart-line icon"></i>
-                            <span class="text nav-text">Dashboard</span>
-                        </a>
-                    </li>
-                    
-                    <li class="nav-link customer">
-                        <a href="customer.html">
-                            <i class="fa-solid fa-address-book icon"></i>
-                            <span class="text nav-text">Customer</span>
-                        </a>
-                    </li>
-
-                    <li class="nav-link product">
-                        <a href="product.html">
-                            <i class="fa-solid fa-boxes-stacked icon"></i>
-                            <span class="text nav-text">Product</span>
-                        </a>
-                    </li>
-
-                    <li class="nav-link order">
-                        <a href="order.html">
-                            <i class="fa-solid fa-cart-flatbed icon"></i>
-                            <span class="text nav-text">Order</span>
-                        </a>
-                    </li>
-
-                    <li class="nav-link staff">
-                        <a href="staff.html">
-                            <i class="fa-solid fa-id-card-clip icon"></i>
-                            <span class="text nav-text">Staff *</span>
-                        </a>
-                    </li>
-
-                    <li class="nav-link report">
-                        <a href="report.html">
-                            <i class="fa-solid fa-chart-pie icon"></i>
-                            <span class="text nav-text">Report *</span>
-                        </a>
-                    </li>
-
-                    <li class="nav-link home">
-                        <a href="#">
-                            <i class="fa-solid fa-house icon"></i>
-                            <span class="text nav-text">Home Page</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="bottom-content">
-                <li class="setting">
-                    <a href="#">
-                        <i class="fa-solid fa-gears icon"></i>
-                        <span class="text nav-text">Setting</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="#">
-                        <i class="fa-solid fa-arrow-right-from-bracket icon"></i>
-                        <span class="text nav-text">Logout</span>
-                    </a>
-                </li>
-
-                <li class="mode">
-                    <div class="sun-moon">
-                        <i class='fa-solid fa-moon icon moon'></i>
-                        <i class='fa-solid fa-sun icon sun'></i>
-                    </div>
-                    <span class="mode-text text">Light mode</span>
-
-                    <div class="toggle-switch">
-                        <span class="switch"></span>
-                    </div>
-                </li>
-            </div>
-        </div>
-    </nav>
-
-    <script src="../../js/admin/sidebar.js"></script>
-    
-    <!-- ========================================= -->
-    <!-- ****************START HERE*************** -->
-    <!-- ========================================= -->
-    
-    <script>
-        body.querySelector(".nav-link.staff").classList.add("active");
-    </script>
-
-
-
-
-
-<link rel="stylesheet" href="../../css/admin/staff.css">
+<link rel="stylesheet" href="../../css/admin/order.css">
         
 <main>
-    <div class="container staffList">
+    <div class="container orderList">
         <div class="text">
-            <h1>Staff List</h1>
+            <h1>Order List</h1>
             <p>10 record(s) found</p>
         </div>
 
@@ -206,9 +82,9 @@
         <button class="editCustBtn btn success">Edit</button>
     </div>
 
-    <div class="container addStaff hide">
+    <div class="container addOrder hide">
         <div class="text">
-            <h1>Add Staff</h1>
+            <h1>Add Order</h1>
         </div>
 
         <div class="notificationBox success">
@@ -247,9 +123,9 @@
         </div>
     </div>
 
-    <div class="container staffDetail hide">
+    <div class="container orderDetail hide">
         <div class="text">
-            <h1>Staff Detail</h1>
+            <h1>Order Detail</h1>
             <p>230101YWM - YAP WAI MENG</p>
         </div>
 
@@ -297,9 +173,9 @@
 </main>
 <script>
     //SHOW and HIDE Container
-    const custListField = body.querySelector('.staffList'),
-        addCustField = body.querySelector('.addStaff'),
-        custDetailField = body.querySelector('.staffDetail'),
+    const custListField = body.querySelector('.orderList'),
+        addCustField = body.querySelector('.addOrder'),
+        custDetailField = body.querySelector('.orderDetail'),
         addNewBtn = body.querySelector('.addNew.btn'),
         addNewBackBtn = body.querySelector('.addNewBackBtn'),
         editCustBtn = body.querySelector('.editCustBtn'),

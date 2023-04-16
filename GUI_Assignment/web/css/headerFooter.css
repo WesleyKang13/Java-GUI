@@ -1,0 +1,109 @@
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+/*Header css*/
+.search-button{
+    height: 30px; 
+    width: 30px;
+    background-color: white;
+  }
+  
+  .search-button:hover{
+    background-color: white;
+  }
+  
+  .favourite-button{
+    height: 30px; 
+    width: 30px;
+    background-color: white;
+  }
+  
+  .cart-button{
+    height: 30px; 
+    width: 30px;
+    background-color: white;
+  }
+  
+  .user-registration{
+    height: 30px; 
+    width: 30px;
+    background-color: white;
+  }
+  /*End haeder css*/
+
+  /*Footer css here*/
+  footer {
+    background-color: #333333;
+    font-size: 11px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+  }
+  
+  .footer-container {
+    display: grid;
+    grid-template-columns: 250px 300px 200px;
+    padding: 0px 0px 50px 5px;
+    margin-left: 3em;
+    color: #fff;
+  }
+  
+  .footer-links ul,
+  .footer-find-us ul,
+  .footer-social ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  
+  .footer-links h5,
+  .footer-find-us h5,
+  .footer-social h5 {
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+  
+  .footer-links a,
+  .footer-social a {
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  .footer-social p {
+    font-size: 10px;
+    padding-right: 5em;
+  }
+  
+  .fa {
+    padding: 5px 20px 20px 10px;
+    margin: 0px 0px 0px 0px;
+    font-size: 15px;
+    width: 15px;
+    height: 10px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 50px;
+  }
+  
+  .fa:hover {
+      opacity: 0.7;
+  }
+  
+  .fa-facebook {
+    background: #3B5998;
+    color: white;
+  }
+  
+  .fa-twitter {
+    background: #55ACEE;
+    color: white;
+  }
+  
+  .fa-instagram {
+    background: #125688;
+    color: white;
+  }
+
+  /*End footer css */

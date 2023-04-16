@@ -1,16 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Contact Us | Banana's Shoe Store</title>
-<!-- Font Awesome -->
-<link href="./vendor/fontawesome-free-6.3.0-web/css/fontawesome.css" rel="stylesheet">
-<link href="./vendor/fontawesome-free-6.3.0-web/css/brands.css" rel="stylesheet">
-<link href="./vendor/fontawesome-free-6.3.0-web/css/solid.css" rel="stylesheet">
+<% String ROOT_PATH = "../"; %>
+<jsp:include page="<%= ROOT_PATH + "pages/header.jsp"%>">
+    <jsp:param name="ROOT_PATH" value="<%=ROOT_PATH%>" />
+</jsp:include>
 
 <style>
-
 a {
   text-decoration: none;
 }
@@ -289,50 +282,7 @@ body {
   font-family: 'Poppins', sans-serif;
 }
 
-
 </style>
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-
-<header>
-  <!-- Header 2 -->
-  <div style="background-color:#BEBEBE; padding-top: 15px;">
-    <div class="container" style="display:flex; justify-content:space-between; align-items:center; font-size: 15px;">
-      <ul style="display:flex; list-style:none; letter-spacing: 0.1em;">
-        <li style="margin-left: 0em; margin-right: 1.5em;"><a href="#" style="text-decoration:none; color:#333;"><img src="./../assets/homepage/banana.png"  class="icon" style="width: 40px; top:35px;" alt="image1"></a></li>
-        <li style="margin-left: 11em; margin-right: 0.5em;"><a href="index.html" style="text-decoration:none; color:#333;">Home</a></li>
-        <li style="margin-left: 1em; margin-right: 1em;"><a href="#" style="text-decoration:none; color:#333;">New &amp; Featured</a></li>
-        <li style="margin-right: 1em;"><a href="#" style="text-decoration:none; color:#333;">Brand</a></li>
-        <li style="margin-right: 1em;"><a href="#" style="text-decoration:none; color:#333;">About Us</a></li>
-        <li style="margin-right: 1em;"><a href="#" style="text-decoration:none; color:#333;">Men</a></li>
-        <li style="margin-right: 1em;"><a href="#" style="text-decoration:none; color:#333;">Women</a></li>
-        <li style="margin-right: 1em;"><a href="#" style="text-decoration:none; color:#333;">Kids</a></li>
-        <li style="margin-right: 1em;"><a href="contact_us.html" style="text-decoration:none; color:#333;">Help</a></li>
-      </ul>
-      <div style="display:flex; align-items:center; margin-right: 2.3em; padding-bottom: 10px;">
-        <form action="#" method="get" style="letter-spacing: 0.2em;">
-          <div style="position:relative;">
-            <input type="text" placeholder="Search" style="padding:8px 8px 8px 10px; border-radius:50px; border-style: ridge; margin-right:15px; width: 180px;">
-            <button type="submit" class="search-button" style="padding: 0px 0px; margin: 2px 30px 0px 10px; border:none; border-radius:50px; position:absolute; top:0; right:0;"><i class="fa-solid fa-magnifying-glass"></i></button>
-          </div>
-        </form>
-        <form action="#" method="get" >
-        <button type="submit" class="favourite-button"  style="padding: 0px 0px; margin: 0px 0px 0px 0px; border:none; border-radius:50px;"><i class="fa-solid fa-heart"></i></button>
-        </form>
-        <form action="#" method="get">
-        <button type="submit" class="cart-button"  style="padding: 0px 0px; margin: 0px 0px 0px 0px; border:none; border-radius:50px; margin-left: 1em;"><i class="fa-solid fa-cart-shopping"></i></button>
-      </form>
-      <form action="#" method="get">
-        <button type="submit" class="user-registration"  style="padding: 0px 0px; margin: 0px 0px 0px 0px; border:none; border-radius:50px; margin-left: 1em;"><i class="fa-solid fa-user"></i></button>
-      </form>
-      </div>
-    </div>
-  </div>
-</header>
 
 <body>
       </div>
@@ -389,41 +339,7 @@ body {
     </div>
 </body>
 
-<footer>
-    <div class="footer-container">
-      <div class="footer-links">
-        <h5>LINKS</h5>
-        <ul>
-          <li><a href="#">Become A Member</a></li>
-          <br>
-          <li><a href="#">Student Discount</a></li>
-          <br>
-          <li><a href="#">Sign Up</a></li>
-          <br>
-          <li><a href="#">Help</a></li>
-          <br>
-          <li><a href="#">Send Us A Feedback</a></li>
-        </ul>
-      </div>
-      <div class="footer-find-us">
-        <h5>FIND US</h5>
-        <ul>
-          <li>123 Banana Town</li>
-          <br>
-          <li>Phone: 555-123-4567</li>
-          <br>
-          <li>Email: info@BananaShoe.com</li>
-        </ul>
-      </div>
-      <div class="footer-social">
-        <h5 style="margin-right: 0.9em;">SOCIAL</h5>
-        <ul style="display:flex; justify-content:space-between; align-items:center; ">
-          <li style="margin-right: 1em;"><a href="#" class="fa fa-facebook"></a></li>
-          <li style="margin-right: 1em;"><a href="#" class="fa fa-instagram"></a></li>
-          <li style="padding-right: 100px;" ><a href="#" class="fa fa-twitter"></a></li>
-        </ul>
-        <p>© 2023 Banana Shoe - All Rights Reserved</p>
-      </div>
-    </div>
-  </footer>
-</html>
+<!-- Include footer page -->
+<jsp:include page="<%= ROOT_PATH + "pages/footer.jsp"%>">
+    <jsp:param name="ROOT_PATH" value="<%=ROOT_PATH%>" />
+</jsp:include>

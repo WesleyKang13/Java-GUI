@@ -1,138 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <link rel="stylesheet" href="../../css/reset.css">
-    <link rel="stylesheet" href="../../css/admin/admin_general.css">
-    <link rel="stylesheet" href="../../css/admin/sidebar.css">
-    
-    <!-- Font Awesome -->
-    <link href="../../vendor/fontawesome-free-6.3.0-web/css/fontawesome.css" rel="stylesheet">
-    <link href="../../vendor/fontawesome-free-6.3.0-web/css/brands.css" rel="stylesheet">
-    <link href="../../vendor/fontawesome-free-6.3.0-web/css/solid.css" rel="stylesheet">
-    
-    <title>Dashboard Sidebar Menu</title> 
-</head>
-<body>
-    <nav class="sidebar close">
-        <header>
-            <div class="profile">
-                <span class="picture">
-                    <img src="https://dummyimage.com/300" alt="Profile Picture">
-                </span>
+<% String ROOT_PATH = "../../"; %>
+<jsp:include page="<%= ROOT_PATH + "pages/admin/sidebar.jsp"%>">
+    <jsp:param name="ROOT_PATH" value="<%=ROOT_PATH%>" />
+</jsp:include>
 
-                <div class="text profile-text">
-                    <h3 class="username text">Timothythythy</h3>
-                    <p class="position text">Administrator</p>
-                </div>
-            </div>
+<script>
+    body.querySelector(".nav-link.product").classList.add("active");
+</script>
 
-            <i class="fa-solid fa-chevron-right toggle"></i>
-        </header>
 
-        <div class="menu-bar">
-            <div class="menu">
-                <ul class="menu-links">
-                    <li class="nav-link dashboard">
-                        <a href="dashboard.html">
-                            <i class="fa-solid fa-chart-line icon"></i>
-                            <span class="text nav-text">Dashboard</span>
-                        </a>
-                    </li>
-                    
-                    <li class="nav-link customer">
-                        <a href="customer.html">
-                            <i class="fa-solid fa-address-book icon"></i>
-                            <span class="text nav-text">Customer</span>
-                        </a>
-                    </li>
+<link rel="stylesheet" href="../../css/admin/product.css">
 
-                    <li class="nav-link product">
-                        <a href="product.html">
-                            <i class="fa-solid fa-boxes-stacked icon"></i>
-                            <span class="text nav-text">Product</span>
-                        </a>
-                    </li>
-
-                    <li class="nav-link order">
-                        <a href="order.html">
-                            <i class="fa-solid fa-cart-flatbed icon"></i>
-                            <span class="text nav-text">Order</span>
-                        </a>
-                    </li>
-
-                    <li class="nav-link staff">
-                        <a href="staff.html">
-                            <i class="fa-solid fa-id-card-clip icon"></i>
-                            <span class="text nav-text">Staff *</span>
-                        </a>
-                    </li>
-
-                    <li class="nav-link report">
-                        <a href="report.html">
-                            <i class="fa-solid fa-chart-pie icon"></i>
-                            <span class="text nav-text">Report *</span>
-                        </a>
-                    </li>
-
-                    <li class="nav-link home">
-                        <a href="#">
-                            <i class="fa-solid fa-house icon"></i>
-                            <span class="text nav-text">Home Page</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="bottom-content">
-                <li class="setting">
-                    <a href="#">
-                        <i class="fa-solid fa-gears icon"></i>
-                        <span class="text nav-text">Setting</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="#">
-                        <i class="fa-solid fa-arrow-right-from-bracket icon"></i>
-                        <span class="text nav-text">Logout</span>
-                    </a>
-                </li>
-
-                <li class="mode">
-                    <div class="sun-moon">
-                        <i class='fa-solid fa-moon icon moon'></i>
-                        <i class='fa-solid fa-sun icon sun'></i>
-                    </div>
-                    <span class="mode-text text">Light mode</span>
-
-                    <div class="toggle-switch">
-                        <span class="switch"></span>
-                    </div>
-                </li>
-            </div>
-        </div>
-    </nav>
-
-    <script src="../../js/admin/sidebar.js"></script>
-    
-    <!-- ========================================= -->
-    <!-- ****************START HERE*************** -->
-    <!-- ========================================= -->
-    
-    <script>
-        body.querySelector(".nav-link.order").classList.add("active");
-    </script>
-
-<link rel="stylesheet" href="../../css/admin/order.css">
-        
 <main>
-    <div class="container orderList">
+    <div class="container productList">
         <div class="text">
-            <h1>Order List</h1>
+            <h1>Product List</h1>
             <p>10 record(s) found</p>
         </div>
 
@@ -142,7 +23,7 @@
             <a href="#"><i class='fa-solid fa-magnifying-glass fa-bounce'></i></a>
         </div>
 
-        
+
     <div class="filter">
         <a href="#" class="active">All</a>
         <a href="#">Casual</a>
@@ -160,7 +41,7 @@
             <span class="message">Error Occurred, Please Try Again !</span>
             <span class="closeBtn" onclick="this.parentElement.style.display='none';"><i class="fa-solid fa-xmark"></i></span> 
         </div>
-        
+
         <table class="table horizontal-table">
             <thead>
                 <tr>
@@ -202,9 +83,9 @@
         <button class="editCustBtn btn success">Edit</button>
     </div>
 
-    <div class="container addOrder hide">
+    <div class="container addProduct hide">
         <div class="text">
-            <h1>Add Order</h1>
+            <h1>Add Product</h1>
         </div>
 
         <div class="notificationBox success">
@@ -216,7 +97,7 @@
             <span class="message">Error Occurred, Please Try Again !</span>
             <span class="closeBtn" onclick="this.parentElement.style.display='none';"><i class="fa-solid fa-xmark"></i></span> 
         </div>
-        
+
         <table class="table vertical-table">
             <tr>
                 <td>Rank</td>
@@ -243,9 +124,9 @@
         </div>
     </div>
 
-    <div class="container orderDetail hide">
+    <div class="container productDetail hide">
         <div class="text">
-            <h1>Order Detail</h1>
+            <h1>Product Detail</h1>
             <p>230101YWM - YAP WAI MENG</p>
         </div>
 
@@ -258,7 +139,7 @@
             <span class="message">Error Occurred, Please Try Again !</span>
             <span class="closeBtn" onclick="this.parentElement.style.display='none';"><i class="fa-solid fa-xmark"></i></span> 
         </div>
-        
+
         <table class="table vertical-table">
             <tr>
                 <td>Rank</td>
@@ -293,9 +174,9 @@
 </main>
 <script>
     //SHOW and HIDE Container
-    const custListField = body.querySelector('.orderList'),
-        addCustField = body.querySelector('.addOrder'),
-        custDetailField = body.querySelector('.orderDetail'),
+    const custListField = body.querySelector('.productList'),
+        addCustField = body.querySelector('.addProduct'),
+        custDetailField = body.querySelector('.productDetail'),
         addNewBtn = body.querySelector('.addNew.btn'),
         addNewBackBtn = body.querySelector('.addNewBackBtn'),
         editCustBtn = body.querySelector('.editCustBtn'),
@@ -316,7 +197,7 @@
         addCustField.style.opacity = 0;
         custListField.style.opacity = 1;
         custDetailField.style.opacity = 0;
-        
+
         setTimeout(() => {
             addCustField.classList.add("hide");
             custListField.classList.remove("hide");
@@ -327,7 +208,7 @@
         addCustField.style.opacity = 0;
         custListField.style.opacity = 0;
         custDetailField.style.opacity = 1;
-        
+
         setTimeout(() => {
             custListField.classList.add("hide");
             custDetailField.classList.remove("hide");
@@ -338,7 +219,7 @@
         addCustField.style.opacity = 0;
         custListField.style.opacity = 1;
         custDetailField.style.opacity = 0;
-        
+
         setTimeout(() => {
             custDetailField.classList.add("hide");
             custListField.classList.remove("hide");

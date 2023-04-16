@@ -1,19 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="../vendor/font-poppins/font.css">
-        <link rel="stylesheet" href="../css/UserLogin.css">
-        <link rel="stylesheet" type="text/css" href="/jwcodeme/style/main-style.css?v=1" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
-        <title>Customer Login</title>
-    </head>
-</head>
-<body>
+<% String ROOT_PATH = "../"; %>
+<jsp:include page="<%= ROOT_PATH + "pages/header.jsp"%>">
+    <jsp:param name="ROOT_PATH" value="<%=ROOT_PATH%>" />
+</jsp:include>
+
+<link rel="stylesheet" href="../css/UserLogin.css">
+<link rel="stylesheet" type="text/css" href="/jwcodeme/style/main-style.css?v=1" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
     
 
     <form method="post">
@@ -106,6 +99,8 @@
         e.preventDefault();
     });
 </script>
-</body>
-</body>
-</html>
+
+<!-- Include footer page -->
+<jsp:include page="<%= ROOT_PATH + "pages/footer.jsp"%>">
+    <jsp:param name="ROOT_PATH" value="<%=ROOT_PATH%>" />
+</jsp:include>
