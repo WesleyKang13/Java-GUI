@@ -1,4 +1,4 @@
-<% String ROOT_PATH = ""; %>
+<% String ROOT_PATH = "../../"; %>
 <jsp:include page="<%= ROOT_PATH + "pages/header.jsp"%>">
     <jsp:param name="ROOT_PATH" value="<%=ROOT_PATH%>" />
 </jsp:include>
