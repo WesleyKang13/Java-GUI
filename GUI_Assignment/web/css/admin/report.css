@@ -1,0 +1,75 @@
+.container .table{
+    margin-bottom: 0;
+}
+
+.container .text h1{
+    margin-bottom: 1rem;
+}
+
+.container .text p{
+    margin-bottom: .7rem;
+}
+
+/* Report */
+.report.table tr td{
+  line-height: 1.5rem;
+}
+
+/* Search Bar */
+.searchBar{
+  position: absolute;
+  top: 5.5rem;
+  right: 12rem;
+}
+
+.searchBar i{
+  position: absolute;
+  top: 0.5rem;
+  right: 1rem;
+}
+
+/* Report Tab */
+.reportTabs{
+  display: flex;
+  flex-wrap: wrap;
+  width: 95%;
+  margin: 2rem auto;
+}
+
+.reportTabs input[type="radio"] {
+  display: none;
+}
+
+.reportTabs label {
+  padding: 0.8rem 2.5rem 0.6rem;
+  margin: 0 0.8rem;
+  background: var(--color-light);
+  font-size: 0.9rem;
+  font-style: italic;
+  font-weight: 600;
+  z-index: 1;
+  transform: translateX(2rem);
+  border-radius: 3rem 0.5rem 0 0;
+  box-shadow: 0 -0.5rem 1rem var(--color-shadow);
+}
+
+.reportTabs .tab {
+  width: 100%;
+  padding: var(--padding-4);
+  background: var(--color-white);
+  order: 1;
+  display: none;
+  margin: 0;
+}
+.reportTabs label {
+  color: var(--color-font);
+}
+
+.reportTabs input[type='radio']:checked + label + .tab {
+  display: block;
+}
+
+.reportTabs input[type="radio"]:checked + label {
+  background: var(--color-primary);
+  color: var(--color-white);
+}
