@@ -4,10 +4,93 @@ body {
 }
 
 /*Header css*/
+
+button {
+  width: 80px;
+  margin-top: 20px;
+  padding: 12px 10px;
+  cursor: pointer;
+  text-align: center; 
+  font-size: 15px;
+  border-style: none;
+  font-family: Verdana, sans-serif;
+}
+
+button:hover{
+    background-color: #B8B8B8;
+}
+
+.container {
+  display: flex;
+  justify-content:space-between;
+  align-items:center;
+  font-size: 15px;
+}
+
+.container-2{
+  display:flex; 
+  align-items:center;
+  margin-right: 2.3em;
+  padding-bottom: 10px;
+}
+
+.search-container{
+  position:relative;
+}
+
+.search{
+  padding:8px 8px 8px 10px; 
+  border-radius:50px;
+  border-style: ridge; 
+  margin-right:15px;
+  width: 180px;
+}
+
+.ul{
+  display:flex; 
+  list-style:none; 
+  letter-spacing: 0.1em;
+}
+
+.logo{
+  margin-left: 0em; 
+  margin-right: 1.5em;
+}
+
+.li-1{
+  margin-left: 11em; 
+  margin-right: 0.5em;
+}
+
+.li-2{
+  margin-left: 1em; 
+  margin-right: 1em;
+}
+
+.li-3{
+  margin-right: 1em;
+}
+a{
+  text-decoration:none; 
+  color:#333;
+}
+
+.icon{
+  width: 40px; 
+  top:35px;
+}
+
 .search-button{
     height: 30px; 
     width: 30px;
     background-color: white;
+    padding: 0px 0px; 
+    margin: 2px 30px 0px 10px; 
+    border:none; 
+    border-radius:50px; 
+    position:absolute; 
+    top:0; 
+    right:0;
   }
   
   .search-button:hover{
@@ -18,18 +101,32 @@ body {
     height: 30px; 
     width: 30px;
     background-color: white;
+    padding: 0px 0px; 
+    margin: 0px 0px 0px 0px; 
+    border:none; 
+    border-radius:50px;
   }
   
   .cart-button{
     height: 30px; 
     width: 30px;
     background-color: white;
+    padding: 0px 0px; 
+    margin: 0px 0px 0px 0px; 
+    border:none; 
+    border-radius:50px; 
+    margin-left: 1em;
   }
   
   .user-registration{
     height: 30px; 
     width: 30px;
     background-color: white;
+    padding: 0px 0px; 
+    margin: 0px 0px 0px 0px; 
+    border:none; 
+    border-radius:50px; 
+    margin-left: 1em;
   }
   /*End haeder css*/
 
@@ -37,7 +134,7 @@ body {
   footer {
     background-color: #333333;
     font-size: 11px;
-    position: absolute;
+    position: relative;
     bottom: 0;
     width: 100%;
   }

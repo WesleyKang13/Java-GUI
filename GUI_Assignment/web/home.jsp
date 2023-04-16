@@ -4,259 +4,147 @@
 </jsp:include>
 
 <style>
-body {
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
-}
 
-.icon{
-  transform: translateY(-7px);
-}
-
-.image-container {
-  display: flex;
-  justify-content: space-between;
-}
-
-.body-container {
-  display: grid;
-  grid-template-columns: 70px 70px 70px;
-  padding: 0px 0px 0px 5px;
-  margin-left: -9em;
-  color: #fff;
-}
-
-footer {
-  background-color: #333333;
-  font-size: 11px;
-  position: relative;
-  bottom: 0;
-  width: 100%;
-}
-
-.footer-container {
-  display: grid;
-  grid-template-columns: 250px 300px 200px;
-  padding: 0px 0px 50px 5px;
-  margin-left: 3em;
-  color: #fff;
-}
-
-.footer-links ul,
-.footer-find-us ul,
-.footer-social ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.footer-links h5,
-.footer-find-us h5,
-.footer-social h5 {
-  margin-bottom: 10px;
-  font-size: 13px;
-}
-
-.footer-links a,
-.footer-social a {
-  color: #fff;
-  text-decoration: none;
-}
-
-.footer-social p {
-  font-size: 10px;
-  padding-right: 5em;
-}
-
-.search-button{
-  height: 30px; 
-  width: 30px;
-  background-color: white;
-}
-
-.search-button:hover{
-  background-color: white;
-}
-
-.favourite-button{
-  height: 30px; 
-  width: 30px;
-  background-color: white;
-}
-
-.cart-button{
-  height: 30px; 
-  width: 30px;
-  background-color: white;
-}
-
-.user-registration{
-  height: 30px; 
-  width: 30px;
-  background-color: white;
-}
-
-button {
-  width: 80px;
-  margin-top: 20px;
-  padding: 12px 10px;
-  cursor: pointer;
-  text-align: center; 
-  font-size: 15px;
-  border-style: none;
-  font-family: Verdana, sans-serif;
-}
-
-button:hover{
-    background-color: #B8B8B8;
-}
-
-.button-promotion{
-  background-color: transparent;
-  font-weight: bold;
-  color: red;
-  width: 120px;
-}
-
-.arrival-button{
-  background-color:black;
-  color:white;
-}
-
-.arrival-button:hover{
-  background-color:#606060;
-}
-
-.essential-button{
-  background-color:black;
-  color:white;
-}
-
-.essential-button:hover{
-  background-color:#606060;
-}
-
-.fa {
-  padding: 5px 20px 20px 10px;
-  margin: 0px 0px 0px 0px;
-  font-size: 15px;
-  width: 15px;
-  height: 10px;
-  text-align: center;
-  text-decoration: none;
-  border-radius: 50px;
-}
-
-.fa:hover {
-    opacity: 0.7;
-}
-
-.fa-facebook {
-  background: #3B5998;
-  color: white;
-}
-
-.fa-twitter {
-  background: #55ACEE;
-  color: white;
-}
-
-.fa-instagram {
-  background: #125688;
-  color: white;
-}
-
-* {box-sizing: border-box}
-body {font-family: Verdana, sans-serif; margin:0}
-.mySlides {display: none}
-img {vertical-align: middle;}
-
-/* Slideshow container */
-.slideshow-container {
-  max-width: 1200px;
-  position: relative;
-  margin: auto;
-}
-
-/* Next & previous buttons */
-.prev, .next {
-  cursor: pointer;
-  position: absolute;
-  top: 50%;
-  width: auto;
-  padding: 16px;
-  margin-top: -22px;
-  color: white;
-  font-weight: bold;
-  font-size: 18px;
-  transition: 0.6s ease;
-  border-radius: 0 3px 3px 0;
-  user-select: none;
-}
-
-/* Position the "next button" to the right */
-.next {
-  margin-left: 62.7em;
-  border-radius: 3px 0 0 3px;
-}
-
-/* On hover, add a black background color with a little bit see-through */
-.prev:hover, .next:hover {
-  background-color: rgba(0,0,0,0.8);
-}
-
-/* Caption text */
-.text-promo {
-  color: red;
-  font-size: 30px;
-  padding: 8px 12px;
-  position: absolute;
-  bottom: 8px;
-  width: 100%;
-  text-align: center;
-}
-
-/* Number text (1/3 etc) */
-.numbertext {
-  color: #f2f2f2;
-  font-size: 12px;
-  padding: 8px 12px;
-  position: absolute;
-  top: 0;
-}
-
-/* The dots/bullets/indicators */
-.dot {
-  cursor: pointer;
-  height: 15px;
-  width: 15px;
-  margin: 0 2px;
-  background-color: #bbb;
-  border-radius: 50%;
-  display: inline-block;
-  transition: background-color 0.6s ease;
-}
-
-.active, .dot:hover {
-  background-color: #717171;
-}
-
-/* Fading animation */
-.fade {
-  animation-name: fade;
-  animation-duration: 1.5s;
-}
-
-@keyframes fade {
-  from {opacity: .4} 
-  to {opacity: 1}
-}
-
-/* On smaller screens, decrease text size */
-@media only screen and (max-width: 300px) {
-  .prev, .next,.text {font-size: 11px}
-}
-</style>
+  body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .icon{
+    transform: translateY(-7px);
+  }
+  
+  .image-container {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .body-container {
+    display: grid;
+    grid-template-columns: 70px 70px 70px;
+    padding: 0px 0px 0px 5px;
+    margin-left: -9em;
+    color: #fff;
+  }
+  
+  
+  .button-promotion{
+    background-color: transparent;
+    font-weight: bold;
+    color: red;
+    width: 120px;
+  }
+  
+  .arrival-button{
+    background-color:black;
+    color:white;
+  }
+  
+  .arrival-button:hover{
+    background-color:#606060;
+  }
+  
+  .essential-button{
+    background-color:black;
+    color:white;
+  }
+  
+  .essential-button:hover{
+    background-color:#606060;
+  }
+  
+  
+  * {box-sizing: border-box}
+  body {font-family: Verdana, sans-serif; margin:0}
+  .mySlides {display: none}
+  img {vertical-align: middle;}
+  
+  /* Slideshow container */
+  .slideshow-container {
+    max-width: 1200px;
+    position: relative;
+    margin: auto;
+  }
+  
+  /* Next & previous buttons */
+  .prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -22px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+  }
+  
+  /* Position the "next button" to the right */
+  .next {
+    margin-left: 62.7em;
+    border-radius: 3px 0 0 3px;
+  }
+  
+  /* On hover, add a black background color with a little bit see-through */
+  .prev:hover, .next:hover {
+    background-color: rgba(0,0,0,0.8);
+  }
+  
+  /* Caption text */
+  .text-promo {
+    color: red;
+    font-size: 30px;
+    padding: 8px 12px;
+    position: absolute;
+    bottom: 8px;
+    width: 100%;
+    text-align: center;
+  }
+  
+  /* Number text (1/3 etc) */
+  .numbertext {
+    color: #f2f2f2;
+    font-size: 12px;
+    padding: 8px 12px;
+    position: absolute;
+    top: 0;
+  }
+  
+  /* The dots/bullets/indicators */
+  .dot {
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+  }
+  
+  .active, .dot:hover {
+    background-color: #717171;
+  }
+  
+  /* Fading animation */
+  .fade {
+    animation-name: fade;
+    animation-duration: 1.5s;
+  }
+  
+  @keyframes fade {
+    from {opacity: .4} 
+    to {opacity: 1}
+  }
+  
+  /* On smaller screens, decrease text size */
+  @media only screen and (max-width: 300px) {
+    .prev, .next,.text {font-size: 11px}
+  }
+  </style>
 
     
 
