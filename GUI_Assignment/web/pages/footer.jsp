@@ -1,3 +1,12 @@
+<% String ROOT_PATH = request.getParameter("ROOT_PATH"); %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<html>
+<head>
+     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+     <link href=<%= ROOT_PATH + "css/headerFooter.css"%> rel="stylesheet" type="text/css">
+     <title>Banana's Shoe Store</title>
+</head>  
+<body>
 <footer>
     <div class="footer-container">
       <div class="footer-links">
@@ -27,11 +36,11 @@
       <div class="footer-social">
         <h5 style="margin-right: 0.9em;">SOCIAL</h5>
         <ul style="display:flex; justify-content:space-between; align-items:center; ">
-          <li style="margin-right: 1em;"><i class="fa-brands fa-square-facebook"></i></li>
-          <li style="margin-right: 1em;"><i class="fa-brands fa-square-instagram"></i></li>
-          <li style="padding-right: 100px;"><i class="fa-brands fa-square-twitter"></i></li>
+          <li style="margin-right: 1em;"><a href="#"><i class="fa-brands fa-facebook"></a></i></li>
+          <li style="margin-right: 1em;"><a href="#"><i class="fa-brands fa-instagram"></a></i></li>
+          <li style="padding-right: 100px;"><a href="#"><i class="fa-brands fa-twitter"></a></i></li>
         </ul>
-        <p>© 2023 Banana Shoe - All Rights Reserved</p>
+        <p>Â© 2023 Banana Shoe - All Rights Reserved</p>
       </div>
     </div>
 </footer>

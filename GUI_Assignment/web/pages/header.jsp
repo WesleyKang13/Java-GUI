@@ -16,7 +16,7 @@
         <div style="background-color:#BEBEBE; padding-top: 15px;">
           <div class="container">
             <ul class="ul">
-              <li class="logo"><a href="<%=ROOT_PATH + "index.html"%>><img src=<%=ROOT_PATH + "banana.png"%>class="icon"></a></li>
+              <li class="logo"><a href="<%=ROOT_PATH + "index.html"%>"><img src=<%=ROOT_PATH + "banana.png"%> class="icon"></a></li>
               <li class="li-1"><a href=<%=ROOT_PATH + "home.jsp"%>>Home</a></li>
               <li class="li-2"><a href="#">New &amp; Featured</a></li>
               <li class="li-3"><a href="#">Brand</a></li>
