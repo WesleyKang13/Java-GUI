@@ -29,7 +29,7 @@
             <tr>
                 <td><h1 class="product-title">Get your kicks!</h1></td>
                 <td>
-                    <form action=<%=ROOT_PATH + "FindProduct"%> method="post">
+                    <form action="FindProduct" method="post">
                         <div class="search">
                             <input type="text" name="search-filter" placeholder="e.g Niko, Adados"/>
                             <button type="submit"><i class="fa fa-search"></i></button>

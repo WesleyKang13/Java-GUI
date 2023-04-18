@@ -10,7 +10,7 @@
         <link href=<%= ROOT_PATH + "vendor/fontawesome-free-6.3.0-web/css/fontawesome.css"%> rel="stylesheet" type="text/css">
         <link href=<%= ROOT_PATH + "vendor/fontawesome-free-6.3.0-web/css/brands.css"%> rel="stylesheet" type="text/css">
         <link href=<%= ROOT_PATH + "vendor/fontawesome-free-6.3.0-web/css/solid.css"%> rel="stylesheet" type="text/css">
-        <link href="../../css/checkoutAndPayment/checkout.css" rel="stylesheet">
+        <link href="../../css/customer/checkout.css" rel="stylesheet">
     </head>
     <body>
         <h1>Checkout bag</h1>

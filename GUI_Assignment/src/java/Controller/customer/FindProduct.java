@@ -1,4 +1,4 @@
-package Controller;
+package Controller.customer;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @Wesley
  */
-@WebServlet(name = "FindProduct", urlPatterns = {"/FindProduct"})
+@WebServlet(name = "FindProduct", urlPatterns = {"/pages/product/FindProduct"})
 public class FindProduct extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
