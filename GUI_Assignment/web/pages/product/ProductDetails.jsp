@@ -92,7 +92,7 @@
 
                    <div class="reviews">
                         <h3>Reviews (0) 
-                            <i class="fa fa-star" style="margin-left:44px;"></i>
+                            <i class="fa fa-star" style="margin-left:100px;"></i>
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>

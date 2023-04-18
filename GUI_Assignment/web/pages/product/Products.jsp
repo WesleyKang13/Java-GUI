@@ -4,22 +4,24 @@
 </jsp:include>
 
 <link href="../../css/product/Products.css" rel="stylesheet" />
-<script src="https://kit.fontawesome.com/8156a33a91.js" crossorigin="anonymous"></script>
+<link href=<%= ROOT_PATH + "vendor/fontawesome-free-6.3.0-web/css/fontawesome.css"%> rel="stylesheet" type="text/css">
+<link href=<%= ROOT_PATH + "vendor/fontawesome-free-6.3.0-web/css/brands.css"%> rel="stylesheet" type="text/css">
+<link href=<%= ROOT_PATH + "vendor/fontawesome-free-6.3.0-web/css/solid.css"%> rel="stylesheet" type="text/css">
 
     <body>
         <main>
             <header>
-                <div class="filter-btn">
-                    <button type="button" id="toggleBtn" class="filterBtn">Show Filters<i class="fa fa-filter"></i></button>
+                <div class="header-li">
+                    <div class="filter-btn">
+                        <button type="button" id="toggleBtn" class="filterBtn">Show Filters<i class="fa fa-filter"></i></button>
+                    </div>
+    
+                    <ul class="categories-filtering" style="display: none;"><!--Filter using java-->
+                        <li data-filter="">Men</li>
+                        <li data-filter="">Women</li>
+                        <li data-filter="">Kids</li>
+                    </ul>
                 </div>
-
-                <ul class="categories-filtering" style="display: none;"><!--Filter using java-->
-                    <li data-filter="">Lifestyles</li>
-                    <li data-filter="">Jordan</li>
-                    <li data-filter="">Basketball</li>
-                    <li data-filter="">Football</li>
-                    <li data-filter="">Running</li>
-                </ul>
             </header>
         </main>
 
@@ -27,10 +29,12 @@
             <tr>
                 <td><h1 class="product-title">Get your kicks!</h1></td>
                 <td>
-                    <div class="search">
-                        <input type="text" name="search-filter" placeholder="e.g Nike, Adidas"/>
-                        <i class="fa fa-search" style="cursor:pointer;"></i>
-                    </div>
+                    <form action=<%=ROOT_PATH + "FindProduct"%> method="post">
+                        <div class="search">
+                            <input type="text" name="search-filter" placeholder="e.g Niko, Adados"/>
+                            <button type="submit"><i class="fa fa-search"></i></button>
+                        </div>
+                    </form>
                 </td>
                 <td class="third-col">
                     <div class="filter-condition">

@@ -11,16 +11,15 @@ main{
     margin-bottom:0;
 }
 
-header{
+header .header-li{
     width:100%;
     height:100px;
     border-bottom:2px solid #e5e5e5;
     display:flex;
-    align-items: center;
     justify-content: space-between;
 }
 
-header ul li{
+header .header-li ul li{
     list-style: none;
     padding:10px;
     margin:10px;
@@ -30,33 +29,34 @@ header ul li{
     border-radius:35px;
 }
 
-header ul li:hover{
+header .header-li ul li:hover{
     background:rgb(230, 230, 230);
 }
 
-header ul li a{
+header .header-li ul li a{
     color:inherit;
     text-decoration: none;
 }
 
 .filter-btn{
-    width:14%;
-    height:30px;
+    width:20%;
+    height:50px;
     display:flex;
     border-radius:20px;
 }
 
-.filter-btn:hover{
-    background:rgb(230, 230, 230);
-}
-
 .filter-btn .filterBtn{
+    border-radius:10px;
     cursor:pointer;
     width:100%;
     height:100%;
     border:none;
     background:transparent;
     font-size:20px;
+}
+
+.filter-btn .filterBtn:hover{
+    background-color:rgb(200, 200, 200);
 }
 
 .filter-btn .fa{
@@ -93,6 +93,15 @@ header ul li a{
    margin-left:5px;
 }
 
+.searching-container .search button{
+    border: 0px;
+    overflow: hidden;
+    background-color: white;
+    border-radius: 10px;
+    cursor: pointer;
+    
+}
+
 .fa{
     margin-right:4px;
 }
@@ -123,6 +132,7 @@ header ul li a{
 
 .product-field{
     padding:0px 20px;
+    margin-bottom:20px;
 }
 
 .product-field ul{

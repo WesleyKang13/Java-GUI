@@ -1,0 +1,97 @@
+*{
+    padding:0;
+    margin:0;
+    font-family: 'Poppins', sans-serif;
+}
+
+body h1{
+    margin-top: 5%;
+    margin-left:20px;
+}
+
+.checkout-table .details-container{
+    display:grid;
+    grid-template-columns: repeat(1 , 1fr);
+    gap:5px;
+    overflow: hidden;
+}
+
+.checkout-table{
+    margin-left:20px;
+    margin-top: 3%;
+    margin-bottom:3%;
+    width:95%;
+}
+
+.checkout-table tr .items{
+    overflow:hidden;
+    background-color:#E8E8E8;
+    border-radius:10px;
+    display:flex;
+    width:80%;
+    margin:0px;
+}
+
+.checkout-table tr .items:hover{
+    background-color:#DCDCDC;
+}
+
+.checkout-table tr .items .items-details{
+    font-weight:bold;
+    margin-left:10px;
+    line-height:40px;
+    width:100%;
+}
+
+.checkout-table tr .items .select-quantity{
+    margin-left:25%;
+}
+
+.checkout-table tr .items .image picture img{
+    max-width:300px;
+    max-height:200px;
+    width:auto;
+    height:auto;
+}
+
+.checkout-table tr .summary{
+    line-height:50px;
+    width:30%;
+}
+
+.checkout-table tr .summary .shipping-details{
+    line-height: 30px;
+}
+
+.checkout-table tr .summary .shipping-details input{
+    width:300px;
+    border:2px solid;
+    border-radius:5px;
+}
+
+.checkout-table tr .summary .voucher select{
+    width:300px;
+    border:2px solid;
+    border-radius:5px;
+}
+
+.checkout-table tr .summary .paymentMethod input{
+    cursor:pointer;
+}
+
+.checkout-table .checkout-button{
+    width:100px;
+    border-radius:20px;
+    background-color:black;
+    color:white;
+    transition:0.3s;
+    border:2px solid;
+}
+
+.checkout-table .checkout-button:hover{
+    color:black;
+    background-color:white;
+}
+
+
+

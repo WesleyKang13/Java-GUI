@@ -13,7 +13,7 @@
     
     <header>
         <!-- Header 2 -->
-        <div style="background-color:#BEBEBE; padding-top: 15px;">
+        <div style="background-color:none; padding-top: 15px;">
           <div class="container">
             <ul class="ul">
               <li class="logo"><a href="<%=ROOT_PATH + "index.html"%>"><img src=<%=ROOT_PATH + "banana.png"%> class="icon"></a></li>
