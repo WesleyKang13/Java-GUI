@@ -117,4 +117,4 @@
         </div>
     </nav>
 
-    <script src=<%=ROOT_PATH + "../../js/admin/sidebar.js"%>></script>
+    <script src=<%=ROOT_PATH + "js/admin/sidebar.js"%>></script>
