@@ -16,7 +16,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -43,15 +42,12 @@ public class Product implements Serializable {
     @Basic(optional = false)
     @Column(name = "PROD_ID")
     private Integer prodId;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 20)
+    @Size(max = 20)
     @Column(name = "PROD_BRAND")
     private String prodBrand;
-    @Basic(optional = false)
-    @NotNull
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "PROD_PRICE")
-    private double prodPrice;
+    private Double prodPrice;
     @Size(max = 100)
     @Column(name = "PROD_DESCRIPTION")
     private String prodDescription;
@@ -72,12 +68,6 @@ public class Product implements Serializable {
         this.prodId = prodId;
     }
 
-    public Product(Integer prodId, String prodBrand, double prodPrice) {
-        this.prodId = prodId;
-        this.prodBrand = prodBrand;
-        this.prodPrice = prodPrice;
-    }
-
     public Integer getProdId() {
         return prodId;
     }
@@ -94,11 +84,11 @@ public class Product implements Serializable {
         this.prodBrand = prodBrand;
     }
 
-    public double getProdPrice() {
+    public Double getProdPrice() {
         return prodPrice;
     }
 
-    public void setProdPrice(double prodPrice) {
+    public void setProdPrice(Double prodPrice) {
         this.prodPrice = prodPrice;
     }
 

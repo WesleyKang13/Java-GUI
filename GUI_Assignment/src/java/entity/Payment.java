@@ -19,7 +19,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -45,13 +44,10 @@ public class Payment implements Serializable {
     @Basic(optional = false)
     @Column(name = "PAYT_ID")
     private Integer paytId;
-    @Basic(optional = false)
-    @NotNull
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "PAYT_TOTAL_AMOUNT")
-    private double paytTotalAmount;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 20)
+    private Double paytTotalAmount;
+    @Size(max = 20)
     @Column(name = "PAYT_METHOD")
     private String paytMethod;
     @Column(name = "PAYT_DATE")
@@ -67,12 +63,6 @@ public class Payment implements Serializable {
         this.paytId = paytId;
     }
 
-    public Payment(Integer paytId, double paytTotalAmount, String paytMethod) {
-        this.paytId = paytId;
-        this.paytTotalAmount = paytTotalAmount;
-        this.paytMethod = paytMethod;
-    }
-
     public Integer getPaytId() {
         return paytId;
     }
@@ -81,11 +71,11 @@ public class Payment implements Serializable {
         this.paytId = paytId;
     }
 
-    public double getPaytTotalAmount() {
+    public Double getPaytTotalAmount() {
         return paytTotalAmount;
     }
 
-    public void setPaytTotalAmount(double paytTotalAmount) {
+    public void setPaytTotalAmount(Double paytTotalAmount) {
         this.paytTotalAmount = paytTotalAmount;
     }
 

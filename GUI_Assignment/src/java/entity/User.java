@@ -19,7 +19,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -46,19 +45,13 @@ public class User implements Serializable {
     @Basic(optional = false)
     @Column(name = "USER_ID")
     private Integer userId;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
+    @Size(max = 50)
     @Column(name = "USER_EMAIL")
     private String userEmail;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
+    @Size(max = 50)
     @Column(name = "USER_NAME")
     private String userName;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 256)
+    @Size(max = 256)
     @Column(name = "USER_PASSWORD")
     private String userPassword;
     @Column(name = "USER_LAST_LOGGED_IN_TIME")
@@ -74,13 +67,6 @@ public class User implements Serializable {
 
     public User(Integer userId) {
         this.userId = userId;
-    }
-
-    public User(Integer userId, String userEmail, String userName, String userPassword) {
-        this.userId = userId;
-        this.userEmail = userEmail;
-        this.userName = userName;
-        this.userPassword = userPassword;
     }
 
     public Integer getUserId() {

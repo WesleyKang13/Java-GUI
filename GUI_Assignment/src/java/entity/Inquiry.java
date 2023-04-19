@@ -17,7 +17,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -43,19 +42,13 @@ public class Inquiry implements Serializable {
     @Basic(optional = false)
     @Column(name = "INQ_ID")
     private Integer inqId;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
+    @Size(max = 50)
     @Column(name = "INQ_NAME")
     private String inqName;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
+    @Size(max = 50)
     @Column(name = "INQ_EMAIL")
     private String inqEmail;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 1000)
+    @Size(max = 1000)
     @Column(name = "INQ_DESCRIPTION")
     private String inqDescription;
     @Column(name = "INQ_CREATED_DATE")
@@ -67,13 +60,6 @@ public class Inquiry implements Serializable {
 
     public Inquiry(Integer inqId) {
         this.inqId = inqId;
-    }
-
-    public Inquiry(Integer inqId, String inqName, String inqEmail, String inqDescription) {
-        this.inqId = inqId;
-        this.inqName = inqName;
-        this.inqEmail = inqEmail;
-        this.inqDescription = inqDescription;
     }
 
     public Integer getInqId() {

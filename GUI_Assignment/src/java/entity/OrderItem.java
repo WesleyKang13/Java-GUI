@@ -16,7 +16,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -38,10 +37,8 @@ public class OrderItem implements Serializable {
     @Basic(optional = false)
     @Column(name = "ORDER_ITEM_ID")
     private Integer orderItemId;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "ORDER_ITEM_QUANTITY")
-    private int orderItemQuantity;
+    private Integer orderItemQuantity;
     @JoinColumn(name = "ORDER_ID", referencedColumnName = "ORDER_ID")
     @ManyToOne
     private CustOrder orderId;
@@ -56,11 +53,6 @@ public class OrderItem implements Serializable {
         this.orderItemId = orderItemId;
     }
 
-    public OrderItem(Integer orderItemId, int orderItemQuantity) {
-        this.orderItemId = orderItemId;
-        this.orderItemQuantity = orderItemQuantity;
-    }
-
     public Integer getOrderItemId() {
         return orderItemId;
     }
@@ -69,11 +61,11 @@ public class OrderItem implements Serializable {
         this.orderItemId = orderItemId;
     }
 
-    public int getOrderItemQuantity() {
+    public Integer getOrderItemQuantity() {
         return orderItemQuantity;
     }
 
-    public void setOrderItemQuantity(int orderItemQuantity) {
+    public void setOrderItemQuantity(Integer orderItemQuantity) {
         this.orderItemQuantity = orderItemQuantity;
     }
 

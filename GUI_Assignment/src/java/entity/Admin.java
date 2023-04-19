@@ -16,7 +16,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -42,25 +41,17 @@ public class Admin implements Serializable {
     @Basic(optional = false)
     @Column(name = "ADMIN_ID")
     private Integer adminId;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
+    @Size(max = 50)
     @Column(name = "ADMIN_FULL_NAME")
     private String adminFullName;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 20)
+    @Size(max = 20)
     @Column(name = "ADMIN_PHONE_NUM")
     private String adminPhoneNum;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 20)
+    @Size(max = 20)
     @Column(name = "ADMIN_POSITION")
     private String adminPosition;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "ADMIN_PERMISSION")
-    private int adminPermission;
+    private Integer adminPermission;
     @JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID")
     @ManyToOne
     private User userId;
@@ -70,14 +61,6 @@ public class Admin implements Serializable {
 
     public Admin(Integer adminId) {
         this.adminId = adminId;
-    }
-
-    public Admin(Integer adminId, String adminFullName, String adminPhoneNum, String adminPosition, int adminPermission) {
-        this.adminId = adminId;
-        this.adminFullName = adminFullName;
-        this.adminPhoneNum = adminPhoneNum;
-        this.adminPosition = adminPosition;
-        this.adminPermission = adminPermission;
     }
 
     public Integer getAdminId() {
@@ -112,11 +95,11 @@ public class Admin implements Serializable {
         this.adminPosition = adminPosition;
     }
 
-    public int getAdminPermission() {
+    public Integer getAdminPermission() {
         return adminPermission;
     }
 
-    public void setAdminPermission(int adminPermission) {
+    public void setAdminPermission(Integer adminPermission) {
         this.adminPermission = adminPermission;
     }
 

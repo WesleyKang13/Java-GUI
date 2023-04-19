@@ -18,7 +18,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -44,19 +43,13 @@ public class Customer implements Serializable {
     @Basic(optional = false)
     @Column(name = "CUST_ID")
     private Integer custId;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
+    @Size(max = 50)
     @Column(name = "CUST_FULL_NAME")
     private String custFullName;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 20)
+    @Size(max = 20)
     @Column(name = "CUST_PHONE_NUM")
     private String custPhoneNum;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 150)
+    @Size(max = 150)
     @Column(name = "CUST_SHIPPING_ADDRESS")
     private String custShippingAddress;
     @OneToMany(mappedBy = "custId")
@@ -72,13 +65,6 @@ public class Customer implements Serializable {
 
     public Customer(Integer custId) {
         this.custId = custId;
-    }
-
-    public Customer(Integer custId, String custFullName, String custPhoneNum, String custShippingAddress) {
-        this.custId = custId;
-        this.custFullName = custFullName;
-        this.custPhoneNum = custPhoneNum;
-        this.custShippingAddress = custShippingAddress;
     }
 
     public Integer getCustId() {

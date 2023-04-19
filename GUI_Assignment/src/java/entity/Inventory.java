@@ -16,7 +16,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -41,10 +40,8 @@ public class Inventory implements Serializable {
     @Basic(optional = false)
     @Column(name = "INV_ID")
     private Integer invId;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "INV_QUANTITY")
-    private int invQuantity;
+    private Integer invQuantity;
     @Size(max = 20)
     @Column(name = "INV_COLOR")
     private String invColor;
@@ -61,11 +58,6 @@ public class Inventory implements Serializable {
         this.invId = invId;
     }
 
-    public Inventory(Integer invId, int invQuantity) {
-        this.invId = invId;
-        this.invQuantity = invQuantity;
-    }
-
     public Integer getInvId() {
         return invId;
     }
@@ -74,11 +66,11 @@ public class Inventory implements Serializable {
         this.invId = invId;
     }
 
-    public int getInvQuantity() {
+    public Integer getInvQuantity() {
         return invQuantity;
     }
 
-    public void setInvQuantity(int invQuantity) {
+    public void setInvQuantity(Integer invQuantity) {
         this.invQuantity = invQuantity;
     }
 
