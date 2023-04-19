@@ -1,4 +1,4 @@
-package Controller.customer;
+package controller.customer;
 
 import java.io.IOException;
 import java.io.PrintWriter;

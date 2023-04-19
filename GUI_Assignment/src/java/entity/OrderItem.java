@@ -24,12 +24,12 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author yapwa
  */
 @Entity
-@Table(name = "order_item")
+@Table(name = "ORDER_ITEM")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "OrderItem.findAll", query = "SELECT o FROM OrderItem o"),
     @NamedQuery(name = "OrderItem.findByOrderItemId", query = "SELECT o FROM OrderItem o WHERE o.orderItemId = :orderItemId"),
-    @NamedQuery(name = "OrderItem.findByQuantity", query = "SELECT o FROM OrderItem o WHERE o.quantity = :quantity")})
+    @NamedQuery(name = "OrderItem.findByOrderItemQuantity", query = "SELECT o FROM OrderItem o WHERE o.orderItemQuantity = :orderItemQuantity")})
 public class OrderItem implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -40,14 +40,14 @@ public class OrderItem implements Serializable {
     private Integer orderItemId;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "QUANTITY")
-    private int quantity;
-    @JoinColumn(name = "ORDERID", referencedColumnName = "ORDERID")
+    @Column(name = "ORDER_ITEM_QUANTITY")
+    private int orderItemQuantity;
+    @JoinColumn(name = "ORDER_ID", referencedColumnName = "ORDER_ID")
     @ManyToOne
-    private Order orderid;
-    @JoinColumn(name = "PRODUCTID", referencedColumnName = "PRODUCTID")
+    private CustOrder orderId;
+    @JoinColumn(name = "PROD_ID", referencedColumnName = "PROD_ID")
     @ManyToOne
-    private Product productid;
+    private Product prodId;
 
     public OrderItem() {
     }
@@ -56,9 +56,9 @@ public class OrderItem implements Serializable {
         this.orderItemId = orderItemId;
     }
 
-    public OrderItem(Integer orderItemId, int quantity) {
+    public OrderItem(Integer orderItemId, int orderItemQuantity) {
         this.orderItemId = orderItemId;
-        this.quantity = quantity;
+        this.orderItemQuantity = orderItemQuantity;
     }
 
     public Integer getOrderItemId() {
@@ -69,28 +69,28 @@ public class OrderItem implements Serializable {
         this.orderItemId = orderItemId;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public int getOrderItemQuantity() {
+        return orderItemQuantity;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public void setOrderItemQuantity(int orderItemQuantity) {
+        this.orderItemQuantity = orderItemQuantity;
     }
 
-    public Order getOrderid() {
-        return orderid;
+    public CustOrder getOrderId() {
+        return orderId;
     }
 
-    public void setOrderid(Order orderid) {
-        this.orderid = orderid;
+    public void setOrderId(CustOrder orderId) {
+        this.orderId = orderId;
     }
 
-    public Product getProductid() {
-        return productid;
+    public Product getProdId() {
+        return prodId;
     }
 
-    public void setProductid(Product productid) {
-        this.productid = productid;
+    public void setProdId(Product prodId) {
+        this.prodId = prodId;
     }
 
     @Override

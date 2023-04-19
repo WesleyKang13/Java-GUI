@@ -28,89 +28,106 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author yapwa
  */
 @Entity
-@Table(name = "customer")
+@Table(name = "CUSTOMER")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Customer.findAll", query = "SELECT c FROM Customer c"),
-    @NamedQuery(name = "Customer.findByCustomerid", query = "SELECT c FROM Customer c WHERE c.customerid = :customerid"),
-    @NamedQuery(name = "Customer.findByFullname", query = "SELECT c FROM Customer c WHERE c.fullname = :fullname"),
-    @NamedQuery(name = "Customer.findByPhonenum", query = "SELECT c FROM Customer c WHERE c.phonenum = :phonenum"),
-    @NamedQuery(name = "Customer.findByShippingaddress", query = "SELECT c FROM Customer c WHERE c.shippingaddress = :shippingaddress")})
+    @NamedQuery(name = "Customer.findByCustId", query = "SELECT c FROM Customer c WHERE c.custId = :custId"),
+    @NamedQuery(name = "Customer.findByCustFullName", query = "SELECT c FROM Customer c WHERE c.custFullName = :custFullName"),
+    @NamedQuery(name = "Customer.findByCustPhoneNum", query = "SELECT c FROM Customer c WHERE c.custPhoneNum = :custPhoneNum"),
+    @NamedQuery(name = "Customer.findByCustShippingAddress", query = "SELECT c FROM Customer c WHERE c.custShippingAddress = :custShippingAddress")})
 public class Customer implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "CUSTOMERID")
-    private Integer customerid;
+    @Column(name = "CUST_ID")
+    private Integer custId;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
-    @Column(name = "FULLNAME")
-    private String fullname;
+    @Column(name = "CUST_FULL_NAME")
+    private String custFullName;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
-    @Column(name = "PHONENUM")
-    private String phonenum;
+    @Column(name = "CUST_PHONE_NUM")
+    private String custPhoneNum;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 150)
-    @Column(name = "SHIPPINGADDRESS")
-    private String shippingaddress;
-    @OneToMany(mappedBy = "customerid")
-    private List<Cart> cartList;
-    @JoinColumn(name = "USERID", referencedColumnName = "USERID")
+    @Column(name = "CUST_SHIPPING_ADDRESS")
+    private String custShippingAddress;
+    @OneToMany(mappedBy = "custId")
+    private List<CustOrder> custOrderList;
+    @JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID")
     @ManyToOne
-    private User userid;
-    @OneToMany(mappedBy = "customerid")
-    private List<Order> order1List;
+    private User userId;
+    @OneToMany(mappedBy = "custId")
+    private List<Cart> cartList;
 
     public Customer() {
     }
 
-    public Customer(Integer customerid) {
-        this.customerid = customerid;
+    public Customer(Integer custId) {
+        this.custId = custId;
     }
 
-    public Customer(Integer customerid, String fullname, String phonenum, String shippingaddress) {
-        this.customerid = customerid;
-        this.fullname = fullname;
-        this.phonenum = phonenum;
-        this.shippingaddress = shippingaddress;
+    public Customer(Integer custId, String custFullName, String custPhoneNum, String custShippingAddress) {
+        this.custId = custId;
+        this.custFullName = custFullName;
+        this.custPhoneNum = custPhoneNum;
+        this.custShippingAddress = custShippingAddress;
     }
 
-    public Integer getCustomerid() {
-        return customerid;
+    public Integer getCustId() {
+        return custId;
     }
 
-    public void setCustomerid(Integer customerid) {
-        this.customerid = customerid;
+    public void setCustId(Integer custId) {
+        this.custId = custId;
     }
 
-    public String getFullname() {
-        return fullname;
+    public String getCustFullName() {
+        return custFullName;
     }
 
-    public void setFullname(String fullname) {
-        this.fullname = fullname;
+    public void setCustFullName(String custFullName) {
+        this.custFullName = custFullName;
     }
 
-    public String getPhonenum() {
-        return phonenum;
+    public String getCustPhoneNum() {
+        return custPhoneNum;
     }
 
-    public void setPhonenum(String phonenum) {
-        this.phonenum = phonenum;
+    public void setCustPhoneNum(String custPhoneNum) {
+        this.custPhoneNum = custPhoneNum;
     }
 
-    public String getShippingaddress() {
-        return shippingaddress;
+    public String getCustShippingAddress() {
+        return custShippingAddress;
     }
 
-    public void setShippingaddress(String shippingaddress) {
-        this.shippingaddress = shippingaddress;
+    public void setCustShippingAddress(String custShippingAddress) {
+        this.custShippingAddress = custShippingAddress;
+    }
+
+    @XmlTransient
+    public List<CustOrder> getCustOrderList() {
+        return custOrderList;
+    }
+
+    public void setCustOrderList(List<CustOrder> custOrderList) {
+        this.custOrderList = custOrderList;
+    }
+
+    public User getUserId() {
+        return userId;
+    }
+
+    public void setUserId(User userId) {
+        this.userId = userId;
     }
 
     @XmlTransient
@@ -122,27 +139,10 @@ public class Customer implements Serializable {
         this.cartList = cartList;
     }
 
-    public User getUserid() {
-        return userid;
-    }
-
-    public void setUserid(User userid) {
-        this.userid = userid;
-    }
-
-    @XmlTransient
-    public List<Order> getOrderList() {
-        return order1List;
-    }
-
-    public void setOrderList(List<Order> order1List) {
-        this.order1List = order1List;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (customerid != null ? customerid.hashCode() : 0);
+        hash += (custId != null ? custId.hashCode() : 0);
         return hash;
     }
 
@@ -153,7 +153,7 @@ public class Customer implements Serializable {
             return false;
         }
         Customer other = (Customer) object;
-        if ((this.customerid == null && other.customerid != null) || (this.customerid != null && !this.customerid.equals(other.customerid))) {
+        if ((this.custId == null && other.custId != null) || (this.custId != null && !this.custId.equals(other.custId))) {
             return false;
         }
         return true;
@@ -161,7 +161,7 @@ public class Customer implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.Customer[ customerid=" + customerid + " ]";
+        return "entity.Customer[ custId=" + custId + " ]";
     }
     
 }

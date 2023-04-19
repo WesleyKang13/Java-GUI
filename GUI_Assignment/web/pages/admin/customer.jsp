@@ -17,6 +17,19 @@
 <link rel="stylesheet" href="../../css/admin/customer.css">
 
 <main>
+    
+    <%
+         String error = (String)request.getAttribute("error");
+         
+         List<Customer> customers = (List<Customer>) request.getAttribute("customers");
+         
+         String buffer="";
+         for(Customer c: customers){
+            buffer=c.getCustFullName();
+        }
+    %>
+    
+    
     <div class="container customerList">
         <div class="text">
             <h1>Customer List</h1>
@@ -30,12 +43,12 @@
         </div>
 
         <div class="notificationBox success">
-            <span class="message">Record Deleted Successfully !</span>
+            <span class="message"><%=buffer%></span>
             <span class="closeBtn" onclick="this.parentElement.style.display='none';"><i class="fa-solid fa-xmark"></i></span> 
         </div>
 
         <div class="notificationBox error">
-            <span class="message">Error Occurred, Please Try Again !</span>
+            <span class="message"><%=error%></span>
             <span class="closeBtn" onclick="this.parentElement.style.display='none';"><i class="fa-solid fa-xmark"></i></span> 
         </div>
 
@@ -56,8 +69,8 @@
                     <form action="" method="GET">
                         
                         <%
-                            List<Customer> customers = (List<Customer>) request.getAttribute("subjects");
-                            for(Customer s: Customer){
+                            //List<Customer> customers = (List<Customer>) request.getAttribute("subjects");
+                            //for(Customer s: Customer){
                         %>
                         
                         <td style="padding:0;"><input type="checkbox"></td>
@@ -69,7 +82,7 @@
                         
                         </form>
                         <%
-                            }
+                            //}
                         %>
                 </tr>
             </tbody>

@@ -25,113 +25,113 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author yapwa
  */
 @Entity
-@Table(name = "admin")
+@Table(name = "ADMIN_STAFF")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Admin.findAll", query = "SELECT a FROM Admin a"),
-    @NamedQuery(name = "Admin.findByAdminid", query = "SELECT a FROM Admin a WHERE a.adminid = :adminid"),
-    @NamedQuery(name = "Admin.findByFullname", query = "SELECT a FROM Admin a WHERE a.fullname = :fullname"),
-    @NamedQuery(name = "Admin.findByPhonenum", query = "SELECT a FROM Admin a WHERE a.phonenum = :phonenum"),
-    @NamedQuery(name = "Admin.findByPosition", query = "SELECT a FROM Admin a WHERE a.position = :position"),
-    @NamedQuery(name = "Admin.findByPermission", query = "SELECT a FROM Admin a WHERE a.permission = :permission")})
+    @NamedQuery(name = "Admin.findByAdminId", query = "SELECT a FROM Admin a WHERE a.adminId = :adminId"),
+    @NamedQuery(name = "Admin.findByAdminFullName", query = "SELECT a FROM Admin a WHERE a.adminFullName = :adminFullName"),
+    @NamedQuery(name = "Admin.findByAdminPhoneNum", query = "SELECT a FROM Admin a WHERE a.adminPhoneNum = :adminPhoneNum"),
+    @NamedQuery(name = "Admin.findByAdminPosition", query = "SELECT a FROM Admin a WHERE a.adminPosition = :adminPosition"),
+    @NamedQuery(name = "Admin.findByAdminPermission", query = "SELECT a FROM Admin a WHERE a.adminPermission = :adminPermission")})
 public class Admin implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "ADMINID")
-    private Integer adminid;
+    @Column(name = "ADMIN_ID")
+    private Integer adminId;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
-    @Column(name = "FULLNAME")
-    private String fullname;
+    @Column(name = "ADMIN_FULL_NAME")
+    private String adminFullName;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
-    @Column(name = "PHONENUM")
-    private String phonenum;
+    @Column(name = "ADMIN_PHONE_NUM")
+    private String adminPhoneNum;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
-    @Column(name = "POSITION")
-    private String position;
+    @Column(name = "ADMIN_POSITION")
+    private String adminPosition;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "PERMISSION")
-    private int permission;
-    @JoinColumn(name = "USERID", referencedColumnName = "USERID")
+    @Column(name = "ADMIN_PERMISSION")
+    private int adminPermission;
+    @JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID")
     @ManyToOne
-    private User userid;
+    private User userId;
 
     public Admin() {
     }
 
-    public Admin(Integer adminid) {
-        this.adminid = adminid;
+    public Admin(Integer adminId) {
+        this.adminId = adminId;
     }
 
-    public Admin(Integer adminid, String fullname, String phonenum, String position, int permission) {
-        this.adminid = adminid;
-        this.fullname = fullname;
-        this.phonenum = phonenum;
-        this.position = position;
-        this.permission = permission;
+    public Admin(Integer adminId, String adminFullName, String adminPhoneNum, String adminPosition, int adminPermission) {
+        this.adminId = adminId;
+        this.adminFullName = adminFullName;
+        this.adminPhoneNum = adminPhoneNum;
+        this.adminPosition = adminPosition;
+        this.adminPermission = adminPermission;
     }
 
-    public Integer getAdminid() {
-        return adminid;
+    public Integer getAdminId() {
+        return adminId;
     }
 
-    public void setAdminid(Integer adminid) {
-        this.adminid = adminid;
+    public void setAdminId(Integer adminId) {
+        this.adminId = adminId;
     }
 
-    public String getFullname() {
-        return fullname;
+    public String getAdminFullName() {
+        return adminFullName;
     }
 
-    public void setFullname(String fullname) {
-        this.fullname = fullname;
+    public void setAdminFullName(String adminFullName) {
+        this.adminFullName = adminFullName;
     }
 
-    public String getPhonenum() {
-        return phonenum;
+    public String getAdminPhoneNum() {
+        return adminPhoneNum;
     }
 
-    public void setPhonenum(String phonenum) {
-        this.phonenum = phonenum;
+    public void setAdminPhoneNum(String adminPhoneNum) {
+        this.adminPhoneNum = adminPhoneNum;
     }
 
-    public String getPosition() {
-        return position;
+    public String getAdminPosition() {
+        return adminPosition;
     }
 
-    public void setPosition(String position) {
-        this.position = position;
+    public void setAdminPosition(String adminPosition) {
+        this.adminPosition = adminPosition;
     }
 
-    public int getPermission() {
-        return permission;
+    public int getAdminPermission() {
+        return adminPermission;
     }
 
-    public void setPermission(int permission) {
-        this.permission = permission;
+    public void setAdminPermission(int adminPermission) {
+        this.adminPermission = adminPermission;
     }
 
-    public User getUserid() {
-        return userid;
+    public User getUserId() {
+        return userId;
     }
 
-    public void setUserid(User userid) {
-        this.userid = userid;
+    public void setUserId(User userId) {
+        this.userId = userId;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (adminid != null ? adminid.hashCode() : 0);
+        hash += (adminId != null ? adminId.hashCode() : 0);
         return hash;
     }
 
@@ -142,7 +142,7 @@ public class Admin implements Serializable {
             return false;
         }
         Admin other = (Admin) object;
-        if ((this.adminid == null && other.adminid != null) || (this.adminid != null && !this.adminid.equals(other.adminid))) {
+        if ((this.adminId == null && other.adminId != null) || (this.adminId != null && !this.adminId.equals(other.adminId))) {
             return false;
         }
         return true;
@@ -150,7 +150,7 @@ public class Admin implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.Admin[ adminid=" + adminid + " ]";
+        return "entity.Admin[ adminId=" + adminId + " ]";
     }
     
 }

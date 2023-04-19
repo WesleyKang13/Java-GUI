@@ -24,79 +24,79 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author yapwa
  */
 @Entity
-@Table(name = "cart")
+@Table(name = "CART")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Cart.findAll", query = "SELECT c FROM Cart c"),
-    @NamedQuery(name = "Cart.findByCartid", query = "SELECT c FROM Cart c WHERE c.cartid = :cartid"),
-    @NamedQuery(name = "Cart.findByQuantity", query = "SELECT c FROM Cart c WHERE c.quantity = :quantity")})
+    @NamedQuery(name = "Cart.findByCartId", query = "SELECT c FROM Cart c WHERE c.cartId = :cartId"),
+    @NamedQuery(name = "Cart.findByCartQuantity", query = "SELECT c FROM Cart c WHERE c.cartQuantity = :cartQuantity")})
 public class Cart implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "CARTID")
-    private Integer cartid;
+    @Column(name = "CART_ID")
+    private Integer cartId;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "QUANTITY")
-    private int quantity;
-    @JoinColumn(name = "CUSTOMERID", referencedColumnName = "CUSTOMERID")
+    @Column(name = "CART_QUANTITY")
+    private int cartQuantity;
+    @JoinColumn(name = "CUST_ID", referencedColumnName = "CUST_ID")
     @ManyToOne
-    private Customer customerid;
-    @JoinColumn(name = "PRODUCTID", referencedColumnName = "PRODUCTID")
+    private Customer custId;
+    @JoinColumn(name = "PROD_ID", referencedColumnName = "PROD_ID")
     @ManyToOne
-    private Product productid;
+    private Product prodId;
 
     public Cart() {
     }
 
-    public Cart(Integer cartid) {
-        this.cartid = cartid;
+    public Cart(Integer cartId) {
+        this.cartId = cartId;
     }
 
-    public Cart(Integer cartid, int quantity) {
-        this.cartid = cartid;
-        this.quantity = quantity;
+    public Cart(Integer cartId, int cartQuantity) {
+        this.cartId = cartId;
+        this.cartQuantity = cartQuantity;
     }
 
-    public Integer getCartid() {
-        return cartid;
+    public Integer getCartId() {
+        return cartId;
     }
 
-    public void setCartid(Integer cartid) {
-        this.cartid = cartid;
+    public void setCartId(Integer cartId) {
+        this.cartId = cartId;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public int getCartQuantity() {
+        return cartQuantity;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public void setCartQuantity(int cartQuantity) {
+        this.cartQuantity = cartQuantity;
     }
 
-    public Customer getCustomerid() {
-        return customerid;
+    public Customer getCustId() {
+        return custId;
     }
 
-    public void setCustomerid(Customer customerid) {
-        this.customerid = customerid;
+    public void setCustId(Customer custId) {
+        this.custId = custId;
     }
 
-    public Product getProductid() {
-        return productid;
+    public Product getProdId() {
+        return prodId;
     }
 
-    public void setProductid(Product productid) {
-        this.productid = productid;
+    public void setProdId(Product prodId) {
+        this.prodId = prodId;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (cartid != null ? cartid.hashCode() : 0);
+        hash += (cartId != null ? cartId.hashCode() : 0);
         return hash;
     }
 
@@ -107,7 +107,7 @@ public class Cart implements Serializable {
             return false;
         }
         Cart other = (Cart) object;
-        if ((this.cartid == null && other.cartid != null) || (this.cartid != null && !this.cartid.equals(other.cartid))) {
+        if ((this.cartId == null && other.cartId != null) || (this.cartId != null && !this.cartId.equals(other.cartId))) {
             return false;
         }
         return true;
@@ -115,7 +115,7 @@ public class Cart implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.Cart[ cartid=" + cartid + " ]";
+        return "entity.Cart[ cartId=" + cartId + " ]";
     }
     
 }

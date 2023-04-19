@@ -29,99 +29,98 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author yapwa
  */
 @Entity
-@Table(name = "user")
+@Table(name = "USER_LOGIN")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
-    @NamedQuery(name = "User.findByUserid", query = "SELECT u FROM User u WHERE u.userid = :userid"),
-    @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email"),
-    @NamedQuery(name = "User.findByUsername", query = "SELECT u FROM User u WHERE u.username = :username"),
-    @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password"),
-    @NamedQuery(name = "User.findByLastloggedin", query = "SELECT u FROM User u WHERE u.lastloggedin = :lastloggedin")})
+    @NamedQuery(name = "User.findByUserId", query = "SELECT u FROM User u WHERE u.userId = :userId"),
+    @NamedQuery(name = "User.findByUserEmail", query = "SELECT u FROM User u WHERE u.userEmail = :userEmail"),
+    @NamedQuery(name = "User.findByUserName", query = "SELECT u FROM User u WHERE u.userName = :userName"),
+    @NamedQuery(name = "User.findByUserPassword", query = "SELECT u FROM User u WHERE u.userPassword = :userPassword"),
+    @NamedQuery(name = "User.findByUserLastLoggedInTime", query = "SELECT u FROM User u WHERE u.userLastLoggedInTime = :userLastLoggedInTime")})
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "USERID")
-    private Integer userid;
-    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
+    @Column(name = "USER_ID")
+    private Integer userId;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
-    @Column(name = "EMAIL")
-    private String email;
+    @Column(name = "USER_EMAIL")
+    private String userEmail;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
-    @Column(name = "USERNAME")
-    private String username;
+    @Column(name = "USER_NAME")
+    private String userName;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 256)
-    @Column(name = "PASSWORD")
-    private String password;
-    @Column(name = "LASTLOGGEDIN")
+    @Column(name = "USER_PASSWORD")
+    private String userPassword;
+    @Column(name = "USER_LAST_LOGGED_IN_TIME")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date lastloggedin;
-    @OneToMany(mappedBy = "userid")
+    private Date userLastLoggedInTime;
+    @OneToMany(mappedBy = "userId")
     private List<Admin> adminList;
-    @OneToMany(mappedBy = "userid")
+    @OneToMany(mappedBy = "userId")
     private List<Customer> customerList;
 
     public User() {
     }
 
-    public User(Integer userid) {
-        this.userid = userid;
+    public User(Integer userId) {
+        this.userId = userId;
     }
 
-    public User(Integer userid, String email, String username, String password) {
-        this.userid = userid;
-        this.email = email;
-        this.username = username;
-        this.password = password;
+    public User(Integer userId, String userEmail, String userName, String userPassword) {
+        this.userId = userId;
+        this.userEmail = userEmail;
+        this.userName = userName;
+        this.userPassword = userPassword;
     }
 
-    public Integer getUserid() {
-        return userid;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setUserid(Integer userid) {
-        this.userid = userid;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUserEmail() {
+        return userEmail;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public String getPassword() {
-        return password;
+    public String getUserPassword() {
+        return userPassword;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setUserPassword(String userPassword) {
+        this.userPassword = userPassword;
     }
 
-    public Date getLastloggedin() {
-        return lastloggedin;
+    public Date getUserLastLoggedInTime() {
+        return userLastLoggedInTime;
     }
 
-    public void setLastloggedin(Date lastloggedin) {
-        this.lastloggedin = lastloggedin;
+    public void setUserLastLoggedInTime(Date userLastLoggedInTime) {
+        this.userLastLoggedInTime = userLastLoggedInTime;
     }
 
     @XmlTransient
@@ -145,7 +144,7 @@ public class User implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (userid != null ? userid.hashCode() : 0);
+        hash += (userId != null ? userId.hashCode() : 0);
         return hash;
     }
 
@@ -156,7 +155,7 @@ public class User implements Serializable {
             return false;
         }
         User other = (User) object;
-        if ((this.userid == null && other.userid != null) || (this.userid != null && !this.userid.equals(other.userid))) {
+        if ((this.userId == null && other.userId != null) || (this.userId != null && !this.userId.equals(other.userId))) {
             return false;
         }
         return true;
@@ -164,7 +163,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.User[ userid=" + userid + " ]";
+        return "entity.User[ userId=" + userId + " ]";
     }
     
 }

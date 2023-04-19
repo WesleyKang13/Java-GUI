@@ -26,96 +26,96 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author yapwa
  */
 @Entity
-@Table(name = "product")
+@Table(name = "PRODUCT")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p"),
-    @NamedQuery(name = "Product.findByProductid", query = "SELECT p FROM Product p WHERE p.productid = :productid"),
-    @NamedQuery(name = "Product.findByBrand", query = "SELECT p FROM Product p WHERE p.brand = :brand"),
-    @NamedQuery(name = "Product.findByPrice", query = "SELECT p FROM Product p WHERE p.price = :price"),
-    @NamedQuery(name = "Product.findByDescription", query = "SELECT p FROM Product p WHERE p.description = :description"),
-    @NamedQuery(name = "Product.findByType", query = "SELECT p FROM Product p WHERE p.type = :type")})
+    @NamedQuery(name = "Product.findByProdId", query = "SELECT p FROM Product p WHERE p.prodId = :prodId"),
+    @NamedQuery(name = "Product.findByProdBrand", query = "SELECT p FROM Product p WHERE p.prodBrand = :prodBrand"),
+    @NamedQuery(name = "Product.findByProdPrice", query = "SELECT p FROM Product p WHERE p.prodPrice = :prodPrice"),
+    @NamedQuery(name = "Product.findByProdDescription", query = "SELECT p FROM Product p WHERE p.prodDescription = :prodDescription"),
+    @NamedQuery(name = "Product.findByProdType", query = "SELECT p FROM Product p WHERE p.prodType = :prodType")})
 public class Product implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "PRODUCTID")
-    private Integer productid;
+    @Column(name = "PROD_ID")
+    private Integer prodId;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
-    @Column(name = "BRAND")
-    private String brand;
+    @Column(name = "PROD_BRAND")
+    private String prodBrand;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "PRICE")
-    private double price;
+    @Column(name = "PROD_PRICE")
+    private double prodPrice;
     @Size(max = 100)
-    @Column(name = "DESCRIPTION")
-    private String description;
+    @Column(name = "PROD_DESCRIPTION")
+    private String prodDescription;
     @Size(max = 20)
-    @Column(name = "TYPE")
-    private String type;
-    @OneToMany(mappedBy = "productid")
+    @Column(name = "PROD_TYPE")
+    private String prodType;
+    @OneToMany(mappedBy = "prodId")
     private List<OrderItem> orderItemList;
-    @OneToMany(mappedBy = "productid")
+    @OneToMany(mappedBy = "prodId")
+    private List<Inventory> inventoryList;
+    @OneToMany(mappedBy = "prodId")
     private List<Cart> cartList;
-    @OneToMany(mappedBy = "productid")
-    private List<ProductInventory> productInventoryList;
 
     public Product() {
     }
 
-    public Product(Integer productid) {
-        this.productid = productid;
+    public Product(Integer prodId) {
+        this.prodId = prodId;
     }
 
-    public Product(Integer productid, String brand, double price) {
-        this.productid = productid;
-        this.brand = brand;
-        this.price = price;
+    public Product(Integer prodId, String prodBrand, double prodPrice) {
+        this.prodId = prodId;
+        this.prodBrand = prodBrand;
+        this.prodPrice = prodPrice;
     }
 
-    public Integer getProductid() {
-        return productid;
+    public Integer getProdId() {
+        return prodId;
     }
 
-    public void setProductid(Integer productid) {
-        this.productid = productid;
+    public void setProdId(Integer prodId) {
+        this.prodId = prodId;
     }
 
-    public String getBrand() {
-        return brand;
+    public String getProdBrand() {
+        return prodBrand;
     }
 
-    public void setBrand(String brand) {
-        this.brand = brand;
+    public void setProdBrand(String prodBrand) {
+        this.prodBrand = prodBrand;
     }
 
-    public double getPrice() {
-        return price;
+    public double getProdPrice() {
+        return prodPrice;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public void setProdPrice(double prodPrice) {
+        this.prodPrice = prodPrice;
     }
 
-    public String getDescription() {
-        return description;
+    public String getProdDescription() {
+        return prodDescription;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setProdDescription(String prodDescription) {
+        this.prodDescription = prodDescription;
     }
 
-    public String getType() {
-        return type;
+    public String getProdType() {
+        return prodType;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setProdType(String prodType) {
+        this.prodType = prodType;
     }
 
     @XmlTransient
@@ -128,6 +128,15 @@ public class Product implements Serializable {
     }
 
     @XmlTransient
+    public List<Inventory> getInventoryList() {
+        return inventoryList;
+    }
+
+    public void setInventoryList(List<Inventory> inventoryList) {
+        this.inventoryList = inventoryList;
+    }
+
+    @XmlTransient
     public List<Cart> getCartList() {
         return cartList;
     }
@@ -136,19 +145,10 @@ public class Product implements Serializable {
         this.cartList = cartList;
     }
 
-    @XmlTransient
-    public List<ProductInventory> getProductInventoryList() {
-        return productInventoryList;
-    }
-
-    public void setProductInventoryList(List<ProductInventory> productInventoryList) {
-        this.productInventoryList = productInventoryList;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (productid != null ? productid.hashCode() : 0);
+        hash += (prodId != null ? prodId.hashCode() : 0);
         return hash;
     }
 
@@ -159,7 +159,7 @@ public class Product implements Serializable {
             return false;
         }
         Product other = (Product) object;
-        if ((this.productid == null && other.productid != null) || (this.productid != null && !this.productid.equals(other.productid))) {
+        if ((this.prodId == null && other.prodId != null) || (this.prodId != null && !this.prodId.equals(other.prodId))) {
             return false;
         }
         return true;
@@ -167,7 +167,7 @@ public class Product implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.Product[ productid=" + productid + " ]";
+        return "entity.Product[ prodId=" + prodId + " ]";
     }
     
 }

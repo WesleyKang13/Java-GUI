@@ -13,8 +13,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -31,106 +29,95 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author yapwa
  */
 @Entity
-@Table(name = "payment")
+@Table(name = "PAYMENT")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Payment.findAll", query = "SELECT p FROM Payment p"),
-    @NamedQuery(name = "Payment.findByPaymentid", query = "SELECT p FROM Payment p WHERE p.paymentid = :paymentid"),
-    @NamedQuery(name = "Payment.findByTotalamount", query = "SELECT p FROM Payment p WHERE p.totalamount = :totalamount"),
-    @NamedQuery(name = "Payment.findByMethod", query = "SELECT p FROM Payment p WHERE p.method = :method"),
-    @NamedQuery(name = "Payment.findByDate", query = "SELECT p FROM Payment p WHERE p.date = :date")})
+    @NamedQuery(name = "Payment.findByPaytId", query = "SELECT p FROM Payment p WHERE p.paytId = :paytId"),
+    @NamedQuery(name = "Payment.findByPaytTotalAmount", query = "SELECT p FROM Payment p WHERE p.paytTotalAmount = :paytTotalAmount"),
+    @NamedQuery(name = "Payment.findByPaytMethod", query = "SELECT p FROM Payment p WHERE p.paytMethod = :paytMethod"),
+    @NamedQuery(name = "Payment.findByPaytDate", query = "SELECT p FROM Payment p WHERE p.paytDate = :paytDate")})
 public class Payment implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "PAYMENTID")
-    private Integer paymentid;
+    @Column(name = "PAYT_ID")
+    private Integer paytId;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "TOTALAMOUNT")
-    private double totalamount;
+    @Column(name = "PAYT_TOTAL_AMOUNT")
+    private double paytTotalAmount;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
-    @Column(name = "METHOD")
-    private String method;
-    @Column(name = "DATE")
+    @Column(name = "PAYT_METHOD")
+    private String paytMethod;
+    @Column(name = "PAYT_DATE")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date date;
-    @JoinColumn(name = "DISCOUNTID", referencedColumnName = "DISCOUNTID")
-    @ManyToOne
-    private Discount discountid;
-    @OneToMany(mappedBy = "paymentid")
-    private List<Order> order1List;
+    private Date paytDate;
+    @OneToMany(mappedBy = "paytId")
+    private List<CustOrder> custOrderList;
 
     public Payment() {
     }
 
-    public Payment(Integer paymentid) {
-        this.paymentid = paymentid;
+    public Payment(Integer paytId) {
+        this.paytId = paytId;
     }
 
-    public Payment(Integer paymentid, double totalamount, String method) {
-        this.paymentid = paymentid;
-        this.totalamount = totalamount;
-        this.method = method;
+    public Payment(Integer paytId, double paytTotalAmount, String paytMethod) {
+        this.paytId = paytId;
+        this.paytTotalAmount = paytTotalAmount;
+        this.paytMethod = paytMethod;
     }
 
-    public Integer getPaymentid() {
-        return paymentid;
+    public Integer getPaytId() {
+        return paytId;
     }
 
-    public void setPaymentid(Integer paymentid) {
-        this.paymentid = paymentid;
+    public void setPaytId(Integer paytId) {
+        this.paytId = paytId;
     }
 
-    public double getTotalamount() {
-        return totalamount;
+    public double getPaytTotalAmount() {
+        return paytTotalAmount;
     }
 
-    public void setTotalamount(double totalamount) {
-        this.totalamount = totalamount;
+    public void setPaytTotalAmount(double paytTotalAmount) {
+        this.paytTotalAmount = paytTotalAmount;
     }
 
-    public String getMethod() {
-        return method;
+    public String getPaytMethod() {
+        return paytMethod;
     }
 
-    public void setMethod(String method) {
-        this.method = method;
+    public void setPaytMethod(String paytMethod) {
+        this.paytMethod = paytMethod;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getPaytDate() {
+        return paytDate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public Discount getDiscountid() {
-        return discountid;
-    }
-
-    public void setDiscountid(Discount discountid) {
-        this.discountid = discountid;
+    public void setPaytDate(Date paytDate) {
+        this.paytDate = paytDate;
     }
 
     @XmlTransient
-    public List<Order> getOrderList() {
-        return order1List;
+    public List<CustOrder> getCustOrderList() {
+        return custOrderList;
     }
 
-    public void setOrderList(List<Order> order1List) {
-        this.order1List = order1List;
+    public void setCustOrderList(List<CustOrder> custOrderList) {
+        this.custOrderList = custOrderList;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (paymentid != null ? paymentid.hashCode() : 0);
+        hash += (paytId != null ? paytId.hashCode() : 0);
         return hash;
     }
 
@@ -141,7 +128,7 @@ public class Payment implements Serializable {
             return false;
         }
         Payment other = (Payment) object;
-        if ((this.paymentid == null && other.paymentid != null) || (this.paymentid != null && !this.paymentid.equals(other.paymentid))) {
+        if ((this.paytId == null && other.paytId != null) || (this.paytId != null && !this.paytId.equals(other.paytId))) {
             return false;
         }
         return true;
@@ -149,7 +136,7 @@ public class Payment implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.Payment[ paymentid=" + paymentid + " ]";
+        return "entity.Payment[ paytId=" + paytId + " ]";
     }
     
 }

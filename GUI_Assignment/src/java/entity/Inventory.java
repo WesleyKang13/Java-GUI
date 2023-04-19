@@ -1,0 +1,134 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package entity;
+
+import java.io.Serializable;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+
+/**
+ *
+ * @author yapwa
+ */
+@Entity
+@Table(name = "PRODUCT_INVENTORY")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Inventory.findAll", query = "SELECT i FROM Inventory i"),
+    @NamedQuery(name = "Inventory.findByInvId", query = "SELECT i FROM Inventory i WHERE i.invId = :invId"),
+    @NamedQuery(name = "Inventory.findByInvQuantity", query = "SELECT i FROM Inventory i WHERE i.invQuantity = :invQuantity"),
+    @NamedQuery(name = "Inventory.findByInvColor", query = "SELECT i FROM Inventory i WHERE i.invColor = :invColor"),
+    @NamedQuery(name = "Inventory.findByInvSize", query = "SELECT i FROM Inventory i WHERE i.invSize = :invSize")})
+public class Inventory implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "INV_ID")
+    private Integer invId;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "INV_QUANTITY")
+    private int invQuantity;
+    @Size(max = 20)
+    @Column(name = "INV_COLOR")
+    private String invColor;
+    @Column(name = "INV_SIZE")
+    private Integer invSize;
+    @JoinColumn(name = "PROD_ID", referencedColumnName = "PROD_ID")
+    @ManyToOne
+    private Product prodId;
+
+    public Inventory() {
+    }
+
+    public Inventory(Integer invId) {
+        this.invId = invId;
+    }
+
+    public Inventory(Integer invId, int invQuantity) {
+        this.invId = invId;
+        this.invQuantity = invQuantity;
+    }
+
+    public Integer getInvId() {
+        return invId;
+    }
+
+    public void setInvId(Integer invId) {
+        this.invId = invId;
+    }
+
+    public int getInvQuantity() {
+        return invQuantity;
+    }
+
+    public void setInvQuantity(int invQuantity) {
+        this.invQuantity = invQuantity;
+    }
+
+    public String getInvColor() {
+        return invColor;
+    }
+
+    public void setInvColor(String invColor) {
+        this.invColor = invColor;
+    }
+
+    public Integer getInvSize() {
+        return invSize;
+    }
+
+    public void setInvSize(Integer invSize) {
+        this.invSize = invSize;
+    }
+
+    public Product getProdId() {
+        return prodId;
+    }
+
+    public void setProdId(Product prodId) {
+        this.prodId = prodId;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (invId != null ? invId.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Inventory)) {
+            return false;
+        }
+        Inventory other = (Inventory) object;
+        if ((this.invId == null && other.invId != null) || (this.invId != null && !this.invId.equals(other.invId))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "entity.Inventory[ invId=" + invId + " ]";
+    }
+    
+}

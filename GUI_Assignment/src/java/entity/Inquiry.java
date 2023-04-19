@@ -26,101 +26,100 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author yapwa
  */
 @Entity
-@Table(name = "inquiry")
+@Table(name = "INQUIRY")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Inquiry.findAll", query = "SELECT i FROM Inquiry i"),
-    @NamedQuery(name = "Inquiry.findByInquiryid", query = "SELECT i FROM Inquiry i WHERE i.inquiryid = :inquiryid"),
-    @NamedQuery(name = "Inquiry.findByName", query = "SELECT i FROM Inquiry i WHERE i.name = :name"),
-    @NamedQuery(name = "Inquiry.findByEmail", query = "SELECT i FROM Inquiry i WHERE i.email = :email"),
-    @NamedQuery(name = "Inquiry.findByDescription", query = "SELECT i FROM Inquiry i WHERE i.description = :description"),
-    @NamedQuery(name = "Inquiry.findByDate", query = "SELECT i FROM Inquiry i WHERE i.date = :date")})
+    @NamedQuery(name = "Inquiry.findByInqId", query = "SELECT i FROM Inquiry i WHERE i.inqId = :inqId"),
+    @NamedQuery(name = "Inquiry.findByInqName", query = "SELECT i FROM Inquiry i WHERE i.inqName = :inqName"),
+    @NamedQuery(name = "Inquiry.findByInqEmail", query = "SELECT i FROM Inquiry i WHERE i.inqEmail = :inqEmail"),
+    @NamedQuery(name = "Inquiry.findByInqDescription", query = "SELECT i FROM Inquiry i WHERE i.inqDescription = :inqDescription"),
+    @NamedQuery(name = "Inquiry.findByInqCreatedDate", query = "SELECT i FROM Inquiry i WHERE i.inqCreatedDate = :inqCreatedDate")})
 public class Inquiry implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "INQUIRYID")
-    private Integer inquiryid;
+    @Column(name = "INQ_ID")
+    private Integer inqId;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
-    @Column(name = "NAME")
-    private String name;
-    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
+    @Column(name = "INQ_NAME")
+    private String inqName;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
-    @Column(name = "EMAIL")
-    private String email;
+    @Column(name = "INQ_EMAIL")
+    private String inqEmail;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 1000)
-    @Column(name = "DESCRIPTION")
-    private String description;
-    @Column(name = "DATE")
+    @Column(name = "INQ_DESCRIPTION")
+    private String inqDescription;
+    @Column(name = "INQ_CREATED_DATE")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date date;
+    private Date inqCreatedDate;
 
     public Inquiry() {
     }
 
-    public Inquiry(Integer inquiryid) {
-        this.inquiryid = inquiryid;
+    public Inquiry(Integer inqId) {
+        this.inqId = inqId;
     }
 
-    public Inquiry(Integer inquiryid, String name, String email, String description) {
-        this.inquiryid = inquiryid;
-        this.name = name;
-        this.email = email;
-        this.description = description;
+    public Inquiry(Integer inqId, String inqName, String inqEmail, String inqDescription) {
+        this.inqId = inqId;
+        this.inqName = inqName;
+        this.inqEmail = inqEmail;
+        this.inqDescription = inqDescription;
     }
 
-    public Integer getInquiryid() {
-        return inquiryid;
+    public Integer getInqId() {
+        return inqId;
     }
 
-    public void setInquiryid(Integer inquiryid) {
-        this.inquiryid = inquiryid;
+    public void setInqId(Integer inqId) {
+        this.inqId = inqId;
     }
 
-    public String getName() {
-        return name;
+    public String getInqName() {
+        return inqName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setInqName(String inqName) {
+        this.inqName = inqName;
     }
 
-    public String getEmail() {
-        return email;
+    public String getInqEmail() {
+        return inqEmail;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setInqEmail(String inqEmail) {
+        this.inqEmail = inqEmail;
     }
 
-    public String getDescription() {
-        return description;
+    public String getInqDescription() {
+        return inqDescription;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setInqDescription(String inqDescription) {
+        this.inqDescription = inqDescription;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getInqCreatedDate() {
+        return inqCreatedDate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setInqCreatedDate(Date inqCreatedDate) {
+        this.inqCreatedDate = inqCreatedDate;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (inquiryid != null ? inquiryid.hashCode() : 0);
+        hash += (inqId != null ? inqId.hashCode() : 0);
         return hash;
     }
 
@@ -131,7 +130,7 @@ public class Inquiry implements Serializable {
             return false;
         }
         Inquiry other = (Inquiry) object;
-        if ((this.inquiryid == null && other.inquiryid != null) || (this.inquiryid != null && !this.inquiryid.equals(other.inquiryid))) {
+        if ((this.inqId == null && other.inqId != null) || (this.inqId != null && !this.inqId.equals(other.inqId))) {
             return false;
         }
         return true;
@@ -139,7 +138,7 @@ public class Inquiry implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.Inquiry[ inquiryid=" + inquiryid + " ]";
+        return "entity.Inquiry[ inqId=" + inqId + " ]";
     }
     
 }

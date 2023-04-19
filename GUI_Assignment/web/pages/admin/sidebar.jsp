@@ -44,13 +44,6 @@
                     </li>
                     
                     <li class="nav-link customer">
-                        <form action="LoadCustomer" method="post">
-                            <div class="search">
-                            <input type="text" name="search-filter" placeholder="e.g Niko, Adados"/>
-                            <button type="submit"><i class="fa fa-search"></i></button>
-                        </div>
-                    </form>
-                        
                         <a href="LoadCustomer">
                             <i class="fa-solid fa-address-book icon"></i>
                             <span class="text nav-text">Customer</span>
