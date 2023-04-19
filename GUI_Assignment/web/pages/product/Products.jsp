@@ -1,4 +1,6 @@
 <% String ROOT_PATH = "../../"; %>
+<%@page import="entity.Product"%>
+<%@page import="java.util.List"%>
 <jsp:include page="<%= ROOT_PATH + "pages/header.jsp"%>">
     <jsp:param name="ROOT_PATH" value="<%=ROOT_PATH%>" />
 </jsp:include>
@@ -31,7 +33,7 @@
                 <td>
                     <form action="FindProduct" method="post">
                         <div class="search">
-                            <input type="text" name="search-filter" placeholder="e.g Niko, Adados"/>
+                            <input type="text" name="product_name" placeholder="e.g Niko, Adados"/>
                             <button type="submit"><i class="fa fa-search"></i></button>
                         </div>
                     </form>
@@ -60,70 +62,18 @@
                             <span><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></span>
                             <span><i class="fa fa-share" aria-hidden="true"></i></span>
                         </p>
-                        <strong>Nike run 2017</strong>
-                        <small>Lorem ipsum dolor sit amet consectetur</small>
+                        
+                        <% 
+                            Product product = (Product) request.getAttribute("product");
+                            if(product != null){
+                        %>
+                        <strong><%= product.getBrand() %></strong>
+                        <small><%= product.getDescription() %></small>
                     </div>
-                    <h4>Rm<br> 599.99</h4>
-                </li>
-
-                <li shoe-category="">
-                    <picture>
-                        <img src="../../assets/product/dummy1.jpg" alt="">
-                    </picture>
-                    <div class="details">
-                        <p class="icon">
-                            <span><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></span>
-                            <span><i class="fa fa-share" aria-hidden="true"></i></span>
-                        </p>
-                        <strong>Nike run 2017</strong>
-                        <small>Lorem ipsum dolor sit amet consectetur</small>
-                    </div>
-                    <h4>Rm<br> 599.99</h4>
-                </li>
-
-                <li shoe-category="">
-                    <picture>
-                        <img src="../../assets/product/dummy2.png" alt="">
-                    </picture>
-                    <div class="details">
-                        <p class="icon">
-                            <span><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></span>
-                            <span><i class="fa fa-share" aria-hidden="true"></i></span>
-                        </p>
-                        <strong>Nike hype</strong>
-                        <small>Lorem ipsum dolor sit amet consectetur</small>
-                    </div>
-                    <h4>Rm<br> 650.99</h4>
-                </li>
-
-                <li shoe-category="">
-                    <picture>
-                        <img src="../../assets/product/dummy1.jpg" alt="">
-                    </picture>
-                    <div class="details">
-                        <p class="icon">
-                            <span><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></span>
-                            <span><i class="fa fa-share" aria-hidden="true"></i></span>
-                        </p>
-                        <strong>Nike run 2017</strong>
-                        <small>Lorem ipsum dolor sit amet consectetur</small>
-                    </div>
-                    <h4>Rm<br> 599.99</h4>
-                </li>
-
-                <li shoe-category="">
-                    <picture>
-                        <img src="../../assets/product/dummy2.png" alt="">
-                    </picture>
-                    <div class="details">
-                        <p class="icon">
-                            <span><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></span>
-                            <span><i class="fa fa-share" aria-hidden="true"></i></span>
-                        </p>
-                        <strong>Nike hype</strong>
-                        <small>Lorem ipsum dolor sit amet consectetur</small>
-                    </div>
-                    <h4>Rm<br> 599.99</h4>
+                    <h4>Rm<br> <%= product.getPrice() %></h4>
+                    <% }else { %>
+                        null
+                    <% } %>
                 </li>
             </ul>
         </div>

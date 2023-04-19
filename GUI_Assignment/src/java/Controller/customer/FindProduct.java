@@ -1,7 +1,11 @@
 package controller.customer;
 
+import entity.Product;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,13 +19,25 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "FindProduct", urlPatterns = {"/pages/product/FindProduct"})
 public class FindProduct extends HttpServlet {
+    
+    @PersistenceContext EntityManager em;
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
                
         response.setContentType("text/html;charset=UTF-8");
         
+        String productName = request.getParameter("product");
+        
         try{
+            Product p = em.find(Product.class, productName);
             
+            request.setAttribute("product", p);
+            
+            Query q = em.createNamedQuery("Product.findAll");
+            
+            List<Product> productList = q.getResultList();
+            request.setAttribute("productList", productList);
             RequestDispatcher dispatcher = request.getRequestDispatcher("Products.jsp");
             dispatcher.forward(request, response);
         }catch(Exception ex){
