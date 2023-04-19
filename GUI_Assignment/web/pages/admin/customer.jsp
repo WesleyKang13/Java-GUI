@@ -1,4 +1,11 @@
-<% String ROOT_PATH = "../../"; %>
+<%@page import="java.util.List"%>
+<%@page import="entity.Customer"%>
+
+<% 
+    String ROOT_PATH = "../../"; 
+    request.setAttribute("ROOT_PATH", ROOT_PATH);
+%>
+
 <jsp:include page="<%= ROOT_PATH + "pages/admin/sidebar.jsp"%>">
     <jsp:param name="ROOT_PATH" value="<%=ROOT_PATH%>" />
 </jsp:include>
@@ -45,28 +52,25 @@
             </thead>
             <tbody>
                 <tr>
-                    <td style="padding:0;"><input type="checkbox"></td>
-                    <td style="padding-left:0.2rem;">1</td>
-                    <td>Domenic</td>
-                    <td>88,110</td>
-                    <td>dcode</td>
-                    <td><button class="actionRoundBtn"><i class="fa-solid fa-circle-info fa-spin"></i></button></td>
-                </tr>
-                <tr>
-                    <td style="padding:0;"><input type="checkbox"></td>
-                    <td style="padding-left:0.2rem;">2</td>
-                    <td>Sally</td>
-                    <td>72,400</td>
-                    <td>Students</td>
-                    <td><button class="actionRoundBtn"><i class="fa-solid fa-circle-info fa-spin"></i></button></td>
-                </tr>
-                <tr>
-                    <td style="padding:0;"><input type="checkbox"></td>
-                    <td style="padding-left:0.2rem;">3</td>
-                    <td>Nick</td>
-                    <td>52,300</td>
-                    <td>dcode</td>
-                    <td><button class="actionRoundBtn"><i class="fa-solid fa-circle-info fa-spin"></i></button></td>
+                    
+                    <form action="" method="GET">
+                        
+                        <%
+                            List<Customer> customers = (List<Customer>) request.getAttribute("subjects");
+                            for(Customer s: Customer){
+                        %>
+                        
+                        <td style="padding:0;"><input type="checkbox"></td>
+                        <td style="padding-left:0.2rem;">1</td>
+                        <td>Domenic</td>
+                        <td>88,110</td>
+                        <td>dcode</td>
+                        <td><button class="actionRoundBtn"><i class="fa-solid fa-circle-info fa-spin"></i></button></td>
+                        
+                        </form>
+                        <%
+                            }
+                        %>
                 </tr>
             </tbody>
         </table>

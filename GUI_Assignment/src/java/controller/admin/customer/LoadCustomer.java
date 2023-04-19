@@ -1,7 +1,6 @@
-package Controller.customer;
+package Controller.admin.customer;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,20 +12,13 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @Wesley
  */
-@WebServlet(name = "FindProduct", urlPatterns = {"/pages/product/FindProduct"})
-public class FindProduct extends HttpServlet {
+@WebServlet(name = "LoadCustomer", urlPatterns = {"/pages/admin/LoadCustomer"})
+public class LoadCustomer extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-               
+        
         response.setContentType("text/html;charset=UTF-8");
         
-        try{
-            
-            RequestDispatcher dispatcher = request.getRequestDispatcher("Products.jsp");
-            dispatcher.forward(request, response);
-        }catch(Exception ex){
-            ex.printStackTrace();
-        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

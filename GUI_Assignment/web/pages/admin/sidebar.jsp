@@ -25,7 +25,7 @@
                 </span>
 
                 <div class="text profile-text">
-                    <h3 class="username text">Timothythythy</h3>
+                    <h3 class="username text">Tiger Home</h3>
                     <p class="position text">Administrator</p>
                 </div>
             </div>
@@ -44,7 +44,14 @@
                     </li>
                     
                     <li class="nav-link customer">
-                        <a href="customer.jsp">
+                        <form action="LoadCustomer" method="post">
+                            <div class="search">
+                            <input type="text" name="search-filter" placeholder="e.g Niko, Adados"/>
+                            <button type="submit"><i class="fa fa-search"></i></button>
+                        </div>
+                    </form>
+                        
+                        <a href="LoadCustomer">
                             <i class="fa-solid fa-address-book icon"></i>
                             <span class="text nav-text">Customer</span>
                         </a>
