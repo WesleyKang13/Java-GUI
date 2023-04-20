@@ -21,24 +21,36 @@
                     <p style="line-height:22px;">Your transaction was successful! <br>Thank you for your support. We here at Banana Store are grateful for your patronage and look forward to serving  you in the future.  </p>
                     
                         <p><strong>Payment Details:</strong></p>
-                        image product
-                        <br><br>
-                        <a href="">Product Order Details</a>
-                        <br><br>
-                        Payment Method:
-                        <br><br>
-                        Date:
-                        <br><br>
-                        Email:
-                        <br><br>
-                        Phone:
-                        <br><br>
-                        Account Number:
-                        <br><br>
-                        Transaction Number:
-                        <br><br>
-                        Total Payable:
-                        <br><br>
+                         
+                        <table>
+                            <tr>
+                                <td>
+                                    Payment Method:
+                                </td>
+                                <td>
+                                    <input type="text" value="${payment.method}"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Date:
+                                </td>
+                                <td>
+                                    <input type="text" value="${payment.date}"/>
+                                </td>
+                            </tr>   
+                            <tr>
+                                <td>
+                                    Payment Id:
+                                </td>
+                                <td>
+                                    <input type="text" value="${payment.id}"/>
+                                </td>
+                            </tr> 
+
+                        </table>
+                                <br>
+                                <a href="">Product Order Details</a>
                         <p><strong>*We advise you to keep this receipt for future reference.*</strong></p>
                         <a href="" style="text-align: center; text-decoration:none;">
                             Back to Home Page
