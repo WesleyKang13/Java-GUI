@@ -38,27 +38,26 @@ public class PaymentSuccess extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //Get studentId from form
-        String paymentId = request.getParameter("paymentId");
-        
+        int paymentId = Integer.parseInt(request.getParameter("paymentId"));
         try{
-            //Load student object using entity manager
-            Payment p = em.find(Payment.class, paymentId);
-            
+//            //Load student object using entity manager
+            Payment p = (Payment)em.createNamedQuery("Payment.findByPaytId").setParameter("paytId", paymentId).getSingleResult();
+//            
             request.setAttribute("payment",p);
-            
-            HttpSession session = request.getSession();
-            session.setAttribute("payment",p);
-  
-             RequestDispatcher dispatcher  
-                     = request.getRequestDispatcher("/pages/customer/PaymentSuccessful.jsp");
-             dispatcher.forward(request, response);
-        
+//            
+//            HttpSession session = request.getSession();
+//            session.setAttribute("payment",p);
+
+//             RequestDispatcher dispatcher = request.getRequestDispatcher("../../PaymentSuccessful.jsp");
+//             dispatcher.forward(request, response);
+//        
         }catch (Exception ex){
             try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<h1>Congratulation, you get an error!</h1>");
             out.println("<h1>"+ex.getMessage()+"</h1>");
-        }
+            out.println("<p>"+ex.getStackTrace()+"</p>");
+            }
         }
         
        
