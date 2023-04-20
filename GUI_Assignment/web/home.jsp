@@ -13,7 +13,7 @@
  </head>
 <!--Main Page -->
 <body>
-  <h1 style="margin-left: 2em;">Featured!</h1>
+  <h1 style="margin-left: 2em;">Featured</h1>
      <div class="image-container">
         <div style="position: relative;">
         <div class="body-container">
