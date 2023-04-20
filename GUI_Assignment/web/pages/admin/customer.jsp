@@ -58,7 +58,7 @@
         <table class="table horizontal-table">
             <thead>
                 <tr>
-                    <td class="checkAllIcon" style="padding:0.5rem;"><i class="fa-solid fa-list-check fa-spin" style="transition: none;"></i></td>
+                    <td class="checkAllIcon" style="padding:0.5rem;"><i class="fa-solid fa-list-check" style="transition: none;"></i></td>
                     <th><i class="fa-solid fa-hashtag"></i></th>
                     <th>ID</th>
                     <th>User Name</th>
@@ -154,7 +154,7 @@
             </table>
 
             <div class="addNew-action">
-                <button class="addNewBackBtn backBtn btn" onclick="if(confirm('Are you sure you want to go back?')) { location.href='<%=ROOT_PATH+"pages/admin/LoadCustomer"%>' }" style="float: left;">Back</button>
+                <button class="editCustBackBtn backBtn btn" onclick="if(confirm('Are you sure you want to go back?')) { location.href='<%=ROOT_PATH+"pages/admin/LoadCustomer" %>'; } else { return false; }" style="float: left;">Back</button>
                 <button type="submit" class="submitBtn btn success">Submit</button>
                 <button type="reset" class="resetBtn btn danger" onclick="if(confirm('Are you sure you want to reset the form?')) { this.form.reset(); } else { return false; }">Reset</button>
             </div>
@@ -165,7 +165,7 @@
     <div class="container customerDetail">
         <div class="text">
             <h1>Customer Detail</h1>
-            <p>230101YWM - YAP WAI MENG</p>
+            <p><strong>ID <%=editCustomer.getCustId()%> - <%=editCustomer.getCustFullName()%></strong></p>
         </div>
 
         <div class="notificationBox success">

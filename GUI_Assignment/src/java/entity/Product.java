@@ -30,6 +30,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p"),
     @NamedQuery(name = "Product.findByProdId", query = "SELECT p FROM Product p WHERE p.prodId = :prodId"),
+    @NamedQuery(name = "Product.findByProdName", query = "SELECT p FROM Product p WHERE p.prodName = :prodName"),
     @NamedQuery(name = "Product.findByProdBrand", query = "SELECT p FROM Product p WHERE p.prodBrand = :prodBrand"),
     @NamedQuery(name = "Product.findByProdPrice", query = "SELECT p FROM Product p WHERE p.prodPrice = :prodPrice"),
     @NamedQuery(name = "Product.findByProdDescription", query = "SELECT p FROM Product p WHERE p.prodDescription = :prodDescription"),
@@ -42,6 +43,9 @@ public class Product implements Serializable {
     @Basic(optional = false)
     @Column(name = "PROD_ID")
     private Integer prodId;
+    @Size(max = 50)
+    @Column(name = "PROD_NAME")
+    private String prodName;
     @Size(max = 20)
     @Column(name = "PROD_BRAND")
     private String prodBrand;
@@ -54,6 +58,8 @@ public class Product implements Serializable {
     @Size(max = 20)
     @Column(name = "PROD_TYPE")
     private String prodType;
+    @OneToMany(mappedBy = "prodId")
+    private List<Review> reviewList;
     @OneToMany(mappedBy = "prodId")
     private List<OrderItem> orderItemList;
     @OneToMany(mappedBy = "prodId")
@@ -74,6 +80,14 @@ public class Product implements Serializable {
 
     public void setProdId(Integer prodId) {
         this.prodId = prodId;
+    }
+
+    public String getProdName() {
+        return prodName;
+    }
+
+    public void setProdName(String prodName) {
+        this.prodName = prodName;
     }
 
     public String getProdBrand() {
@@ -106,6 +120,15 @@ public class Product implements Serializable {
 
     public void setProdType(String prodType) {
         this.prodType = prodType;
+    }
+
+    @XmlTransient
+    public List<Review> getReviewList() {
+        return reviewList;
+    }
+
+    public void setReviewList(List<Review> reviewList) {
+        this.reviewList = reviewList;
     }
 
     @XmlTransient

@@ -36,6 +36,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "CustOrder.findAll", query = "SELECT c FROM CustOrder c"),
     @NamedQuery(name = "CustOrder.findByOrderId", query = "SELECT c FROM CustOrder c WHERE c.orderId = :orderId"),
     @NamedQuery(name = "CustOrder.findByOrderShippingAddress", query = "SELECT c FROM CustOrder c WHERE c.orderShippingAddress = :orderShippingAddress"),
+    @NamedQuery(name = "CustOrder.findByOrderStatus", query = "SELECT c FROM CustOrder c WHERE c.orderStatus = :orderStatus"),
     @NamedQuery(name = "CustOrder.findByDate", query = "SELECT c FROM CustOrder c WHERE c.date = :date")})
 public class CustOrder implements Serializable {
 
@@ -48,9 +49,14 @@ public class CustOrder implements Serializable {
     @Size(max = 150)
     @Column(name = "ORDER_SHIPPING_ADDRESS")
     private String orderShippingAddress;
+    @Size(max = 50)
+    @Column(name = "ORDER_STATUS")
+    private String orderStatus;
     @Column(name = "DATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
+    @OneToMany(mappedBy = "orderId")
+    private List<Review> reviewList;
     @JoinColumn(name = "CUST_ID", referencedColumnName = "CUST_ID")
     @ManyToOne
     private Customer custId;
@@ -83,12 +89,29 @@ public class CustOrder implements Serializable {
         this.orderShippingAddress = orderShippingAddress;
     }
 
+    public String getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(String orderStatus) {
+        this.orderStatus = orderStatus;
+    }
+
     public Date getDate() {
         return date;
     }
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    @XmlTransient
+    public List<Review> getReviewList() {
+        return reviewList;
+    }
+
+    public void setReviewList(List<Review> reviewList) {
+        this.reviewList = reviewList;
     }
 
     public Customer getCustId() {

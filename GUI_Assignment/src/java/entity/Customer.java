@@ -54,6 +54,8 @@ public class Customer implements Serializable {
     @Column(name = "CUST_SHIPPING_ADDRESS")
     private String custShippingAddress;
     @OneToMany(mappedBy = "custId")
+    private List<Review> reviewList;
+    @OneToMany(mappedBy = "custId")
     private List<CustOrder> custOrderList;
     @JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID")
     @ManyToOne
@@ -98,6 +100,15 @@ public class Customer implements Serializable {
 
     public void setCustShippingAddress(String custShippingAddress) {
         this.custShippingAddress = custShippingAddress;
+    }
+
+    @XmlTransient
+    public List<Review> getReviewList() {
+        return reviewList;
+    }
+
+    public void setReviewList(List<Review> reviewList) {
+        this.reviewList = reviewList;
     }
 
     @XmlTransient

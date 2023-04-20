@@ -31,7 +31,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Inventory.findByInvId", query = "SELECT i FROM Inventory i WHERE i.invId = :invId"),
     @NamedQuery(name = "Inventory.findByInvQuantity", query = "SELECT i FROM Inventory i WHERE i.invQuantity = :invQuantity"),
     @NamedQuery(name = "Inventory.findByInvColor", query = "SELECT i FROM Inventory i WHERE i.invColor = :invColor"),
-    @NamedQuery(name = "Inventory.findByInvSize", query = "SELECT i FROM Inventory i WHERE i.invSize = :invSize")})
+    @NamedQuery(name = "Inventory.findByInvShoeSize", query = "SELECT i FROM Inventory i WHERE i.invShoeSize = :invShoeSize")})
 public class Inventory implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -45,8 +45,8 @@ public class Inventory implements Serializable {
     @Size(max = 20)
     @Column(name = "INV_COLOR")
     private String invColor;
-    @Column(name = "INV_SIZE")
-    private Integer invSize;
+    @Column(name = "INV_SHOE_SIZE")
+    private Integer invShoeSize;
     @JoinColumn(name = "PROD_ID", referencedColumnName = "PROD_ID")
     @ManyToOne
     private Product prodId;
@@ -82,12 +82,12 @@ public class Inventory implements Serializable {
         this.invColor = invColor;
     }
 
-    public Integer getInvSize() {
-        return invSize;
+    public Integer getInvShoeSize() {
+        return invShoeSize;
     }
 
-    public void setInvSize(Integer invSize) {
-        this.invSize = invSize;
+    public void setInvShoeSize(Integer invShoeSize) {
+        this.invShoeSize = invShoeSize;
     }
 
     public Product getProdId() {
