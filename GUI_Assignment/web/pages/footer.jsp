@@ -14,11 +14,7 @@
         <ul>
           <li><a href="#">Become A Member</a></li>
           <br>
-          <li><a href="#">Student Discount</a></li>
-          <br>
           <li><a href="#">Sign Up</a></li>
-          <br>
-          <li><a href="#">Help</a></li>
           <br>
           <li><a href="#">Send Us A Feedback</a></li>
         </ul>
@@ -34,13 +30,14 @@
         </ul>
       </div>
       <div class="footer-social">
-        <h5 style="margin-right: 0.9em;">SOCIAL</h5>
+        <h5 style="margin-right: 0.9em;">SOCIALS</h5>
         <ul style="display:flex; justify-content:space-between; align-items:center; ">
           <li style="margin-right: 1em;"><a href="#"><i class="fa-brands fa-facebook"></a></i></li>
           <li style="margin-right: 1em;"><a href="#"><i class="fa-brands fa-instagram"></a></i></li>
           <li style="padding-right: 100px;"><a href="#"><i class="fa-brands fa-twitter"></a></i></li>
         </ul>
-        <p>Â© 2023 Banana Shoe - All Rights Reserved</p>
+        </br>
+        <p>© 2023 Banana Shoe - All Rights Reserved</p>
       </div>
     </div>
 </footer>

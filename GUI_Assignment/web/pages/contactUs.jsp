@@ -20,21 +20,20 @@
               Have a question for us or feedback? Contact us today to learn more about our products and services!</p>
             </div>
       </div>
-      <div class="container-help">
-      <div class="help">
-        <h4>How can we help</h4>
-        <ul>
-          <li><a href="contact_us.html">Where is my refund</a></li>
-          <li><a href="contact_us.html">How do I return my order</a></li>
-          <li><a href="contact_us.html">Can't see my order</a></li>
-          <li><a href="contact_us.html">Does Banana Shoe have warranty</a></li>
-          <li><a href="contact_us.html">How do I become a member of Banana Shoe</a></li>
-          <li><a href="contact_us.html">What payment options can I use on Banana Shoe</a></li>
-          <li><a href="contact_us.html">What is Banana Shoe membership?</a></li>
-          <li><a href="contact_us.html">What is Banana Shoe return policy?</a></li>
-          <li><a href="contact_us.html">Banana shoe newest releases</a></li>
-        </ul>
+      <div class="container-location">
+        <img src="./../assets/homepage/location-global.svg">
       </div>
+      <br/>
+      <div class="address">
+         <h4>Address:</h4>
+         <p><i class="fa-solid fa-location-dot"></i> Banana Town Lot Banana 123 i love timothy</p>
+         <br/>
+         <h4>Email:</h4>
+         <p><i class="fa-solid fa-envelope"></i> TimothyLover@gay.com</p>
+         <br/>
+         <h4>Call Us:</h4>
+         <p><i class="fa-solid fa-phone"></i>  21343121491</p>
+      </div>    
       <div class="contact-form">
         <h3>Contact Us</h3>
         <form action="#" method="POST">
@@ -54,6 +53,12 @@
             <label for="message">Message:</label>
             <textarea id="message" name="message" rows="5" required></textarea>
           </div>
+            <div class="form-group">
+            <label for="filechoose">Upload Attachment Here</label>
+            <input style="cursor:pointer;" class="mt-1" type="file" name="file[]" 
+            class="form-control-file" id="filechoose" 
+            accept=".jpg,.png,.jpeg,.webp,.gif,.mp4,.mkv,.mov,.webm" multiple> 
+            </div>
           <button class="submit-button" type="submit">Send Message</button>
         </form>
       </div>

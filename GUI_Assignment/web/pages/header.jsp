@@ -13,14 +13,14 @@
     
     <header>
         <!-- Header 2 -->
-        <div style="background-color:none; padding-top: 15px;">
+        <div style="background-color: #B8B8B8; padding-top: 15px;">
           <div class="container">
-            <ul class="ul">
-              <li class="logo"><a href="<%=ROOT_PATH + "index.html"%>"><img src=<%=ROOT_PATH + "banana.png"%> class="icon"></a></li>
+            <ul class="main-ul">
+              <li class="logo"><a href="<%=ROOT_PATH + "index.html"%>"><img src=<%=ROOT_PATH + "banana.png"%> class="icons"></a></li>
               <li class="li-1"><a href=<%=ROOT_PATH + "home.jsp"%>>Home</a></li>
               <li class="li-2"><a href="#">New &amp; Featured</a></li>
               <li class="li-3"><a href="#">Brand</a></li>
-              <li class="li-3"><a href="#">About Us</a></li>
+              <li class="li-3"><a href="<%=ROOT_PATH + "pages/aboutUs.jsp"%>">About Us</a></li>
               <li class="li-3"><a href="#">Men</a></li>
               <li class="li-3"><a href="#">Women</a></li>
               <li class="li-3"><a href="#">Kids</a></li>
