@@ -2,11 +2,27 @@
 <%@page import="entity.Customer"%>
 
 <% 
-    String ROOT_PATH = "../../"; 
-    request.setAttribute("ROOT_PATH", ROOT_PATH);
+    //Get root path (from controller)
+    String ROOT_PATH = (String) request.getAttribute("ROOT_PATH");
+    
+    //Get variable from Query String
+    boolean addNewAction = request.getParameter("addNewAction") != null ? true : false;
+    
+    //Get customers information from controller (LoadCustomer.jsp)
+    //Declare variable
+    List<Customer> customerList=null;
+    Customer editCustomer=null;
+    
+    if(!addNewAction){
+        //Customer List
+        customerList = (List<Customer>) request.getAttribute("customerList") != null ? (List<Customer>) request.getAttribute("customerList") : null;
+        //Edit Customer
+        editCustomer = (Customer) request.getAttribute("editCustomer") != null ? (Customer) request.getAttribute("editCustomer") : null;
+    }
 %>
 
-<jsp:include page="<%= ROOT_PATH + "pages/admin/sidebar.jsp"%>">
+<!-- Include Header -->
+<jsp:include page="sidebar.jsp">
     <jsp:param name="ROOT_PATH" value="<%=ROOT_PATH%>" />
 </jsp:include>
 
@@ -14,41 +30,28 @@
     body.querySelector(".nav-link.customer").classList.add("active");
 </script>
 
-<link rel="stylesheet" href="../../css/admin/customer.css">
+<link rel="stylesheet" href="<%=ROOT_PATH+"css/admin/customer.css"%>">
 
 <main>
-    
-    <%
-         String error = (String)request.getAttribute("error");
-         
-         List<Customer> customers = (List<Customer>) request.getAttribute("customers");
-         
-         String buffer="";
-         for(Customer c: customers){
-            buffer=c.getCustFullName();
-        }
-    %>
-    
-    
+    <% if(customerList != null){ %>
     <div class="container customerList">
         <div class="text">
             <h1>Customer List</h1>
-            <p>10 record(s) found</p>
+            <p><%=customerList.size()%> record(s) found</p>
         </div>
-
-        <button class="addNew btn">Add New</button>
+        <button class="addNew btn" onclick="location.href='?addNewAction=true'">Add New</button>
         <div class="searchBar">
             <input type="search" placeholder="Search ..." required>
             <a href="#"><i class='fa-solid fa-magnifying-glass fa-bounce'></i></a>
         </div>
 
         <div class="notificationBox success">
-            <span class="message"><%=buffer%></span>
+            <span class="message">Success Message</span>
             <span class="closeBtn" onclick="this.parentElement.style.display='none';"><i class="fa-solid fa-xmark"></i></span> 
         </div>
 
         <div class="notificationBox error">
-            <span class="message"><%=error%></span>
+            <span class="message">Error Message</span>
             <span class="closeBtn" onclick="this.parentElement.style.display='none';"><i class="fa-solid fa-xmark"></i></span> 
         </div>
 
@@ -56,41 +59,62 @@
             <thead>
                 <tr>
                     <td class="checkAllIcon" style="padding:0.5rem;"><i class="fa-solid fa-list-check fa-spin" style="transition: none;"></i></td>
-                    <th style="padding-left:0.2rem;">Rank</th>
-                    <th>Name</th>
-                    <th>Points</th>
-                    <th>Team</th>
+                    <th><i class="fa-solid fa-hashtag"></i></th>
+                    <th>ID</th>
+                    <th>User Name</th>
+                    <th>Full Name</th>
+                    <th>Contact</th>
+                    <th>Shipping Address</th>
                     <th>Action</th>
                 </tr>
             </thead>
             <tbody>
+                <%
+                    for(int i=0; i<customerList.size();i++){
+                        Customer c = customerList.get(i);
+                        //Handle long string
+                        String username = c.getUserId().getUserName();
+                        if(username == null){
+                            username = "&#8212;";
+                        }
+                        if(username.length() > 10){
+                            username = username.substring(0, 10)+"...";
+                        }
+                        
+                        String fullname = c.getCustFullName();
+                        if(fullname.length() > 20){
+                            fullname = fullname.substring(0, 20)+"...";
+                        }
+
+                        String shippingAddress = c.getCustShippingAddress();
+                        if(shippingAddress.length() > 20){
+                            shippingAddress = shippingAddress.substring(0, 20)+"...";
+                        }
+                %>
                 <tr>
-                    
-                    <form action="" method="GET">
-                        
-                        <%
-                            //List<Customer> customers = (List<Customer>) request.getAttribute("subjects");
-                            //for(Customer s: Customer){
-                        %>
-                        
-                        <td style="padding:0;"><input type="checkbox"></td>
-                        <td style="padding-left:0.2rem;">1</td>
-                        <td>Domenic</td>
-                        <td>88,110</td>
-                        <td>dcode</td>
-                        <td><button class="actionRoundBtn"><i class="fa-solid fa-circle-info fa-spin"></i></button></td>
-                        
-                        </form>
-                        <%
-                            //}
-                        %>
+                    <td style="padding:0;" name="checkedCustId" value="<%=c.getCustId()%>"><input type="checkbox"></td>
+                    <td style="font-weight:600;"><%=i+1%></td>
+                    <td><%=c.getCustId()%></td>
+                    <td><%=username%></td>
+                    <td><%=fullname%></td>
+                    <td>
+                        <% if(c.getUserId().getUserEmail() != null){%>
+                                <a style="width: 1rem;" href="mailto:<%=c.getUserId().getUserEmail()%>" class="contactRoundBtn"><i class="fa-solid fa-envelope"></i></i></a>
+                        <%}if(c.getCustPhoneNum() != null){ %>
+                                <a style="width: 1rem;" href="tel:<%=c.getCustPhoneNum()%>" class="contactRoundBtn"><i class="fa-solid fa-phone"></i></a>
+                        <% } %>
+                    </td>
+                    <td><%=shippingAddress%></td>
+                    <td><button class="actionRoundBtn" onclick="location.href='<%="LoadCustomer/editCustID/"+c.getCustId()%>'"><i class="fa-solid fa-circle-info fa-spin"></i></button></td>
                 </tr>
+                <% } %>
             </tbody>
         </table>
-        <button class="editCustBtn btn success">Edit</button>
     </div>
-
-    <div class="container addCustomer hide">
+    <% } else if(addNewAction){%>
+    
+    
+    <div class="container addCustomer ">
         <div class="text">
             <h1>Add Customer</h1>
         </div>
@@ -105,33 +129,40 @@
             <span class="closeBtn" onclick="this.parentElement.style.display='none';"><i class="fa-solid fa-xmark"></i></span> 
         </div>
 
-        <table class="table vertical-table">
-            <tr>
-                <td>Rank</td>
-                <td><input type="text" value="1"></td>
-            </tr>
-            <tr>
-                <td>Name</td>
-                <td><input type="text" value="Domenic"></td>
-            </tr>
-            <tr>
-                <td>Points</td>
-                <td><input type="text" value="8810"></td>
-            </tr>
-            <tr>
-                <td>Team</td>
-                <td><input type="text" value="Timothythythy"></td>
-            </tr>
-        </table>
+        <form>
+            <table class="table vertical-table">
+                <tr>
+                    <td><strong>User Name</strong></td>
+                    <td><input type="text" name="addNew_userName"></td>
+                </tr>
+                <tr>
+                    <td><strong>Full Name</strong></td>
+                    <td><input type="text" name="addNew_fullName"></td>
+                </tr>
+                <tr>
+                    <td><strong>Phone Number</strong></td>
+                    <td><input type="text" name="addNew_phoneNum"></td>
+                </tr>
+                <tr>
+                    <td><strong>Email</strong></td>
+                    <td><input type="email" name="addNew_email"></td>
+                </tr>
+                <tr>
+                    <td><strong>Shipping Address</strong></td>
+                    <td><input type="text" name="addNew_shippingAddress"></td>
+                </tr>
+            </table>
 
-        <div class="addNew-action">
-            <button class="addNewBackBtn backBtn btn" style="float: left;">Back</button>
-            <button class="submitBtn btn success">Submit</button>
-            <button class="resetBtn btn danger">Reset</button>
-        </div>
+            <div class="addNew-action">
+                <button class="addNewBackBtn backBtn btn" onclick="if(confirm('Are you sure you want to go back?')) { location.href='<%=ROOT_PATH+"pages/admin/LoadCustomer"%>' }" style="float: left;">Back</button>
+                <button type="submit" class="submitBtn btn success">Submit</button>
+                <button type="reset" class="resetBtn btn danger" onclick="if(confirm('Are you sure you want to reset the form?')) { this.form.reset(); } else { return false; }">Reset</button>
+            </div>
+        </form>
     </div>
 
-    <div class="container customerDetail hide">
+    <% }else if(editCustomer != null){ %>
+    <div class="container customerDetail">
         <div class="text">
             <h1>Customer Detail</h1>
             <p>230101YWM - YAP WAI MENG</p>
@@ -143,110 +174,66 @@
         </div>
 
         <div class="notificationBox error">
-            <span class="message">Error Occurred, Please Try Again !</span>
+            <span class="message">Error Message</span>
             <span class="closeBtn" onclick="this.parentElement.style.display='none';"><i class="fa-solid fa-xmark"></i></span> 
         </div>
 
         <table class="table vertical-table">
             <tr>
-                <td>Rank</td>
-                <td><input type="text" name="rank" id="rank" value="1" disabled></td>
+                <td><strong>ID </strong><small>(*ID can't be modified)</small></td>
+                <td><input type="text" name="edit_Id" id="edit_Id" value="<%=editCustomer.getCustId()%>" disabled></td>
             </tr>
             <tr>
-                <td>Name</td>
-                <td><input type="text" name="name" id="name" value="Domenic" disabled></td>
+                <td><strong>User Name</strong></strong></td>
+                <td><input type="text" name="edit_userName" id="edit_userName" value="<%=editCustomer.getUserId().getUserName()%>" disabled></td>
             </tr>
             <tr>
-                <td>Points</td>
-                <td><input type="text" name="point" id="point" value="8810" disabled></td>
+                <td><strong>Full Name</strong></strong></td>
+                <td><input type="text" name="edit_fullName" id="edit_fullName" value="<%=editCustomer.getCustFullName()%>" disabled></td>
             </tr>
             <tr>
-                <td>Team</td>
-                <td><input type="text" name="team" id="team" value="Timothythythy" disabled></td>
+                <td><strong>Phone Number</strong></td>
+                <td><input type="text" name="edit_phoneNum" id="edit_phoneNum" value="<%=editCustomer.getCustPhoneNum()%>" disabled></td>
+            </tr>
+            <tr>
+                <td><strong>Email</strong></td>
+                <td><input type="text" name="edit_email" id="edit_email" value="<%=editCustomer.getUserId().getUserEmail()%>" disabled></td>
+            </tr>
+            <tr>
+                <td><strong>Shipping Address</strong></td>
+                <td><input type="text" name="edit_shippingAddress" id="edit_shippingAddress" value="<%=editCustomer.getCustShippingAddress()%>" disabled></td>
             </tr>
         </table>
 
         <div class="detail-action">
-            <button class="editCustBackBtn backBtn btn" style="float: left;">Back</button>
+            <button class="editCustBackBtn backBtn btn" onclick="location.href='<%=ROOT_PATH+"pages/admin/LoadCustomer"%>'" style="float: left;">Back</button>
             <button class="deleteBtn btn danger">Delete</button>
             <button class="editBtn btn success">Edit</button>
         </div>
 
         <div class="edit-action hide">
-            <button class="back btn" style="float: left;">Restore</button>
+            <button class="delete btn danger" onclick="if(confirm('Are you sure you want to cancel?')) { history.go(0); }" style="float: left;">Cancel</button>
             <button class="edit btn success">Save</button>
-            <button class="delete btn danger">Cancel</button>
         </div>
     </div>
+    <% } %>
+    <script>
+        //SHOW and HIDE Action Button
+        const editBtn = body.querySelector('.editBtn'),
+            actionBtnField = body.querySelector('.detail-action'),
+            editActionBtnField = body.querySelector('.edit-action');
+    
+        //Get Text Field and remove 'disabled'
+        editBtn.addEventListener("click" , () =>{
+            actionBtnField.classList.add("hide");
+            editActionBtnField.classList.remove("hide");
+            document.getElementById('edit_userName').removeAttribute("disabled");
+            document.getElementById('edit_fullName').removeAttribute("disabled");
+            document.getElementById('edit_phoneNum').removeAttribute("disabled");
+            document.getElementById('edit_email').removeAttribute("disabled");
+            document.getElementById('edit_shippingAddress').removeAttribute("disabled");
+        });
+    </script>
 </main>
-<script>
-    //SHOW and HIDE Container
-    const custListField = body.querySelector('.customerList'),
-        addCustField = body.querySelector('.addCustomer'),
-        custDetailField = body.querySelector('.customerDetail'),
-        addNewBtn = body.querySelector('.addNew.btn'),
-        addNewBackBtn = body.querySelector('.addNewBackBtn'),
-        editCustBtn = body.querySelector('.editCustBtn'),
-        editCustBackBtn = body.querySelector('.editCustBackBtn');
-
-    addNewBtn.addEventListener("click" , () =>{
-        custListField.style.opacity = 0;
-        addCustField.style.opacity = 1;
-        custDetailField.style.opacity = 0;
-
-        setTimeout(() => {
-            custListField.classList.add("hide");
-            addCustField.classList.remove("hide");
-        }, 200);
-    });
-
-    addNewBackBtn.addEventListener("click" , () =>{
-        addCustField.style.opacity = 0;
-        custListField.style.opacity = 1;
-        custDetailField.style.opacity = 0;
-
-        setTimeout(() => {
-            addCustField.classList.add("hide");
-            custListField.classList.remove("hide");
-        }, 200);
-    });
-
-    editCustBtn.addEventListener("click" , () =>{
-        addCustField.style.opacity = 0;
-        custListField.style.opacity = 0;
-        custDetailField.style.opacity = 1;
-
-        setTimeout(() => {
-            custListField.classList.add("hide");
-            custDetailField.classList.remove("hide");
-        }, 200);
-    });
-
-    editCustBackBtn.addEventListener("click" , () =>{
-        addCustField.style.opacity = 0;
-        custListField.style.opacity = 1;
-        custDetailField.style.opacity = 0;
-
-        setTimeout(() => {
-            custDetailField.classList.add("hide");
-            custListField.classList.remove("hide");
-        }, 200);
-    });
-
-    //SHOW and HIDE Action Button
-    const editBtn = body.querySelector('.editBtn'),
-        actionBtnField = body.querySelector('.detail-action'),
-        editActionBtnField = body.querySelector('.edit-action');
-    //Get Text Field and remove 'disabled'
-
-    editBtn.addEventListener("click" , () =>{
-        actionBtnField.classList.add("hide");
-        editActionBtnField.classList.remove("hide");
-        document.getElementById('rank').removeAttribute("disabled");
-        document.getElementById('name').removeAttribute("disabled");
-        document.getElementById('point').removeAttribute("disabled");
-        document.getElementById('team').removeAttribute("disabled");
-    });
-</script>
 </body>
 </html>

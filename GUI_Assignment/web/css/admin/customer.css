@@ -36,22 +36,30 @@
   width: 0;
 }
 
-.actionRoundBtn{
+.actionRoundBtn, .contactRoundBtn{
   color: var(--color-font);
   background: transparent;
-  display: block;
   margin: 0 auto;
   padding: 0;
-  font-size: 1rem;
   border: 0;
   border-radius: var(--border-radius-3);
+  font-size: 1.1rem;
   cursor: pointer;
   transform: scale(1.3);
   opacity: 0.8;
   text-align: center;
 }
 
-.actionRoundBtn:hover{
+.contactRoundBtn i{
+  margin-right: 0.5rem;
+}
+
+.actionRoundBtn{
+  font-size: 1rem;
+  display: block;
+}
+
+.actionRoundBtn:hover, .contactRoundBtn:hover{
   transform: scale(1.5);
   opacity: 1;
 }

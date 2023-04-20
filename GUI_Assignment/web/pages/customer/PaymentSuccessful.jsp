@@ -1,7 +1,13 @@
+<%@page import="entity.Payment"%>
 <% String ROOT_PATH = "../../"; %>
 <jsp:include page="<%= ROOT_PATH + "pages/header.jsp"%>">
     <jsp:param name="ROOT_PATH" value="<%=ROOT_PATH%>" />
 </jsp:include>
+
+<%
+    
+    Payment p = (Payment)request.getAttribute("payment");
+%>
 
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -28,7 +34,7 @@
                                     Payment Method:
                                 </td>
                                 <td>
-                                    <input type="text" value="${payment.method}"/>
+                                    <input type="text" value="<%=p.getPaytMethod()%>"/>
                                 </td>
                             </tr>
                             <tr>
@@ -36,7 +42,7 @@
                                     Date:
                                 </td>
                                 <td>
-                                    <input type="text" value="${payment.date}"/>
+                                    <input type="text" value=""/>
                                 </td>
                             </tr>   
                             <tr>
@@ -44,7 +50,7 @@
                                     Payment Id:
                                 </td>
                                 <td>
-                                    <input type="text" value="${payment.id}"/>
+                                    <input type="text" value=""/>
                                 </td>
                             </tr> 
 
