@@ -37,42 +37,42 @@
             <div class="menu">
                 <ul class="menu-links">
                     <li class="nav-link dashboard">
-                        <a href="dashboard.jsp">
+                        <a href="<%=ROOT_PATH + "pages/admin/dashboard.jsp"%>">
                             <i class="fa-solid fa-chart-line icon"></i>
                             <span class="text nav-text">Dashboard</span>
                         </a>
                     </li>
                     
                     <li class="nav-link customer">
-                        <a href="LoadCustomer">
+                        <a href="<%=ROOT_PATH + "pages/admin/LoadCustomer"%>">
                             <i class="fa-solid fa-address-book icon"></i>
                             <span class="text nav-text">Customer</span>
                         </a>
                     </li>
 
                     <li class="nav-link product">
-                        <a href="product.jsp">
+                        <a href="<%=ROOT_PATH + "pages/admin/product.jsp"%>">
                             <i class="fa-solid fa-boxes-stacked icon"></i>
                             <span class="text nav-text">Product</span>
                         </a>
                     </li>
 
                     <li class="nav-link order">
-                        <a href="order.jsp">
+                        <a href="<%=ROOT_PATH + "pages/admin/order.jsp"%>">
                             <i class="fa-solid fa-cart-flatbed icon"></i>
                             <span class="text nav-text">Order</span>
                         </a>
                     </li>
 
                     <li class="nav-link staff">
-                        <a href="staff.jsp">
+                        <a href="<%=ROOT_PATH + "pages/admin/staff.jsp"%>">
                             <i class="fa-solid fa-id-card-clip icon"></i>
                             <span class="text nav-text">Staff *</span>
                         </a>
                     </li>
 
                     <li class="nav-link report">
-                        <a href="report.jsp">
+                        <a href="<%=ROOT_PATH + "pages/admin/report.jsp"%>">
                             <i class="fa-solid fa-chart-pie icon"></i>
                             <span class="text nav-text">Report *</span>
                         </a>

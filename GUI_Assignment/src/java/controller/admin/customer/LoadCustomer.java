@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
-@WebServlet(name = "LoadCustomer", urlPatterns = {"/pages/admin/LoadCustomer"})
+@WebServlet(name = "LoadCustomer", urlPatterns = {"/pages/admin/LoadCustomer/*"})
 public class LoadCustomer extends HttpServlet {
     @PersistenceContext EntityManager em;
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -23,20 +23,17 @@ public class LoadCustomer extends HttpServlet {
         
         try{
             //Load all customers in database
-            Query q = em.createNamedQuery("Customer.findAll");
-            List<Customer> customers = q.getResultList();
-            request.setAttribute("customers", customers);
+            Query q = em.createNamedQuery("Customer.findAllDescId");
+            List<Customer> customerList = q.getResultList();
+            request.setAttribute("customerList", customerList);
+            request.setAttribute("ROOT_PATH", "../../");
 
             //Forward Page
             RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/admin/customer.jsp");
             dispatcher.forward(request, response);
             
         }catch(Exception ex){
-            request.setAttribute("error", ex.getMessage());
-            
-            //Forward Page
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/admin/customer.jsp");
-            dispatcher.forward(request, response);
+            //error
         }
     }
 
@@ -52,7 +49,31 @@ public class LoadCustomer extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
+        String pathInfo = request.getPathInfo();
+                    
+        if (pathInfo == null || pathInfo.equals("/")) { //No action require
+            processRequest(request, response);
+        }else {
+            request.setAttribute("ROOT_PATH", "../../../../") ;
+            //Remove customerList
+            request.removeAttribute("customerList");
+            
+            String[] pathParts = pathInfo.split("/");
+            if (pathParts[1].equals("editCustID")) {
+                // Edit the customer with the specified ID
+                int editCustID = Integer.parseInt(pathParts[2]);
+                Customer editCustomer = em.find(Customer.class, editCustID);
+                request.setAttribute("editCustomer", editCustomer);
+            } else {
+                //error
+            }
+        }
+        
+        //Forward Page
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/admin/customer.jsp");
+        dispatcher.forward(request, response);
+        
     }
 
     /**
