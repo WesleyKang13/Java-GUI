@@ -5,7 +5,8 @@
     //Get notification from controllers
     String successMsg = request.getParameter("successMsg") != null ? (String) request.getParameter("successMsg") : null;
     String errorMsg = request.getParameter("errorMsg") != null ? (String)request.getParameter("errorMsg") : null;
-    
+    String searchValue = request.getAttribute("searchValue") != null ? (String)request.getAttribute("searchValue") : null;
+    request.removeAttribute("searchValue");
     
     //Get root path (from controller)
     String ROOT_PATH = (String) request.getAttribute("ROOT_PATH");
@@ -44,14 +45,32 @@
     %>
     <div class="container customerList">
         <div class="text">
-            <h1>Customer List</h1>
+            <h1>Customer List </h1>
+            <% //Display search value when searching
+                if(searchValue!=null){
+                    out.print("<h3 style='padding-bottom:0.4rem;'>Searching - "+searchValue+"</h3>");
+                    out.print("<a href='"+ROOT_PATH+"pages/admin/LoadCustomer'>Reset</a>");
+                }
+            %>
             <p><%=customerList.size()%> record(s) found</p>
         </div>
-        <button class="addNew btn" onclick="location.href='?addNewAction=true'">Add New</button>
+        <button class="addNew btn" onclick="location.href='<%=ROOT_PATH+"pages/admin/LoadCustomer?addNewAction=true"%>'">Add New</button>
         <div class="searchBar">
-            <input type="search" placeholder="Search ..." required>
-            <a href="#"><i class='fa-solid fa-magnifying-glass fa-bounce'></i></a>
+            <input id="searchInput" type="search" placeholder="Search ..." required>
+            <a id="searchBtn" href="#"><i class='fa-solid fa-magnifying-glass fa-bounce'></i></a>
         </div>
+
+        <script>
+            const searchBtn = document.querySelector('#searchBtn');
+            const searchInput = document.querySelector('#searchInput');
+
+            searchBtn.addEventListener('click', (event) => {
+              event.preventDefault();
+              const searchValue = searchInput.value;
+              const url = "<%=ROOT_PATH+"pages/admin/LoadCustomer/search/"%>" + searchValue;
+              window.location.href = url;
+            });
+        </script>
 
         <!--Display Notification Area-->
         <%if(successMsg!=null){%>
@@ -114,7 +133,7 @@
                         <% } %>
                     </td>
                     <td><%=shippingAddress%></td>
-                    <td><button class="actionRoundBtn" onclick="location.href='<%="LoadCustomer/editCustID/"+c.getCustId()%>'"><i class="fa-solid fa-circle-info fa-spin"></i></button></td>
+                    <td><button class="actionRoundBtn" onclick="location.href='<%=ROOT_PATH+"/pages/admin/LoadCustomer/editCustID/"+c.getCustId()%>'"><i class="fa-solid fa-circle-info fa-spin"></i></button></td>
                 </tr>
                 <% } %>
             </tbody>
@@ -172,7 +191,7 @@
             </table>
 
             <div class="addNew-action">
-                <button class="editCustBackBtn backBtn btn" onclick="if(confirm('Are you sure you want to go back?')) { location.href='<%=ROOT_PATH+"pages/admin/LoadCustomer" %>'; } else { return false; }" style="float: left;">Back</button>
+                <button type="button" class="editCustBackBtn backBtn btn" onclick="if(confirm('Are you sure you want to go back?')) { location.href='<%=ROOT_PATH+"pages/admin/LoadCustomer" %>'; } else { return false; }" style="float: left;">Back</button>
                 <button type="submit" class="submitBtn btn success" onclick="if(confirm('Are you sure you want to add new customer?')) { return true; } else { return false; }">Submit</button>
                 <button type="reset" class="resetBtn btn danger" onclick="if(confirm('Are you sure you want to reset the form?')) { this.form.reset(); } else { return false; }">Reset</button>
             </div>

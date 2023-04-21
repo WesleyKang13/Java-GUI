@@ -307,6 +307,12 @@ input[type='checkbox'], .checkAllIcon {
     opacity: 1;
 }
 
+.searchBar button{
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
 .searchBar i{
     color: var(--color-font);
     margin: 0;
