@@ -69,8 +69,7 @@
         <table class="table horizontal-table">
             <thead>
                 <tr>
-                    <td class="checkAllIcon" style="padding:0.5rem;"><i class="fa-solid fa-list-check" style="transition: none;"></i></td>
-                    <th><i class="fa-solid fa-hashtag"></i></th>
+                    <th><i class="fa-solid fa-hashtag" style="width:0rem;"></i></th>
                     <th>ID</th>
                     <th>User Name</th>
                     <th>Full Name</th>
@@ -103,8 +102,7 @@
                         }
                 %>
                 <tr>
-                    <td style="padding:0;" name="checkedCustId" value="<%=c.getCustId()%>"><input type="checkbox"></td>
-                    <td style="font-weight:600;"><%=i+1%></td>
+                    <td style="font-weight:600;width:0rem;"><%=i+1%></td>
                     <td><%=c.getCustId()%></td>
                     <td><%=username%></td>
                     <td><%=fullname%></td>
@@ -141,11 +139,19 @@
             <span class="closeBtn" onclick="this.parentElement.style.display='none';"><i class="fa-solid fa-xmark"></i></span> 
         </div>
 
-        <form>
+        <form action="<%=ROOT_PATH+"pages/admin/AddNewCustomer" %>" method="POST">
             <table class="table vertical-table">
                 <tr>
                     <td><strong>User Name</strong></td>
                     <td><input type="text" name="addNew_userName"></td>
+                </tr>
+                <tr>
+                    <td><strong>Password</strong></td>
+                    <td><input type="password" name="addNew_password"></td>
+                </tr>
+                <tr>
+                    <td><strong>Confirm Password</strong></td>
+                    <td><input type="password" name="addNew_confirmPassword"></td>
                 </tr>
                 <tr>
                     <td><strong>Full Name</strong></td>
@@ -167,7 +173,7 @@
 
             <div class="addNew-action">
                 <button class="editCustBackBtn backBtn btn" onclick="if(confirm('Are you sure you want to go back?')) { location.href='<%=ROOT_PATH+"pages/admin/LoadCustomer" %>'; } else { return false; }" style="float: left;">Back</button>
-                <button type="submit" class="submitBtn btn success">Submit</button>
+                <button type="submit" class="submitBtn btn success" onclick="if(confirm('Are you sure you want to add new customer?')) { return true; } else { return false; }">Submit</button>
                 <button type="reset" class="resetBtn btn danger" onclick="if(confirm('Are you sure you want to reset the form?')) { this.form.reset(); } else { return false; }">Reset</button>
             </div>
         </form>
@@ -232,8 +238,8 @@
             
         <div class="detail-action">
             <button class="editCustBackBtn backBtn btn" onclick="location.href='<%=ROOT_PATH+"pages/admin/LoadCustomer"%>'" style="float: left;">Back</button>
-            <button class="deleteBtn btn danger" onclick="if(confirm('Are you sure you want to delete this customer?')) { location.href='<%=ROOT_PATH+"pages/admin/DeleteCustomer?deleteId="+editCustomer.getCustId()%>'; }else{return false;}">Delete</button>
             <button class="editBtn btn success">Edit</button>
+            <button class="deleteBtn btn danger" onclick="if(confirm('Are you sure you want to delete this customer?')) { location.href='<%=ROOT_PATH+"pages/admin/DeleteCustomer?deleteId="+editCustomer.getCustId()%>'; }else{return false;}">Delete</button>
         </div>
     </div>
     <% } %>
@@ -243,16 +249,18 @@
             actionBtnField = body.querySelector('.detail-action'),
             editActionBtnField = body.querySelector('.edit-action');
     
-        //Get Text Field and remove 'disabled'
-        editBtn.addEventListener("click" , () =>{
-            actionBtnField.classList.add("hide");
-            editActionBtnField.classList.remove("hide");
-            document.getElementById('edit_userName').removeAttribute("disabled");
-            document.getElementById('edit_fullName').removeAttribute("disabled");
-            document.getElementById('edit_phoneNum').removeAttribute("disabled");
-            document.getElementById('edit_email').removeAttribute("disabled");
-            document.getElementById('edit_shippingAddress').removeAttribute("disabled");
-        });
+        if (editBtn) {
+            //Get Text Field and remove 'disabled'
+            editBtn.addEventListener("click" , () =>{
+                actionBtnField.classList.add("hide");
+                editActionBtnField.classList.remove("hide");
+                document.getElementById('edit_userName').removeAttribute("disabled");
+                document.getElementById('edit_fullName').removeAttribute("disabled");
+                document.getElementById('edit_phoneNum').removeAttribute("disabled");
+                document.getElementById('edit_email').removeAttribute("disabled");
+                document.getElementById('edit_shippingAddress').removeAttribute("disabled");
+            });
+        }
     </script>
 </main>
 </body>

@@ -1,12 +1,18 @@
 package controller.admin.customer;
 
+import java.util.List;
+import entity.Cart;
+import entity.CustOrder;
 import entity.Customer;
+import entity.OrderItem;
+import entity.Review;
 import entity.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -47,7 +53,6 @@ public class DeleteCustomer extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
         
         String custId = (String)request.getParameter("deleteId");
         String errorMsg="";
@@ -59,14 +64,43 @@ public class DeleteCustomer extends HttpServlet {
             utx.begin();
             
             // Find User and Customer entities to be deleted
-            Customer customer = em.find(Customer.class, custId);
-            User user = em.find(User.class, customer.getUserId());
+            Customer customer = em.find(Customer.class, Integer.valueOf(custId));
+            User user = em.find(User.class, customer.getUserId().getUserId());
             
             //Delete rows of record
             if (customer != null) {
-                em.remove(customer); 
-            }
-            if (user != null) {
+                
+                // Delete all carts related to the customer
+                Query query1 = em.createQuery("DELETE FROM Cart c WHERE c.custId = :custId");
+                query1.setParameter("custId", customer);
+                query1.executeUpdate();
+                
+                
+                // Delete all order_items related to the customer and delete the order items
+                List<CustOrder> orders = em.createQuery("SELECT o FROM CustOrder o WHERE o.custId = :custId", CustOrder.class)
+                        .setParameter("custId", customer)
+                        .getResultList();
+                
+                for (CustOrder order : orders) {
+                    // Delete all reviews related to the customer
+                    Query query2 = em.createQuery("DELETE FROM Review r WHERE r.custId = :custId OR r.orderId = :orderId");
+                    query2.setParameter("custId", customer);
+                    query2.setParameter("orderId", order);
+                    query2.executeUpdate();
+                    
+                    // Delete order items related to the order
+                    Query query3 = em.createQuery("DELETE FROM OrderItem oi WHERE oi.orderId = :orderId");
+                    query3.setParameter("orderId", order);
+                    query3.executeUpdate();
+                }
+                
+                // Delete all orders related to the customer
+                Query query4 = em.createQuery("DELETE FROM CustOrder o WHERE o.custId = :custId");
+                query4.setParameter("custId", customer);
+                query4.executeUpdate();
+                
+                // Finally, delete the customer
+                em.remove(customer);
                 em.remove(user);
             }
             
@@ -83,7 +117,6 @@ public class DeleteCustomer extends HttpServlet {
                 throw new ServletException(e);
             }
             errorMsg += "Error Occurred: Please try again. ("+ex.getMessage()+")";
-            
             forwardPage=false;
             //error page
             throw new ServletException(ex);
