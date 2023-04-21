@@ -25,9 +25,9 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p"),
-    @NamedQuery(name = "Product.findByIdWithInventory", query = "SELECT p, i FROM Product p JOIN p.Inventory i WHERE p.prodId = :prodId"),
+    @NamedQuery(name = "Product.findByIdWithInventory", query = "SELECT p, i FROM Product p JOIN p.inventoryList i WHERE p.prodId = :prodId"),
     @NamedQuery(name = "Product.findByProdId", query = "SELECT p FROM Product p WHERE p.prodId = :prodId"),
-    @NamedQuery(name = "Product.findByProdName", query = "SELECT p FROM Product p WHERE p.prodName = :prodName"),
+    //@NamedQuery(name = "Product.findByProdName", query = "SELECT p FROM Product p WHERE p.prodName = :prodName"),
     @NamedQuery(name = "Product.findByProdBrand", query = "SELECT p FROM Product p WHERE p.prodBrand = :prodBrand"),
     @NamedQuery(name = "Product.findByProdPrice", query = "SELECT p FROM Product p WHERE p.prodPrice = :prodPrice"),
     @NamedQuery(name = "Product.findByProdDescription", query = "SELECT p FROM Product p WHERE p.prodDescription = :prodDescription"),
@@ -41,9 +41,9 @@ public class Product implements Serializable {
     @Column(name = "PROD_ID")
     private Integer prodId;
     @Size(max = 50)
-    @Column(name = "PROD_NAME")
-    private String prodName;
-    @Size(max = 20)
+//    @Column(name = "PROD_NAME")
+//    private String prodName;
+//    @Size(max = 20)
     @Column(name = "PROD_BRAND")
     private String prodBrand;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
@@ -79,13 +79,13 @@ public class Product implements Serializable {
         this.prodId = prodId;
     }
 
-    public String getProdName() {
-        return prodName;
-    }
-
-    public void setProdName(String prodName) {
-        this.prodName = prodName;
-    }
+//    public String getProdName() {
+//        return prodName;
+//    }
+//
+//    public void setProdName(String prodName) {
+//        this.prodName = prodName;
+//    }
 
     public String getProdBrand() {
         return prodBrand;

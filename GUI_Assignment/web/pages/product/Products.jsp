@@ -58,7 +58,7 @@
             for(Product product : products){
         %>
          <form action="FindDetails" method="post" >
-            <input type="hidden" name="prodId" value="<%= product.getProdId() %>">
+            <input type="hidden" name="prodId" value="<%= product.getProdId() %>" />
             <div class="product-field">
                 <button type="submit">
                 <ul class="shoes">

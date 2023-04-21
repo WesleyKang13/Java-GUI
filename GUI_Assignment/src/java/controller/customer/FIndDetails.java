@@ -22,7 +22,7 @@ import javax.swing.JOptionPane;
  *
  * @Wesley
  */
-@WebServlet(name = "FIndDetails", urlPatterns = {"/pages/product/FIndDetails"})
+@WebServlet(name = "FindDetails", urlPatterns = {"/pages/product/FindDetails"})
 public class FindDetails extends HttpServlet {
     
     @PersistenceContext EntityManager em;
@@ -38,8 +38,11 @@ public class FindDetails extends HttpServlet {
 
         if (resultList.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Empty record");
+            
         } else {
+            
             Product product = (Product) resultList.get(0)[0];
+            
             List<Inventory> inventoryList = new ArrayList<>();
             for (Object[] obj : resultList) {
                 inventoryList.add((Inventory) obj[1]);
@@ -50,7 +53,9 @@ public class FindDetails extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("ProductDetails.jsp");
             dispatcher.forward(request, response);
           }
+        
         }catch(HeadlessException | IOException | NumberFormatException | ServletException ex){
+            
             try (PrintWriter out = response.getWriter()) {
             out.println("Error");
             out.println(ex.getMessage());

@@ -45,17 +45,23 @@
                             //Codes are change from here
                              Inventory detail = details.get(0);%>
                                  <h1><%= detail.getProdId().getProdBrand() %></h1>
+                                 <h4>Size in UK only</h4>
+                                 <h5>Rm<strong><%= detail.getProdId().getProdPrice() %></strong></h5>
+                                 
                                 <% for (Inventory inventory : details) { %>
-                                    <h4>Size: <%= inventory.getInvShoeSize()%></h4>
-                                    <div class="color-container">
-                                        <ul>
-                                            <% for (Inventory inv : inventory.getProdId().getInventoryList()) { %>
-                                                <% if (inv.getInvShoeSize().equals(inventory.getInvShoeSize())) { %>
-                                                    <li><%= inv.getInvColor() %> - <%= inv.getInvQuantity() %> available</li>
-                                                <% } %>
-                                            <% } %>
-                                        </ul>
-                                    </div>
+                                <% for (Inventory inv : inventory.getProdId().getInventoryList()) { %>
+                                        <% if (inv.getInvShoeSize().equals(inventory.getInvShoeSize())) { %>
+                                        <div class="size-color-container">
+                                            <button><%= inv.getInvColor() %></button>
+                                            -
+                                            <li><%= inv.getInvQuantity() %> available</li>
+                                        </div>
+                                        <% } %>
+                                    <% } %>
+                                <div class="size-container">
+                                    <button><%= detail.getInvShoeSize() %></button>
+                                </div>
+                              
                                 <% } %>
                         <% } %>
                         

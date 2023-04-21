@@ -42,6 +42,13 @@
     top:80px;
 }
 
+.size-color-container button{
+    font-size:20px;
+    position: absolute;
+    top:300px;
+    color:rgb(89, 89, 89);
+}
+
 .full-details h4{
     font-size:20px;
     position: absolute;
