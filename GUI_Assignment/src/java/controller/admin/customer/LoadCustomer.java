@@ -49,31 +49,35 @@ public class LoadCustomer extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         String pathInfo = request.getPathInfo();
-                    
+
         if (pathInfo == null || pathInfo.equals("/")) { //No action require
             processRequest(request, response);
-        }else {
-            request.setAttribute("ROOT_PATH", "../../../../") ;
-            //Remove customerList
-            request.removeAttribute("customerList");
-            
-            String[] pathParts = pathInfo.split("/");
-            if (pathParts[1].equals("editCustID")) {
-                // Edit the customer with the specified ID
-                int editCustID = Integer.parseInt(pathParts[2]);
-                Customer editCustomer = em.find(Customer.class, editCustID);
-                request.setAttribute("editCustomer", editCustomer);
-            } else {
-                //error
-            }
+            return;
         }
-        
-        //Forward Page
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/admin/customer.jsp");
-        dispatcher.forward(request, response);
-        
+
+        boolean forwardPage = true;
+        request.setAttribute("ROOT_PATH", "../../../../") ;
+        //Remove customerList
+        request.removeAttribute("customerList");
+
+        String[] pathParts = pathInfo.split("/");
+        if (pathParts[1].equals("editCustID")) {
+            // Edit the customer with the specified ID
+            int editCustID = Integer.parseInt(pathParts[2]);
+            Customer editCustomer = em.find(Customer.class, editCustID);
+            request.setAttribute("editCustomer", editCustomer);
+        } else {
+            //error
+            forwardPage = false;
+        }
+
+        if (forwardPage) {
+            //Forward Page
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/admin/customer.jsp");
+            dispatcher.forward(request, response);
+        }
     }
 
     /**

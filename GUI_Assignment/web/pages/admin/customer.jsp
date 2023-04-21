@@ -2,6 +2,11 @@
 <%@page import="entity.Customer"%>
 
 <% 
+    //Get notification from controllers
+    String successMsg = request.getParameter("successMsg") != null ? (String) request.getParameter("successMsg") : null;
+    String errorMsg = request.getParameter("errorMsg") != null ? (String)request.getParameter("errorMsg") : null;
+    
+    
     //Get root path (from controller)
     String ROOT_PATH = (String) request.getAttribute("ROOT_PATH");
     
@@ -33,7 +38,10 @@
 <link rel="stylesheet" href="<%=ROOT_PATH+"css/admin/customer.css"%>">
 
 <main>
-    <% if(customerList != null){ %>
+    <% 
+        //Start Display Cstomer List
+        if(customerList != null){ 
+    %>
     <div class="container customerList">
         <div class="text">
             <h1>Customer List</h1>
@@ -45,15 +53,18 @@
             <a href="#"><i class='fa-solid fa-magnifying-glass fa-bounce'></i></a>
         </div>
 
-        <div class="notificationBox success">
-            <span class="message">Success Message</span>
-            <span class="closeBtn" onclick="this.parentElement.style.display='none';"><i class="fa-solid fa-xmark"></i></span> 
-        </div>
-
-        <div class="notificationBox error">
-            <span class="message">Error Message</span>
-            <span class="closeBtn" onclick="this.parentElement.style.display='none';"><i class="fa-solid fa-xmark"></i></span> 
-        </div>
+        <!--Display Notification Area-->
+        <%if(successMsg!=null){%>
+            <div class="notificationBox success">
+                <span class="message"><%=successMsg%></span>
+                <span class="closeBtn" onclick="this.parentElement.style.display='none';"><i class="fa-solid fa-xmark"></i></span> 
+            </div>
+        <%} if(errorMsg!=null){%>
+            <div class="notificationBox error">
+                <span class="message"><%=errorMsg%></span>
+                <span class="closeBtn" onclick="this.parentElement.style.display='none';"><i class="fa-solid fa-xmark"></i></span> 
+            </div>
+        <%}%>
 
         <table class="table horizontal-table">
             <thead>
@@ -111,9 +122,10 @@
             </tbody>
         </table>
     </div>
-    <% } else if(addNewAction){%>
-    
-    
+    <% } 
+        //Start Add New Customer
+        else if(addNewAction){
+    %>
     <div class="container addCustomer ">
         <div class="text">
             <h1>Add Customer</h1>
@@ -161,7 +173,10 @@
         </form>
     </div>
 
-    <% }else if(editCustomer != null){ %>
+    <%
+        //Start Edit Customer
+        }else if(editCustomer != null){
+    %>
     <div class="container customerDetail">
         <div class="text">
             <h1>Customer Detail</h1>
@@ -178,42 +193,47 @@
             <span class="closeBtn" onclick="this.parentElement.style.display='none';"><i class="fa-solid fa-xmark"></i></span> 
         </div>
 
-        <table class="table vertical-table">
-            <tr>
-                <td><strong>ID </strong><small>(*ID can't be modified)</small></td>
-                <td><input type="text" name="edit_Id" id="edit_Id" value="<%=editCustomer.getCustId()%>" disabled></td>
-            </tr>
-            <tr>
-                <td><strong>User Name</strong></strong></td>
-                <td><input type="text" name="edit_userName" id="edit_userName" value="<%=editCustomer.getUserId().getUserName()%>" disabled></td>
-            </tr>
-            <tr>
-                <td><strong>Full Name</strong></strong></td>
-                <td><input type="text" name="edit_fullName" id="edit_fullName" value="<%=editCustomer.getCustFullName()%>" disabled></td>
-            </tr>
-            <tr>
-                <td><strong>Phone Number</strong></td>
-                <td><input type="text" name="edit_phoneNum" id="edit_phoneNum" value="<%=editCustomer.getCustPhoneNum()%>" disabled></td>
-            </tr>
-            <tr>
-                <td><strong>Email</strong></td>
-                <td><input type="text" name="edit_email" id="edit_email" value="<%=editCustomer.getUserId().getUserEmail()%>" disabled></td>
-            </tr>
-            <tr>
-                <td><strong>Shipping Address</strong></td>
-                <td><input type="text" name="edit_shippingAddress" id="edit_shippingAddress" value="<%=editCustomer.getCustShippingAddress()%>" disabled></td>
-            </tr>
-        </table>
+        <!-- Start Edit Customer Form-->
+        <form action="<%=ROOT_PATH+"pages/admin/UpdateCustomer" %>" method="POST">
+            <table class="table vertical-table">
+                <tr>
+                    <td><strong>ID </strong><small>(*ID can't be modified)</small></td>
+                    <td><input type="text" value="<%=editCustomer.getCustId()%>" disabled></td>
+                    <input type="hidden" name="edit_Id" id="edit_Id" value="<%=editCustomer.getCustId()%>">
+                </tr>
+                <tr>
+                    <td><strong>User Name</strong></strong></td>
+                    <td><input type="text" name="edit_userName" id="edit_userName" value="<%=editCustomer.getUserId().getUserName()%>" disabled></td>
+                </tr>
+                <tr>
+                    <td><strong>Full Name</strong></strong></td>
+                    <td><input type="text" name="edit_fullName" id="edit_fullName" value="<%=editCustomer.getCustFullName()%>" disabled></td>
+                </tr>
+                <tr>
+                    <td><strong>Phone Number</strong></td>
+                    <td><input type="text" name="edit_phoneNum" id="edit_phoneNum" value="<%=editCustomer.getCustPhoneNum()%>" disabled></td>
+                </tr>
+                <tr>
+                    <td><strong>Email</strong></td>
+                    <td><input type="text" name="edit_email" id="edit_email" value="<%=editCustomer.getUserId().getUserEmail()%>" disabled></td>
+                </tr>
+                <tr>
+                    <td><strong>Shipping Address</strong></td>
+                    <td><input type="text" name="edit_shippingAddress" id="edit_shippingAddress" value="<%=editCustomer.getCustShippingAddress()%>" disabled></td>
+                </tr>
+            </table>
 
+            <div class="edit-action hide">
+                <button type="button" class="delete btn danger" onclick="if(confirm('Are you sure you want to cancel?')) { history.go(0); }" style="float: left;">Cancel</button>
+                <button type="submit" class="edit btn success" onclick="if(confirm('Are you sure you want to edit this customer?')) { return true; }else{return false;}">Save</button>
+            </div>
+        </form>
+        <!--End Edit Customer Form-->
+            
         <div class="detail-action">
             <button class="editCustBackBtn backBtn btn" onclick="location.href='<%=ROOT_PATH+"pages/admin/LoadCustomer"%>'" style="float: left;">Back</button>
-            <button class="deleteBtn btn danger">Delete</button>
+            <button class="deleteBtn btn danger" onclick="if(confirm('Are you sure you want to delete this customer?')) { location.href='<%=ROOT_PATH+"pages/admin/DeleteCustomer?deleteId="+editCustomer.getCustId()%>'; }else{return false;}">Delete</button>
             <button class="editBtn btn success">Edit</button>
-        </div>
-
-        <div class="edit-action hide">
-            <button class="delete btn danger" onclick="if(confirm('Are you sure you want to cancel?')) { history.go(0); }" style="float: left;">Cancel</button>
-            <button class="edit btn success">Save</button>
         </div>
     </div>
     <% } %>

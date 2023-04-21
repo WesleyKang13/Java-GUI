@@ -78,6 +78,12 @@
                         </a>
                     </li>
 
+                    <li class="nav-link inquiry">
+                        <a href="<%=ROOT_PATH + "pages/admin/inquiry.jsp"%>">
+                            <i class="fa-solid fa-clipboard-question icon"></i>
+                            <span class="text nav-text">Inquiry</span>
+                        </a>
+                    </li>
                     <li class="nav-link home">
                         <a href="<%=ROOT_PATH+"index.html"%>">
                             <i class="fa-solid fa-house icon"></i>
