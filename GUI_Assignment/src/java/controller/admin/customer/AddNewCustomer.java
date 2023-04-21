@@ -28,8 +28,7 @@ public class AddNewCustomer extends HttpServlet {
         request.setAttribute("ROOT_PATH", "../../");
 
         //Forward Page
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/admin/customer.jsp?addNewAction=true");
-        dispatcher.forward(request, response);
+        response.sendRedirect("LoadCustomer?addNewAction=true");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
