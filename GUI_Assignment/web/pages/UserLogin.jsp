@@ -70,7 +70,7 @@
                    </h1>
                     <p id="registerwel">Welcome to Banana</p>
                  </div>
-                <a class="user_registerbutton" href="./customer/CustomerRegister.html" role="button">
+                <a class="user_registerbutton" href="./customer/CustomerRegister.jsp" role="button">
                     <span></span>
                             <span></span>
                             <span></span>
