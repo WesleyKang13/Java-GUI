@@ -1,4 +1,4 @@
-package controller.admin.customer;
+package controller.admin.order;
 
 import entity.Customer;
 import java.io.IOException;
@@ -14,8 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-@WebServlet(name = "LoadCustomer", urlPatterns = {"/pages/admin/LoadCustomer/*"})
-public class LoadCustomer extends HttpServlet {
+@WebServlet(name = "LoadOrder", urlPatterns = {"/pages/admin/LoadOrder/*"})
+public class LoadOrder extends HttpServlet {
     @PersistenceContext EntityManager em;
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -28,7 +28,7 @@ public class LoadCustomer extends HttpServlet {
             request.setAttribute("ROOT_PATH", "../../");
 
             //Forward Page
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/admin/customer.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/admin/order.jsp");
             dispatcher.forward(request, response);
             
         }catch(Exception ex){
@@ -88,7 +88,7 @@ public class LoadCustomer extends HttpServlet {
 
         if (forwardPage) {
             //Forward Page
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/admin/customer.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/admin/order.jsp");
             dispatcher.forward(request, response);
         }
     }

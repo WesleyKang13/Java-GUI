@@ -58,7 +58,7 @@
                     </li>
 
                     <li class="nav-link order">
-                        <a href="<%=ROOT_PATH + "pages/admin/order.jsp"%>">
+                        <a href="<%=ROOT_PATH + "pages/admin/LoadOrder"%>">
                             <i class="fa-solid fa-cart-flatbed icon"></i>
                             <span class="text nav-text">Order</span>
                         </a>

@@ -1,4 +1,4 @@
-package controller.admin.customer;
+package controller.admin.order;
 
 import entity.Customer;
 import entity.User;
@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.UserTransaction;
 
-@WebServlet(name = "UpdateCustomer", urlPatterns = {"/pages/admin/UpdateCustomer"})
-public class UpdateCustomer extends HttpServlet {
+@WebServlet(name = "UpdateOrder", urlPatterns = {"/pages/admin/UpdateOrder"})
+public class UpdateOrder extends HttpServlet {
 
     @PersistenceContext EntityManager em;
     @Resource UserTransaction utx;

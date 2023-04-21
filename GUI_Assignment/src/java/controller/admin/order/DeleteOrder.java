@@ -1,4 +1,4 @@
-package controller.admin.customer;
+package controller.admin.order;
 
 import java.util.List;
 import entity.Cart;
@@ -21,8 +21,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.transaction.UserTransaction;
 
 
-@WebServlet(name = "DeleteCustomer", urlPatterns = {"/pages/admin/DeleteCustomer"})
-public class DeleteCustomer extends HttpServlet {
+@WebServlet(name = "DeleteOrder", urlPatterns = {"/pages/admin/DeleteOrder"})
+public class DeleteOrder extends HttpServlet {
 
     @PersistenceContext EntityManager em;
     @Resource UserTransaction utx;

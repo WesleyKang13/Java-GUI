@@ -328,7 +328,6 @@ input[type='checkbox'], .checkAllIcon {
     border-radius: var(--border-radius-1);
     color: var(--color-primary);
     font-weight: 500;
-    font-style: italic;
 }
 
 .filter .active {

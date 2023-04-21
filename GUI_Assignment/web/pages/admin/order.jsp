@@ -1,5 +1,34 @@
-<% String ROOT_PATH = "../../"; %>
-<jsp:include page="<%= ROOT_PATH + "pages/admin/sidebar.jsp"%>">
+<%@page import="java.util.List"%>
+<%@page import="entity.Customer"%>
+
+<% 
+    //Get notification from controllers
+    String successMsg = request.getParameter("successMsg") != null ? (String) request.getParameter("successMsg") : null;
+    String errorMsg = request.getParameter("errorMsg") != null ? (String)request.getParameter("errorMsg") : null;
+    String searchValue = request.getAttribute("searchValue") != null ? (String)request.getAttribute("searchValue") : null;
+    request.removeAttribute("searchValue");
+    
+    //Get root path (from controller)
+    String ROOT_PATH = (String) request.getAttribute("ROOT_PATH");
+    
+    //Get variable from Query String
+    boolean addNewAction = request.getParameter("addNewAction") != null ? true : false;
+    
+    //Get orders information from controller (LoadOrder.jsp)
+    //Declare variable
+    List<Customer> customerList=null;
+    Customer editCustomer=null;
+    
+    if(!addNewAction){
+        //Customer List
+        customerList = (List<Customer>) request.getAttribute("customerList") != null ? (List<Customer>) request.getAttribute("customerList") : null;
+        //Edit Customer
+        editCustomer = (Customer) request.getAttribute("editCustomer") != null ? (Customer) request.getAttribute("editCustomer") : null;
+    }
+%>
+
+<!-- Include Header -->
+<jsp:include page="sidebar.jsp">
     <jsp:param name="ROOT_PATH" value="<%=ROOT_PATH%>" />
 </jsp:include>
 
@@ -7,82 +36,114 @@
     body.querySelector(".nav-link.order").classList.add("active");
 </script>
 
-<link rel="stylesheet" href="../../css/admin/order.css">
-        
+<link rel="stylesheet" href="<%=ROOT_PATH+"css/admin/order.css"%>">
+
 <main>
+    <% 
+        //Start Display Cstomer List
+        if(customerList != null){ 
+    %>
     <div class="container orderList">
         <div class="text">
-            <h1>Order List</h1>
-            <p>10 record(s) found</p>
+            <h1>Order List </h1>
+            <% //Display search value when searching
+                if(searchValue!=null){
+                    out.print("<h3 style='padding-bottom:0.4rem;'>Searching - "+searchValue+"</h3>");
+                    out.print("<a href='"+ROOT_PATH+"pages/admin/LoadOrder'>Reset</a>");
+                }
+            %>
+            <p><%=customerList.size()%> record(s) found</p>
         </div>
-
-        <button class="addNew btn">Add New</button>
+        <button class="addNew btn" onclick="location.href='<%=ROOT_PATH+"pages/admin/LoadOrder?addNewAction=true"%>'">Add New</button>
         <div class="searchBar">
-            <input type="search" placeholder="Search ..." required>
-            <a href="#"><i class='fa-solid fa-magnifying-glass fa-bounce'></i></a>
+            <input id="searchInput" type="search" placeholder="Search ..." required>
+            <a id="searchBtn" href="#"><i class='fa-solid fa-magnifying-glass fa-bounce'></i></a>
         </div>
 
-        
-    <div class="filter">
-        <a href="#" class="active">All</a>
-        <a href="#">Casual</a>
-        <a href="#">Work</a>
-        <a href="#">Sport</a>
-        <a href="#">Others</a>
-    </div>
+        <script>
+            const searchBtn = document.querySelector('#searchBtn');
+            const searchInput = document.querySelector('#searchInput');
 
-        <div class="notificationBox success">
-            <span class="message">Record Deleted Successfully !</span>
-            <span class="closeBtn" onclick="this.parentElement.style.display='none';"><i class="fa-solid fa-xmark"></i></span> 
-        </div>
+            searchBtn.addEventListener('click', (event) => {
+              event.preventDefault();
+              const searchValue = searchInput.value;
+              const url = "<%=ROOT_PATH+"pages/admin/LoadOrder/search/"%>" + searchValue;
+              window.location.href = url;
+            });
+        </script>
 
-        <div class="notificationBox error">
-            <span class="message">Error Occurred, Please Try Again !</span>
-            <span class="closeBtn" onclick="this.parentElement.style.display='none';"><i class="fa-solid fa-xmark"></i></span> 
-        </div>
-        
+        <!--Display Notification Area-->
+        <%if(successMsg!=null){%>
+            <div class="notificationBox success">
+                <span class="message"><%=successMsg%></span>
+                <span class="closeBtn" onclick="this.parentElement.style.display='none';"><i class="fa-solid fa-xmark"></i></span> 
+            </div>
+        <%} if(errorMsg!=null){%>
+            <div class="notificationBox error">
+                <span class="message"><%=errorMsg%></span>
+                <span class="closeBtn" onclick="this.parentElement.style.display='none';"><i class="fa-solid fa-xmark"></i></span> 
+            </div>
+        <%}%>
+
         <table class="table horizontal-table">
             <thead>
                 <tr>
-                    <td class="checkAllIcon" style="padding:0.5rem;"><i class="fa-solid fa-list-check fa-spin" style="transition: none;"></i></td>
-                    <th style="padding-left:0.2rem;">Rank</th>
-                    <th>Name</th>
-                    <th>Points</th>
-                    <th>Team</th>
+                    <th><i class="fa-solid fa-hashtag" style="width:0rem;"></i></th>
+                    <th>ID</th>
+                    <th>User Name</th>
+                    <th>Full Name</th>
+                    <th>Contact</th>
+                    <th>Shipping Address</th>
                     <th>Action</th>
                 </tr>
             </thead>
             <tbody>
+                <%
+                    for(int i=0; i<customerList.size();i++){
+                        Customer c = customerList.get(i);
+                        //Handle long string
+                        String username = c.getUserId().getUserName();
+                        if(username == null){
+                            username = "&#8212;";
+                        }
+                        if(username.length() > 10){
+                            username = username.substring(0, 10)+"...";
+                        }
+                        
+                        String fullname = c.getCustFullName();
+                        if(fullname.length() > 20){
+                            fullname = fullname.substring(0, 20)+"...";
+                        }
+
+                        String shippingAddress = c.getCustShippingAddress();
+                        if(shippingAddress.length() > 20){
+                            shippingAddress = shippingAddress.substring(0, 20)+"...";
+                        }
+                %>
                 <tr>
-                    <td style="padding:0;"><input type="checkbox"></td>
-                    <td style="padding-left:0.2rem;">1</td>
-                    <td>Domenic</td>
-                    <td>88,110</td>
-                    <td>dcode</td>
-                    <td><button class="actionRoundBtn"><i class="fa-solid fa-circle-info fa-spin"></i></button></td>
+                    <td style="font-weight:600;width:0rem;"><%=i+1%></td>
+                    <td><%=c.getCustId()%></td>
+                    <td><%=username%></td>
+                    <td><%=fullname%></td>
+                    <td>
+                        <% if(c.getUserId().getUserEmail() != null){%>
+                                <a style="width: 1rem;" href="mailto:<%=c.getUserId().getUserEmail()%>" class="contactRoundBtn"><i class="fa-solid fa-envelope"></i></i></a>
+                        <%}if(c.getCustPhoneNum() != null){ %>
+                                <a style="width: 1rem;" href="tel:<%=c.getCustPhoneNum()%>" class="contactRoundBtn"><i class="fa-solid fa-phone"></i></a>
+                        <% } %>
+                    </td>
+                    <td><%=shippingAddress%></td>
+                    <td><button class="actionRoundBtn" onclick="location.href='<%=ROOT_PATH+"/pages/admin/LoadOrder/editCustID/"+c.getCustId()%>'"><i class="fa-solid fa-circle-info fa-spin"></i></button></td>
                 </tr>
-                <tr>
-                    <td style="padding:0;"><input type="checkbox"></td>
-                    <td style="padding-left:0.2rem;">2</td>
-                    <td>Sally</td>
-                    <td>72,400</td>
-                    <td>Students</td>
-                    <td><button class="actionRoundBtn"><i class="fa-solid fa-circle-info fa-spin"></i></button></td>
-                </tr>
-                <tr>
-                    <td style="padding:0;"><input type="checkbox"></td>
-                    <td style="padding-left:0.2rem;">3</td>
-                    <td>Nick</td>
-                    <td>52,300</td>
-                    <td>dcode</td>
-                    <td><button class="actionRoundBtn"><i class="fa-solid fa-circle-info fa-spin"></i></button></td>
-                </tr>
+                <% } %>
             </tbody>
         </table>
-        <button class="editCustBtn btn success">Edit</button>
     </div>
-
-    <div class="container addOrder hide">
+    <% } 
+        //Start Add New Order
+        else if(addNewAction){
+    %>
+    <div class="container addOrder ">
         <div class="text">
             <h1>Add Order</h1>
         </div>
@@ -96,37 +157,55 @@
             <span class="message">Error Occurred, Please Try Again !</span>
             <span class="closeBtn" onclick="this.parentElement.style.display='none';"><i class="fa-solid fa-xmark"></i></span> 
         </div>
-        
-        <table class="table vertical-table">
-            <tr>
-                <td>Rank</td>
-                <td><input type="text" value="1"></td>
-            </tr>
-            <tr>
-                <td>Name</td>
-                <td><input type="text" value="Domenic"></td>
-            </tr>
-            <tr>
-                <td>Points</td>
-                <td><input type="text" value="8810"></td>
-            </tr>
-            <tr>
-                <td>Team</td>
-                <td><input type="text" value="Timothythythy"></td>
-            </tr>
-        </table>
 
-        <div class="addNew-action">
-            <button class="addNewBackBtn backBtn btn" style="float: left;">Back</button>
-            <button class="submitBtn btn success">Submit</button>
-            <button class="resetBtn btn danger">Reset</button>
-        </div>
+        <form action="<%=ROOT_PATH+"pages/admin/AddNewLoadOrder" %>" method="POST">
+            <table class="table vertical-table">
+                <tr>
+                    <td><strong>User Name</strong></td>
+                    <td><input type="text" name="addNew_userName"></td>
+                </tr>
+                <tr>
+                    <td><strong>Password</strong></td>
+                    <td><input type="password" name="addNew_password"></td>
+                </tr>
+                <tr>
+                    <td><strong>Confirm Password</strong></td>
+                    <td><input type="password" name="addNew_confirmPassword"></td>
+                </tr>
+                <tr>
+                    <td><strong>Full Name</strong></td>
+                    <td><input type="text" name="addNew_fullName"></td>
+                </tr>
+                <tr>
+                    <td><strong>Phone Number</strong></td>
+                    <td><input type="text" name="addNew_phoneNum"></td>
+                </tr>
+                <tr>
+                    <td><strong>Email</strong></td>
+                    <td><input type="email" name="addNew_email"></td>
+                </tr>
+                <tr>
+                    <td><strong>Shipping Address</strong></td>
+                    <td><input type="text" name="addNew_shippingAddress"></td>
+                </tr>
+            </table>
+
+            <div class="addNew-action">
+                <button type="button" class="editCustBackBtn backBtn btn" onclick="if(confirm('Are you sure you want to go back?')) { location.href='<%=ROOT_PATH+"pages/admin/LoadOrder" %>'; } else { return false; }" style="float: left;">Back</button>
+                <button type="submit" class="submitBtn btn success" onclick="if(confirm('Are you sure you want to add new order?')) { return true; } else { return false; }">Submit</button>
+                <button type="reset" class="resetBtn btn danger" onclick="if(confirm('Are you sure you want to reset the form?')) { this.form.reset(); } else { return false; }">Reset</button>
+            </div>
+        </form>
     </div>
 
-    <div class="container orderDetail hide">
+    <%
+        //Start Edit Order
+        }else if(editCustomer != null){
+    %>
+    <div class="container customerDetail">
         <div class="text">
             <h1>Order Detail</h1>
-            <p>230101YWM - YAP WAI MENG</p>
+            <p><strong>ID <%=editCustomer.getCustId()%> - <%=editCustomer.getCustFullName()%></strong></p>
         </div>
 
         <div class="notificationBox success">
@@ -135,110 +214,73 @@
         </div>
 
         <div class="notificationBox error">
-            <span class="message">Error Occurred, Please Try Again !</span>
+            <span class="message">Error Message</span>
             <span class="closeBtn" onclick="this.parentElement.style.display='none';"><i class="fa-solid fa-xmark"></i></span> 
         </div>
-        
-        <table class="table vertical-table">
-            <tr>
-                <td>Rank</td>
-                <td><input type="text" name="rank" id="rank" value="1" disabled></td>
-            </tr>
-            <tr>
-                <td>Name</td>
-                <td><input type="text" name="name" id="name" value="Domenic" disabled></td>
-            </tr>
-            <tr>
-                <td>Points</td>
-                <td><input type="text" name="point" id="point" value="8810" disabled></td>
-            </tr>
-            <tr>
-                <td>Team</td>
-                <td><input type="text" name="team" id="team" value="Timothythythy" disabled></td>
-            </tr>
-        </table>
 
+        <!-- Start Edit Order Form-->
+        <form action="<%=ROOT_PATH+"pages/admin/LoadOrder" %>" method="POST">
+            <table class="table vertical-table">
+                <tr>
+                    <td><strong>ID </strong><small>(*ID can't be modified)</small></td>
+                    <td><input type="text" value="<%=editCustomer.getCustId()%>" disabled></td>
+                    <input type="hidden" name="edit_Id" id="edit_Id" value="<%=editCustomer.getCustId()%>">
+                </tr>
+                <tr>
+                    <td><strong>User Name</strong></strong></td>
+                    <td><input type="text" name="edit_userName" id="edit_userName" value="<%=editCustomer.getUserId().getUserName()%>" disabled></td>
+                </tr>
+                <tr>
+                    <td><strong>Full Name</strong></strong></td>
+                    <td><input type="text" name="edit_fullName" id="edit_fullName" value="<%=editCustomer.getCustFullName()%>" disabled></td>
+                </tr>
+                <tr>
+                    <td><strong>Phone Number</strong></td>
+                    <td><input type="text" name="edit_phoneNum" id="edit_phoneNum" value="<%=editCustomer.getCustPhoneNum()%>" disabled></td>
+                </tr>
+                <tr>
+                    <td><strong>Email</strong></td>
+                    <td><input type="text" name="edit_email" id="edit_email" value="<%=editCustomer.getUserId().getUserEmail()%>" disabled></td>
+                </tr>
+                <tr>
+                    <td><strong>Shipping Address</strong></td>
+                    <td><input type="text" name="edit_shippingAddress" id="edit_shippingAddress" value="<%=editCustomer.getCustShippingAddress()%>" disabled></td>
+                </tr>
+            </table>
+
+            <div class="edit-action hide">
+                <button type="button" class="delete btn danger" onclick="if(confirm('Are you sure you want to cancel?')) { history.go(0); }" style="float: left;">Cancel</button>
+                <button type="submit" class="edit btn success" onclick="if(confirm('Are you sure you want to edit this customer?')) { return true; }else{return false;}">Save</button>
+            </div>
+        </form>
+        <!--End Edit Order Form-->
+            
         <div class="detail-action">
-            <button class="editCustBackBtn backBtn btn" style="float: left;">Back</button>
-            <button class="deleteBtn btn danger">Delete</button>
+            <button class="editCustBackBtn backBtn btn" onclick="location.href='<%=ROOT_PATH+"pages/admin/LoadOrder"%>'" style="float: left;">Back</button>
             <button class="editBtn btn success">Edit</button>
-        </div>
-
-        <div class="edit-action hide">
-            <button class="back btn" style="float: left;">Restore</button>
-            <button class="edit btn success">Save</button>
-            <button class="delete btn danger">Cancel</button>
+            <button class="deleteBtn btn danger" onclick="if(confirm('Are you sure you want to delete this customer?')) { location.href='<%=ROOT_PATH+"pages/admin/LoadOrder?deleteId="+editCustomer.getCustId()%>'; }else{return false;}">Delete</button>
         </div>
     </div>
+    <% } %>
+    <script>
+        //SHOW and HIDE Action Button
+        const editBtn = body.querySelector('.editBtn'),
+            actionBtnField = body.querySelector('.detail-action'),
+            editActionBtnField = body.querySelector('.edit-action');
+    
+        if (editBtn) {
+            //Get Text Field and remove 'disabled'
+            editBtn.addEventListener("click" , () =>{
+                actionBtnField.classList.add("hide");
+                editActionBtnField.classList.remove("hide");
+                document.getElementById('edit_userName').removeAttribute("disabled");
+                document.getElementById('edit_fullName').removeAttribute("disabled");
+                document.getElementById('edit_phoneNum').removeAttribute("disabled");
+                document.getElementById('edit_email').removeAttribute("disabled");
+                document.getElementById('edit_shippingAddress').removeAttribute("disabled");
+            });
+        }
+    </script>
 </main>
-<script>
-    //SHOW and HIDE Container
-    const custListField = body.querySelector('.orderList'),
-        addCustField = body.querySelector('.addOrder'),
-        custDetailField = body.querySelector('.orderDetail'),
-        addNewBtn = body.querySelector('.addNew.btn'),
-        addNewBackBtn = body.querySelector('.addNewBackBtn'),
-        editCustBtn = body.querySelector('.editCustBtn'),
-        editCustBackBtn = body.querySelector('.editCustBackBtn');
-
-    addNewBtn.addEventListener("click" , () =>{
-        custListField.style.opacity = 0;
-        addCustField.style.opacity = 1;
-        custDetailField.style.opacity = 0;
-
-        setTimeout(() => {
-            custListField.classList.add("hide");
-            addCustField.classList.remove("hide");
-        }, 200);
-    });
-
-    addNewBackBtn.addEventListener("click" , () =>{
-        addCustField.style.opacity = 0;
-        custListField.style.opacity = 1;
-        custDetailField.style.opacity = 0;
-        
-        setTimeout(() => {
-            addCustField.classList.add("hide");
-            custListField.classList.remove("hide");
-        }, 200);
-    });
-
-    editCustBtn.addEventListener("click" , () =>{
-        addCustField.style.opacity = 0;
-        custListField.style.opacity = 0;
-        custDetailField.style.opacity = 1;
-        
-        setTimeout(() => {
-            custListField.classList.add("hide");
-            custDetailField.classList.remove("hide");
-        }, 200);
-    });
-
-    editCustBackBtn.addEventListener("click" , () =>{
-        addCustField.style.opacity = 0;
-        custListField.style.opacity = 1;
-        custDetailField.style.opacity = 0;
-        
-        setTimeout(() => {
-            custDetailField.classList.add("hide");
-            custListField.classList.remove("hide");
-        }, 200);
-    });
-
-    //SHOW and HIDE Action Button
-    const editBtn = body.querySelector('.editBtn'),
-        actionBtnField = body.querySelector('.detail-action'),
-        editActionBtnField = body.querySelector('.edit-action');
-    //Get Text Field and remove 'disabled'
-
-    editBtn.addEventListener("click" , () =>{
-        actionBtnField.classList.add("hide");
-        editActionBtnField.classList.remove("hide");
-        document.getElementById('rank').removeAttribute("disabled");
-        document.getElementById('name').removeAttribute("disabled");
-        document.getElementById('point').removeAttribute("disabled");
-        document.getElementById('team').removeAttribute("disabled");
-    });
-</script>
 </body>
 </html>
