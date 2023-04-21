@@ -1,3 +1,6 @@
+<%@page import="entity.Product"%>
+<%@page import="entity.Inventory"%>
+<%@page import="java.util.List"%>
 <% String ROOT_PATH = "../../"; %>
 <jsp:include page="<%= ROOT_PATH + "pages/header.jsp"%>">
     <jsp:param name="ROOT_PATH" value="<%=ROOT_PATH%>" />
@@ -31,24 +34,32 @@
                     </div>
                 </td>
 
+                
                 <td class="secCol">
                     <div class="full-details">
-                        <h1>Nike run 2017</h1>
-                        <h4>Size in UK only</h4>
-                        <h5>Rm 599</h5>
-                        <div class="size-container">
-                            <button type="button">6.5</button>
-                            <button type="button">7.0</button>
-                            <button type="button">7.5</button>
-                            <button type="button">8.0</button>
-                            <button type="button">8.5</button>
-                            <button type="button">9.0</button>
-                            <button type="button">9.5</button>
-                            <button type="button">10.0</button>
-                            <button type="button">10.5</button>
-                            <button type="button">11</button>
-                        </div>
-
+                        <% 
+                            List<Inventory> details = (List<Inventory>) request.getAttribute("inventoryList");
+                            if(details.isEmpty()){
+                                out.println("No inventory data found");
+                            }else{ 
+                            //Codes are change from here
+                             Inventory detail = details.get(0);%>
+                                 <h1><%= detail.getProdId().getProdBrand() %></h1>
+                                <% for (Inventory inventory : details) { %>
+                                    <h4>Size: <%= inventory.getInvShoeSize()%></h4>
+                                    <div class="color-container">
+                                        <ul>
+                                            <% for (Inventory inv : inventory.getProdId().getInventoryList()) { %>
+                                                <% if (inv.getInvShoeSize().equals(inventory.getInvShoeSize())) { %>
+                                                    <li><%= inv.getInvColor() %> - <%= inv.getInvQuantity() %> available</li>
+                                                <% } %>
+                                            <% } %>
+                                        </ul>
+                                    </div>
+                                <% } %>
+                        <% } %>
+                        
+                         
                         <p>
                             Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
                             Voluptate esse inventore nesciunt officiis nobis, non fugiat 
@@ -103,7 +114,7 @@
             </tr>
         </table>
     </div>
-    
+                            
 </body>
 <script>
 var modal = document.getElementById("myModal");

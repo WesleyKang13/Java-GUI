@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package entity;
 
 import java.io.Serializable;
@@ -28,6 +24,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Inventory.findAll", query = "SELECT i FROM Inventory i"),
+    @NamedQuery(name = "Inventory.findByProductId", query = "SELECT i FROM Inventory i WHERE i.prodId = :prodId"),
     @NamedQuery(name = "Inventory.findByInvId", query = "SELECT i FROM Inventory i WHERE i.invId = :invId"),
     @NamedQuery(name = "Inventory.findByInvQuantity", query = "SELECT i FROM Inventory i WHERE i.invQuantity = :invQuantity"),
     @NamedQuery(name = "Inventory.findByInvColor", query = "SELECT i FROM Inventory i WHERE i.invColor = :invColor"),

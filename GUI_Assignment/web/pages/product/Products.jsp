@@ -50,34 +50,40 @@
                 </td>
             </tr>
         </table>
-
+        
         <div class="product-field">
-            <ul class="shoes">
-                <li shoe-category="">
-                    <picture>
-                        <img src="../../assets/product/dummy1.jpg" alt="">
-                    </picture>
-                    <div class="details">
-                        <p class="icon">
-                            <span><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></span>
-                            <span><i class="fa fa-share" aria-hidden="true"></i></span>
-                        </p>
-                        
-                        <% 
-                            Product product = (Product) request.getAttribute("product");
-                            if(product != null){
-                        %>
-                        <strong><%= product.getBrand() %></strong>
-                        <small><%= product.getDescription() %></small>
-                    </div>
-                    <h4>Rm<br> <%= product.getPrice() %></h4>
-                    <% }else { %>
-                        null
-                    <% } %>
-                </li>
-            </ul>
-        </div>
-         
+        <% 
+            List<Product> products = (List<Product>) request.getAttribute("productList");
+
+            for(Product product : products){
+        %>
+         <form action="FindDetails" method="post" >
+            <input type="hidden" name="prodId" value="<%= product.getProdId() %>">
+            <div class="product-field">
+                <button type="submit">
+                <ul class="shoes">
+                    <li shoe-category="">
+                        <picture>
+                            <img src="../../assets/product/dummy1.jpg" alt="">
+                        </picture>
+                        <div class="details">
+                            <p class="icon">
+                                <span><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></span>
+                                <span><i class="fa fa-share" aria-hidden="true"></i></span>
+                            </p>
+
+                            <strong><%= product.getProdBrand() %></strong>
+                            <small><%= product.getProdDescription() %></small>
+                        </div>
+                        <h4>Rm<br> <%= product.getProdPrice() %></h4>
+                    </li>
+                </ul>
+                </button>
+            </div>
+         </form>
+         <% } %>
+        </div> 
+        
     </body>
     <script src="../../js/product/products.js"></script>
     
