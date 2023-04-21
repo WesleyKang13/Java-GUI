@@ -20,11 +20,11 @@
               <li class="li-1"><a href=<%=ROOT_PATH + "home.jsp"%>>Home</a></li>
               <li class="li-2"><a href="#">New &amp; Featured</a></li>
               <li class="li-3"><a href="#">Brand</a></li>
-              <li class="li-3"><a href="<%=ROOT_PATH + "pages/aboutUs.jsp"%>">About Us</a></li>
               <li class="li-3"><a href="#">Men</a></li>
               <li class="li-3"><a href="#">Women</a></li>
               <li class="li-3"><a href="#">Kids</a></li>
               <li class="li-3"><a href=<%=ROOT_PATH + "pages/contactUs.jsp"%>>Help</a></li>
+              <li class="li-3"><a href="<%=ROOT_PATH + "pages/aboutUs.jsp"%>">About Us</a></li>
             </ul>
             <div class="container-2">
               <form action="#" method="get" style="letter-spacing: 0.2em;">
@@ -42,9 +42,9 @@
               <button type="submit" class="cart-button">
               <i class="fa-solid fa-cart-shopping"></i></button>
             </form>
-            <form action="#" method="get">
+            <form action="<%=ROOT_PATH + "pages/UserLogin.jsp"%>" method="get">
               <button type="submit" class="user-registration">
-              <i class="fa-solid fa-user"></i></button>
+                  <i class="fa-solid fa-user"></i></button>
             </form>
             </div>
           </div>

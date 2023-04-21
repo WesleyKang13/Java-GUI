@@ -42,15 +42,19 @@ public class Inquiry implements Serializable {
     @Basic(optional = false)
     @Column(name = "INQ_ID")
     private Integer inqId;
+    
     @Size(max = 50)
     @Column(name = "INQ_NAME")
     private String inqName;
+    
     @Size(max = 50)
     @Column(name = "INQ_EMAIL")
     private String inqEmail;
+    
     @Size(max = 1000)
     @Column(name = "INQ_DESCRIPTION")
     private String inqDescription;
+    
     @Column(name = "INQ_CREATED_DATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date inqCreatedDate;

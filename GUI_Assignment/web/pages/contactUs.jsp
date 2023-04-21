@@ -53,12 +53,12 @@
             <label for="message">Message:</label>
             <textarea id="message" name="message" rows="5" required></textarea>
           </div>
-            <div class="form-group">
+<!--       <div class="form-group">
             <label for="filechoose">Upload Attachment Here</label>
             <input style="cursor:pointer;" class="mt-1" type="file" name="file[]" 
             class="form-control-file" id="filechoose" 
             accept=".jpg,.png,.jpeg,.webp,.gif,.mp4,.mkv,.mov,.webm" multiple> 
-            </div>
+            </div>-->
           <button class="submit-button" type="submit">Send Message</button>
         </form>
       </div>

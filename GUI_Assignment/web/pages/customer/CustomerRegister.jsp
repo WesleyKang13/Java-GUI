@@ -101,7 +101,7 @@
                 </h1>
                 <p id="loginp">Login to your account</p>
             
-               <a class="user_loginbutton" href="../UserLogin.html" role="button">Login</a>
+               <a class="user_loginbutton" href="../UserLogin.jsp" role="button">Login</a>
              </div>
         </div>
     </div>
