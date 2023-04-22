@@ -333,17 +333,25 @@ input[type='checkbox'], .checkAllIcon {
 }
 
 /* Filter Button */
-.filter a{
+.filter button{
     display: inline-block;
+    background-color: var(--color-white);
+    font-size: 0.8rem;
     margin-top: 1rem;
     padding: var(--padding-3);
     border: 0.1rem solid var(--color-primary);
     border-radius: var(--border-radius-1);
     color: var(--color-primary);
     font-weight: 500;
+    cursor: pointer;
+}
+
+.filter button:hover {
+  transform: scale(1.08);
 }
 
 .filter .active {
     background-color: var(--color-primary);
     color: var(--color-white);
+    transform: scale(1.05);
 }

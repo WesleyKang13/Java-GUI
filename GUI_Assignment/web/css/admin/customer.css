@@ -33,34 +33,28 @@
   margin: 0;
   padding: 0 1rem;
   text-align: center;
-  width: 0;
+  width: 7rem;
 }
 
-.actionRoundBtn, .contactRoundBtn{
+.actionRoundBtn{
   color: var(--color-font);
   background: transparent;
   margin: 0 auto;
-  padding: 0;
   border: 0;
   border-radius: var(--border-radius-3);
   font-size: 1.1rem;
   cursor: pointer;
-  transform: scale(1.3);
+  transform: scale(1.1);
   opacity: 0.8;
   text-align: center;
 }
 
-.contactRoundBtn i{
-  margin-right: 0.5rem;
+.actionRoundBtn.danger{
+  color: var(--color-danger);
 }
 
-.actionRoundBtn{
-  font-size: 1rem;
-  display: block;
-}
-
-.actionRoundBtn:hover, .contactRoundBtn:hover{
-  transform: scale(1.5);
+.actionRoundBtn:hover{
+  transform: scale(1.4);
   opacity: 1;
 }
 

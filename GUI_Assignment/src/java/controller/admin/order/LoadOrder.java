@@ -90,7 +90,7 @@ public class LoadOrder extends HttpServlet {
             }
             // Query to search for a order based on search value
             Query query = em.createQuery("SELECT o FROM CustOrder o JOIN o.custId c JOIN c.userId u JOIN o.paytId p WHERE c.custFullName LIKE :searchValue OR u.userName LIKE :searchValue OR c.custPhoneNum LIKE :searchValue OR u.userEmail LIKE :searchValue OR c.custShippingAddress LIKE :searchValue OR o.orderShippingAddress LIKE :searchValue OR o.orderStatus LIKE :searchValue OR p.paytMethod LIKE :searchValue");
-
+            
             query.setParameter("searchValue", "%" + searchValue + "%");
 
             // Execute the query and retrieve the result
@@ -99,7 +99,29 @@ public class LoadOrder extends HttpServlet {
             // Set the result as an attribute for the request
             request.setAttribute("orderList", orderList);
             request.setAttribute("searchValue", searchValue);
-        } else {
+        } 
+        
+        
+        else if (pathParts[1].equals("filter")) {
+            // Get the status value from the request
+            String filter = "";
+            if (pathParts.length > 2) {
+                filter = pathParts[2];
+            }
+            // Query to search for orders based on the status
+            Query query = em.createQuery("SELECT o FROM CustOrder o WHERE o.orderStatus = :status");
+
+            query.setParameter("status", filter);
+
+            // Execute the query and retrieve the result
+            List<CustOrder> orderList = query.getResultList();
+
+            // Set the result as an attribute for the request
+            request.setAttribute("orderList", orderList);
+            request.setAttribute("filter", filter);
+        }
+        
+        else {
             //error
             forwardPage = false;
         }

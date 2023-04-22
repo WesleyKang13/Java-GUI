@@ -83,7 +83,7 @@
                 <span class="message"><%=errorMsg%></span>
                 <span class="closeBtn" onclick="this.parentElement.style.display='none';"><i class="fa-solid fa-xmark"></i></span> 
             </div>
-        <%}%>
+        <%} if(customerList.size() >= 0){%>
 
         <table class="table horizontal-table">
             <thead>
@@ -127,17 +127,21 @@
                     <td><%=fullname%></td>
                     <td>
                         <% if(c.getUserId().getUserEmail() != null){%>
-                                <a style="width: 1rem;" href="mailto:<%=c.getUserId().getUserEmail()%>" class="contactRoundBtn"><i class="fa-solid fa-envelope"></i></i></a>
+                                <a style="width: 1rem;" href="mailto:<%=c.getUserId().getUserEmail()%>" class="actionRoundBtn"><i class="fa-solid fa-envelope"></i></i></a>
                         <%}if(c.getCustPhoneNum() != null){ %>
-                                <a style="width: 1rem;" href="tel:<%=c.getCustPhoneNum()%>" class="contactRoundBtn"><i class="fa-solid fa-phone"></i></a>
+                                <a style="width: 1rem;" href="tel:<%=c.getCustPhoneNum()%>" class="actionRoundBtn"><i class="fa-solid fa-phone"></i></a>
                         <% } %>
                     </td>
                     <td><%=shippingAddress%></td>
-                    <td><button class="actionRoundBtn" onclick="location.href='<%=ROOT_PATH+"pages/admin/LoadCustomer/editCustID/"+c.getCustId()%>'"><i class="fa-solid fa-circle-info fa-spin"></i></button></td>
+                    <td>
+                        <button class="actionRoundBtn" onclick="location.href='<%=ROOT_PATH+"pages/admin/LoadCustomer/editCustID/"+c.getCustId()%>'"><i class="fa-solid fa-circle-info fa-spin"></i></button>
+                        <button class="actionRoundBtn danger" onclick="if(confirm('Are you sure you want to delete this customer?')) { location.href='<%=ROOT_PATH+"pages/admin/DeleteCustomer?deleteId="+c.getCustId()%>'; }else{return false;}"><i class="fa-solid fa-trash fa-spin fa-spin"></i></button>
+                    </td>
                 </tr>
                 <% } %>
             </tbody>
         </table>
+        <% } //End if (if customer size >= 0)%> 
     </div>
     <% } 
         //Start Add New Customer

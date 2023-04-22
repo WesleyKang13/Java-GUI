@@ -1,14 +1,10 @@
 package controller.admin.customer;
 
 import java.util.List;
-import entity.Cart;
 import entity.CustOrder;
 import entity.Customer;
-import entity.OrderItem;
-import entity.Review;
 import entity.User;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -69,36 +65,39 @@ public class DeleteCustomer extends HttpServlet {
             
             //Delete rows of record
             if (customer != null) {
-                
+
                 // Delete all carts related to the customer
                 Query query1 = em.createQuery("DELETE FROM Cart c WHERE c.custId = :custId");
                 query1.setParameter("custId", customer);
                 query1.executeUpdate();
-                
-                
+
                 // Delete all order_items related to the customer and delete the order items
                 List<CustOrder> orders = em.createQuery("SELECT o FROM CustOrder o WHERE o.custId = :custId", CustOrder.class)
                         .setParameter("custId", customer)
                         .getResultList();
-                
+
                 for (CustOrder order : orders) {
-                    // Delete all reviews related to the customer
-                    Query query2 = em.createQuery("DELETE FROM Review r WHERE r.custId = :custId OR r.orderId = :orderId");
-                    query2.setParameter("custId", customer);
+                    // Delete reviews related to the order and product
+                    Query query2 = em.createQuery("DELETE FROM Review r WHERE r.orderId = :orderId");
                     query2.setParameter("orderId", order);
                     query2.executeUpdate();
-                    
+
                     // Delete order items related to the order
                     Query query3 = em.createQuery("DELETE FROM OrderItem oi WHERE oi.orderId = :orderId");
                     query3.setParameter("orderId", order);
                     query3.executeUpdate();
                 }
-                
+
                 // Delete all orders related to the customer
                 Query query4 = em.createQuery("DELETE FROM CustOrder o WHERE o.custId = :custId");
                 query4.setParameter("custId", customer);
                 query4.executeUpdate();
-                
+
+                // Delete reviews related to the customer
+                Query query5 = em.createQuery("DELETE FROM Review r WHERE r.custId = :custId");
+                query5.setParameter("custId", customer);
+                query5.executeUpdate();
+
                 // Finally, delete the customer
                 em.remove(customer);
                 em.remove(user);

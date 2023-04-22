@@ -18,6 +18,8 @@
     String errorMsg = request.getParameter("errorMsg") != null ? (String)request.getParameter("errorMsg") : null;
     String searchValue = request.getAttribute("searchValue") != null ? (String)request.getAttribute("searchValue") : null;
     request.removeAttribute("searchValue");
+    String filter = request.getAttribute("filter") != null ? (String)request.getAttribute("filter") : null;
+    request.removeAttribute("filter");
     
     //Get root path (from controller)
     String ROOT_PATH = (String) request.getAttribute("ROOT_PATH");
@@ -67,17 +69,34 @@
             <input id="searchInput" type="search" placeholder="Search ..." <%=maintainSearchBarValue(searchValue)%> required>
             <a id="searchBtn" href="#"><i class='fa-solid fa-magnifying-glass fa-bounce'></i></a>
         </div>
-        
+        <%!
+            private String validateFilter(String value, String filter){
+                if (filter == null || filter.equals("all")) {
+                    if (value.equals("all")) {
+                        return "class='active'";
+                    }
+                    return "";
+                } else if (value.equals(filter)) {
+                    return "class='active'";
+                }
+                return "";
+            }
+        %>
         <div class="filter">
-            <a href="#" class="active">All</a>
-            <a href="#">Pending</a>
-            <a href="#">Shipping</a>
-            <a href="#">Postponed</a>
-            <a href="#">Cancelled</a>
-            <a href="#">Completed</a>
+            <button type="button" <%=validateFilter("all", filter)%> onclick="window.location.href='<%=ROOT_PATH+"pages/admin/LoadOrder"%>'">All</button>
+            <button type="button" <%=validateFilter("PENDING", filter)%> value="PENDING" onclick="filterOrders('PENDING')">Pending</button>
+            <button type="button" <%=validateFilter("SHIPPING", filter)%> value="SHIPPING" onclick="filterOrders('SHIPPING')">Shipping</button>
+            <button type="button" <%=validateFilter("POSTPONED", filter)%> value="POSTPONED" onclick="filterOrders('POSTPONED')">Postponed</button>
+            <button type="button" <%=validateFilter("CANCELLED", filter)%> value="CANCELLED" onclick="filterOrders('CANCELLED')">Cancelled</button>
+            <button type="button" <%=validateFilter("COMPLETED", filter)%> value="COMPLETED" onclick="filterOrders('COMPLETED')">Completed</button>
         </div>
 
         <script>
+            const filterOrders = (status) => {
+              const url = "<%=ROOT_PATH+"pages/admin/LoadOrder/filter/"%>" + status;
+              window.location.href = url;
+            };
+            
             const searchBtn = document.querySelector('#searchBtn');
             const searchInput = document.querySelector('#searchInput');
 
@@ -126,7 +145,10 @@
                     <td><%=o.getPaytId().getPaytId()%></td>
                     <td><%=o.getOrderShippingAddress()%></td>
                     <td><%=o.getOrderStatus()%></td>
-                    <td><button class="actionRoundBtn" onclick="location.href='<%=ROOT_PATH+"pages/admin/LoadOrder/editOrderID/"+o.getOrderId()%>'"><i class="fa-solid fa-circle-info fa-spin"></i></button></td>
+                    <td>
+                        <button class="actionRoundBtn" onclick="location.href='<%=ROOT_PATH+"pages/admin/LoadOrder/editOrderID/"+o.getOrderId()%>'"><i class="fa-solid fa-circle-info fa-spin"></i></button>
+                        <button class="deleteBtn btn danger" onclick="if(confirm('Are you sure you want to delete this order?')) { location.href='<%=ROOT_PATH+"pages/admin/DeleteOrder?deleteId="+o.getOrderId()%>'; }else{return false;}"><i class="fa-solid fa-circle-info fa-spin"></i></button>
+                    </td>
                 </tr>
                 <% } %>
             </tbody>
@@ -155,7 +177,7 @@
         </div>
 
         <!-- Start Edit Order Form-->
-        <form action="<%=ROOT_PATH+"pages/admin/LoadOrder" %>" method="POST">
+        <form action="<%=ROOT_PATH+"pages/admin/UpdateOrder" %>" method="POST">
             <table class="table vertical-table">
                 <tr>
                     <td><strong>ID </strong><small>(*ID can't be modified)</small></td>
@@ -273,7 +295,7 @@
         <div class="detail-action">
             <button class="editOrderBackBtn backBtn btn" onclick="location.href='<%=ROOT_PATH+"pages/admin/LoadOrder"%>'" style="float: left;">Back</button>
             <button class="editBtn btn success">Edit</button>
-            <button class="deleteBtn btn danger" onclick="if(confirm('Are you sure you want to delete this order?')) { location.href='<%=ROOT_PATH+"pages/admin/LoadOrder?deleteId="+editOrder.getOrderId()%>'; }else{return false;}">Delete</button>
+            <button class="deleteBtn btn danger" onclick="if(confirm('Are you sure you want to delete this order?')) { location.href='<%=ROOT_PATH+"pages/admin/DeleteOrder?deleteId="+editOrder.getOrderId()%>'; }else{return false;}">Delete</button>
         </div>
     </div>
     <% } %>

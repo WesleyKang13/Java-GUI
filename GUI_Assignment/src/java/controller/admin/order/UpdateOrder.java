@@ -1,7 +1,6 @@
 package controller.admin.order;
 
-import entity.Customer;
-import entity.User;
+import entity.CustOrder;
 import java.io.IOException;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
@@ -30,7 +29,7 @@ public class UpdateOrder extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.sendRedirect("LoadCustomer");
+        response.sendRedirect("LoadOrder");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -60,44 +59,34 @@ public class UpdateOrder extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String custId = (String)request.getParameter("edit_Id");
-        String custUserName = (String)request.getParameter("edit_userName");
-        String custFullName = (String)request.getParameter("edit_fullName");
-        String custPhoneNum = (String)request.getParameter("edit_phoneNum");
-        String custEmail = (String)request.getParameter("edit_email");
-        String custShippingAddress = (String)request.getParameter("edit_shippingAddress");
+        String orderId = (String)request.getParameter("edit_Id");
+        String shippingAddress = (String)request.getParameter("edit_shippingAddress");
+        String status = (String)request.getParameter("edit_status");
         String errorMsg="";
         String successMsg="";
         boolean forwardPage = true;
         
 //        try (PrintWriter out = response.getWriter()) {
-//            out.println("<h1>"+custId+"</h1>");
-//            out.println("<h1>"+custUserName+"</h1>");
-//            out.println("<h1>"+custFullName+"</h1>");
-//            out.println("<h1>"+custPhoneNum+"</h1>");
-//            out.println("<h1>"+custEmail+"</h1>");
-//            out.println("<h1>"+custShippingAddress+"</h1>");
+//            out.println("<h1>"+orderId+"</h1>");
+//            out.println("<h1>"+shippingAddress+"</h1>");
+//            out.println("<h1>"+status+"</h1>");
 //        }
         
         try {
             // Begin transaction
             utx.begin();
 
-            // Find User and Customer entities to be updated
-            Customer customer = em.find(Customer.class, Integer.valueOf(custId));
-            User user = customer.getUserId();
+            // Find Order entity to be updated
+            CustOrder order = em.find(CustOrder.class, Integer.valueOf(orderId));
 
             // Update fields in entities
-            user.setUserName(custUserName);
-            user.setUserEmail(custEmail);
-            customer.setCustFullName(custFullName);
-            customer.setCustPhoneNum(custPhoneNum);
-            customer.setCustShippingAddress(custShippingAddress);
+            order.setOrderShippingAddress(shippingAddress);
+            order.setOrderStatus(status);
 
             // Commit transaction
             utx.commit();
 
-            successMsg="Customer ID "+customer.getCustId()+" ("+customer.getCustFullName()+") UPDATED Successfully!";
+            successMsg="Order ID "+order.getOrderId()+" by "+order.getCustId().getCustFullName()+") UPDATED Successfully!";
         } catch (Exception ex) {
             try {
                 // Rollback transaction
@@ -114,7 +103,7 @@ public class UpdateOrder extends HttpServlet {
         }
         
         if(forwardPage){
-            String url = "LoadCustomer";
+            String url = "LoadOrder";
             if(!successMsg.equals("")){
                 url +="?successMsg=" + successMsg;
             }if(!errorMsg.equals("")){
