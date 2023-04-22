@@ -45,7 +45,7 @@
   font-size: 1.1rem;
   cursor: pointer;
   transform: scale(1.1);
-  opacity: 0.8;
+  opacity: 0.75;
   text-align: center;
 }
 
@@ -55,6 +55,16 @@
 
 .actionRoundBtn:hover{
   transform: scale(1.4);
+  opacity: 1;
+}
+
+/*Contact Button*/
+.actionRoundBtn.contact{
+  transform: scale(1.0);
+}
+
+.actionRoundBtn.contact:hover{
+  transform: scale(1.2);
   opacity: 1;
 }
 

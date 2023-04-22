@@ -51,7 +51,7 @@
                     </li>
 
                     <li class="nav-link product">
-                        <a href="<%=ROOT_PATH + "pages/admin/product.jsp"%>">
+                        <a href="<%=ROOT_PATH + "pages/admin/LoadProduct"%>">
                             <i class="fa-solid fa-boxes-stacked icon"></i>
                             <span class="text nav-text">Product</span>
                         </a>

@@ -127,9 +127,9 @@
                     <td><%=fullname%></td>
                     <td>
                         <% if(c.getUserId().getUserEmail() != null){%>
-                                <a style="width: 1rem;" href="mailto:<%=c.getUserId().getUserEmail()%>" class="actionRoundBtn"><i class="fa-solid fa-envelope"></i></i></a>
+                            <button class="actionRoundBtn contact" onclick="location.href='mailto:<%=c.getUserId().getUserEmail()%>'"><i class="fa-solid fa-envelope"></i></button>
                         <%}if(c.getCustPhoneNum() != null){ %>
-                                <a style="width: 1rem;" href="tel:<%=c.getCustPhoneNum()%>" class="actionRoundBtn"><i class="fa-solid fa-phone"></i></a>
+                            <button class="actionRoundBtn contact" onclick="location.href='tel:<%=c.getCustPhoneNum()%>'"><i class="fa-solid fa-phone"></i></button>
                         <% } %>
                     </td>
                     <td><%=shippingAddress%></td>
