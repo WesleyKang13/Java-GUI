@@ -1,6 +1,6 @@
 package controller.admin.product;
 
-import entity.CustOrder;
+import entity.Product;
 import java.io.IOException;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
@@ -59,55 +59,69 @@ public class UpdateProduct extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String orderId = (String)request.getParameter("edit_Id");
-        String shippingAddress = (String)request.getParameter("edit_shippingAddress");
-        String status = (String)request.getParameter("edit_status");
+        String prodId = (String)request.getParameter("edit_Id");
+        String prodName = (String)request.getParameter("edit_prodName");
+        String prodBrand = (String)request.getParameter("edit_prodBrand");
+        String prodPrice = (String)request.getParameter("edit_prodPrice");
+        String prodDesc = (String)request.getParameter("edit_prodDesc");
+        String type = (String)request.getParameter("edit_type");
         String errorMsg="";
         String successMsg="";
         boolean forwardPage = true;
         
 //        try (PrintWriter out = response.getWriter()) {
 //            out.println("<h1>"+orderId+"</h1>");
-//            out.println("<h1>"+shippingAddress+"</h1>");
-//            out.println("<h1>"+status+"</h1>");
+//            out.println("<h1>"+prodName+"</h1>");
+//            out.println("<h1>"+prodBrand+"</h1>");
+//            out.println("<h1>"+prodPrice+"</h1>");
+//            out.println("<h1>"+prodDesc+"</h1>");
+//            out.println("<h1>"+type+"</h1>");
 //        }
         
         try {
             // Begin transaction
             utx.begin();
 
-            // Find Order entity to be updated
-            CustOrder order = em.find(CustOrder.class, Integer.valueOf(orderId));
+            // Find Product entity to be updated
+            Product product = em.find(Product.class, Integer.valueOf(prodId));
 
             // Update fields in entities
-            order.setOrderShippingAddress(shippingAddress);
-            order.setOrderStatus(status);
+            product.setProdName(prodName);
+            product.setProdBrand(prodBrand);
+            product.setProdPrice(Double.valueOf(prodPrice));
+            product.setProdDescription(prodDesc);
+            product.setProdType(type);
 
             // Commit transaction
             utx.commit();
 
-            successMsg="Order ID "+order.getOrderId()+" by "+order.getCustId().getCustFullName()+") UPDATED Successfully!";
+            successMsg = "Product ID " + product.getProdId() + " UPDATED Successfully!";
         } catch (Exception ex) {
             try {
                 // Rollback transaction
                 utx.rollback();
             } catch (Exception e) {
-                errorMsg="Error Occurred: Please try again. ("+e.getMessage()+")";
+                errorMsg = "Error Occurred: Please try again. (" + e.getMessage() + ")";
                 throw new ServletException(e);
             }
-            errorMsg += "Error Occurred: Please try again. ("+ex.getMessage()+")";
-            
-            forwardPage=false;
+            errorMsg += "Error Occurred: Please try again. (" + ex.getMessage() + ")";
+
+            forwardPage = false;
             //error page
             throw new ServletException(ex);
         }
-        
-        if(forwardPage){
-            String url = "LoadOrder";
-            if(!successMsg.equals("")){
-                url +="?successMsg=" + successMsg;
-            }if(!errorMsg.equals("")){
-                url +="?errorMsg=" + errorMsg;
+
+        if (forwardPage) {
+            String url = "LoadProduct";
+            if (!successMsg.equals("")) {
+                url += "?successMsg=" + successMsg;
+            }
+            if (!errorMsg.equals("")) {
+                if (url.contains("?")) {
+                    url += "&errorMsg=" + errorMsg;
+                } else {
+                    url += "?errorMsg=" + errorMsg;
+                }
             }
             response.sendRedirect(url);
         }

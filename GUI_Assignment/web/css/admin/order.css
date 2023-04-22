@@ -7,23 +7,7 @@
 }
 
 /* Order List - START */
-.orderList .addNew{
-  position: absolute;
-  top: 5.5rem;
-  right: 5rem;
-  background-color: var(--color-white);
-  color: var(--color-font);
-  font-weight: 700;
-  border: 0.2rem solid var(--color-font);
-  border-radius: var(--border-radius-4);
-  transition: var(--tran-2);
-}
-
-.orderList .addNew:hover{
-  transform: scale(1.05);
-}
-
-.orderDetail, .addOrder{
+.orderDetail{
   padding-bottom: 5.5rem;
 }
 

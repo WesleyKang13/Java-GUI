@@ -42,7 +42,7 @@ public class Inventory implements Serializable {
     @Size(max = 20)
     @Column(name = "INV_COLOR")
     private String invColor;
-    @Column(name = "INV_SIZE")
+    @Column(name = "INV_SHOE_SIZE")
     private Integer invShoeSize;
     @JoinColumn(name = "PROD_ID", referencedColumnName = "PROD_ID")
     @ManyToOne

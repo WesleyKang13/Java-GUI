@@ -1,7 +1,7 @@
 package controller.admin.product;
 
-import entity.CustOrder;
-import entity.OrderItem;
+import entity.Inventory;
+import entity.Product;
 import java.io.IOException;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -23,8 +23,8 @@ public class LoadProduct extends HttpServlet {
         
         try{
             //Load all products in database
-            Query q = em.createNamedQuery("CustOrder.findAllDescId");
-            List<CustOrder> productList = q.getResultList();
+            Query q = em.createNamedQuery("Product.findAllDescId");
+            List<Product> productList = q.getResultList();
             request.setAttribute("productList", productList);
             request.setAttribute("ROOT_PATH", "../../");
 
@@ -64,63 +64,59 @@ public class LoadProduct extends HttpServlet {
 
         String[] pathParts = pathInfo.split("/");
         
-        if (pathParts[1].equals("editOrderID")) {
+        if (pathParts[1].equals("editProductID")) {
             // Edit the product with the specified ID
-            int editOrderID = Integer.parseInt(pathParts[2]);
-            CustOrder editOrder = em.find(CustOrder.class, editOrderID);
+            int editProductID = Integer.parseInt(pathParts[2]);
+            Product editProduct = em.find(Product.class, editProductID);
 
-            // Query to fetch all the product items for the specified product
-            Query query = em.createQuery("SELECT oi FROM OrderItem oi WHERE oi.orderId = :editOrderID");
-            query.setParameter("editOrderID", editOrder);
+            // Get the inventory list for the product being edited
+            List<Inventory> inventoryList = em.createQuery("SELECT i FROM Inventory i WHERE i.prodId = :product", Inventory.class)
+                .setParameter("product", editProduct)
+                .getResultList();
 
-            // Execute the query and retrieve the result
-            List<OrderItem> productItems = query.getResultList();
-
-            // Set the result as an attribute for the request
-            request.setAttribute("editOrder", editOrder);
-            request.setAttribute("editOrderItems", productItems);
+            // Set the result as attributes for the request
+            request.setAttribute("editProduct", editProduct);
+            request.setAttribute("inventoryList", inventoryList);
         }
-        
         
         else if (pathParts[1].equals("search")) {
             // Get the search value from the request
             String searchValue = "";
             if (pathParts.length > 2) {
-                searchValue = pathParts[2];
+            searchValue = pathParts[2];
             }
             // Query to search for a product based on search value
-            Query query = em.createQuery("SELECT o FROM CustOrder o JOIN o.custId c JOIN c.userId u JOIN o.paytId p WHERE c.custFullName LIKE :searchValue OR u.userName LIKE :searchValue OR c.custPhoneNum LIKE :searchValue OR u.userEmail LIKE :searchValue OR c.custShippingAddress LIKE :searchValue OR o.orderShippingAddress LIKE :searchValue OR o.orderStatus LIKE :searchValue OR p.paytMethod LIKE :searchValue");
-            
+            Query query = em.createQuery("SELECT p FROM Product p WHERE p.prodName LIKE :searchValue OR p.prodBrand LIKE :searchValue");
             query.setParameter("searchValue", "%" + searchValue + "%");
 
             // Execute the query and retrieve the result
-            List<CustOrder> orderList = query.getResultList();
+            List<Product> productList = query.getResultList();
 
             // Set the result as an attribute for the request
-            request.setAttribute("orderList", orderList);
+            request.setAttribute("productList", productList);
             request.setAttribute("searchValue", searchValue);
-        } 
+        }
         
         
         else if (pathParts[1].equals("filter")) {
-            // Get the status value from the request
+            // Get the search query from the request
             String filter = "";
             if (pathParts.length > 2) {
                 filter = pathParts[2];
             }
-            // Query to search for orders based on the status
-            Query query = em.createQuery("SELECT o FROM CustOrder o WHERE o.orderStatus = :status");
-
-            query.setParameter("status", filter);
-
+            
+            // Query to search for products based on their name or brand
+            Query query = em.createQuery("SELECT p FROM Product p WHERE p.prodType LIKE :filter");
+            query.setParameter("filter", filter);
+            
             // Execute the query and retrieve the result
-            List<CustOrder> orderList = query.getResultList();
+            List<Product> productList = query.getResultList();
 
             // Set the result as an attribute for the request
-            request.setAttribute("orderList", orderList);
+            request.setAttribute("productList", productList);
             request.setAttribute("filter", filter);
         }
-        
+
         else {
             //error
             forwardPage = false;
@@ -128,7 +124,7 @@ public class LoadProduct extends HttpServlet {
 
         if (forwardPage) {
             //Forward Page
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/admin/order.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/admin/product.jsp");
             dispatcher.forward(request, response);
         }
     }

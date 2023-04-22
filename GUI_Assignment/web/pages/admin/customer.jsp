@@ -45,7 +45,7 @@
     %>
     <div class="container customerList">
         <div class="text">
-            <h1>Customer List </h1>
+            <h1>Customer List</h1>
             <% //Display search value when searching
                 if(searchValue!=null){
                     out.print("<h3 style='padding-bottom:0.4rem;'>Searching - "+searchValue+"</h3>");
@@ -83,12 +83,12 @@
                 <span class="message"><%=errorMsg%></span>
                 <span class="closeBtn" onclick="this.parentElement.style.display='none';"><i class="fa-solid fa-xmark"></i></span> 
             </div>
-        <%} if(customerList.size() >= 0){%>
+        <%} if(customerList.size() > 0){%>
 
         <table class="table horizontal-table">
             <thead>
                 <tr>
-                    <th><i class="fa-solid fa-hashtag" style="width:0rem;"></i></th>
+                    <th><i class="fa-solid fa-hashtag"></i></th>
                     <th>ID</th>
                     <th>User Name</th>
                     <th>Full Name</th>

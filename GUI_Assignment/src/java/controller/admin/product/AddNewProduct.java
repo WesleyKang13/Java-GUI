@@ -1,6 +1,7 @@
 package controller.admin.product;
 
 import entity.Customer;
+import entity.Product;
 import entity.User;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -66,12 +67,11 @@ public class AddNewProduct extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String custUserName = (String)request.getParameter("addNew_userName");
-        String custPassword = (String)request.getParameter("addNew_password");
-        String custFullName = (String)request.getParameter("addNew_fullName");
-        String custPhoneNum = (String)request.getParameter("addNew_phoneNum");
-        String custEmail = (String)request.getParameter("addNew_email");
-        String custShippingAddress = (String)request.getParameter("addNew_shippingAddress");
+        String prodName = (String)request.getParameter("addNew_prodName");
+        String prodBrand = (String)request.getParameter("addNew_prodBrand");
+        double prodPrice = Double.parseDouble(request.getParameter("addNew_prodPrice"));
+        String prodDesc = (String)request.getParameter("addNew_prodDesc");
+        String type = (String)request.getParameter("addNew_type");
         String errorMsg="";
         String successMsg="";
         boolean forwardPage = true;
@@ -80,30 +80,20 @@ public class AddNewProduct extends HttpServlet {
             // Begin transaction
             utx.begin();
 
-            // Create and Update User fields
-            User user = new User();
-            user.setUserName(custUserName);
-            user.setUserEmail(custEmail);
-            user.setUserPassword(custPassword);
+            // Create and persist Product entity
+            Product product = new Product();
+            product.setProdName(prodName);
+            product.setProdBrand(prodBrand);
+            product.setProdPrice(prodPrice);
+            product.setProdDescription(prodDesc);
+            product.setProdType(type);
 
-            // Persist User entity to generate userId
-            em.persist(user);
-            em.flush(); // flush changes to the database to generate the id
-
-            // Create and Update Product entity with generated userId
-            Customer customer = new Customer();
-            customer.setCustFullName(custFullName);
-            customer.setCustPhoneNum(custPhoneNum);
-            customer.setCustShippingAddress(custShippingAddress);
-            customer.setUserId(user); // set the generated user id as the foreign key
-
-            // Persist Product entity
-            em.persist(customer);
+            em.persist(product);
 
             // Commit transaction
             utx.commit();
-            
-            successMsg="Product ID "+customer.getCustId()+" ("+customer.getCustFullName()+") CREATED Successfully!";
+
+            successMsg="Product ID "+product.getProdId()+" ("+product.getProdName()+") CREATED Successfully!";
         } catch (Exception ex) {
             try {
                 // Rollback transaction

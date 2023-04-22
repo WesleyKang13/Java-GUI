@@ -9,7 +9,7 @@
 /* Product List - START */
 .productList .addNew{
   position: absolute;
-  top: 5.5rem;
+  top: 7.2rem;
   right: 5rem;
   background-color: var(--color-white);
   color: var(--color-font);
@@ -21,10 +21,6 @@
 
 .productList .addNew:hover{
   transform: scale(1.05);
-}
-
-.productDetail, .addProduct{
-  padding-bottom: 5.5rem;
 }
 
 /* Action Column */
@@ -63,7 +59,7 @@
   border-radius: var(--border-radius-4);
   font-size: 0.9rem;
   font-weight: 600;
-  margin: 1rem .5rem;
+  margin: 1rem .5rem 0rem;
   transition: var(--tran-2);
   opacity: .95;
   float: right;
@@ -77,12 +73,65 @@
 /* Search Bar */
 .searchBar{
   position: absolute;
-  top: 5.5rem;
-  right: 7rem;
+  top: 7.18rem;
+  right: 12rem;
 }
 
 .searchBar i{
   position: absolute;
   top: 0.5rem;
   right: 1rem;
+}
+
+
+/* Tab */
+.productTabs{
+  display: flex;
+  flex-wrap: wrap;
+  width: 95%;
+  margin: 2rem auto;
+}
+
+.productTabs input[type="radio"] {
+  display: none;
+}
+
+.productTabs label {
+  padding: 0.8rem 2.5rem 0.6rem;
+  margin: 0 0.8rem;
+  background: var(--color-light);
+  font-size: 0.9rem;
+  font-style: italic;
+  font-weight: 600;
+  z-index: 1;
+  transform: translateX(2rem);
+  border-radius: 3rem 0.5rem 0 0;
+  box-shadow: 0 -0.5rem 1rem var(--color-shadow);
+}
+
+.productTabs .tab {
+  width: 100%;
+  padding: var(--padding-4);
+  background: var(--color-white);
+  order: 1;
+  display: none;
+  margin: 0;
+}
+.productTabs label {
+  color: var(--color-font);
+  cursor: pointer;
+}
+
+.productTabs input[type='radio']:checked + label + .tab {
+  display: block;
+}
+
+.productTabs input[type="radio"]:checked + label {
+  background: var(--color-primary);
+  color: var(--color-white);
+}
+
+/*Solve styling problem after make tab*/
+.productDetail table td:nth-child(1), .addProduct table td:nth-child(1){
+    width: 30%;
 }

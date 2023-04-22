@@ -5,6 +5,7 @@ import entity.Cart;
 import entity.CustOrder;
 import entity.Customer;
 import entity.OrderItem;
+import entity.Product;
 import entity.Review;
 import entity.User;
 import java.io.IOException;
@@ -52,38 +53,48 @@ public class DeleteProduct extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String orderId = (String) request.getParameter("deleteId");
+        String productId = (String) request.getParameter("deleteId");
         String errorMsg = "";
         String successMsg = "";
         boolean forwardPage = true;
 
-        try {
-            // Begin transaction
-            utx.begin();
+    try {
+        // Begin transaction
+        utx.begin();
 
-            // Find Order entity to be deleted
-            CustOrder order = em.find(CustOrder.class, Integer.valueOf(orderId));
+        // Find Product entity to be deleted
+        Product product = em.find(Product.class, Integer.valueOf(productId));
 
-            if (order != null) {
-                // Delete all product items related to the product
-                Query query1 = em.createQuery("DELETE FROM OrderItem oi WHERE oi.orderId = :orderId");
-                query1.setParameter("orderId", order);
-                query1.executeUpdate();
+        if (product != null) {
+            // Delete all inventory items related to the product
+            Query query1 = em.createQuery("DELETE FROM Inventory i WHERE i.prodId = :prodId");
+            query1.setParameter("prodId", product);
+            query1.executeUpdate();
 
-                // Delete all reviews related to the product
-                Query query2 = em.createQuery("DELETE FROM Review r WHERE r.orderId = :orderId");
-                query2.setParameter("orderId", order);
-                query2.executeUpdate();
+            // Delete all items from customer's cart related to the product
+            Query query2 = em.createQuery("DELETE FROM Cart c WHERE c.prodId = :prodId");
+            query2.setParameter("prodId", product);
+            query2.executeUpdate();
 
-                // Finally, delete the product
-                em.remove(order);
-            }
+            // Delete all reviews related to the product
+            Query query3 = em.createQuery("DELETE FROM Review r WHERE r.prodId = :prodId");
+            query3.setParameter("prodId", product);
+            query3.executeUpdate();
+            
+            // Delete all order_items related to the product
+            Query query4 = em.createQuery("DELETE FROM OrderItem oi WHERE oi.prodId = :prodId");
+            query4.setParameter("prodId", product);
+            query4.executeUpdate();
 
-            // Commit transaction
-            utx.commit();
+            // Finally, delete the product
+            em.remove(product);
+        }
 
-            successMsg = "Order ID " + order.getOrderId() + " DELETED Successfully!";
-        } catch (Exception ex) {
+        // Commit transaction
+        utx.commit();
+
+        successMsg = "Product ID " + product.getProdId() + " DELETED Successfully!";
+    } catch (Exception ex) {
             try {
                 // Rollback transaction
                 utx.rollback();
@@ -98,7 +109,7 @@ public class DeleteProduct extends HttpServlet {
         }
 
         if (forwardPage) {
-            String url = "LoadOrder";
+            String url = "LoadProduct";
             if (!successMsg.equals("")) {
                 url += "?successMsg=" + successMsg;
             }

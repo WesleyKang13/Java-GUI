@@ -119,12 +119,12 @@
                 <span class="message"><%=errorMsg%></span>
                 <span class="closeBtn" onclick="this.parentElement.style.display='none';"><i class="fa-solid fa-xmark"></i></span> 
             </div>
-        <%}if(orderList.size() >= 0){%>
+        <%}if(orderList.size() > 0){%>
 
         <table class="table horizontal-table">
             <thead>
                 <tr>
-                    <th><i class="fa-solid fa-hashtag" style="width:0rem;"></i></th>
+                    <th><i class="fa-solid fa-hashtag"></i></th>
                     <th>ID</th>
                     <th>Cust ID</th>
                     <th>Payt ID</th>
@@ -147,13 +147,13 @@
                     <td><%=o.getOrderStatus()%></td>
                     <td>
                         <button class="actionRoundBtn" onclick="location.href='<%=ROOT_PATH+"pages/admin/LoadOrder/editOrderID/"+o.getOrderId()%>'"><i class="fa-solid fa-circle-info fa-spin"></i></button>
-                        <button class="actionRoundBtn danger" onclick="if(confirm('Are you sure you want to delete this order?')) { location.href='<%=ROOT_PATH+"pages/admin/DeleteOrder?deleteId="+o.getCustId()%>'; }else{return false;}"><i class="fa-solid fa-trash fa-spin fa-spin"></i></button>
+                        <button class="actionRoundBtn danger" onclick="if(confirm('Are you sure you want to delete this order?')) { location.href='<%=ROOT_PATH+"pages/admin/DeleteOrder?deleteId="+o.getOrderId()%>'; }else{return false;}"><i class="fa-solid fa-trash fa-spin fa-spin"></i></button>
                     </td>
                 </tr>
                 <% } %>
             </tbody>
         </table>
-        <% } //End if (if customer size >= 0)%> 
+        <% } //End if (if product size >= 0)%> 
     </div>
     <% 
         //Start Edit Order
