@@ -1,7 +1,10 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package entity;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,11 +13,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -25,9 +26,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p"),
-    @NamedQuery(name = "Product.findByIdWithInventory", query = "SELECT p, i FROM Product p JOIN p.inventoryList i WHERE p.prodId = :prodId"),
     @NamedQuery(name = "Product.findByProdId", query = "SELECT p FROM Product p WHERE p.prodId = :prodId"),
-    //@NamedQuery(name = "Product.findByProdName", query = "SELECT p FROM Product p WHERE p.prodName = :prodName"),
+    @NamedQuery(name = "Product.findByProdName", query = "SELECT p FROM Product p WHERE p.prodName = :prodName"),
     @NamedQuery(name = "Product.findByProdBrand", query = "SELECT p FROM Product p WHERE p.prodBrand = :prodBrand"),
     @NamedQuery(name = "Product.findByProdPrice", query = "SELECT p FROM Product p WHERE p.prodPrice = :prodPrice"),
     @NamedQuery(name = "Product.findByProdDescription", query = "SELECT p FROM Product p WHERE p.prodDescription = :prodDescription"),
@@ -41,9 +41,9 @@ public class Product implements Serializable {
     @Column(name = "PROD_ID")
     private Integer prodId;
     @Size(max = 50)
-//    @Column(name = "PROD_NAME")
-//    private String prodName;
-//    @Size(max = 20)
+    @Column(name = "PROD_NAME")
+    private String prodName;
+    @Size(max = 20)
     @Column(name = "PROD_BRAND")
     private String prodBrand;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
@@ -55,14 +55,6 @@ public class Product implements Serializable {
     @Size(max = 20)
     @Column(name = "PROD_TYPE")
     private String prodType;
-    @OneToMany(mappedBy = "prodId")
-    private List<Review> reviewList;
-    @OneToMany(mappedBy = "prodId")
-    private List<OrderItem> orderItemList;
-    @OneToMany(mappedBy = "prodId")
-    private List<Inventory> inventoryList;
-    @OneToMany(mappedBy = "prodId")
-    private List<Cart> cartList;
 
     public Product() {
     }
@@ -79,13 +71,13 @@ public class Product implements Serializable {
         this.prodId = prodId;
     }
 
-//    public String getProdName() {
-//        return prodName;
-//    }
-//
-//    public void setProdName(String prodName) {
-//        this.prodName = prodName;
-//    }
+    public String getProdName() {
+        return prodName;
+    }
+
+    public void setProdName(String prodName) {
+        this.prodName = prodName;
+    }
 
     public String getProdBrand() {
         return prodBrand;
@@ -117,42 +109,6 @@ public class Product implements Serializable {
 
     public void setProdType(String prodType) {
         this.prodType = prodType;
-    }
-
-    @XmlTransient
-    public List<Review> getReviewList() {
-        return reviewList;
-    }
-
-    public void setReviewList(List<Review> reviewList) {
-        this.reviewList = reviewList;
-    }
-
-    @XmlTransient
-    public List<OrderItem> getOrderItemList() {
-        return orderItemList;
-    }
-
-    public void setOrderItemList(List<OrderItem> orderItemList) {
-        this.orderItemList = orderItemList;
-    }
-
-    @XmlTransient
-    public List<Inventory> getInventoryList() {
-        return inventoryList;
-    }
-
-    public void setInventoryList(List<Inventory> inventoryList) {
-        this.inventoryList = inventoryList;
-    }
-
-    @XmlTransient
-    public List<Cart> getCartList() {
-        return cartList;
-    }
-
-    public void setCartList(List<Cart> cartList) {
-        this.cartList = cartList;
     }
 
     @Override

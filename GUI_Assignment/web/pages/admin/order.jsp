@@ -1,5 +1,16 @@
+<%@page import="entity.OrderItem"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Date"%>
 <%@page import="java.util.List"%>
-<%@page import="entity.Customer"%>
+<%@page import="entity.CustOrder"%>
+
+<%!
+    public static String convertTimestamp(Date timestamp) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss"); // Create a date format object
+        String formattedDate = sdf.format(timestamp); // Format the date as a string
+        return formattedDate;
+    }
+%>
 
 <% 
     //Get notification from controllers
@@ -11,20 +22,12 @@
     //Get root path (from controller)
     String ROOT_PATH = (String) request.getAttribute("ROOT_PATH");
     
-    //Get variable from Query String
-    boolean addNewAction = request.getParameter("addNewAction") != null ? true : false;
-    
     //Get orders information from controller (LoadOrder.jsp)
-    //Declare variable
-    List<Customer> customerList=null;
-    Customer editCustomer=null;
+    //Order List
+    List<CustOrder> orderList=(List<CustOrder>) request.getAttribute("orderList") != null ? (List<CustOrder>) request.getAttribute("orderList") : null;
+    //Edit Order
+    CustOrder editOrder=(CustOrder) request.getAttribute("editOrder") != null ? (CustOrder) request.getAttribute("editOrder") : null;
     
-    if(!addNewAction){
-        //Customer List
-        customerList = (List<Customer>) request.getAttribute("customerList") != null ? (List<Customer>) request.getAttribute("customerList") : null;
-        //Edit Customer
-        editCustomer = (Customer) request.getAttribute("editCustomer") != null ? (Customer) request.getAttribute("editCustomer") : null;
-    }
 %>
 
 <!-- Include Header -->
@@ -41,7 +44,7 @@
 <main>
     <% 
         //Start Display Cstomer List
-        if(customerList != null){ 
+        if(orderList != null){ 
     %>
     <div class="container orderList">
         <div class="text">
@@ -52,12 +55,26 @@
                     out.print("<a href='"+ROOT_PATH+"pages/admin/LoadOrder'>Reset</a>");
                 }
             %>
-            <p><%=customerList.size()%> record(s) found</p>
+            <%!
+                private String maintainSearchBarValue(String searchValue){
+                    if(searchValue != null) return "value='"+searchValue+"'"; 
+                    return "";
+                }
+            %>
+            <p><%=orderList.size()%> record(s) found</p>
         </div>
-        <button class="addNew btn" onclick="location.href='<%=ROOT_PATH+"pages/admin/LoadOrder?addNewAction=true"%>'">Add New</button>
         <div class="searchBar">
-            <input id="searchInput" type="search" placeholder="Search ..." required>
+            <input id="searchInput" type="search" placeholder="Search ..." <%=maintainSearchBarValue(searchValue)%> required>
             <a id="searchBtn" href="#"><i class='fa-solid fa-magnifying-glass fa-bounce'></i></a>
+        </div>
+        
+        <div class="filter">
+            <a href="#" class="active">All</a>
+            <a href="#">Pending</a>
+            <a href="#">Shipping</a>
+            <a href="#">Postponed</a>
+            <a href="#">Cancelled</a>
+            <a href="#">Completed</a>
         </div>
 
         <script>
@@ -90,124 +107,43 @@
                 <tr>
                     <th><i class="fa-solid fa-hashtag" style="width:0rem;"></i></th>
                     <th>ID</th>
-                    <th>User Name</th>
-                    <th>Full Name</th>
-                    <th>Contact</th>
+                    <th>Cust ID</th>
+                    <th>Payt ID</th>
                     <th>Shipping Address</th>
+                    <th>Status</th>
                     <th>Action</th>
                 </tr>
             </thead>
             <tbody>
                 <%
-                    for(int i=0; i<customerList.size();i++){
-                        Customer c = customerList.get(i);
-                        //Handle long string
-                        String username = c.getUserId().getUserName();
-                        if(username == null){
-                            username = "&#8212;";
-                        }
-                        if(username.length() > 10){
-                            username = username.substring(0, 10)+"...";
-                        }
-                        
-                        String fullname = c.getCustFullName();
-                        if(fullname.length() > 20){
-                            fullname = fullname.substring(0, 20)+"...";
-                        }
-
-                        String shippingAddress = c.getCustShippingAddress();
-                        if(shippingAddress.length() > 20){
-                            shippingAddress = shippingAddress.substring(0, 20)+"...";
-                        }
+                    for(int i=0; i<orderList.size();i++){
+                    CustOrder o = orderList.get(i);
                 %>
                 <tr>
                     <td style="font-weight:600;width:0rem;"><%=i+1%></td>
-                    <td><%=c.getCustId()%></td>
-                    <td><%=username%></td>
-                    <td><%=fullname%></td>
-                    <td>
-                        <% if(c.getUserId().getUserEmail() != null){%>
-                                <a style="width: 1rem;" href="mailto:<%=c.getUserId().getUserEmail()%>" class="contactRoundBtn"><i class="fa-solid fa-envelope"></i></i></a>
-                        <%}if(c.getCustPhoneNum() != null){ %>
-                                <a style="width: 1rem;" href="tel:<%=c.getCustPhoneNum()%>" class="contactRoundBtn"><i class="fa-solid fa-phone"></i></a>
-                        <% } %>
-                    </td>
-                    <td><%=shippingAddress%></td>
-                    <td><button class="actionRoundBtn" onclick="location.href='<%=ROOT_PATH+"/pages/admin/LoadOrder/editCustID/"+c.getCustId()%>'"><i class="fa-solid fa-circle-info fa-spin"></i></button></td>
+                    <td><%=o.getOrderId()%></td>
+                    <td><%=o.getCustId().getCustId()%></td>
+                    <td><%=o.getPaytId().getPaytId()%></td>
+                    <td><%=o.getOrderShippingAddress()%></td>
+                    <td><%=o.getOrderStatus()%></td>
+                    <td><button class="actionRoundBtn" onclick="location.href='<%=ROOT_PATH+"pages/admin/LoadOrder/editOrderID/"+o.getOrderId()%>'"><i class="fa-solid fa-circle-info fa-spin"></i></button></td>
                 </tr>
                 <% } %>
             </tbody>
         </table>
     </div>
-    <% } 
-        //Start Add New Order
-        else if(addNewAction){
-    %>
-    <div class="container addOrder ">
-        <div class="text">
-            <h1>Add Order</h1>
-        </div>
-
-        <div class="notificationBox success">
-            <span class="message">Record Deleted Successfully !</span>
-            <span class="closeBtn" onclick="this.parentElement.style.display='none';"><i class="fa-solid fa-xmark"></i></span> 
-        </div>
-
-        <div class="notificationBox error">
-            <span class="message">Error Occurred, Please Try Again !</span>
-            <span class="closeBtn" onclick="this.parentElement.style.display='none';"><i class="fa-solid fa-xmark"></i></span> 
-        </div>
-
-        <form action="<%=ROOT_PATH+"pages/admin/AddNewLoadOrder" %>" method="POST">
-            <table class="table vertical-table">
-                <tr>
-                    <td><strong>User Name</strong></td>
-                    <td><input type="text" name="addNew_userName"></td>
-                </tr>
-                <tr>
-                    <td><strong>Password</strong></td>
-                    <td><input type="password" name="addNew_password"></td>
-                </tr>
-                <tr>
-                    <td><strong>Confirm Password</strong></td>
-                    <td><input type="password" name="addNew_confirmPassword"></td>
-                </tr>
-                <tr>
-                    <td><strong>Full Name</strong></td>
-                    <td><input type="text" name="addNew_fullName"></td>
-                </tr>
-                <tr>
-                    <td><strong>Phone Number</strong></td>
-                    <td><input type="text" name="addNew_phoneNum"></td>
-                </tr>
-                <tr>
-                    <td><strong>Email</strong></td>
-                    <td><input type="email" name="addNew_email"></td>
-                </tr>
-                <tr>
-                    <td><strong>Shipping Address</strong></td>
-                    <td><input type="text" name="addNew_shippingAddress"></td>
-                </tr>
-            </table>
-
-            <div class="addNew-action">
-                <button type="button" class="editCustBackBtn backBtn btn" onclick="if(confirm('Are you sure you want to go back?')) { location.href='<%=ROOT_PATH+"pages/admin/LoadOrder" %>'; } else { return false; }" style="float: left;">Back</button>
-                <button type="submit" class="submitBtn btn success" onclick="if(confirm('Are you sure you want to add new order?')) { return true; } else { return false; }">Submit</button>
-                <button type="reset" class="resetBtn btn danger" onclick="if(confirm('Are you sure you want to reset the form?')) { this.form.reset(); } else { return false; }">Reset</button>
-            </div>
-        </form>
-    </div>
-
-    <%
+    <% 
         //Start Edit Order
-        }else if(editCustomer != null){
+        }else if(editOrder != null){
     %>
-    <div class="container customerDetail">
+    <div class="container orderDetail">
         <div class="text">
             <h1>Order Detail</h1>
-            <p><strong>ID <%=editCustomer.getCustId()%> - <%=editCustomer.getCustFullName()%></strong></p>
+            <p><strong>ID - <%=editOrder.getOrderId()+" by "+editOrder.getCustId().getCustFullName()%></strong></p>
+            <p style="padding-top: 0.5rem;"><strong>Order Date  - <%=convertTimestamp(editOrder.getDate())%></strong></p>
         </div>
 
+        <!--Notification Area-->
         <div class="notificationBox success">
             <span class="message">Record Deleted Successfully !</span>
             <span class="closeBtn" onclick="this.parentElement.style.display='none';"><i class="fa-solid fa-xmark"></i></span> 
@@ -223,42 +159,121 @@
             <table class="table vertical-table">
                 <tr>
                     <td><strong>ID </strong><small>(*ID can't be modified)</small></td>
-                    <td><input type="text" value="<%=editCustomer.getCustId()%>" disabled></td>
-                    <input type="hidden" name="edit_Id" id="edit_Id" value="<%=editCustomer.getCustId()%>">
+                    <td><input type="text" value="<%=editOrder.getOrderId()%>" disabled></td>
+                    <input type="hidden" name="edit_Id" id="edit_Id" value="<%=editOrder.getOrderId()%>">
                 </tr>
                 <tr>
-                    <td><strong>User Name</strong></strong></td>
-                    <td><input type="text" name="edit_userName" id="edit_userName" value="<%=editCustomer.getUserId().getUserName()%>" disabled></td>
+                    <td><strong>Customer</strong></strong></td>
+                    <td>
+                        <table>
+                            <tr>
+                              <td><strong>Cust ID</strong></td>
+                              <td><%=editOrder.getCustId().getCustId()%></td>
+                            </tr>
+                            <tr>
+                              <td><strong>Name</strong></td>
+                              <td><%=editOrder.getCustId().getCustFullName()%></td>
+                            </tr>
+                            <tr>
+                              <td><strong>Contact</strong></td>
+                              <td>
+                                  <% if(editOrder.getCustId().getUserId().getUserEmail() != null){%>
+                                          <a style="width: 1rem; padding: 0 0.5rem;" href="mailto:<%=editOrder.getCustId().getUserId().getUserEmail()%>" class="contactRoundBtn"><i class="fa-solid fa-envelope"></i></i></a>
+                                  <%}if(editOrder.getCustId().getCustPhoneNum() != null){ %>
+                                          <a style="width: 1rem;padding: 0 0.5rem;" href="tel:<%=editOrder.getCustId().getCustPhoneNum()%>" class="contactRoundBtn"><i class="fa-solid fa-phone"></i></a>
+                                  <% } %>
+                              </td>
+                            </tr>
+                        </table>
+                    </td>
                 </tr>
                 <tr>
-                    <td><strong>Full Name</strong></strong></td>
-                    <td><input type="text" name="edit_fullName" id="edit_fullName" value="<%=editCustomer.getCustFullName()%>" disabled></td>
-                </tr>
-                <tr>
-                    <td><strong>Phone Number</strong></td>
-                    <td><input type="text" name="edit_phoneNum" id="edit_phoneNum" value="<%=editCustomer.getCustPhoneNum()%>" disabled></td>
-                </tr>
-                <tr>
-                    <td><strong>Email</strong></td>
-                    <td><input type="text" name="edit_email" id="edit_email" value="<%=editCustomer.getUserId().getUserEmail()%>" disabled></td>
+                    <td><strong>Payment</strong></strong></td>
+                    <td>
+                        <table>
+                            <tr>
+                              <td><strong>PAYT ID</strong></td>
+                              <td><%=editOrder.getPaytId().getPaytId()%></td>
+                            </tr>
+                            <tr>
+                              <td><strong>Total Amount</strong></td>
+                              <td>RM <%=editOrder.getPaytId().getPaytTotalAmount()%></td>
+                            </tr>
+                            <tr>
+                              <td><strong>Method</strong></td>
+                              <td><%=editOrder.getPaytId().getPaytMethod()%></td>
+                            </tr>
+                            <tr>
+                              <td><strong>Date</strong></td>
+                              <td><%=convertTimestamp(editOrder.getPaytId().getPaytDate())%></td>
+                            </tr>
+                        </table>
+                    </td>
                 </tr>
                 <tr>
                     <td><strong>Shipping Address</strong></td>
-                    <td><input type="text" name="edit_shippingAddress" id="edit_shippingAddress" value="<%=editCustomer.getCustShippingAddress()%>" disabled></td>
+                    <td><input type="text" name="edit_shippingAddress" id="edit_shippingAddress" value="<%=editOrder.getOrderShippingAddress()%>" disabled></td>
                 </tr>
+                <%!
+                    private String validateStatus(String status, String value) {
+                        if (status.equals(value)) return "selected=\"selected\"";
+                        return "";
+                    }
+                %>
+                <tr>
+                    <td><strong>Status</strong></td>
+                    <td>
+                        <select name="edit_status" id="edit_status" disabled>
+                            <option value="PENDING" <%=validateStatus("PENDING", editOrder.getOrderStatus())%>>Pending</option>
+                            <option value="SHIPPING" <%=validateStatus("SHIPPING", editOrder.getOrderStatus())%>>Shipping</option>
+                            <option value="POSTPONED" <%=validateStatus("POSTPONED", editOrder.getOrderStatus())%>>Postponed</option>
+                            <option value="CANCELLED" <%=validateStatus("CANCELLED", editOrder.getOrderStatus())%>>Cancelled</option>
+                            <option value="COMPLETED" <%=validateStatus("COMPLETED", editOrder.getOrderStatus())%>>Completed</option>
+                        </select>
+                    </td>
+                </tr>
+                <%List<OrderItem> editOrderItems = (List<OrderItem>)request.getAttribute("editOrderItems");%>
+                <tr>
+                    <td><strong>Order Item</strong></td>
+                    <td>Total purchased <%=editOrderItems.size()%> item(s).</td>
+                </tr>
+                <%
+                    for (int i = 0; i < editOrderItems.size(); i++) {
+                        OrderItem oi = editOrderItems.get(i);
+                %>
+                <tr>
+                    <td><strong>Item <%=i+1%></strong></td>
+                    <td>
+                        <table>
+                            <tr>
+                              <td><strong>Prod ID</strong></td>
+                              <td><%=oi.getProdId().getProdId()%></td>
+                            </tr>
+                            <tr>
+                              <td><strong>Prod Name</strong></td>
+                              <td><%=oi.getProdId().getProdName()%></td>
+                            </tr>
+                            <tr>
+                              <td><strong>Quantity</strong></td>
+                              <td><%=oi.getOrderItemQuantity()%></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                    <% } %>
             </table>
 
             <div class="edit-action hide">
                 <button type="button" class="delete btn danger" onclick="if(confirm('Are you sure you want to cancel?')) { history.go(0); }" style="float: left;">Cancel</button>
-                <button type="submit" class="edit btn success" onclick="if(confirm('Are you sure you want to edit this customer?')) { return true; }else{return false;}">Save</button>
+                <button type="submit" class="edit btn success" onclick="if(confirm('Are you sure you want to edit this order?')) { return true; }else{return false;}">Save</button>
             </div>
         </form>
         <!--End Edit Order Form-->
             
         <div class="detail-action">
-            <button class="editCustBackBtn backBtn btn" onclick="location.href='<%=ROOT_PATH+"pages/admin/LoadOrder"%>'" style="float: left;">Back</button>
+            <button class="editOrderBackBtn backBtn btn" onclick="location.href='<%=ROOT_PATH+"pages/admin/LoadOrder"%>'" style="float: left;">Back</button>
             <button class="editBtn btn success">Edit</button>
-            <button class="deleteBtn btn danger" onclick="if(confirm('Are you sure you want to delete this customer?')) { location.href='<%=ROOT_PATH+"pages/admin/LoadOrder?deleteId="+editCustomer.getCustId()%>'; }else{return false;}">Delete</button>
+            <button class="deleteBtn btn danger" onclick="if(confirm('Are you sure you want to delete this order?')) { location.href='<%=ROOT_PATH+"pages/admin/LoadOrder?deleteId="+editOrder.getOrderId()%>'; }else{return false;}">Delete</button>
         </div>
     </div>
     <% } %>
@@ -273,11 +288,8 @@
             editBtn.addEventListener("click" , () =>{
                 actionBtnField.classList.add("hide");
                 editActionBtnField.classList.remove("hide");
-                document.getElementById('edit_userName').removeAttribute("disabled");
-                document.getElementById('edit_fullName').removeAttribute("disabled");
-                document.getElementById('edit_phoneNum').removeAttribute("disabled");
-                document.getElementById('edit_email').removeAttribute("disabled");
                 document.getElementById('edit_shippingAddress').removeAttribute("disabled");
+                document.getElementById('edit_status').removeAttribute("disabled");
             });
         }
     </script>

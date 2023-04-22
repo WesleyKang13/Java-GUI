@@ -254,13 +254,26 @@ input{
 }
 
 input:focus{
+    opacity: 1;
     background: var(--color-white);
 }
 
-input:disabled {
+input:disabled, select:disabled {
     background-color: var(--color-white);
     opacity: .7;
     font-style: italic;
+}
+
+/*Select*/
+select {
+    width: 80%;
+    background-color: var(--color-white);
+    font-size: 0.9rem;
+    border-radius: var(--border-radius-4);
+    padding: var(--padding-3);
+    border: 0.1rem solid var(--color-dark);
+    transition: var(--tran-1);
+    cursor: pointer;
 }
 
 /* CheckBox */

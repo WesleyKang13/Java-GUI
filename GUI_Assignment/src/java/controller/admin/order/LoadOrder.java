@@ -1,6 +1,7 @@
 package controller.admin.order;
 
-import entity.Customer;
+import entity.CustOrder;
+import entity.OrderItem;
 import java.io.IOException;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -21,10 +22,10 @@ public class LoadOrder extends HttpServlet {
             throws ServletException, IOException {
         
         try{
-            //Load all customers in database
-            Query q = em.createNamedQuery("Customer.findAllDescId");
-            List<Customer> customerList = q.getResultList();
-            request.setAttribute("customerList", customerList);
+            //Load all orders in database
+            Query q = em.createNamedQuery("CustOrder.findAllDescId");
+            List<CustOrder> orderList = q.getResultList();
+            request.setAttribute("orderList", orderList);
             request.setAttribute("ROOT_PATH", "../../");
 
             //Forward Page
@@ -58,28 +59,45 @@ public class LoadOrder extends HttpServlet {
 
         boolean forwardPage = true;
         request.setAttribute("ROOT_PATH", "../../../../");
-        //Remove customerList
-        request.removeAttribute("customerList");
+        //Remove orderList
+        request.removeAttribute("orderList");
 
         String[] pathParts = pathInfo.split("/");
-        if (pathParts[1].equals("editCustID")) {
-            // Edit the customer with the specified ID
-            int editCustID = Integer.parseInt(pathParts[2]);
-            Customer editCustomer = em.find(Customer.class, editCustID);
-            request.setAttribute("editCustomer", editCustomer);
-        } else if (pathParts[1].equals("search")) {
-            // Get the search value from the request
-            String searchValue = pathParts[2];
+        
+        if (pathParts[1].equals("editOrderID")) {
+            // Edit the order with the specified ID
+            int editOrderID = Integer.parseInt(pathParts[2]);
+            CustOrder editOrder = em.find(CustOrder.class, editOrderID);
 
-            // Query to search for a customer based on search value
-            Query query = em.createQuery(" SELECT c FROM Customer c JOIN c.userId u WHERE c.custFullName LIKE :searchValue OR u.userName LIKE :searchValue OR c.custPhoneNum LIKE :searchValue OR u.userEmail LIKE :searchValue OR c.custShippingAddress LIKE :searchValue");
+            // Query to fetch all the order items for the specified order
+            Query query = em.createQuery("SELECT oi FROM OrderItem oi WHERE oi.orderId = :editOrderID");
+            query.setParameter("editOrderID", editOrder);
+
+            // Execute the query and retrieve the result
+            List<OrderItem> orderItems = query.getResultList();
+
+            // Set the result as an attribute for the request
+            request.setAttribute("editOrder", editOrder);
+            request.setAttribute("editOrderItems", orderItems);
+        }
+        
+        
+        else if (pathParts[1].equals("search")) {
+            // Get the search value from the request
+            String searchValue = "";
+            if (pathParts.length > 2) {
+                searchValue = pathParts[2];
+            }
+            // Query to search for a order based on search value
+            Query query = em.createQuery("SELECT o FROM CustOrder o JOIN o.custId c JOIN c.userId u JOIN o.paytId p WHERE c.custFullName LIKE :searchValue OR u.userName LIKE :searchValue OR c.custPhoneNum LIKE :searchValue OR u.userEmail LIKE :searchValue OR c.custShippingAddress LIKE :searchValue OR o.orderShippingAddress LIKE :searchValue OR o.orderStatus LIKE :searchValue OR p.paytMethod LIKE :searchValue");
+
             query.setParameter("searchValue", "%" + searchValue + "%");
 
             // Execute the query and retrieve the result
-            List<Customer> customerList = query.getResultList();
+            List<CustOrder> orderList = query.getResultList();
 
             // Set the result as an attribute for the request
-            request.setAttribute("customerList", customerList);
+            request.setAttribute("orderList", orderList);
             request.setAttribute("searchValue", searchValue);
         } else {
             //error

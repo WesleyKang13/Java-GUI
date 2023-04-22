@@ -69,8 +69,10 @@ public class LoadCustomer extends HttpServlet {
             request.setAttribute("editCustomer", editCustomer);
         } else if (pathParts[1].equals("search")) {
             // Get the search value from the request
-            String searchValue = pathParts[2];
-
+            String searchValue = "";
+            if (pathParts.length > 2) {
+                searchValue = pathParts[2];
+            }
             // Query to search for a customer based on search value
             Query query = em.createQuery(" SELECT c FROM Customer c JOIN c.userId u WHERE c.custFullName LIKE :searchValue OR u.userName LIKE :searchValue OR c.custPhoneNum LIKE :searchValue OR u.userEmail LIKE :searchValue OR c.custShippingAddress LIKE :searchValue");
             query.setParameter("searchValue", "%" + searchValue + "%");

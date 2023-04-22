@@ -133,7 +133,7 @@
                         <% } %>
                     </td>
                     <td><%=shippingAddress%></td>
-                    <td><button class="actionRoundBtn" onclick="location.href='<%=ROOT_PATH+"/pages/admin/LoadCustomer/editCustID/"+c.getCustId()%>'"><i class="fa-solid fa-circle-info fa-spin"></i></button></td>
+                    <td><button class="actionRoundBtn" onclick="location.href='<%=ROOT_PATH+"pages/admin/LoadCustomer/editCustID/"+c.getCustId()%>'"><i class="fa-solid fa-circle-info fa-spin"></i></button></td>
                 </tr>
                 <% } %>
             </tbody>
