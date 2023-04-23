@@ -6,8 +6,8 @@
     margin-bottom: .5rem;
 }
 
-/* Product List - START */
-.productList .addNew{
+/* Inventory List - START */
+.inventoryList .addNew{
   position: absolute;
   top: 7.2rem;
   right: 5rem;
@@ -19,13 +19,13 @@
   transition: var(--tran-2);
 }
 
-.productList .addNew:hover{
+.inventoryList .addNew:hover{
   transform: scale(1.05);
 }
 
 /* Action Column */
-.productList table th:last-child,
-.productList table td:last-child{
+.inventoryList table th:last-child,
+.inventoryList table td:last-child{
   margin: 0;
   padding: 0 1rem;
   text-align: center;
@@ -55,7 +55,7 @@
 }
 
 /* FORM ACTION BUTTON */
-.productDetail .btn, .addProduct .btn {
+.inventoryDetail .btn, .addInventory .btn {
   border-radius: var(--border-radius-4);
   font-size: 0.9rem;
   font-weight: 600;
@@ -65,7 +65,7 @@
   float: right;
 }
 
-.productDetail .btn:hover, .addProduct .btn:hover {
+.inventoryDetail .btn:hover, .addInventory .btn:hover {
   opacity: 1;
   transform: translate(-0.1rem, -0.1rem);
 }
@@ -132,6 +132,6 @@
 }
 
 /*Solve styling problem after make tab*/
-.productDetail table td:nth-child(1), .addProduct table td:nth-child(1){
+.inventoryDetail table td:nth-child(1), .addInventory table td:nth-child(1){
     width: 30%;
 }

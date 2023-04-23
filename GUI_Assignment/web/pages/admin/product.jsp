@@ -46,10 +46,10 @@
 
 <main>
     
-    <div class="productTabs">
+    <div class="groupTabs">
         
         <input type="radio" id="product" name="tab" checked="checked">
-        <label for="product">Product</label>
+        <label for="product" onclick="location.href='<%=ROOT_PATH+"pages/admin/LoadProduct"%>'">Product</label>
         <div class="container productList tab">
     <% 
         //Start Display Cstomer List
@@ -179,13 +179,13 @@
 
 
         <% } 
-            //Start Add New Customer
+            //Start Add New Product
             else if(addNewAction){
         %>
 
         <div class="addProduct">
             <div class="text">
-                <h1>Add Customer</h1>
+                <h1>Add Product</h1>
             </div>
 
             <div class="notificationBox success">
@@ -233,7 +233,7 @@
 
                 <div class="addNew-action">
                     <button type="button" class="editCustBackBtn backBtn btn" onclick="if(confirm('Are you sure you want to go back?')) { location.href='<%=ROOT_PATH+"pages/admin/LoadProduct" %>'; } else { return false; }" style="float: left;">Back</button>
-                    <button type="submit" class="submitBtn btn success" onclick="if(confirm('Are you sure you want to add new customer?')) { return true; } else { return false; }">Submit</button>
+                    <button type="submit" class="submitBtn btn success" onclick="if(confirm('Are you sure you want to add new product?')) { return true; } else { return false; }">Submit</button>
                     <button type="reset" class="resetBtn btn danger" onclick="if(confirm('Are you sure you want to reset the form?')) { this.form.reset(); } else { return false; }">Reset</button>
                 </div>
             </form>
@@ -353,7 +353,7 @@
         </div>
     
         <input type="radio" id="inventory" name="tab">
-        <label for="inventory" onclick="location.href='http://google.com'">Inventory</label>
+        <label for="inventory" onclick="location.href='<%=ROOT_PATH+"pages/admin/LoadInventory"%>'">Inventory</label>
     
     
     <script>

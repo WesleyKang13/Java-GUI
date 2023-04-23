@@ -1,7 +1,9 @@
-package controller.admin.product;
+package controller.admin.inventory;
 
+import entity.Inventory;
 import entity.Product;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -12,8 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.UserTransaction;
 
-@WebServlet(name = "UpdateProduct", urlPatterns = {"/pages/admin/UpdateProduct"})
-public class UpdateProduct extends HttpServlet {
+@WebServlet(name = "UpdateInventory", urlPatterns = {"/pages/admin/UpdateInventory"})
+public class UpdateInventory extends HttpServlet {
 
     @PersistenceContext EntityManager em;
     @Resource UserTransaction utx;
@@ -29,7 +31,7 @@ public class UpdateProduct extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.sendRedirect("LoadProduct");
+        response.sendRedirect("LoadInventory");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -59,23 +61,21 @@ public class UpdateProduct extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String prodId = (String)request.getParameter("edit_Id");
-        String prodName = (String)request.getParameter("edit_prodName");
-        String prodBrand = (String)request.getParameter("edit_prodBrand");
-        String prodPrice = (String)request.getParameter("edit_prodPrice");
-        String prodDesc = (String)request.getParameter("edit_prodDesc");
-        String type = (String)request.getParameter("edit_type");
+        String invId = (String)request.getParameter("edit_Id");
+        String invProdId = (String)request.getParameter("edit_invProduct");
+        String invQuantity = (String)request.getParameter("edit_invQuantity");
+        String invColor = (String)request.getParameter("edit_invColor");
+        String invSize = (String)request.getParameter("edit_invSize");
         String errorMsg="";
         String successMsg="";
         boolean forwardPage = true;
         
 //        try (PrintWriter out = response.getWriter()) {
-//            out.println("<h1>"+orderId+"</h1>");
-//            out.println("<h1>"+prodName+"</h1>");
-//            out.println("<h1>"+prodBrand+"</h1>");
-//            out.println("<h1>"+prodPrice+"</h1>");
-//            out.println("<h1>"+prodDesc+"</h1>");
-//            out.println("<h1>"+type+"</h1>");
+//            out.println("<h1>"+invId+"</h1>");
+//            out.println("<h1>"+invProdId+"</h1>");
+//            out.println("<h1>"+invQuantity+"</h1>");
+//            out.println("<h1>"+invColor+"</h1>");
+//            out.println("<h1>"+invSize+"</h1>");
 //        }
         
         try {
@@ -83,19 +83,19 @@ public class UpdateProduct extends HttpServlet {
             utx.begin();
 
             // Find Product entity to be updated
-            Product product = em.find(Product.class, Integer.valueOf(prodId));
+            Inventory inventory = em.find(Inventory.class, Integer.valueOf(invId));
+            Product prod = em.find(Product.class, Integer.valueOf(invProdId));
 
             // Update fields in entities
-            product.setProdName(prodName);
-            product.setProdBrand(prodBrand);
-            product.setProdPrice(Double.valueOf(prodPrice));
-            product.setProdDescription(prodDesc);
-            product.setProdType(type);
+            inventory.setProdId(prod);
+            inventory.setInvQuantity(Integer.valueOf(invQuantity));
+            inventory.setInvColor(invColor);
+            inventory.setInvShoeSize(Double.valueOf(invSize));
 
             // Commit transaction
             utx.commit();
 
-            successMsg = "Product ID " + product.getProdId() + " UPDATED Successfully!";
+            successMsg = "Iventory ID " + inventory.getInvId()+ " UPDATED Successfully!";
         } catch (Exception ex) {
             try {
                 // Rollback transaction
@@ -112,7 +112,7 @@ public class UpdateProduct extends HttpServlet {
         }
 
         if (forwardPage) {
-            String url = "LoadProduct";
+            String url = "LoadInventory";
             if (!successMsg.equals("")) {
                 url += "?successMsg=" + successMsg;
             }

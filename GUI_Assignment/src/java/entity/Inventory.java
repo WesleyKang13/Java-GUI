@@ -1,3 +1,7 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package entity;
 
 import java.io.Serializable;
@@ -24,7 +28,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Inventory.findAll", query = "SELECT i FROM Inventory i"),
-    @NamedQuery(name = "Inventory.findByProductId", query = "SELECT i FROM Inventory i WHERE i.prodId = :prodId"),
+    @NamedQuery(name = "Inventory.findAllDescId", query = "SELECT i FROM Inventory i ORDER BY i.invId DESC"),
     @NamedQuery(name = "Inventory.findByInvId", query = "SELECT i FROM Inventory i WHERE i.invId = :invId"),
     @NamedQuery(name = "Inventory.findByInvQuantity", query = "SELECT i FROM Inventory i WHERE i.invQuantity = :invQuantity"),
     @NamedQuery(name = "Inventory.findByInvColor", query = "SELECT i FROM Inventory i WHERE i.invColor = :invColor"),
@@ -42,8 +46,9 @@ public class Inventory implements Serializable {
     @Size(max = 20)
     @Column(name = "INV_COLOR")
     private String invColor;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "INV_SHOE_SIZE")
-    private Integer invShoeSize;
+    private Double invShoeSize;
     @JoinColumn(name = "PROD_ID", referencedColumnName = "PROD_ID")
     @ManyToOne
     private Product prodId;
@@ -79,11 +84,11 @@ public class Inventory implements Serializable {
         this.invColor = invColor;
     }
 
-    public Integer getInvShoeSize() {
+    public Double getInvShoeSize() {
         return invShoeSize;
     }
 
-    public void setInvShoeSize(Integer invShoeSize) {
+    public void setInvShoeSize(Double invShoeSize) {
         this.invShoeSize = invShoeSize;
     }
 
