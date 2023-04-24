@@ -33,6 +33,7 @@
 </jsp:include>
 
 <script>
+    const body = document.querySelector('body');
     body.querySelector(".nav-link.customer").classList.add("active");
 </script>
 

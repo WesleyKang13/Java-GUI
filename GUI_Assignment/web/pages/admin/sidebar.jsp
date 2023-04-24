@@ -1,5 +1,61 @@
+<%@page import="java.util.ArrayList"%>
 <% String ROOT_PATH = request.getParameter("ROOT_PATH"); %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    //Theme (Dark or Light Mode)
+    String theme="";
+    // Check if the user behavior data already exists in the session
+    if(request.getParameter("changeTheme")!=null){
+        if (session.getAttribute("theme") != null) {
+            theme = (String) session.getAttribute("theme");
+        } else {
+            theme = "light";
+        }
+        
+        if(theme.equals("light")){
+            theme = "dark";
+        } else {
+            theme = "light";
+        }
+
+        // Store the updated theme in the session
+        session.setAttribute("theme", theme);
+    } else {
+        // If there is no changeTheme parameter, get the current theme from the session
+        if (session.getAttribute("theme") != null) {
+            theme = (String) session.getAttribute("theme");
+        } else {
+            theme = "light";
+        }
+    }
+    
+    //Theme (Dark or Light Mode)
+    String sideBarStatus="";
+    // Check if the user behavior data already exists in the session
+    if(request.getParameter("toggleSideBar")!=null){
+        if (session.getAttribute("sideBarStatus") != null) {
+            sideBarStatus = (String) session.getAttribute("sideBarStatus");
+        } else {
+            sideBarStatus = "open";
+        }
+        
+        if(sideBarStatus.equals("open")){
+            sideBarStatus = "close";
+        } else {
+            sideBarStatus = "open";
+        }
+
+        // Store the updated sideBarStatus in the session
+        session.setAttribute("sideBarStatus", sideBarStatus);
+    } else {
+        // If there is no changeTheme parameter, get the current sideBarStatus from the session
+        if (session.getAttribute("sideBarStatus") != null) {
+            sideBarStatus = (String) session.getAttribute("sideBarStatus");
+        } else {
+            sideBarStatus = "open";
+        }
+    }
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,8 +72,8 @@
     
     <title>Admin Panel | Banana's Shoe Store</title> 
 </head>
-<body>
-    <nav class="sidebar">
+<body class="<%=theme%>">
+    <nav class="sidebar <%=sideBarStatus%>">
         <header>
             <div class="profile">
                 <span class="picture">
@@ -30,7 +86,7 @@
                 </div>
             </div>
 
-            <i class="fa-solid fa-chevron-right toggle"></i>
+            <a href="?toggleSideBar=true"><i class="fa-solid fa-chevron-right toggle"></i></a>
         </header>
 
         <div class="menu-bar">
@@ -108,19 +164,19 @@
                     </a>
                 </li>
 
-                <li class="mode">
-                    <div class="sun-moon">
-                        <i class='fa-solid fa-moon icon moon'></i>
-                        <i class='fa-solid fa-sun icon sun'></i>
-                    </div>
-                    <span class="mode-text text">Light mode</span>
+                <a href="?changeTheme=true">
+                    <li class="mode">
+                        <div class="sun-moon">
+                            <i class='fa-solid fa-moon icon moon'></i>
+                            <i class='fa-solid fa-sun icon sun'></i>
+                        </div>
+                        <span class="mode-text text">Light mode</span>
 
-                    <div class="toggle-switch">
-                        <span class="switch"></span>
-                    </div>
-                </li>
+                        <div class="toggle-switch">
+                            <span class="switch"></span>
+                        </div>
+                    </li>
+                </a>
             </div>
         </div>
     </nav>
-
-    <script src=<%=ROOT_PATH + "js/admin/sidebar.js"%>></script>

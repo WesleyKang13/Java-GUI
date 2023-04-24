@@ -4,6 +4,7 @@
 </jsp:include>
 
 <script>
+    const body = document.querySelector('body');
     body.querySelector(".nav-link.dashboard").classList.add("active");
 </script>
 

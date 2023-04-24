@@ -38,6 +38,7 @@
 </jsp:include>
 
 <script>
+    const body = document.querySelector('body');
     body.querySelector(".nav-link.order").classList.add("active");
 </script>
 

@@ -3,6 +3,7 @@
     <jsp:param name="ROOT_PATH" value="<%=ROOT_PATH%>" />
 </jsp:include>
 <script>
+    const body = document.querySelector('body');
     body.querySelector(".nav-link.report").classList.add("active");
 </script>
 
