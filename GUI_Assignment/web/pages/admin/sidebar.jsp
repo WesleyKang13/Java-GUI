@@ -65,7 +65,7 @@
                     </li>
 
                     <li class="nav-link staff">
-                        <a href="<%=ROOT_PATH + "pages/admin/staff.jsp"%>">
+                        <a href="<%=ROOT_PATH + "pages/admin/LoadStaff"%>">
                             <i class="fa-solid fa-id-card-clip icon"></i>
                             <span class="text nav-text">Staff *</span>
                         </a>

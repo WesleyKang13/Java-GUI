@@ -10,8 +10,6 @@
     String errorMsg = request.getParameter("errorMsg") != null ? (String)request.getParameter("errorMsg") : null;
     String searchValue = request.getAttribute("searchValue") != null ? (String)request.getAttribute("searchValue") : null;
     request.removeAttribute("searchValue");
-    String filter = request.getAttribute("filter") != null ? (String)request.getAttribute("filter") : null;
-    request.removeAttribute("filter");
     
     //Get root path (from controller)
     String ROOT_PATH = (String) request.getAttribute("ROOT_PATH");
@@ -256,7 +254,7 @@
                                     List<Product> productList=(List<Product>) request.getAttribute("productList") != null ? (List<Product>) request.getAttribute("productList") : null;
 
                                     for(Product p: productList){
-                                        out.print("<option value="+p.getProdId()+" "+validateProduct(p.getProdId(), editInventory.getProdId().getProdId())+" "+">ID "+p.getProdId()+" - "+p.getProdName()+"</option>");
+                                        out.print("<option value='"+p.getProdId()+"' "+validateProduct(p.getProdId(), editInventory.getProdId().getProdId())+" "+">ID "+p.getProdId()+" - "+p.getProdName()+"</option>");
                                     }
                                 %>
                             </select>
