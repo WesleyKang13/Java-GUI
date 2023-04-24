@@ -6,14 +6,10 @@
     margin-bottom: .5rem;
 }
 
-/* Order List - START */
-.orderDetail{
-  padding-bottom: 0;
-}
 
 /* Action Column */
-.orderList table th:last-child,
-.orderList table td:last-child{
+.paymentList table th:last-child,
+.paymentList table td:last-child{
   margin: 0;
   padding: 0 1rem;
   text-align: center;
@@ -33,42 +29,25 @@
   text-align: center;
 }
 
-.actionRoundBtn.danger{
-  color: var(--color-danger);
-}
-
 .actionRoundBtn:hover{
   transform: scale(1.4);
   opacity: 1;
 }
 
 /* FORM ACTION BUTTON */
-.orderDetail .btn, .addOrder .btn {
+.paymentDetail .btn{
   border-radius: var(--border-radius-4);
   font-size: 0.9rem;
   font-weight: 600;
-  margin: 1rem .5rem 0;
+  margin: 1rem .5rem 0rem;
   transition: var(--tran-2);
   opacity: .95;
   float: right;
 }
 
-.orderDetail .btn:hover, .addOrder .btn:hover {
+.paymentDetail .btn:hover {
   opacity: 1;
   transform: translate(-0.1rem, -0.1rem);
-}
-
-/* Search Bar */
-.searchBar{
-  position: absolute;
-  top: 7.3rem;
-  right: 7rem;
-}
-
-.searchBar i{
-  position: absolute;
-  top: 0.5rem;
-  right: 1rem;
 }
 
 
@@ -120,6 +99,6 @@
 }
 
 /*Solve styling problem after make tab*/
-.productDetail table td:nth-child(1), .addProduct table td:nth-child(1){
+.paymentDetail table td:nth-child(1), .addPayment table td:nth-child(1){
     width: 30%;
 }

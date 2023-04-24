@@ -44,11 +44,18 @@
 <link rel="stylesheet" href="<%=ROOT_PATH+"css/admin/order.css"%>">
 
 <main>
+    
+    <div class="groupTabs">
+        
+    <input type="radio" id="order" name="tab" checked="checked">
+    <label for="order" onclick="location.href='<%=ROOT_PATH+"pages/admin/LoadOrder"%>'">Order</label>
+    <div class="container inventoryList tab">
+    
     <% 
         //Start Display Cstomer List
         if(orderList != null){ 
     %>
-    <div class="container orderList">
+    <div class="orderList">
         <div class="text">
             <h1>Order List </h1>
             <% //Display search value when searching
@@ -128,6 +135,7 @@
                     <th>ID</th>
                     <th>Cust ID</th>
                     <th>Payt ID</th>
+                    <th>Order Date</th>
                     <th>Shipping Address</th>
                     <th>Status</th>
                     <th>Action</th>
@@ -143,6 +151,7 @@
                     <td><%=o.getOrderId()%></td>
                     <td><%=o.getCustId().getCustId()%></td>
                     <td><%=o.getPaytId().getPaytId()%></td>
+                    <td><%=convertTimestamp(o.getDate())%></td>
                     <td><%=o.getOrderShippingAddress()%></td>
                     <td><%=o.getOrderStatus()%></td>
                     <td>
@@ -159,7 +168,7 @@
         //Start Edit Order
         }else if(editOrder != null){
     %>
-    <div class="container orderDetail">
+    <div class="orderDetail">
         <div class="text">
             <h1>Order Detail</h1>
             <p><strong>ID - <%=editOrder.getOrderId()+" by "+editOrder.getCustId().getCustFullName()%></strong></p>
@@ -184,6 +193,10 @@
                     <td><strong>ID </strong><small>(*ID can't be modified)</small></td>
                     <td><input type="text" value="<%=editOrder.getOrderId()%>" disabled></td>
                     <input type="hidden" name="edit_Id" id="edit_Id" value="<%=editOrder.getOrderId()%>">
+                </tr>
+                <tr>
+                    <td><strong>Order Date</strong></td>
+                    <td><%=convertTimestamp(editOrder.getDate())%></td>
                 </tr>
                 <tr>
                     <td><strong>Customer</strong></strong></td>
@@ -300,6 +313,13 @@
         </div>
     </div>
     <% } %>
+    
+    </div>
+    
+    <input type="radio" id="payment" name="tab">
+    <label for="payment" onclick="location.href='<%=ROOT_PATH+"pages/admin/LoadPayment"%>'">Payment</label>
+    
+    
     <script>
         //SHOW and HIDE Action Button
         const editBtn = body.querySelector('.editBtn'),

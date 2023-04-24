@@ -113,7 +113,7 @@
                     <tr>
                         <th><i class="fa-solid fa-hashtag" ></i></th>
                         <th>ID</th>
-                        <th>Produdct</th>
+                        <th>Product</th>
                         <th>Quantity</th>
                         <th>Color</th>
                         <th>Size</th>
