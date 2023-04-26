@@ -28,6 +28,7 @@ body{
 
     --box-shadow-1: 0 0 0.6rem var(--color-shadow); 
     --box-shadow-2: 0 0 1rem var(--color-shadow);
+    --box-shadow-3: 0 0 2rem var(--color-shadow);
 
     --tran-1: all .2s ease;
     --tran-2: all .3s ease;

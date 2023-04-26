@@ -61,8 +61,7 @@
             <h1>Order List </h1>
             <% //Display search value when searching
                 if(searchValue!=null){
-                    out.print("<h3 style='padding-bottom:0.4rem;'>Searching - "+searchValue+"</h3>");
-                    out.print("<a href='"+ROOT_PATH+"pages/admin/LoadOrder'>Reset</a>");
+                    out.print("<h3 style='padding-bottom:0.4rem;'>Searching - "+searchValue+" (<a href='"+ROOT_PATH+"pages/admin/LoadOrder'>Reset</a>)</h3>");
                 }
             %>
             <%!
@@ -319,6 +318,9 @@
     
     <input type="radio" id="payment" name="tab">
     <label for="payment" onclick="location.href='<%=ROOT_PATH+"pages/admin/LoadPayment"%>'">Payment</label>
+    
+    <input type="radio" id="review" name="tab">
+    <label for="review" onclick="location.href='<%=ROOT_PATH+"pages/admin/LoadReview"%>'">Review</label>
     
     
     <script>

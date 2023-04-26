@@ -1,0 +1,133 @@
+.container .table{
+    margin-bottom: 0;
+}
+
+.container .text h1{
+    margin-bottom: .5rem;
+}
+
+/* Review List - START */
+
+/* Action Column */
+.reviewList table th:last-child,
+.reviewList table td:last-child{
+  margin: 0;
+  padding: 0 1rem;
+  text-align: center;
+  width: 7rem;
+}
+
+.actionRoundBtn{
+  color: var(--color-font);
+  background: transparent;
+  margin: 0 auto;
+  border: 0;
+  border-radius: var(--border-radius-3);
+  font-size: 1.1rem;
+  cursor: pointer;
+  transform: scale(1.1);
+  opacity: 0.8;
+  text-align: center;
+}
+
+.actionRoundBtn.danger{
+  color: var(--color-danger);
+}
+
+.actionRoundBtn:hover{
+  transform: scale(1.4);
+  opacity: 1;
+}
+
+/* FORM ACTION BUTTON */
+.replyReview .btn{
+  border-radius: var(--border-radius-4);
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin: 1rem .5rem 0rem;
+  transition: var(--tran-2);
+  opacity: .95;
+  float: right;
+}
+
+.replyReview .btn:hover{
+  opacity: 1;
+  transform: translate(-0.1rem, -0.1rem);
+}
+
+/* Search Bar */
+.searchBar{
+  position: absolute;
+  top: 7.3rem;
+  right: 7rem;
+}
+
+.searchBar i{
+  position: absolute;
+  top: 0.5rem;
+  right: 1rem;
+}
+
+/*Reply Column Icon*/
+.replyIconDanger{
+    color:var(--color-danger);
+    font-size: 1.1rem;
+}
+
+.replyIconSuccess{
+    color:var(--color-success);
+    font-size: 1.1rem;
+}
+
+
+/* Tab */
+.groupTabs{
+  display: flex;
+  flex-wrap: wrap;
+  width: 95%;
+  margin: 2rem auto;
+}
+
+.groupTabs input[type="radio"] {
+  display: none;
+}
+
+.groupTabs label {
+  padding: 0.8rem 2.5rem 0.6rem;
+  margin: 0 0.8rem;
+  background: var(--color-light);
+  font-size: 0.9rem;
+  font-style: italic;
+  font-weight: 600;
+  z-index: 1;
+  transform: translateX(2rem);
+  border-radius: 3rem 0.5rem 0 0;
+  box-shadow: 0 -0.5rem 1rem var(--color-shadow);
+}
+
+.groupTabs .tab {
+  width: 100%;
+  padding: var(--padding-4);
+  background: var(--color-white);
+  order: 1;
+  display: none;
+  margin: 0;
+}
+.groupTabs label {
+  color: var(--color-font);
+  cursor: pointer;
+}
+
+.groupTabs input[type='radio']:checked + label + .tab {
+  display: block;
+}
+
+.groupTabs input[type="radio"]:checked + label {
+  background: var(--color-primary);
+  color: var(--color-white);
+}
+
+/*Solve styling problem after make tab*/
+.replyReview table td:nth-child(1){
+    width: 30%;
+}

@@ -49,8 +49,7 @@
             <h1>Customer List</h1>
             <% //Display search value when searching
                 if(searchValue!=null){
-                    out.print("<h3 style='padding-bottom:0.4rem;'>Searching - "+searchValue+"</h3>");
-                    out.print("<a href='"+ROOT_PATH+"pages/admin/LoadCustomer'>Reset</a>");
+                        out.print("<h3 style='padding-bottom:0.4rem;'>Searching - "+searchValue+" (<a href='"+ROOT_PATH+"pages/admin/LoadCustomer'>Reset</a>)</h3>");
                 }
             %>
             <p><%=customerList.size()%> record(s) found</p>

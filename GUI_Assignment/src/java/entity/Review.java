@@ -28,9 +28,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Review.findAll", query = "SELECT r FROM Review r"),
+    @NamedQuery(name = "Review.findAllDescId", query = "SELECT r FROM Review r ORDER BY r.reviewId DESC"),
     @NamedQuery(name = "Review.findByReviewId", query = "SELECT r FROM Review r WHERE r.reviewId = :reviewId"),
     @NamedQuery(name = "Review.findByReviewScore", query = "SELECT r FROM Review r WHERE r.reviewScore = :reviewScore"),
-    @NamedQuery(name = "Review.findByReviewDescription", query = "SELECT r FROM Review r WHERE r.reviewDescription = :reviewDescription")})
+    @NamedQuery(name = "Review.findByReviewDescription", query = "SELECT r FROM Review r WHERE r.reviewDescription = :reviewDescription"),
+    @NamedQuery(name = "Review.findByReviewDescription", query = "SELECT r FROM Review r WHERE r.reviewDescription = :reviewDescription"),
+    @NamedQuery(name = "Review.findByReviewReply", query = "SELECT r FROM Review r WHERE r.reviewReply = :reviewReply")})
+
 public class Review implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -39,21 +43,29 @@ public class Review implements Serializable {
     @Basic(optional = false)
     @Column(name = "REVIEW_ID")
     private Integer reviewId;
+    
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "REVIEW_SCORE")
     private Double reviewScore;
+    
     @Size(max = 100)
     @Column(name = "REVIEW_DESCRIPTION")
     private String reviewDescription;
+    
     @JoinColumn(name = "CUST_ID", referencedColumnName = "CUST_ID")
     @ManyToOne
     private Customer custId;
+    
     @JoinColumn(name = "ORDER_ID", referencedColumnName = "ORDER_ID")
     @ManyToOne
     private CustOrder orderId;
+    
     @JoinColumn(name = "PROD_ID", referencedColumnName = "PROD_ID")
     @ManyToOne
     private Product prodId;
+    
+    @Column(name = "REVIEW_REPLY")
+    private Integer reviewReply;
 
     public Review() {
     }
@@ -108,6 +120,14 @@ public class Review implements Serializable {
 
     public void setProdId(Product prodId) {
         this.prodId = prodId;
+    }
+    
+    public Integer getReviewReply() {
+        return reviewReply;
+    }
+
+    public void setReviewReply(Integer reviewReply) {
+        this.reviewReply = reviewReply;
     }
 
     @Override

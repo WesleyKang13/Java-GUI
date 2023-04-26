@@ -61,8 +61,7 @@
                 <h1>Product List </h1>
                 <% //Display search value when searching
                     if(searchValue!=null){
-                        out.print("<h3 style='padding-bottom:0.4rem;'>Searching - "+searchValue+"</h3>");
-                        out.print("<a href='"+ROOT_PATH+"pages/admin/LoadProduct'>Reset</a>");
+                        out.print("<h3 style='padding-bottom:0.4rem;'>Searching - "+searchValue+" (<a href='"+ROOT_PATH+"pages/admin/LoadProduct'>Reset</a>)</h3>");
                     }
                 %>
                 <%!

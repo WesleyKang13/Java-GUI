@@ -150,8 +150,8 @@
             </div>
 
             <div class="bottom-content">
-                <li>
-                    <a href="#">
+                <li class="userSetting">
+                    <a href="<%=ROOT_PATH+"pages/admin/LoadSetting"%>">
                         <i class="fa-solid fa-gears icon"></i>
                         <span class="text nav-text">Setting</span>
                     </a>
@@ -170,8 +170,11 @@
                             <i class='fa-solid fa-moon icon moon'></i>
                             <i class='fa-solid fa-sun icon sun'></i>
                         </div>
-                        <span class="mode-text text">Light mode</span>
-
+                        <% if(theme.equals("light")){%>
+                            <span class="mode-text text">Light mode</span>
+                        <% }else if(theme.equals("dark")){%>
+                            <span class="mode-text text">Dark mode</span>
+                        <% }%>
                         <div class="toggle-switch">
                             <span class="switch"></span>
                         </div>
