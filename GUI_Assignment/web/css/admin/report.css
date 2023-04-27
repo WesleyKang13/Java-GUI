@@ -63,6 +63,7 @@
 }
 .reportTabs label {
   color: var(--color-font);
+  cursor:pointer;
 }
 
 .reportTabs input[type='radio']:checked + label + .tab {

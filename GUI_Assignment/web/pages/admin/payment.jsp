@@ -214,6 +214,9 @@
     <% } %>
     
         </div>
+        <input type="radio" id="review" name="tab">
+        <label for="review" onclick="location.href='<%=ROOT_PATH+"pages/admin/LoadReview"%>'">Review</label>
+    </div>
 </main>
 </body>
 </html>
