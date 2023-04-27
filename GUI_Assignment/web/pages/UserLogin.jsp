@@ -13,13 +13,17 @@
 
 
 <%
-    String successRegisterMsg = request.getAttribute("registerSuccessful") != null ? (String) request.getAttribute("registerSuccessful") : null;
+    boolean loginFail = request.getParameter("loginFail") != null ? true : false;
+    if(loginFail){ 
 %>
-<% if(successRegisterMsg!=null){ %>
-    <script> alert(<%=successRegisterMsg%>); </script>
+    <script>
+        window.onload = function() {
+            alert("User Not Found or Invalid Password");
+        };
+    </script>
 <% } %>
 
-    <form action="Loginpage" method="post">
+    <form action="ValidateLogin" method="post">
         
         <div class="grid-container">
                 <div id="user_login" class="grid-item">
@@ -32,10 +36,10 @@
                             </span>    
                         </h1>
                     <p>Login to your account</p>
-                    <label for="email" >Email:</label>
+                    <label for="email" >Account:</label>
                         <div class="input-group form-icon form-icon-email">
                             <i class="fa fa-envelope icon"></i>
-                            <input type="email" name="acountName" placeholder="" required="">
+                            <input type="text" name="account" placeholder="Email / User Name" required="">
                                 
                         </div>
                     <label for="pwrd" >Password:</label>

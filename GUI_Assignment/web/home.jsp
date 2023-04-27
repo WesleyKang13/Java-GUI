@@ -11,6 +11,19 @@
         <link href=<%= ROOT_PATH + "vendor/fontawesome-free-6.3.0-web/css/solid.css"%> rel="stylesheet" type="text/css">
         <title>Banana's Shoe Store</title>
  </head>
+ 
+ 
+<%
+    boolean successLogin = request.getParameter("successLogin") != null ? true : false;
+    if(successLogin){ 
+%>
+    <script>
+        window.onload = function() {
+            alert("Login Successful ! Welcome, <%=session.getAttribute("userName")%> !");
+        };
+    </script>
+<% } %>
+ 
 <!--Main Page -->
 <body>
   <h1 style="margin-left: 2em;">Featured</h1>

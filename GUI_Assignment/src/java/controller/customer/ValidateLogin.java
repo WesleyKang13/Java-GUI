@@ -4,6 +4,7 @@
  */
 package controller.customer;
 
+import entity.Admin;
 import entity.Customer;
 import entity.User;
 import java.io.IOException;
@@ -13,7 +14,9 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -70,32 +73,59 @@ public class ValidateLogin extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
                 
-            String acountName = request.getParameter("acountName");  
+            String account = request.getParameter("account");  
             String password = request.getParameter("password"); 
             
-            System.out.println("acountName: " + acountName); 
+            try {
+                // Query to search for a user based on search value
+                Query query = em.createQuery("SELECT u FROM User u WHERE u.userName = :input OR u.userEmail = :input");
+                query.setParameter("input", account);
+                User user  = (User) query.getSingleResult();
+
+                if((user.getUserPassword()).equals(password)){
+                    HttpSession session = request.getSession();
+                    
+                    //STORE USER INFO INFO TO SESSION
+                    session.setAttribute("userName",user.getUserName());
+                    session.setAttribute("userEmail",user.getUserEmail());
+                    
+                    // Query to check if user is a customer
+                    Query custQuery = em.createQuery("SELECT c FROM Customer c WHERE c.userId.userId = :userId");
+                    custQuery.setParameter("userId", user.getUserId());
+                    try {
+                        Customer customer = (Customer) custQuery.getSingleResult();
+                        session.setAttribute("customerId", customer.getCustId());
+                        session.setAttribute("userPermission", 1);
+                        response.sendRedirect("../home.jsp?successLogin=true");
+                    } catch (NoResultException ex) {
+                        // User is not a customer, check if user is an admin
+                        Query adminQuery = em.createQuery("SELECT a FROM Admin a WHERE a.userId.userId = :userId");
+                        adminQuery.setParameter("userId", user.getUserId());
+                        try {
+                            Admin admin = (Admin) adminQuery.getSingleResult();
+                            session.setAttribute("adminId", admin.getAdminId());
+                            session.setAttribute("userPermission", 0);
+                            response.sendRedirect("admin/dashboard.jsp");
+                        } catch (NoResultException ex2) {
+                            // User is not a customer or an admin
+                            session.removeAttribute("userName");
+                            session.removeAttribute("userEmail");
+                            
+                            // TODO: Handle this case (redirect to error page)
+                        }
+                    }
+                } 
+            } catch (NoResultException ex) {
+                //No Result found
+                response.sendRedirect("UserLogin.jsp?loginFail=true");
+                
+            } catch (Exception ex2) {
+                // TODO: Handle this case (redirect to error page)
+            }
             
-           
-            User user  = (User)em.createNamedQuery("User.findByUserEmail").setParameter("acountName", acountName).getSingleResult();
-            
-             String passwordDB = user.getUserPassword();
-             System.out.println("password: " + passwordDB); 
-            if((user.getUserPassword()).equals(password)){
-                HttpSession session = request.getSession();  
-                session.setAttribute("acountName",acountName);
-                
-                //TODO 1: STORE USER NAME INFO TO SESSION
-               int userPermission = integer.parseInt
-                session.setAttribute("userName",user.getUserName());
-                session.setAttribute("userName",user.getUserEmail());
-                session.setAttribute("userName",user.getUserEmail());
-                
-                
-                //TODO 2: CHECK THIS USER IS CUSTOMER OR ADMIN BY USING USER ID
-            } 
-                
-            
-              
+            if (!response.isCommitted()) {
+                response.sendRedirect("../UserLogin.jsp");
+            }
     }
 
     /**
