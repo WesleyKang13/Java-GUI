@@ -1,4 +1,8 @@
 <% String ROOT_PATH = "../../"; %>
+<%@page import="entity.Product"%>
+<%@page import="entity.Inventory"%>
+<%@page import="entity.Cart"%>
+<%@page import="java.util.List"%>
 <jsp:include page="<%= ROOT_PATH + "pages/header.jsp"%>">
     <jsp:param name="ROOT_PATH" value="<%=ROOT_PATH%>" />
 </jsp:include>
@@ -25,13 +29,24 @@
                             <img src="../../assets/product/dummy1.jpg" alt="">
                         </picture>
                     </div>
-                    
+                        <%
+                            List<Cart> checkoutItems = (List<Cart>) request.getAttribute("checkoutItems") 
+                                    != null ? (List<Cart>) request.getAttribute("checkoutItems") : null;
+
+                            if(checkoutItems != null){
+                            for (Cart cartItem : checkoutItems) {
+                                Product product = cartItem.getProdId();
+                                Inventory inventory = product.getInventoryList().get(0);
+                        %>
                     <p class="items-details">
-                        Name: Nike run 2017<br>
-                        Price (RM): 599.00<br>
-                        Size chosen (UK): 9<br>
-                        Quantity: 1
+                        
+                        Name: <%= cartItem.getProdId().getProdName()%><br>
+                        Price (RM): <%= String.format("%.2f",cartItem.getTotalAmount())%><br>
+                        Quantity: <%= cartItem.getCartQuantity()%><br>
+                        Size chosen (UK): <%= inventory.getInvShoeSize() %><br>
+                        Color : <%= inventory.getInvColor() %><br>
                     </p>
+                    <% } }%>
                 </td>
                 
             </div>

@@ -29,6 +29,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p"),
+    @NamedQuery(name = "Product.findByIdWithInventory", query = "SELECT p, i FROM Product p JOIN p.inventoryList i WHERE p.prodId = :prodId"),
     @NamedQuery(name = "Product.findAllDescId", query = "SELECT p FROM Product p ORDER BY p.prodId DESC"),
     @NamedQuery(name = "Product.findByProdId", query = "SELECT p FROM Product p WHERE p.prodId = :prodId"),
     @NamedQuery(name = "Product.findByProdName", query = "SELECT p FROM Product p WHERE p.prodName = :prodName"),

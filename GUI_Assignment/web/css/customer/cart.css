@@ -1,0 +1,14 @@
+.cart-table{
+    width:80%;
+    height:auto;
+    margin-bottom:20px;
+    margin-left:20px;
+}
+
+.cart-table .table-headers{
+    color:grey;
+}
+
+.cart-table td{
+    text-align:center;
+}

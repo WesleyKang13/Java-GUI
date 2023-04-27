@@ -52,17 +52,14 @@
         </table>
         
         <div class="product-field">
-        <% 
-            List<Product> products = (List<Product>) request.getAttribute("productList");
+            <ul class="shoes">
+             <% 
+                List<Product> products = (List<Product>) request.getAttribute("productList");
 
-            for(Product product : products){
-        %>
-         <form action="FindDetails" method="post" >
-            <input type="hidden" name="prodId" value="<%= product.getProdId() %>" />
-            <div class="product-field">
-                <button type="submit">
-                <ul class="shoes">
-                    <li shoe-category="">
+                for(Product product : products){
+            %>
+                <li shoe-category="">
+                    <a href="<%= ROOT_PATH + "pages/product/FindDetails?productId="+product.getProdId()%>">
                         <picture>
                             <img src="../../assets/product/dummy1.jpg" alt="">
                         </picture>
@@ -72,16 +69,14 @@
                                 <span><i class="fa fa-share" aria-hidden="true"></i></span>
                             </p>
 
-                            <strong><%= product.getProdBrand() %></strong>
+                            <strong><%= product.getProdName() %></strong>
                             <small><%= product.getProdDescription() %></small>
                         </div>
                         <h4>Rm<br> <%= product.getProdPrice() %></h4>
-                    </li>
-                </ul>
-                </button>
-            </div>
-         </form>
-         <% } %>
+                    </a>
+                </li>
+            <% } %>
+            </ul>
         </div> 
         
     </body>

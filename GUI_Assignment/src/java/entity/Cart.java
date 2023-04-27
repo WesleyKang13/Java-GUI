@@ -5,6 +5,7 @@
 package entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -85,6 +86,10 @@ public class Cart implements Serializable {
         this.prodId = prodId;
     }
 
+    public double getTotalAmount() {
+        return (double) prodId.getProdPrice() * cartQuantity;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;

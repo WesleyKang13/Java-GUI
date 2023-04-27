@@ -135,6 +135,13 @@ header .header-li ul li a{
     margin-bottom:20px;
 }
 
+.product-field button{
+    border:1px solid;
+    background-color:white;
+    cursor: pointer;
+}
+
+
 .product-field ul{
     display:flex;
     flex-wrap:wrap;
@@ -220,6 +227,7 @@ picture img{
     font-size:20px;
     letter-spacing:2px;
     color:#555;
+    margin-top:80px;
 }
 
 .details>span{

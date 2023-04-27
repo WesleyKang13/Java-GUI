@@ -42,39 +42,71 @@
                             if(details.isEmpty()){
                                 out.println("No inventory data found");
                             }else{ 
-                            //Codes are change from here
-                             Inventory detail = details.get(0);%>
-                                 <h1><%= detail.getProdId().getProdBrand() %></h1>
-                                 <h4>Size in UK only</h4>
-                                 <h5>Rm<strong><%= detail.getProdId().getProdPrice() %></strong></h5>
+                            Inventory detail = details.get(0);%>
+                                <h1><%= detail.getProdId().getProdName() %></h1>
+                                <h4>Size in UK only</h4>
+                                <h5>Rm<strong><%= detail.getProdId().getProdPrice() %></strong></h5>
                                  
+                                <h2>Colors available:</h2> 
                                 <% for (Inventory inventory : details) { %>
-                                <% for (Inventory inv : inventory.getProdId().getInventoryList()) { %>
-                                        <% if (inv.getInvShoeSize().equals(inventory.getInvShoeSize())) { %>
-                                        <div class="size-color-container">
-                                            <button><%= inv.getInvColor() %></button>
-                                            -
-                                            <li><%= inv.getInvQuantity() %> available</li>
-                                        </div>
+                               
+                                <div class="color-quantity-container" id="color-quantity-container">
+                                   <label for="color-select">Select a color:</label>
+                                    <select id="color-select" class="color-select">
+                                        <option value="">All colors</option>
+                                        <% for (Inventory inv : inventory.getProdId().getInventoryList()) { %>
+                                            <% if (!inv.getInvColor().isEmpty()) { %>
+                                                <option value="<%= inv.getInvColor() %>"><%= inv.getInvColor() %> - <%= inv.getInvQuantity() %></option>
+                                            <% } %>
                                         <% } %>
-                                    <% } %>
-                                <div class="size-container">
-                                    <button><%= detail.getInvShoeSize() %></button>
+                                    </select>
+                                    <br><br>
+                                    <label for="size-select">Select a size:</label>
+                                    <select id="size-select" class="size-select">
+                                        <option value="">All sizes</option>
+                                        <% for (Inventory inv : inventory.getProdId().getInventoryList()) { %>
+                                            <% if (!inv.getInvColor().isEmpty()) { %>
+                                                <option value="<%= inv.getInvColor() + '-' + inv.getInvShoeSize() %>"><%= inv.getInvShoeSize() %></option>
+                                            <% } %>
+                                        <% } %>
+                                    </select>
                                 </div>
-                              
+                                
+                                <script>
+                                    // Get all color-quantity-container elements
+                                    const containers = document.querySelectorAll('.color-quantity-container');
+
+                                    containers.forEach(function(container) {
+                                        // Get the color-select and size-select elements for this container
+                                        const colorSelect = container.querySelector('.color-select');
+                                        const sizeSelect = container.querySelector('.size-select');
+                                        let selectedColor;
+
+                                        // Event listener for the color-select dropdown
+                                        colorSelect.addEventListener('change', function() {
+                                            selectedColor = colorSelect.value;
+
+                                            // Clear the size-select dropdown and add "All sizes" option
+                                            sizeSelect.innerHTML = '<option value="">All sizes</option>';
+
+                                            // Add options for sizes matching the selected color
+                                            <% for (Inventory inv : inventory.getProdId().getInventoryList()) { %>
+                                                <% if (inv.getInvColor().equals("")) continue; %>
+                                                <% if (inv.getInvColor().equals(selectedColor)) { %>
+                                                    sizeSelect.innerHTML += '<option value="<%= inv.getInvColor() + "-" + inv.getInvShoeSize() %>"><%= inv.getInvShoeSize() %> - <%= inv.getInvQuantity() %></option>';
+                                                <% } %>
+                                            <% } %>
+                                        });
+                                    });
+                                </script>
                                 <% } %>
-                        <% } %>
                         
-                         
-                        <p>
-                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
-                            Voluptate esse inventore nesciunt officiis nobis, non fugiat 
-                            labore quam reiciendis vel asperiores deleniti accusantium, 
-                            veniam dolor delectus commodi odit omnis? Exercitationem.
-                        </p>
+                        <p><%= detail.getProdId().getProdDescription() %> </p>
+                        <% } %>
                         <br>
-                        <h3>Stock status: In-stock<i class="fa fa-check" style="font-size:20px; color:green;"></i></h3>
-                        <button type="button" 
+                        
+                        
+                        <button type="submit" 
                         style="
                         position:absolute; 
                         top:93%;
@@ -139,6 +171,18 @@ window.onclick = function(event) {
     if (event.target == modal) {
       modal.style.display = "none";
     }
+}
+
+function buttonClicked(button) {
+  // Remove active class from all buttons
+  const buttons = document.querySelectorAll('.color-quantity-container button');
+  console.log(buttons);
+  buttons.forEach((btn) => {
+    btn.classList.remove('active');
+  });
+  
+  // Add active class to clicked button
+  button.classList.add('active');
 }
 </script>
 
