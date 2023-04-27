@@ -20,14 +20,24 @@
                     </span>
                 </h1>
             <p id="registerwel">Welcome to Banana</p>
-        <form action="" method="post">
+        <form action="RegisterCustomer" method="post">
             <table cellspacing="0" cellpadding="10" style="margin: 0 auto;">
+                
+                <tr>
+                    <td>
+                    <i class="fa fa-address-card"></i>
+                    </td>
+                    <td>
+                    <input type="text" name="username" placeholder="User Name" required>
+                    
+                    </td>
+                </tr>
                 <tr>
                     <td>
                     <i class="fa fa-user icon"></i>
                     </td> 
                     <td>
-                        <input type="text"  name="accName" placeholder="Name" maxlength="30" required/>
+                        <input type="text"  name="fullname" placeholder="Name" maxlength="30" required/>
                     </td>
                 </tr>
                 <tr>
@@ -40,19 +50,10 @@
                 </tr>
                 <tr>
                     <td>
-                    <i class="fa fa-address-card"></i>
-                    </td>
-                    <td>
-                    <input type="text" name="ic" placeholder="IC:990104-07-5555" required>
-                    
-                    </td>
-                </tr>
-                <tr>
-                    <td>
                         <i class="fa fa-phone-square"></i>
                     </td> 
                     <td>
-                    <input type="text"  name="phone" placeholder="012-1234567"maxlength="300" required/>
+                    <input type="text"  name="accPhone" placeholder="012-1234567"maxlength="300" required/>
                     </td>
                 </tr>
                 <tr>
@@ -73,13 +74,23 @@
                     
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                    <!--icon here-->
+                    </td> 
+                    <td>
+                    <input type="text"  name="shippingAddress" id="shippingAddress" placeholder="Shipping Address" maxlength="300" required/>
+                    
+                    </td>
+                </tr>
         
                 <tr>
 
                     <td colspan="2">
                     
                     <div id="agreement">
-                        <input  type="checkbox" name="agree" required/>I agree to the <a href="privacy.php">PRIVACY POLICY</a> and <br><a href="termsconditions.php">TERMS & CONDITIONS</a>
+                        <input  type="checkbox" id="agree" name="agree" required/>
+                        <label for="agree">I agree to the PRIVACY POLICY and TERMS & CONDITIONS</label>
                     </div>
                     <input class="registerBtn" style="background-color:white;  font-size:1.5vw;" type="submit" name="submit" value="Register" />
                     </td>
@@ -126,6 +137,9 @@
         form.addEventListener('submit', function (e) {
             e.preventDefault();
         });
+        
+        
+        
     </script>
     
 <!-- Include footer page -->

@@ -5,15 +5,15 @@
 package controller.customer;
 
 import entity.Customer;
-import entity.Payment;
-import entity.CustOrder;
+import entity.User;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,14 +21,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.transaction.UserTransaction;
 
-/**
- *
- * @author User
- */
-@WebServlet(name = "PaymentSuccess", urlPatterns = {"/pages/customer/PaymentSuccess"})
-public class PaymentSuccess extends HttpServlet {
-        @PersistenceContext EntityManager em;
+
+@WebServlet(name = "ValidateLogin", urlPatterns = {"/pages/ValidateLogin"})
+public class ValidateLogin extends HttpServlet {
+    
+    @PersistenceContext EntityManager em;
+    @Resource UserTransaction utx;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -40,29 +40,9 @@ public class PaymentSuccess extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //Get customertName from form
-        int custId = Integer.parseInt(request.getParameter("custId"));
-        
-        Customer customer  = (Customer)em.createNamedQuery("Customer.findByCustId").setParameter("custId", custId).getSingleResult();
-        
-        request.setAttribute("customer",customer);
-        
-        try{
-
-            Payment p = new Payment();   
-             
-        }catch (Exception ex){
-            try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<h1>Congratulation, you get an error!</h1>");
-            out.println("<h1>"+ex.getMessage()+"</h1>");
-            out.println("<p>"+ex.getStackTrace()+"</p>");
-            }
-        }
-        RequestDispatcher dispatcher = request.getRequestDispatcher("PaymentSuccessful.jsp");
-           dispatcher.forward(request, response);
-       
+        response.sendRedirect("../UserLogin.jsp");
     }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -89,7 +69,33 @@ public class PaymentSuccess extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+                
+            String acountName = request.getParameter("acountName");  
+            String password = request.getParameter("password"); 
+            
+            System.out.println("acountName: " + acountName); 
+            
+           
+            User user  = (User)em.createNamedQuery("User.findByUserEmail").setParameter("acountName", acountName).getSingleResult();
+            
+             String passwordDB = user.getUserPassword();
+             System.out.println("password: " + passwordDB); 
+            if((user.getUserPassword()).equals(password)){
+                HttpSession session = request.getSession();  
+                session.setAttribute("acountName",acountName);
+                
+                //TODO 1: STORE USER NAME INFO TO SESSION
+               int userPermission = integer.parseInt
+                session.setAttribute("userName",user.getUserName());
+                session.setAttribute("userName",user.getUserEmail());
+                session.setAttribute("userName",user.getUserEmail());
+                
+                
+                //TODO 2: CHECK THIS USER IS CUSTOMER OR ADMIN BY USING USER ID
+            } 
+                
+            
+              
     }
 
     /**
@@ -101,5 +107,5 @@ public class PaymentSuccess extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
+    
 }

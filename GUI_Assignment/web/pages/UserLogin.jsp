@@ -2,14 +2,24 @@
 <jsp:include page="<%= ROOT_PATH + "pages/header.jsp"%>">
     <jsp:param name="ROOT_PATH" value="<%=ROOT_PATH%>" />
 </jsp:include>
+<%@page import="entity.User"%>
+<%@page import="entity.Customer"%>
+
 
 <link rel="stylesheet" href="../css/UserLogin.css">
 <link rel="stylesheet" type="text/css" href="/jwcodeme/style/main-style.css?v=1" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
-    
 
-    <form method="post">
+
+<%
+    String successRegisterMsg = request.getAttribute("registerSuccessful") != null ? (String) request.getAttribute("registerSuccessful") : null;
+%>
+<% if(successRegisterMsg!=null){ %>
+    <script> alert(<%=successRegisterMsg%>); </script>
+<% } %>
+
+    <form action="Loginpage" method="post">
         
         <div class="grid-container">
                 <div id="user_login" class="grid-item">
@@ -25,7 +35,7 @@
                     <label for="email" >Email:</label>
                         <div class="input-group form-icon form-icon-email">
                             <i class="fa fa-envelope icon"></i>
-                            <input type="email" name="emailLogin" placeholder="" required="">
+                            <input type="email" name="acountName" placeholder="" required="">
                                 
                         </div>
                     <label for="pwrd" >Password:</label>
@@ -35,10 +45,8 @@
                             <i class="bi bi-eye-slash" id="togglePassword"></i>     
                         </div>
                        
-                        <a type="submit" class="user_loginbutton" href="userlogin.php" name="login"> <span></span>
-                            <span></span>
-                            <span></span>
-                            <span></span>Login</a> 
+                        <input type="submit" class="user_loginbutton" value="Login"  name="login"> 
+                              
                         
                    
                         <div class="facebook">
@@ -61,21 +69,21 @@
                         </div>
                 </div>
                 
-            <div id="user_register" class="grid-item">
-                <div class="registerMessage">
-                    <h1 style="font-size:3vw;" >
-                        <span id="register">
-                            Register
-                        </span>
-                   </h1>
-                    <p id="registerwel">Welcome to Banana</p>
-                 </div>
-                <a class="user_registerbutton" href="./customer/CustomerRegister.jsp" role="button">
-                    <span></span>
-                            <span></span>
-                            <span></span>
-                            <span></span>REGISTER</a>                
-            </div>
+                <div id="user_register" class="grid-item">
+                    <div class="registerMessage">
+                        <h1 style="font-size:3vw;" >
+                            <span id="register">
+                                Register
+                            </span>
+                       </h1>
+                        <p id="registerwel">Welcome to Banana</p>
+                     </div>
+                    <a class="user_registerbutton" href="./customer/CustomerRegister.jsp" role="button">
+                        <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>REGISTER</a>                
+                </div>
 
         </div>
 </form>

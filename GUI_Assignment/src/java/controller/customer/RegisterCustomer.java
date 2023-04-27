@@ -5,30 +5,29 @@
 package controller.customer;
 
 import entity.Customer;
-import entity.Payment;
-import entity.CustOrder;
+import entity.User;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
+import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.transaction.UserTransaction;
 
 /**
  *
  * @author User
  */
-@WebServlet(name = "PaymentSuccess", urlPatterns = {"/pages/customer/PaymentSuccess"})
-public class PaymentSuccess extends HttpServlet {
-        @PersistenceContext EntityManager em;
+@WebServlet(name = "RegisterCustomer", urlPatterns = {"/pages/customer/RegisterCustomer"})
+public class RegisterCustomer extends HttpServlet {
+
+    @PersistenceContext EntityManager em;
+    @Resource UserTransaction utx;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -40,29 +39,9 @@ public class PaymentSuccess extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //Get customertName from form
-        int custId = Integer.parseInt(request.getParameter("custId"));
-        
-        Customer customer  = (Customer)em.createNamedQuery("Customer.findByCustId").setParameter("custId", custId).getSingleResult();
-        
-        request.setAttribute("customer",customer);
-        
-        try{
-
-            Payment p = new Payment();   
-             
-        }catch (Exception ex){
-            try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<h1>Congratulation, you get an error!</h1>");
-            out.println("<h1>"+ex.getMessage()+"</h1>");
-            out.println("<p>"+ex.getStackTrace()+"</p>");
-            }
-        }
-        RequestDispatcher dispatcher = request.getRequestDispatcher("PaymentSuccessful.jsp");
-           dispatcher.forward(request, response);
-       
+        response.sendRedirect("CustomerRegister.jsp");
     }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -89,7 +68,54 @@ public class PaymentSuccess extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
+        String username = request.getParameter("username");
+        String fullname = request.getParameter("fullname");
+        String accEmail = request.getParameter("accEmail");
+        String accIc = request.getParameter("accIc");
+        String accPhone = request.getParameter("accPhone");
+        String accPass = request.getParameter("accPass");
+        String shippingAddress = request.getParameter("shippingAddress");
+        String successMsg="";
+        
+        try{
+            // Begin transaction
+            utx.begin();
+
+            // Create and Update User fields
+            User user = new User();
+            user.setUserEmail(accEmail);
+            user.setUserName(username);
+            user.setUserPassword(accPass);
+
+            // Persist User entity to generate userId
+            em.persist(user);
+            em.flush(); // flush changes to the database to generate the id
+
+            // Create and Update Customer entity with generated userId
+            Customer customer = new Customer();
+            customer.setCustFullName(fullname);
+            customer.setCustPhoneNum(accPhone);
+            customer.setCustShippingAddress(shippingAddress);
+            customer.setUserId(user); // set the generated user id as the foreign key
+
+            // Persist Customer entity
+            em.persist(customer);
+
+            // Commit transaction
+            utx.commit();
+            
+            
+            successMsg= "Welcome, "+customer.getCustFullName()+". Please Log In!";
+        }catch(Exception ex){
+            //error
+        }
+        
+        
+        //Set info and forward page
+        request.setAttribute("registerSuccessful", successMsg);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("../UserLogin.jsp");
+        
     }
 
     /**
