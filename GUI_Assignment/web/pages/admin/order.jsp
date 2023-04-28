@@ -24,6 +24,13 @@
     //Get root path (from controller)
     String ROOT_PATH = (String) request.getAttribute("ROOT_PATH");
     
+    //Redirect to home page if it's not admin
+    int validatePermission = session.getAttribute("userPermission") != null ? (Integer)session.getAttribute("userPermission") : 999 ;
+    if(validatePermission == 999 || validatePermission != 0 && validatePermission != 1){
+        System.out.println("helllllllo");
+        response.sendRedirect(ROOT_PATH+"index.html");
+    }
+    
     //Get orders information from controller (LoadOrder.jsp)
     //Order List
     List<CustOrder> orderList=(List<CustOrder>) request.getAttribute("orderList") != null ? (List<CustOrder>) request.getAttribute("orderList") : null;

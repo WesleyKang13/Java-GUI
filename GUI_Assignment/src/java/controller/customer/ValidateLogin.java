@@ -12,6 +12,8 @@ import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -69,6 +71,7 @@ public class ValidateLogin extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -95,7 +98,7 @@ public class ValidateLogin extends HttpServlet {
                     try {
                         Customer customer = (Customer) custQuery.getSingleResult();
                         session.setAttribute("customerId", customer.getCustId());
-                        session.setAttribute("userPermission", 1);
+                        session.setAttribute("userPermission", 2);
                         response.sendRedirect("../home.jsp?successLogin=true");
                     } catch (NoResultException ex) {
                         // User is not a customer, check if user is an admin
@@ -104,9 +107,15 @@ public class ValidateLogin extends HttpServlet {
                         try {
                             Admin admin = (Admin) adminQuery.getSingleResult();
                             session.setAttribute("adminId", admin.getAdminId());
-                            session.setAttribute("userPermission", 0);
+                            session.setAttribute("adminPosition", admin.getAdminPosition());
+                            if(admin.getAdminPermission() == 0){
+                                session.setAttribute("userPermission", 0);
+                            }else{
+                                session.setAttribute("userPermission", 1);
+                            }
                             response.sendRedirect("admin/dashboard.jsp");
                         } catch (NoResultException ex2) {
+                            System.out.println(ex2.getMessage());
                             // User is not a customer or an admin
                             session.removeAttribute("userName");
                             session.removeAttribute("userEmail");
@@ -124,7 +133,7 @@ public class ValidateLogin extends HttpServlet {
             }
             
             if (!response.isCommitted()) {
-                response.sendRedirect("../UserLogin.jsp");
+                response.sendRedirect("UserLogin.jsp");
             }
     }
 
@@ -137,5 +146,4 @@ public class ValidateLogin extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-    
 }

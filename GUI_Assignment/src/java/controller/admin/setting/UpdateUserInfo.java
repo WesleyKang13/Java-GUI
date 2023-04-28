@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.transaction.UserTransaction;
 
 @WebServlet(name = "UpdateUserInfo", urlPatterns = {"/pages/admin/UpdateUserInfo"})
@@ -92,13 +93,21 @@ public class UpdateUserInfo extends HttpServlet {
 
             // Update fields in entities
             user.setUserName(adminUserName);
-            user.setUserPassword(adminPassword);
+            if(adminPassword != null && !"".equals(adminPassword)){
+                user.setUserPassword(adminPassword);
+            }
             user.setUserEmail(emailEmail);
             admin.setAdminFullName(emailFullName);
             admin.setAdminPhoneNum(emailPhoneNum);
 
             // Commit transaction
             utx.commit();
+            
+            
+            //STORE USER INFO INFO TO SESSION
+            HttpSession session = request.getSession();
+            session.setAttribute("userName",user.getUserName());
+            session.setAttribute("userEmail",user.getUserEmail());
 
             successMsg="Your information UPDATED Successfully!";
         } catch (Exception ex) {

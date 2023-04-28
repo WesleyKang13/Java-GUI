@@ -158,11 +158,20 @@
                 </li>
 
                 <li>
-                    <a href="#">
+                    <a href="#" onclick="logout();">
                         <i class="fa-solid fa-arrow-right-from-bracket icon"></i>
                         <span class="text nav-text">Logout</span>
                     </a>
                 </li>
+
+                <script>
+                    function logout() {
+                        var response = confirm("Are you sure you want to logout?");
+                        if (response == true) {
+                            window.location.href = '<%=ROOT_PATH+"pages/LogoutAccount?ROOT_PATH="+ROOT_PATH%>';
+                        }
+                    }
+                </script>
 
                 <a href="?changeTheme=true">
                     <li class="mode">

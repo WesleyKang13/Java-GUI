@@ -12,6 +12,13 @@
     //Get root path (from controller)
     String ROOT_PATH = (String) request.getAttribute("ROOT_PATH");
     
+    //Redirect to home page if it's not admin
+    int validatePermission = session.getAttribute("userPermission") != null ? (Integer)session.getAttribute("userPermission") : 999 ;
+    if(validatePermission == 999 || validatePermission != 0 && validatePermission != 1){
+        System.out.println("helllllllo");
+        response.sendRedirect(ROOT_PATH+"index.html");
+    }
+    
     //Get inventorys information from controller (LoadSetting.jsp)
     //Declare variable
     Admin admin = (Admin) request.getAttribute("adminInfo") != null ? (Admin) request.getAttribute("adminInfo") : null;
@@ -83,7 +90,7 @@
 
             <div class="edit-action">
                 <button type="reset" class="resetBtn btn danger" onclick="if(confirm('Are you sure you want to reset the form?')) { this.form.reset(); } else { return false; }"  style="float: left;">Reset</button>
-                <button type="submit" class="submitBtn btn success" onclick="if(confirm('Are you sure you want to add new customer?')) { return true; } else { return false; }">Save</button>
+                <button type="submit" class="submitBtn btn success" onclick="if(confirm('Are you sure you want to update this information?')) { return true; } else { return false; }">Save</button>
             </div>
         </form>
     </div>

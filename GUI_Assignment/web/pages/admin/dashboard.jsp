@@ -10,12 +10,18 @@
 
 
 <link rel="stylesheet" href="../../css/admin/dashboard.css">
-
+<%
+    //Redirect to home page if it's not admin
+    int validatePermission = session.getAttribute("userPermission") != null ? (Integer)session.getAttribute("userPermission") : 999 ;
+    if(validatePermission == 999 || validatePermission != 0 && validatePermission != 1){
+        System.out.println("helllllllo");
+        response.sendRedirect(ROOT_PATH+"index.html");
+    }
+%>
 <main>
     <div class="container">
-        <h3 style="padding-bottom: 2rem;">Your Last Logged in Time: 2022/02/23 08:10</h3>
-        <h1 style="padding-bottom: 2rem;">Welcome Back, User!</h1>
-        <h1>Please Select Action Below:</h1>
+        <h1 style="padding-bottom: 2rem;">Welcome Back, <%=session.getAttribute("userName")%>!</h1>
+        <h2>Please Select Action Below:</h2>
     </div>
     
     <div class="card-container">
