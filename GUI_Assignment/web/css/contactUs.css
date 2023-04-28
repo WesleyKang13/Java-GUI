@@ -203,3 +203,25 @@ body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
 }
+
+
+.notificationBox{
+    margin: 1rem 0;
+    padding: 1rem 1.5rem;
+    background: #04a16d;
+    color: rgb(230, 255, 246);
+    font-weight: 700;
+    font-size: 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 0 1rem var(--color-shadow);
+}
+
+.notificationBox .closeBtn{
+    float: right;
+    cursor: pointer;
+    transform: scale(1.2);
+}
+
+.notificationBox .closeBtn:hover{
+    transform: scale(1.5);
+}

@@ -36,7 +36,14 @@
       </div>    
       <div class="contact-form">
         <h3>Contact Us</h3>
-        <form action="#" method="POST">
+       <%-- Display the success message if it exists --%>
+        <% if (request.getAttribute("successMessage") != null) { %>
+            <div class="notificationBox success">
+                <span class="message"><%= request.getAttribute("successMessage") %></span>
+                <span class="closeBtn" onclick="this.parentElement.style.display='none';"><i class="fa-solid fa-xmark"></i></span> 
+            </div>
+        <% } %>
+        <form action="InquiryCustomer" method="POST">
           <div class="form-group">
             <label for="name">Name:</label>
             <input type="text" id="name" name="name" required>
@@ -53,17 +60,12 @@
             <label for="message">Message:</label>
             <textarea id="message" name="message" rows="5" required></textarea>
           </div>
-<!--       <div class="form-group">
-            <label for="filechoose">Upload Attachment Here</label>
-            <input style="cursor:pointer;" class="mt-1" type="file" name="file[]" 
-            class="form-control-file" id="filechoose" 
-            accept=".jpg,.png,.jpeg,.webp,.gif,.mp4,.mkv,.mov,.webm" multiple> 
-            </div>-->
           <button class="submit-button" type="submit">Send Message</button>
         </form>
       </div>
     </div>
 </body>
+
 <!-- Include footer page -->
 <jsp:include page="<%= ROOT_PATH + "pages/footer.jsp"%>">
     <jsp:param name="ROOT_PATH" value="<%=ROOT_PATH%>" />

@@ -135,7 +135,7 @@
                     </li>
 
                     <li class="nav-link inquiry">
-                        <a href="<%=ROOT_PATH + "pages/admin/inquiry.jsp"%>">
+                        <a href="<%=ROOT_PATH + "pages/admin/LoadInquiry"%>">
                             <i class="fa-solid fa-clipboard-question icon"></i>
                             <span class="text nav-text">Inquiry</span>
                         </a>
