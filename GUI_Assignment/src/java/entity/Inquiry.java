@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author yapwa
+ * @author User
  */
 @Entity
 @Table(name = "INQUIRY")
@@ -33,7 +33,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Inquiry.findByInqName", query = "SELECT i FROM Inquiry i WHERE i.inqName = :inqName"),
     @NamedQuery(name = "Inquiry.findByInqEmail", query = "SELECT i FROM Inquiry i WHERE i.inqEmail = :inqEmail"),
     @NamedQuery(name = "Inquiry.findByInqDescription", query = "SELECT i FROM Inquiry i WHERE i.inqDescription = :inqDescription"),
-    @NamedQuery(name = "Inquiry.findByInqCreatedDate", query = "SELECT i FROM Inquiry i WHERE i.inqCreatedDate = :inqCreatedDate")})
+    @NamedQuery(name = "Inquiry.findByInqCreatedDate", query = "SELECT i FROM Inquiry i WHERE i.inqCreatedDate = :inqCreatedDate"),
+    @NamedQuery(name = "Inquiry.findByInqSubject", query = "SELECT i FROM Inquiry i WHERE i.inqSubject = :inqSubject")})
 public class Inquiry implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -42,22 +43,21 @@ public class Inquiry implements Serializable {
     @Basic(optional = false)
     @Column(name = "INQ_ID")
     private Integer inqId;
-    
     @Size(max = 50)
     @Column(name = "INQ_NAME")
     private String inqName;
-    
     @Size(max = 50)
     @Column(name = "INQ_EMAIL")
     private String inqEmail;
-    
     @Size(max = 1000)
     @Column(name = "INQ_DESCRIPTION")
     private String inqDescription;
-    
     @Column(name = "INQ_CREATED_DATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date inqCreatedDate;
+    @Size(max = 100)
+    @Column(name = "INQ_SUBJECT")
+    private String inqSubject;
 
     public Inquiry() {
     }
@@ -104,6 +104,14 @@ public class Inquiry implements Serializable {
 
     public void setInqCreatedDate(Date inqCreatedDate) {
         this.inqCreatedDate = inqCreatedDate;
+    }
+
+    public String getInqSubject() {
+        return inqSubject;
+    }
+
+    public void setInqSubject(String inqSubject) {
+        this.inqSubject = inqSubject;
     }
 
     @Override

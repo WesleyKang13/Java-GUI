@@ -70,7 +70,7 @@
          <div class="circle-container">
             <div class="grid-profile1">
                 <img class="svg-image6" src="./../assets/homepage/fetchimage.webp">
-                <h2>Wesley Kang</h2>
+                <h2>Wet Wet</h2>
                 <p class="about_us1">Founder Of Banana Shoe</p>
                 <p class="about_us1">Age: 2</p>
                 <p class="about_us1">Height: 30cm</p>
@@ -79,7 +79,7 @@
             </div> 
             <div class="grid-profile2">
                 <img class="svg-image6" src="./../assets/homepage/MV5BNjhlYTE2YjUtYzgxMS00OWY1LTk3YzItY2RjMmQ2MjM0MjMzXkEyXkFqcGdeQXVyMzkyOTg1MzE@._V1_QL75_UY281_CR94,0,190,281_.jpg"">
-                <h2>Timothy Wong</h2>
+                <h2>Timothyyyyyy</h2>
                 <p class="about_us1">COO Of Banana Shoe</p>
                 <p class="about_us1">Age: 89</p>
                 <p class="about_us1">Height: 50cm</p>
@@ -88,7 +88,7 @@
             </div>   
             <div class="grid-profile3">
                  <img class="svg-image6" src="./../assets/homepage/images.jfif">
-                 <h2>Yap Wai Meng</h2>
+                 <h2>Meng Meng</h2>
                  <p class="about_us1">CAO Of Banana Shoe</p>
                  <p class="about_us1">Age: 55</p>
                  <p class="about_us1">Height: 90cm</p>
@@ -97,28 +97,28 @@
             </div>
              <div class="grid-profile3">
                  <img class="svg-image6" src="./../assets/homepage/download.jfif">
-                 <h2>Cliffton Chin</h2>
-                 <p class="about_us1">CAO Of Banana Shoe</p>
-                 <p class="about_us1">Age: 55</p>
-                 <p class="about_us1">Height: 90cm</p>
+                 <h2>TonTon</h2>
+                 <p class="about_us1">CFO Of Banana Shoe</p>
+                 <p class="about_us1">Age: 25</p>
+                 <p class="about_us1">Height: 20cm</p>
                  <p class="about_us1">Status: Married</p> 
                  </br>
             </div>
              <div class="grid-profile3">
                  <img class="svg-image6" src="./../assets/homepage/andrew.jfif">
                  <h2>Adriel The Mermaid</h2>
-                 <p class="about_us1">CAO Of Banana Shoe</p>
-                 <p class="about_us1">Age: 55</p>
-                 <p class="about_us1">Height: 90cm</p>
+                 <p class="about_us1">CMO Of Banana Shoe</p>
+                 <p class="about_us1">Age: 95</p>
+                 <p class="about_us1">Height: 2000cm</p>
                  <p class="about_us1">Status: Married</p> 
                  </br>
             </div>
               <div class="grid-profile3">
                  <img class="svg-image6" src="./../assets/homepage/FpmuUeOakAI9zZW.jfif">
-                 <h2>Iven keng</h2>
-                 <p class="about_us1">CAO Of Banana Shoe</p>
+                 <h2>Ivanvan~</h2>
+                 <p class="about_us1">CTO Of Banana Shoe</p>
                  <p class="about_us1">Age: 55</p>
-                 <p class="about_us1">Height: 90cm</p>
+                 <p class="about_us1">Height: 5cm</p>
                  <p class="about_us1">Status: Married</p> 
                  </br>
             </div>

@@ -1,7 +1,7 @@
 .container-about{
-    background-color: black;
     width: 98.7vw; 
     height: 600px; 
+    background-image: url("./../assets/homepage/endless-constellation.svg");
 }
 
 .container-about2 {
@@ -159,6 +159,7 @@
 .grid-profile2 h2{
    text-align: center;
    font-family: 'Poppins', sans-serif;
+   color: rgb(30, 150, 80);
 }
 
 .grid-profile2 p {
@@ -176,6 +177,7 @@
 .grid-profile3 h2{
    text-align: center;
    font-family: 'Poppins', sans-serif;
+   color: rgb(30, 150, 80);
 }
 
 .grid-profile3 p {
@@ -204,6 +206,10 @@
    object-position: top center;
    width: 200px;
    height: 200px;
+}
+
+.grid-profile1 h2 {
+   color: rgb(30, 150, 80);
 }
 
 .grid-profile1{

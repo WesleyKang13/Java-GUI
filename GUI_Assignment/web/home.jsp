@@ -4,6 +4,7 @@
 </jsp:include>
 
  <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href=<%= ROOT_PATH + "css/home.css"%> rel="stylesheet" type="text/css">
         <link href=<%= ROOT_PATH + "vendor/fontawesome-free-6.3.0-web/css/fontawesome.css"%> rel="stylesheet" type="text/css">
