@@ -1,0 +1,54 @@
+.container .table{
+    margin-bottom: 0;
+}
+
+.container .text h1{
+    margin-bottom: .5rem;
+}
+
+.paymentDetail{
+  padding-bottom: 5.5rem;
+}
+
+/* Action Column */
+.paymentList table th:last-child,
+.paymentList table td:last-child{
+  margin: 0;
+  padding: 0 1rem;
+  text-align: center;
+  width: 7rem;
+}
+
+.actionRoundBtn{
+  color: var(--color-font);
+  background: transparent;
+  margin: 0 auto;
+  border: 0;
+  border-radius: var(--border-radius-3);
+  font-size: 1.1rem;
+  cursor: pointer;
+  transform: scale(1.1);
+  opacity: 0.8;
+  text-align: center;
+}
+
+.actionRoundBtn:hover{
+  transform: scale(1.4);
+  opacity: 1;
+}
+
+/* FORM ACTION BUTTON */
+.paymentDetail .btn{
+  border-radius: var(--border-radius-4);
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin: 1rem .5rem 0rem;
+  transition: var(--tran-2);
+  opacity: .95;
+  float: right;
+}
+
+.paymentDetail .btn:hover {
+  opacity: 1;
+  transform: translate(-0.1rem, -0.1rem);
+}

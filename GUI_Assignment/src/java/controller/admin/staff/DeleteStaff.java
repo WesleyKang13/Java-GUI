@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.transaction.UserTransaction;
 
 
-@WebServlet(name = "DeleteStaff", urlPatterns = {"/pages/admin/DeleteStaff"})
+@WebServlet(name = "AdminDeleteStaff", urlPatterns = {"/pages/admin/DeleteStaff"})
 public class DeleteStaff extends HttpServlet {
 
     @PersistenceContext EntityManager em;

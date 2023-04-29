@@ -3,7 +3,7 @@
     top: 0;
     left: 0;
     height: 100%;
-    width: 13rem;
+    width: 14rem;
     padding: var(--padding-2);
     background: var(--color-white);
     transition: var(--tran-3);
@@ -71,7 +71,6 @@
     color: var(--color-font);
     transition: var(--tran-4);
     opacity: 1;
-    font-size: 0.9rem;
 }
 
 .sidebar.close .text{

@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.UserTransaction;
 
-@WebServlet(name = "UpdateInventory", urlPatterns = {"/pages/admin/UpdateInventory"})
+@WebServlet(name = "AdminUpdateInventory", urlPatterns = {"/pages/admin/UpdateInventory"})
 public class UpdateInventory extends HttpServlet {
 
     @PersistenceContext EntityManager em;

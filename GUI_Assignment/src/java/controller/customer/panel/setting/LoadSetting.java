@@ -1,13 +1,9 @@
-package controller.admin.setting;
+package controller.customer.panel.setting;
 
-import entity.Admin;
-import entity.Inventory;
-import entity.Product;
+import entity.Customer;
 import java.io.IOException;
-import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,21 +12,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-@WebServlet(name = "AdminLoadSetting", urlPatterns = {"/pages/admin/LoadSetting/*"})
+@WebServlet(name = "CustomerLoadSetting", urlPatterns = {"/pages/customer/panel/LoadSetting/*"})
 public class LoadSetting extends HttpServlet {
     @PersistenceContext EntityManager em;
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
         try{
-            //Load all products in database
-            int temporary = 0;
-            Admin adminInfo = em.find(Admin.class, temporary);
-            request.setAttribute("adminInfo", adminInfo);
-            request.setAttribute("ROOT_PATH", "../../");
+            //Load account information
+            // Get the customer ID from the session
+            int customerId = (int) request.getSession().getAttribute("customerId");
+            
+            Customer customerInfo = em.find(Customer.class, customerId);
+            request.setAttribute("customerInfo", customerInfo);
+            request.setAttribute("ROOT_PATH", "../../../");
             
             //Forward Page
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/admin/setting.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/customer/panel/setting.jsp");
             dispatcher.forward(request, response);
             
         }catch(Exception ex){

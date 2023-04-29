@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-@WebServlet(name = "LoadCustomer", urlPatterns = {"/pages/admin/LoadCustomer/*"})
+@WebServlet(name = "AdminLoadCustomer", urlPatterns = {"/pages/admin/LoadCustomer/*"})
 public class LoadCustomer extends HttpServlet {
     @PersistenceContext EntityManager em;
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)

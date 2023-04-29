@@ -62,15 +62,15 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     
     <link href=<%=ROOT_PATH + "css/reset.css"%> rel="stylesheet">
-    <link href=<%=ROOT_PATH + "css/admin/admin_general.css"%> rel="stylesheet">
-    <link href=<%=ROOT_PATH + "css/admin/sidebar.css"%> rel="stylesheet">
+    <link href=<%=ROOT_PATH + "css/customer/panel/customerPanel_general.css"%> rel="stylesheet">
+    <link href=<%=ROOT_PATH + "css/customer/panel/sidebar.css"%> rel="stylesheet">
     
     <!-- Font Awesome -->
     <link href=<%=ROOT_PATH + "vendor/fontawesome-free-6.3.0-web/css/fontawesome.css"%> rel="stylesheet">
     <link href=<%=ROOT_PATH + "vendor/fontawesome-free-6.3.0-web/css/brands.css"%> rel="stylesheet">
     <link href=<%=ROOT_PATH + "vendor/fontawesome-free-6.3.0-web/css/solid.css"%> rel="stylesheet">
     
-    <title>Admin Panel | Banana's Shoe Store</title> 
+    <title>Customer Panel | Banana's Shoe Store</title> 
 </head>
 <body class="<%=theme%>">
     <nav class="sidebar <%=sideBarStatus%>">
@@ -81,8 +81,8 @@
                 </span>
 
                 <div class="text profile-text">
-                    <h3 class="username text"><%=session.getAttribute("adminFullName")%></h3>
-                    <p class="position text"><%=session.getAttribute("adminPosition")%></p>
+                    <h3 class="username text"><%=session.getAttribute("customerFullName")%></h3>
+                    <p class="position text">Customer</p>
                 </div>
             </div>
 
@@ -93,53 +93,33 @@
             <div class="menu">
                 <ul class="menu-links">
                     <li class="nav-link dashboard">
-                        <a href="<%=ROOT_PATH + "pages/admin/dashboard.jsp"%>">
+                        <a href="<%=ROOT_PATH + "pages/customer/panel/dashboard.jsp"%>">
                             <i class="fa-solid fa-chart-line icon"></i>
                             <span class="text nav-text">Dashboard</span>
                         </a>
                     </li>
-                    
-                    <li class="nav-link customer">
-                        <a href="<%=ROOT_PATH + "pages/admin/LoadCustomer"%>">
-                            <i class="fa-solid fa-address-book icon"></i>
-                            <span class="text nav-text">Customer</span>
-                        </a>
-                    </li>
-
-                    <li class="nav-link product">
-                        <a href="<%=ROOT_PATH + "pages/admin/LoadProduct"%>">
-                            <i class="fa-solid fa-boxes-stacked icon"></i>
-                            <span class="text nav-text">Product</span>
-                        </a>
-                    </li>
 
                     <li class="nav-link order">
-                        <a href="<%=ROOT_PATH + "pages/admin/LoadOrder"%>">
+                        <a href="<%=ROOT_PATH + "pages/customer/panel/LoadOrder"%>">
                             <i class="fa-solid fa-cart-flatbed icon"></i>
                             <span class="text nav-text">Order</span>
                         </a>
                     </li>
 
-                    <li class="nav-link staff">
-                        <a href="<%=ROOT_PATH + "pages/admin/LoadStaff"%>">
-                            <i class="fa-solid fa-id-card-clip icon"></i>
-                            <span class="text nav-text">Staff *</span>
+                    <li class="nav-link payment">
+                        <a href="<%=ROOT_PATH + "pages/customer/panel/LoadPayment"%>">
+                            <i class="fa-solid fa-money-check-dollar icon"></i>
+                            <span class="text nav-text">Payment</span>
                         </a>
                     </li>
 
-                    <li class="nav-link report">
-                        <a href="<%=ROOT_PATH + "pages/admin/report.jsp"%>">
-                            <i class="fa-solid fa-chart-pie icon"></i>
-                            <span class="text nav-text">Report *</span>
+                    <li class="nav-link review">
+                        <a href="<%=ROOT_PATH + "pages/customer/panel/LoadReview"%>">
+                            <i class="fa-solid fa-comments icon"></i>
+                            <span class="text nav-text">Review</span>
                         </a>
                     </li>
 
-                    <li class="nav-link inquiry">
-                        <a href="<%=ROOT_PATH + "pages/admin/LoadInquiry"%>">
-                            <i class="fa-solid fa-clipboard-question icon"></i>
-                            <span class="text nav-text">Inquiry</span>
-                        </a>
-                    </li>
                     <li class="nav-link home">
                         <a href="<%=ROOT_PATH+"index.html"%>">
                             <i class="fa-solid fa-house icon"></i>
@@ -151,7 +131,7 @@
 
             <div class="bottom-content">
                 <li class="userSetting">
-                    <a href="<%=ROOT_PATH+"pages/admin/LoadSetting"%>">
+                    <a href="<%=ROOT_PATH+"pages/customer/panel/LoadSetting"%>">
                         <i class="fa-solid fa-gears icon"></i>
                         <span class="text nav-text">Setting</span>
                     </a>

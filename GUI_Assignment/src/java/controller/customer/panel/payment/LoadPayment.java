@@ -1,8 +1,9 @@
-package controller.admin.staff;
+package controller.customer.panel.payment;
 
-import entity.Admin;
 import entity.CustOrder;
+import entity.Payment;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,25 +16,33 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-@WebServlet(name = "AdminLoadStaff", urlPatterns = {"/pages/admin/LoadStaff/*"})
-public class LoadStaff extends HttpServlet {
+@WebServlet(name = "CustomerLoadPayment", urlPatterns = {"/pages/customer/panel/LoadPayment/*"})
+public class LoadPayment extends HttpServlet {
     @PersistenceContext EntityManager em;
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
         try{
-            //Load all customers in database
-            Query q = em.createNamedQuery("Admin.findAllDescId");
-            List<Admin> staffList = q.getResultList();
-            request.setAttribute("staffList", staffList);
-            request.setAttribute("ROOT_PATH", "../../");
+            // Get the customer ID from the session
+            int customerId = (int) request.getSession().getAttribute("customerId");
+            
+            //Load all payments in database
+            Query q = em.createQuery("SELECT p FROM Payment p JOIN p.custOrderList o JOIN o.custId c WHERE c.custId = :customerId ORDER BY p.paytId DESC");
+
+            q.setParameter("customerId", customerId);
+            List<Payment> paymentList = q.getResultList();
+            request.setAttribute("paymentList", paymentList);
+            request.removeAttribute("ROOT_PATH");
+            request.setAttribute("ROOT_PATH", "../../../");
 
             //Forward Page
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/admin/staff.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/customer/panel/payment.jsp");
             dispatcher.forward(request, response);
             
         }catch(Exception ex){
-            //error
+                    try (PrintWriter out = response.getWriter()) {
+                        out.println("<h1>"+ex.getMessage()+"</h1>");
+                    }
         }
     }
 
@@ -58,66 +67,48 @@ public class LoadStaff extends HttpServlet {
         }
 
         boolean forwardPage = true;
-        request.setAttribute("ROOT_PATH", "../../../../");
-        //Remove customerList
-        request.removeAttribute("staffList");
+        request.removeAttribute("ROOT_PATH");
+        request.setAttribute("ROOT_PATH", "../../../../../");
+        //Remove paymentList
+        request.removeAttribute("paymentList");
 
         String[] pathParts = pathInfo.split("/");
-        if (pathParts[1].equals("editStaffID")) {
-            // Edit the customer with the specified ID
-            int editStaffID = Integer.parseInt(pathParts[2]);
-            Admin editStaff = em.find(Admin.class, editStaffID);
-            request.setAttribute("editStaff", editStaff);
-        }
         
-        
-        else if (pathParts[1].equals("search")) {
-            // Get the search value from the request
-            String searchValue = "";
-            if (pathParts.length > 2) {
-                searchValue = pathParts[2];
-            }
-            // Query to search for a customer based on search value
-            Query query = em.createQuery("SELECT a FROM Admin a JOIN a.userId u WHERE a.adminFullName LIKE :searchValue OR u.userName LIKE :searchValue OR a.adminPhoneNum LIKE :searchValue OR u.userEmail LIKE :searchValue OR a.adminPosition LIKE :searchValue");
-
-            query.setParameter("searchValue", "%" + searchValue + "%");
-
-            // Execute the query and retrieve the result
-            List<Admin> staffList = query.getResultList();
-
-            // Set the result as an attribute for the request
-            request.setAttribute("staffList", staffList);
-            request.setAttribute("searchValue", searchValue);
+        if (pathParts[1].equals("paymentDetailID")) {
+            // Find the payment with the specified ID
+            int paymentDetailID = Integer.parseInt(pathParts[2]);
+            Payment paymentDetail = em.find(Payment.class, paymentDetailID);
+            request.setAttribute("paymentDetail", paymentDetail);
+            
+            // Query to fetch corresponding Order Detail
+            Query query = em.createQuery("SELECT o FROM CustOrder o WHERE o.paytId.paytId = :paytId");
+            query.setParameter("paytId", paymentDetail.getPaytId());
+            CustOrder orderDetail = (CustOrder) query.getSingleResult();
+            request.setAttribute("orderDetail", orderDetail);
         }
         
         else if (pathParts[1].equals("filter")) {
-            // Get the status value from the request
+            // Get the payment method value from the request
             String filter = "";
             if (pathParts.length > 2) {
                 filter = pathParts[2];
             }
             
-            int permission = 0;
-            if(filter.equals("ADMIN")){
-                permission = 0;
-            } else if(filter.equals("STAFF")){
-                permission = 1;
-            }
-            
-            // Query to search for orders based on the status
-            Query query = em.createQuery("SELECT a FROM Admin a WHERE a.adminPermission = :permission");
-
-            query.setParameter("permission", permission);
+            // Get the customer ID from the session
+            int customerId = (int) request.getSession().getAttribute("customerId");
+            //
+            // Query to search for payments based on the payment method
+            Query query = em.createQuery("SELECT p FROM Payment p JOIN p.custOrderList o JOIN o.custId c WHERE c.custId = :customerId AND p.paytMethod LIKE :method ORDER BY p.paytId DESC");
+            query.setParameter("customerId", customerId);
+            query.setParameter("method", "%" + filter + "%");
 
             // Execute the query and retrieve the result
-            List<Admin> staffList = query.getResultList();
+            List<Payment> paymentList = query.getResultList();
 
             // Set the result as an attribute for the request
-            request.setAttribute("staffList", staffList);
+            request.setAttribute("paymentList", paymentList);
             request.setAttribute("filter", filter);
-        }
-        
-        
+        } 
         else {
             //error
             forwardPage = false;
@@ -125,7 +116,7 @@ public class LoadStaff extends HttpServlet {
 
         if (forwardPage) {
             //Forward Page
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/admin/staff.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/customer/panel/payment.jsp");
             dispatcher.forward(request, response);
         }
     }

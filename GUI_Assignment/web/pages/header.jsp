@@ -42,7 +42,18 @@
               <button type="submit" class="cart-button">
               <i class="fa-solid fa-cart-shopping"></i></button>
             </form>
-            <form action="<%=ROOT_PATH + "pages/UserLogin.jsp"%>" method="get">
+            <%
+                String userRedirect=ROOT_PATH + "pages/UserLogin.jsp";
+                if(session.getAttribute("userPermission")!=null){
+                    int userPermission = (Integer)session.getAttribute("userPermission");
+                    if(userPermission==0 || userPermission==1){
+                        userRedirect=ROOT_PATH + "pages/admin/dashboard.jsp";
+                    }else if(userPermission==2){
+                        userRedirect=ROOT_PATH + "pages/customer/panel/dashboard.jsp";
+                    }
+                }
+            %>
+            <form action="<%=userRedirect%>" method="get">
               <button type="submit" class="user-registration">
                   <i class="fa-solid fa-user"></i></button>
             </form>

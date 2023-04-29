@@ -1,7 +1,5 @@
-package controller.admin.review;
+package controller.customer.panel.review;
 
-import entity.Inventory;
-import entity.Product;
 import entity.Review;
 import java.io.IOException;
 import java.util.List;
@@ -16,21 +14,25 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-@WebServlet(name = "AdminLoadReview", urlPatterns = {"/pages/admin/LoadReview/*"})
+@WebServlet(name = "CustomerLoadReview", urlPatterns = {"/pages/customer/panel/LoadReview/*"})
 public class LoadReview extends HttpServlet {
     @PersistenceContext EntityManager em;
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
         try{
+            // Get the customer ID from the session
+            int customerId = (int) request.getSession().getAttribute("customerId");
+            
             //Load all reviews in database
-            Query q = em.createNamedQuery("Review.findAllDescId");
+            Query q = em.createQuery("SELECT r FROM Review r WHERE r.custId.custId = :customerId ORDER BY r.reviewId DESC");
+            q.setParameter("customerId", customerId);
             List<Review> reviewList = q.getResultList();
             request.setAttribute("reviewList", reviewList);
-            request.setAttribute("ROOT_PATH", "../../");
+            request.setAttribute("ROOT_PATH", "../../../");
 
             //Forward Page
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/admin/review.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/customer/panel/review.jsp");
             dispatcher.forward(request, response);
             
         }catch(Exception ex){
@@ -59,16 +61,15 @@ public class LoadReview extends HttpServlet {
         }
 
         boolean forwardPage = true;
-        request.setAttribute("ROOT_PATH", "../../../../");
-        //Remove productList
+        request.setAttribute("ROOT_PATH", "../../../../../");
         request.removeAttribute("reviewList");
 
         String[] pathParts = pathInfo.split("/");
         
-        if (pathParts[1].equals("replyReviewID")) {
+        if (pathParts[1].equals("reviewDetail")) {
             // Find the inventory with the specified ID
-            int replyReviewID = Integer.parseInt(pathParts[2]);
-            Review replyReview = em.find(Review.class, replyReviewID);
+            int reviewDetailID = Integer.parseInt(pathParts[2]);
+            Review replyReview = em.find(Review.class, reviewDetailID);
             request.setAttribute("replyReview", replyReview);
             
             if(replyReview.getReviewReply() != null){
@@ -83,8 +84,11 @@ public class LoadReview extends HttpServlet {
         if (pathParts.length > 2) {
             searchValue = pathParts[2];
         }
+        // Get the customer ID from the session
+        int customerId = (int) request.getSession().getAttribute("customerId");
         // Query to search for reviews based on customer name, product name, and review description
-        Query query = em.createQuery("SELECT r FROM Review r JOIN r.custId c JOIN r.prodId p WHERE c.custFullName LIKE :searchValue OR p.prodName LIKE :searchValue OR r.reviewDescription LIKE :searchValue");
+        Query query = em.createQuery("SELECT r FROM Review r JOIN r.custId c JOIN r.prodId p WHERE r.custId.custId = :customerId AND (c.custFullName LIKE :searchValue OR p.prodName LIKE :searchValue OR r.reviewDescription LIKE :searchValue)");
+        query.setParameter("customerId", customerId);
         query.setParameter("searchValue", "%" + searchValue + "%");
         
         // Execute the query and retrieve the result
@@ -102,7 +106,7 @@ public class LoadReview extends HttpServlet {
 
         if (forwardPage) {
             //Forward Page
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/admin/review.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/customer/panel/review.jsp");
             dispatcher.forward(request, response);
         }
     }

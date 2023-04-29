@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.transaction.UserTransaction;
 
-@WebServlet(name = "UpdateUserInfo", urlPatterns = {"/pages/admin/UpdateUserInfo"})
+@WebServlet(name = "AdminUpdateUserInfo", urlPatterns = {"/pages/admin/UpdateUserInfo"})
 public class UpdateUserInfo extends HttpServlet {
 
     @PersistenceContext EntityManager em;
@@ -64,7 +64,7 @@ public class UpdateUserInfo extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String adminId = (String)request.getParameter("edit_Id");
+        int adminId = (int) request.getSession().getAttribute("adminId");
         String adminUserName = (String)request.getParameter("userName");
         String adminPassword = (String)request.getParameter("password");
         String emailFullName = (String)request.getParameter("fullName");
@@ -88,7 +88,7 @@ public class UpdateUserInfo extends HttpServlet {
 
             // Find User and Staff entities to be updated
             //Tempor user id
-            Admin admin = em.find(Admin.class, Integer.valueOf("0"));
+            Admin admin = em.find(Admin.class, adminId);
             User user = admin.getUserId();
 
             // Update fields in entities
@@ -108,6 +108,7 @@ public class UpdateUserInfo extends HttpServlet {
             HttpSession session = request.getSession();
             session.setAttribute("userName",user.getUserName());
             session.setAttribute("userEmail",user.getUserEmail());
+            session.setAttribute("adminFullName",admin.getAdminFullName());
 
             successMsg="Your information UPDATED Successfully!";
         } catch (Exception ex) {

@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.UserTransaction;
 
-@WebServlet(name = "ReplyReview", urlPatterns = {"/pages/admin/ReplyReview"})
+@WebServlet(name = "AdminReplyReview", urlPatterns = {"/pages/admin/ReplyReview"})
 public class ReplyReview extends HttpServlet {
 
     @PersistenceContext EntityManager em;

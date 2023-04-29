@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.UserTransaction;
 
-@WebServlet(name = "AddNewCustomer", urlPatterns = {"/pages/admin/AddNewCustomer"})
+@WebServlet(name = "AdminAddNewCustomer", urlPatterns = {"/pages/admin/AddNewCustomer"})
 public class AddNewCustomer extends HttpServlet {
 
     @PersistenceContext EntityManager em;

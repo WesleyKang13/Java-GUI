@@ -1,4 +1,4 @@
-package controller.admin.order;
+package controller.customer.panel.order;
 
 import entity.CustOrder;
 import entity.OrderItem;
@@ -15,23 +15,27 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-@WebServlet(name = "AdminLoadOrder", urlPatterns = {"/pages/admin/LoadOrder/*"})
+@WebServlet(name = "CustomerLoadOrder", urlPatterns = {"/pages/customer/panel/LoadOrder/*"})
 public class LoadOrder extends HttpServlet {
     @PersistenceContext EntityManager em;
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
         try{
-            //Load all orders in database
-            Query q = em.createNamedQuery("CustOrder.findAllDescId");
-            List<CustOrder> orderList = q.getResultList();
-            request.setAttribute("orderList", orderList);
-            request.setAttribute("ROOT_PATH", "../../");
+            // Get the customer ID from the session
+            int customerId = (int) request.getSession().getAttribute("customerId");
 
-            //Forward Page
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/admin/order.jsp");
+            // Load all orders for the customer ID
+            Query q = em.createQuery("SELECT o FROM CustOrder o WHERE o.custId.custId = :customerId ORDER BY o.orderId DESC");
+            q.setParameter("customerId", customerId);
+            List<CustOrder> orderList = q.getResultList();
+
+            // Forward Page
+            request.removeAttribute("ROOT_PATH");
+            request.setAttribute("orderList", orderList);
+            request.setAttribute("ROOT_PATH", "../../../");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/customer/panel/order.jsp");
             dispatcher.forward(request, response);
-            
         }catch(Exception ex){
             //error
         }
@@ -58,27 +62,27 @@ public class LoadOrder extends HttpServlet {
         }
 
         boolean forwardPage = true;
-        request.setAttribute("ROOT_PATH", "../../../../");
+        request.setAttribute("ROOT_PATH", "../../../../../");
         //Remove orderList
         request.removeAttribute("orderList");
 
         String[] pathParts = pathInfo.split("/");
         
-        if (pathParts[1].equals("editOrderID")) {
+        if (pathParts[1].equals("orderID")) {
             // Edit the order with the specified ID
-            int editOrderID = Integer.parseInt(pathParts[2]);
-            CustOrder editOrder = em.find(CustOrder.class, editOrderID);
+            int orderID = Integer.parseInt(pathParts[2]);
+            CustOrder orderDetail = em.find(CustOrder.class, orderID);
 
             // Query to fetch all the order items for the specified order
-            Query query = em.createQuery("SELECT oi FROM OrderItem oi WHERE oi.orderId = :editOrderID");
-            query.setParameter("editOrderID", editOrder);
+            Query query = em.createQuery("SELECT oi FROM OrderItem oi WHERE oi.orderId = :orderID");
+            query.setParameter("orderID", orderDetail);
 
             // Execute the query and retrieve the result
             List<OrderItem> orderItems = query.getResultList();
 
             // Set the result as an attribute for the request
-            request.setAttribute("editOrder", editOrder);
-            request.setAttribute("editOrderItems", orderItems);
+            request.setAttribute("orderDetail", orderDetail);
+            request.setAttribute("orderItems", orderItems);
         }
         
         
@@ -89,12 +93,14 @@ public class LoadOrder extends HttpServlet {
                 searchValue = pathParts[2];
             }
             // Query to search for a order based on search value
-            Query query = em.createQuery("SELECT o FROM CustOrder o JOIN o.custId c JOIN c.userId u JOIN o.paytId p WHERE c.custFullName LIKE :searchValue OR u.userName LIKE :searchValue OR c.custPhoneNum LIKE :searchValue OR u.userEmail LIKE :searchValue OR c.custShippingAddress LIKE :searchValue OR o.orderShippingAddress LIKE :searchValue OR o.orderStatus LIKE :searchValue OR p.paytMethod LIKE :searchValue");
-            
-            query.setParameter("searchValue", "%" + searchValue + "%");
+            int customerId = (int) request.getSession().getAttribute("customerId");
+
+            Query q = em.createQuery("SELECT o FROM CustOrder o JOIN o.custId c JOIN c.userId u JOIN o.paytId p WHERE c.custId = :customerId AND (c.custFullName LIKE :searchValue OR u.userName LIKE :searchValue OR c.custPhoneNum LIKE :searchValue OR u.userEmail LIKE :searchValue OR c.custShippingAddress LIKE :searchValue OR o.orderShippingAddress LIKE :searchValue OR o.orderStatus LIKE :searchValue OR p.paytMethod LIKE :searchValue)");
+            q.setParameter("customerId", customerId);
+            q.setParameter("searchValue", "%" + searchValue + "%");
 
             // Execute the query and retrieve the result
-            List<CustOrder> orderList = query.getResultList();
+            List<CustOrder> orderList = q.getResultList();
 
             // Set the result as an attribute for the request
             request.setAttribute("orderList", orderList);
@@ -109,12 +115,15 @@ public class LoadOrder extends HttpServlet {
                 filter = pathParts[2];
             }
             // Query to search for orders based on the status
-            Query query = em.createQuery("SELECT o FROM CustOrder o WHERE o.orderStatus = :status");
+            int customerId = (int) request.getSession().getAttribute("customerId");
 
-            query.setParameter("status", filter);
+            // Load all orders for the specified customer with the given status filter
+            Query q = em.createQuery("SELECT o FROM CustOrder o WHERE o.custId.custId = :customerId AND o.orderStatus = :status");
+            q.setParameter("customerId", customerId);
+            q.setParameter("status", filter);
 
             // Execute the query and retrieve the result
-            List<CustOrder> orderList = query.getResultList();
+            List<CustOrder> orderList = q.getResultList();
 
             // Set the result as an attribute for the request
             request.setAttribute("orderList", orderList);
@@ -128,7 +137,7 @@ public class LoadOrder extends HttpServlet {
 
         if (forwardPage) {
             //Forward Page
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/admin/order.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/customer/panel/order.jsp");
             dispatcher.forward(request, response);
         }
     }

@@ -1,15 +1,7 @@
 package controller.admin.inventory;
 
-import java.util.List;
-import entity.Cart;
-import entity.CustOrder;
-import entity.Customer;
-import entity.OrderItem;
 import entity.Product;
-import entity.Review;
-import entity.User;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -22,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.transaction.UserTransaction;
 
 
-@WebServlet(name = "DeleteInventory", urlPatterns = {"/pages/admin/DeleteInventory"})
+@WebServlet(name = "AdminDeleteInventory", urlPatterns = {"/pages/admin/DeleteInventory"})
 public class DeleteInventory extends HttpServlet {
 
     @PersistenceContext EntityManager em;

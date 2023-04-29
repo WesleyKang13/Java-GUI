@@ -8,32 +8,22 @@ import entity.Admin;
 import entity.Customer;
 import entity.User;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.transaction.UserTransaction;
 
 
 @WebServlet(name = "ValidateLogin", urlPatterns = {"/pages/ValidateLogin"})
 public class ValidateLogin extends HttpServlet {
     
     @PersistenceContext EntityManager em;
-    @Resource UserTransaction utx;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -98,6 +88,7 @@ public class ValidateLogin extends HttpServlet {
                     try {
                         Customer customer = (Customer) custQuery.getSingleResult();
                         session.setAttribute("customerId", customer.getCustId());
+                        session.setAttribute("customerFullName", customer.getCustFullName());
                         session.setAttribute("userPermission", 2);
                         response.sendRedirect("../home.jsp?successLogin=true");
                     } catch (NoResultException ex) {
@@ -108,6 +99,7 @@ public class ValidateLogin extends HttpServlet {
                             Admin admin = (Admin) adminQuery.getSingleResult();
                             session.setAttribute("adminId", admin.getAdminId());
                             session.setAttribute("adminPosition", admin.getAdminPosition());
+                            session.setAttribute("adminFullName", admin.getAdminFullName());
                             if(admin.getAdminPermission() == 0){
                                 session.setAttribute("userPermission", 0);
                             }else{

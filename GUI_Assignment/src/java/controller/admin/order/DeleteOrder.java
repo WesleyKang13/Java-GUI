@@ -1,14 +1,7 @@
 package controller.admin.order;
 
-import java.util.List;
-import entity.Cart;
 import entity.CustOrder;
-import entity.Customer;
-import entity.OrderItem;
-import entity.Review;
-import entity.User;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -21,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.transaction.UserTransaction;
 
 
-@WebServlet(name = "DeleteOrder", urlPatterns = {"/pages/admin/DeleteOrder"})
+@WebServlet(name = "AdminDeleteOrder", urlPatterns = {"/pages/admin/DeleteOrder"})
 public class DeleteOrder extends HttpServlet {
 
     @PersistenceContext EntityManager em;

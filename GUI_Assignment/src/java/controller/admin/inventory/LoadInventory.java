@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-@WebServlet(name = "LoadInventory", urlPatterns = {"/pages/admin/LoadInventory/*"})
+@WebServlet(name = "AdminLoadInventory", urlPatterns = {"/pages/admin/LoadInventory/*"})
 public class LoadInventory extends HttpServlet {
     @PersistenceContext EntityManager em;
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)

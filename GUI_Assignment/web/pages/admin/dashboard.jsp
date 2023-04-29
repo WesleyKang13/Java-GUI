@@ -14,16 +14,14 @@
     //Redirect to home page if it's not admin
     int validatePermission = session.getAttribute("userPermission") != null ? (Integer)session.getAttribute("userPermission") : 999 ;
     if(validatePermission == 999 || validatePermission != 0 && validatePermission != 1){
-        System.out.println("helllllllo");
         response.sendRedirect(ROOT_PATH+"index.html");
     }
 %>
 <main>
     <div class="container">
-        <h1 style="padding-bottom: 2rem;">Welcome Back, <%=session.getAttribute("userName")%>!</h1>
+        <h1 style="padding-bottom: 2rem;">Welcome Back, <%=session.getAttribute("adminFullName")%>!</h1>
         <h2>Please Select Action Below:</h2>
     </div>
-    
     <div class="card-container">
         <a href="<%=ROOT_PATH+"index.html"%>" class="card">
             <i class="fa-solid fa-house icon"></i>
@@ -73,6 +71,11 @@
         <a href="<%=ROOT_PATH + "pages/admin/inquiry.jsp"%>" class="card">
             <i class="fa-solid fa-clipboard-question icon"></i>
             <h2 class="text nav-text">Inquiry</h2>
+        </a>
+            
+        <a href="<%=ROOT_PATH + "pages/admin/LoadSetting"%>" class="card">
+            <i class="fa-solid fa-gears icon"></i>
+            <h2 class="text nav-text">Setting</h2>
         </a>
     </div>
 </main>
