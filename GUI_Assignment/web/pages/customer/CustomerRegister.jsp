@@ -4,8 +4,10 @@
 </jsp:include>
 
 <link rel="stylesheet" href="../../css/customer/CustomerRegister.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+<link href=<%= ROOT_PATH + "vendor/fontawesome-free-6.3.0-web/css/fontawesome.css"%> rel="stylesheet" type="text/css">
+<link href=<%= ROOT_PATH + "vendor/fontawesome-free-6.3.0-web/css/brands.css"%> rel="stylesheet" type="text/css">
+<link href=<%= ROOT_PATH + "vendor/fontawesome-free-6.3.0-web/css/solid.css"%> rel="stylesheet" type="text/css">
+
 <title>Customer Registration</title>
     
 <body>
@@ -25,7 +27,7 @@
                 
                 <tr>
                     <td>
-                    <i class="fa fa-address-card"></i>
+                    <i class="fa-solid fa-user"></i>
                     </td>
                     <td>
                     <input type="text" name="username" placeholder="User Name" required>
@@ -34,7 +36,7 @@
                 </tr>
                 <tr>
                     <td>
-                    <i class="fa fa-user icon"></i>
+                    <i class="fa-regular fa-address-card"></i>
                     </td> 
                     <td>
                         <input type="text"  name="fullname" placeholder="Name" maxlength="30" required/>
@@ -42,7 +44,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <i class="fa fa-envelope icon"></i>
+                        <i class="fa-solid fa-envelope"></i>
                     </td> 
                     <td>
                         <input type="email"  name="accEmail" maxlength="300" placeholder="username@gmail.com" required/>
@@ -50,7 +52,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <i class="fa fa-phone-square"></i>
+                        <i class="fa-solid fa-phone"></i>
                     </td> 
                     <td>
                     <input type="text"  name="accPhone" placeholder="012-1234567"maxlength="300" required/>
@@ -58,7 +60,7 @@
                 </tr>
                 <tr>
                     <td>
-                    <i class="fa fa-lock"></i>
+                    <i class="fa-solid fa-lock"></i>
                     </td> 
                     <td>
                     <input type="password"  name="accPass" id="password" placeholder="******" maxlength="300" required/>
@@ -67,7 +69,7 @@
                 </tr>
                 <tr>
                     <td>
-                    <i class="fa fa-lock"></i>
+                    <i class="fa-solid fa-user-lock"></i>
                     </td> 
                     <td>
                     <input type="password"  name="comfirmPass" id="password2" placeholder=" Comfirm Password:" maxlength="300" required/>
@@ -76,7 +78,7 @@
                 </tr>
                 <tr>
                     <td>
-                    <!--icon here-->
+                        <i class="fa-solid fa-location-dot"></i>
                     </td> 
                     <td>
                     <input type="text"  name="shippingAddress" id="shippingAddress" placeholder="Shipping Address" maxlength="300" required/>

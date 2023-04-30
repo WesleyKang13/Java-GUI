@@ -7,9 +7,11 @@
 
 
 <link rel="stylesheet" href="../css/UserLogin.css">
-<link rel="stylesheet" type="text/css" href="/jwcodeme/style/main-style.css?v=1" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+  <link href=<%= ROOT_PATH + "css/headerFooter.css"%> rel="stylesheet" type="text/css">
+  <link href=<%= ROOT_PATH + "vendor/fontawesome-free-6.3.0-web/css/fontawesome.css"%> rel="stylesheet" type="text/css">
+  <link href=<%= ROOT_PATH + "vendor/fontawesome-free-6.3.0-web/css/brands.css"%> rel="stylesheet" type="text/css">
+  <link href=<%= ROOT_PATH + "vendor/fontawesome-free-6.3.0-web/css/solid.css"%> rel="stylesheet" type="text/css">
+
 
 
 <%
@@ -38,13 +40,13 @@
                     <p>Login to your account</p>
                     <label for="email" >Account:</label>
                         <div class="input-group form-icon form-icon-email">
-                            <i class="fa fa-envelope icon"></i>
+                            <i class="fa-solid fa-user"></i>
                             <input type="text" name="account" placeholder="Email / User Name" required="">
                                 
                         </div>
                     <label for="pwrd" >Password:</label>
                         <div class="input-group form-icon form-icon-email">
-                            <i class="fa fa-key icon" id="key"></i>
+                            <i class="fa-solid fa-key" id="key"></i>
                             <input type="password" name="password" id="password" placeholder="*******" required>
                             <i class="bi bi-eye-slash" id="togglePassword"></i>     
                         </div>
@@ -53,24 +55,7 @@
                               
                         
                    
-                        <div class="facebook">
-                            <div>
-                                     <a  class="socialmedia" id="facebook" href="https://www.facebook.com/">
-                                        <i class="fa fa-facebook">
-                                        </i>
-                                        Facebook
-                                     </a>
-                            </div>
-                        </div>
-                        <div class="google">         
-                              <div>
-                                <a  class="socialmedia"  id="google" href="https://accounts.google.com/">
-                                   <i class="fa fa-google">
-                                   </i>
-                                   Google
-                                </a>
-                             </div>
-                        </div>
+                        
                 </div>
                 
                 <div id="user_register" class="grid-item">
@@ -83,7 +68,7 @@
                         <p id="registerwel">Welcome to Banana</p>
                      </div>
                     <a class="user_registerbutton" href="./customer/CustomerRegister.jsp" role="button">
-                        <span></span>
+                                <span></span>
                                 <span></span>
                                 <span></span>
                                 <span></span>REGISTER</a>                
