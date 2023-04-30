@@ -51,7 +51,6 @@
                     <th>Subject</th>
                     <th>Description</th>
                     <th>Date</th>
-                    <th>Action</th>
                 </tr>
             </thead>
            
@@ -73,14 +72,7 @@
                     class="actionRoundBtn"><i class="fa-solid fa-envelope"></i></i></a></td>
                     <td><%=inquiry.getInqSubject()%></td>
                     <td><%=inquiry.getInqDescription()%></td>
-                    <td><%=convertTimestamp(inquiry.getInqCreatedDate())%></td>
-                    <td>
-                    <div style="display: flex;">
-                        <button class="actionRoundBtn danger" onclick="if(confirm('Are you sure you want to delete this customer?')) 
-                        { location.href='<%=ROOT_PATH+"pages/admin/DeleteCustomer?deleteId="+inquiry.getInqId()%>'; }
-                        else{return false;}"><i class="fa-solid fa-trash fa-spin fa-spin"></i></button>
-                    </div>
-                    </td>
+                    <td style="width: 15rem;"><%=convertTimestamp(inquiry.getInqCreatedDate())%></td>
                 <% } %>
             </tbody>
         </table>

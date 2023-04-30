@@ -141,7 +141,12 @@
                     <td><%=shippingAddress%></td>
                     <td>
                         <button class="actionRoundBtn" onclick="location.href='<%=ROOT_PATH+"pages/admin/LoadCustomer/editCustID/"+c.getCustId()%>'"><i class="fa-solid fa-circle-info fa-spin"></i></button>
+                        <% 
+                            int userPermissionSession = session.getAttribute("userPermission") != null ? (Integer) session.getAttribute("userPermission") : 999 ;
+                            if(userPermissionSession == 0){ 
+                        %>
                         <button class="actionRoundBtn danger" onclick="if(confirm('Are you sure you want to delete this customer?')) { location.href='<%=ROOT_PATH+"pages/admin/DeleteCustomer?deleteId="+c.getCustId()%>'; }else{return false;}"><i class="fa-solid fa-trash fa-spin fa-spin"></i></button>
+                        <% } %>
                     </td>
                 </tr>
                 <% } %>
@@ -156,16 +161,6 @@
     <div class="container addCustomer ">
         <div class="text">
             <h1>Add Customer</h1>
-        </div>
-
-        <div class="notificationBox success">
-            <span class="message">Record Deleted Successfully !</span>
-            <span class="closeBtn" onclick="this.parentElement.style.display='none';"><i class="fa-solid fa-xmark"></i></span> 
-        </div>
-
-        <div class="notificationBox error">
-            <span class="message">Error Occurred, Please Try Again !</span>
-            <span class="closeBtn" onclick="this.parentElement.style.display='none';"><i class="fa-solid fa-xmark"></i></span> 
         </div>
 
         <form action="<%=ROOT_PATH+"pages/admin/AddNewCustomer" %>" method="POST">
@@ -218,12 +213,7 @@
             <p><strong>ID <%=editCustomer.getCustId()%> - <%=editCustomer.getCustFullName()%></strong></p>
         </div>
 
-        <div class="notificationBox success">
-            <span class="message">Record Deleted Successfully !</span>
-            <span class="closeBtn" onclick="this.parentElement.style.display='none';"><i class="fa-solid fa-xmark"></i></span> 
-        </div>
-
-        <div class="notificationBox error">
+        <div class="notificationBox error" style="display:none;">
             <span class="message">Error Message</span>
             <span class="closeBtn" onclick="this.parentElement.style.display='none';"><i class="fa-solid fa-xmark"></i></span> 
         </div>
@@ -238,11 +228,11 @@
                 </tr>
                 <tr>
                     <td><strong>User Name</strong></strong></td>
-                    <td><input type="text" name="edit_userName" id="edit_userName" value="<%=editCustomer.getUserId().getUserName()%>" disabled></td>
+                    <td><input type="text" name="edit_userName" minlength="5" id="edit_userName" value="<%=editCustomer.getUserId().getUserName()%>" disabled></td>
                 </tr>
                 <tr>
                     <td><strong>Full Name</strong></strong></td>
-                    <td><input type="text" name="edit_fullName" id="edit_fullName" value="<%=editCustomer.getCustFullName()%>" disabled></td>
+                    <td><input type="text" name="edit_fullName" minlength="5" id="edit_fullName" value="<%=editCustomer.getCustFullName()%>" disabled></td>
                 </tr>
                 <tr>
                     <td><strong>Phone Number</strong></td>
@@ -250,7 +240,7 @@
                 </tr>
                 <tr>
                     <td><strong>Email</strong></td>
-                    <td><input type="text" name="edit_email" id="edit_email" value="<%=editCustomer.getUserId().getUserEmail()%>" disabled></td>
+                    <td><input type="text" name="edit_email" id="edit_email" value="<%=editCustomer.getUserId().getUserEmail()%>" minlength="5" disabled></td>
                 </tr>
                 <tr>
                     <td><strong>Shipping Address</strong></td>
@@ -260,7 +250,8 @@
 
             <div class="edit-action hide">
                 <button type="button" class="delete btn danger" onclick="if(confirm('Are you sure you want to cancel?')) { history.go(0); }" style="float: left;">Cancel</button>
-                <button type="submit" class="edit btn success" onclick="if(confirm('Are you sure you want to edit this customer?')) { return true; }else{return false;}">Save</button>
+                <button type="submit" class="edit btn success" onclick="if(validateEditCustomer()){return true;} else return false;">Save</button>
+
             </div>
         </form>
         <!--End Edit Customer Form-->
@@ -268,10 +259,15 @@
         <div class="detail-action">
             <button class="editCustBackBtn backBtn btn" onclick="location.href='<%=ROOT_PATH+"pages/admin/LoadCustomer"%>'" style="float: left;">Back</button>
             <button class="editBtn btn success">Edit</button>
+            <% 
+                int userPermissionSession = session.getAttribute("userPermission") != null ? (Integer) session.getAttribute("userPermission") : 999 ;
+                if(userPermissionSession == 0){ 
+            %>
             <button class="deleteBtn btn danger" onclick="if(confirm('Are you sure you want to delete this customer?')) { location.href='<%=ROOT_PATH+"pages/admin/DeleteCustomer?deleteId="+editCustomer.getCustId()%>'; }else{return false;}">Delete</button>
+            <% } %>
         </div>
     </div>
-    <% } %>
+        
     <script>
         //SHOW and HIDE Action Button
         const editBtn = body.querySelector('.editBtn'),
@@ -290,7 +286,63 @@
                 document.getElementById('edit_shippingAddress').removeAttribute("disabled");
             });
         }
+        
+        function validateEditCustomer() {
+            var errorMsgBox = document.querySelector(".notificationBox.error");
+            var editBtn = document.querySelector(".editBtn");
+            var editAction = document.querySelector(".edit-action");
+            var deleteBtn = document.querySelector(".deleteBtn");
+
+            var phoneNumInput = document.getElementById("edit_phoneNum");
+            var emailInput = document.getElementById("edit_email");
+            var fullnameInput = document.getElementById("edit_fullName").value;
+            var usernameInput = document.getElementById("edit_userName").value;
+            var shippingAddressInput = document.getElementById("edit_shippingAddress").value;
+
+            var phoneNumRegex = /\d$/; // regex to match 10 digit phone number
+            var emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/; // regex to match email address
+
+            if (usernameInput.trim().length < 5) {
+              errorMsgBox.style.display = "block";
+              errorMsgBox.querySelector(".message").textContent = "Username must have at least 5 characters.";
+              return false;
+            }
+            
+            if (fullnameInput.trim().length < 5) {
+                errorMsgBox.style.display = "block";
+                errorMsgBox.querySelector(".message").textContent = "Full name must have at least 5 characters.";
+                return false;
+            }
+
+            if (shippingAddressInput.trim().length < 5) {
+              errorMsgBox.style.display = "block";
+              errorMsgBox.querySelector(".message").textContent = "Shipping address must have at least 5 characters.";
+              return false;
+            }
+            
+            // validate phone number
+            if (!phoneNumRegex.test(phoneNumInput.value)) {
+                errorMsgBox.querySelector(".message").innerHTML = "Invalid phone number format";
+                errorMsgBox.style.display = "block"; // show error box
+                return false;
+            }
+
+            // validate email address
+            if (!emailRegex.test(emailInput.value)) {
+                errorMsgBox.querySelector(".message").innerHTML = "Invalid email address format";
+                errorMsgBox.style.display = "block"; // show error box
+                return false;
+            }
+
+            // show confirmation dialog before submitting form
+            if (confirm('Are you sure you want to edit this customer?')) {
+                return true;
+            } else {
+                return false;
+            }
+        }
     </script>
+    <% } %>
 </main>
 </body>
 </html>

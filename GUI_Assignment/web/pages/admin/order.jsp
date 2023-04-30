@@ -98,11 +98,9 @@
         %>
         <div class="filter">
             <button type="button" <%=validateFilter("all", filter)%> onclick="window.location.href='<%=ROOT_PATH+"pages/admin/LoadOrder"%>'">All</button>
-            <button type="button" <%=validateFilter("PENDING", filter)%> value="PENDING" onclick="filterOrders('PENDING')">Pending</button>
+            <button type="button" <%=validateFilter("PACKAGING", filter)%> value="PACKAGING" onclick="filterOrders('PACKAGING')">Packaging</button>
             <button type="button" <%=validateFilter("SHIPPING", filter)%> value="SHIPPING" onclick="filterOrders('SHIPPING')">Shipping</button>
-            <button type="button" <%=validateFilter("POSTPONED", filter)%> value="POSTPONED" onclick="filterOrders('POSTPONED')">Postponed</button>
-            <button type="button" <%=validateFilter("CANCELLED", filter)%> value="CANCELLED" onclick="filterOrders('CANCELLED')">Cancelled</button>
-            <button type="button" <%=validateFilter("COMPLETED", filter)%> value="COMPLETED" onclick="filterOrders('COMPLETED')">Completed</button>
+            <button type="button" <%=validateFilter("DELIVERY", filter)%> value="DELIVERY" onclick="filterOrders('DELIVERY')">Delivery</button>
         </div>
 
         <script>
@@ -163,7 +161,12 @@
                     <td><%=o.getOrderStatus()%></td>
                     <td>
                         <button class="actionRoundBtn" onclick="location.href='<%=ROOT_PATH+"pages/admin/LoadOrder/editOrderID/"+o.getOrderId()%>'"><i class="fa-solid fa-circle-info fa-spin"></i></button>
+                        <% 
+                            int userPermissionSession = session.getAttribute("userPermission") != null ? (Integer) session.getAttribute("userPermission") : 999 ;
+                            if(userPermissionSession == 0){ 
+                        %>
                         <button class="actionRoundBtn danger" onclick="if(confirm('Are you sure you want to delete this order?')) { location.href='<%=ROOT_PATH+"pages/admin/DeleteOrder?deleteId="+o.getOrderId()%>'; }else{return false;}"><i class="fa-solid fa-trash fa-spin fa-spin"></i></button>
+                        <% } %>
                     </td>
                 </tr>
                 <% } %>
@@ -180,17 +183,6 @@
             <h1>Order Detail</h1>
             <p><strong>ID - <%=editOrder.getOrderId()+" by "+editOrder.getCustId().getCustFullName()%></strong></p>
             <p style="padding-top: 0.5rem;"><strong>Order Date  - <%=convertTimestamp(editOrder.getDate())%></strong></p>
-        </div>
-
-        <!--Notification Area-->
-        <div class="notificationBox success">
-            <span class="message">Record Deleted Successfully !</span>
-            <span class="closeBtn" onclick="this.parentElement.style.display='none';"><i class="fa-solid fa-xmark"></i></span> 
-        </div>
-
-        <div class="notificationBox error">
-            <span class="message">Error Message</span>
-            <span class="closeBtn" onclick="this.parentElement.style.display='none';"><i class="fa-solid fa-xmark"></i></span> 
         </div>
 
         <!-- Start Edit Order Form-->
@@ -267,11 +259,9 @@
                     <td><strong>Status</strong></td>
                     <td>
                         <select name="edit_status" id="edit_status" disabled>
-                            <option value="PENDING" <%=validateStatus("PENDING", editOrder.getOrderStatus())%>>Pending</option>
+                            <option value="PACKAGING" <%=validateStatus("PACKAGING", editOrder.getOrderStatus())%>>Packaging</option>
                             <option value="SHIPPING" <%=validateStatus("SHIPPING", editOrder.getOrderStatus())%>>Shipping</option>
-                            <option value="POSTPONED" <%=validateStatus("POSTPONED", editOrder.getOrderStatus())%>>Postponed</option>
-                            <option value="CANCELLED" <%=validateStatus("CANCELLED", editOrder.getOrderStatus())%>>Cancelled</option>
-                            <option value="COMPLETED" <%=validateStatus("COMPLETED", editOrder.getOrderStatus())%>>Completed</option>
+                            <option value="DELIVERY" <%=validateStatus("DELIVERY", editOrder.getOrderStatus())%>>Delivery</option>
                         </select>
                     </td>
                 </tr>
@@ -316,7 +306,12 @@
         <div class="detail-action">
             <button class="editOrderBackBtn backBtn btn" onclick="location.href='<%=ROOT_PATH+"pages/admin/LoadOrder"%>'" style="float: left;">Back</button>
             <button class="editBtn btn success">Edit</button>
+            <% 
+                int userPermissionSession = session.getAttribute("userPermission") != null ? (Integer) session.getAttribute("userPermission") : 999 ;
+                if(userPermissionSession == 0){ 
+            %>
             <button class="deleteBtn btn danger" onclick="if(confirm('Are you sure you want to delete this order?')) { location.href='<%=ROOT_PATH+"pages/admin/DeleteOrder?deleteId="+editOrder.getOrderId()%>'; }else{return false;}">Delete</button>
+            <% } %>
         </div>
     </div>
     <% } %>

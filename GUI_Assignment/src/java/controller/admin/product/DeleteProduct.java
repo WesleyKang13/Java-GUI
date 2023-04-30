@@ -4,6 +4,7 @@ import java.util.List;
 import entity.Cart;
 import entity.CustOrder;
 import entity.Customer;
+import entity.Inventory;
 import entity.OrderItem;
 import entity.Product;
 import entity.Review;
@@ -66,15 +67,24 @@ public class DeleteProduct extends HttpServlet {
         Product product = em.find(Product.class, Integer.valueOf(productId));
 
         if (product != null) {
-            // Delete all inventory items related to the product
-            Query query1 = em.createQuery("DELETE FROM Inventory i WHERE i.prodId = :prodId");
-            query1.setParameter("prodId", product);
-            query1.executeUpdate();
+            
+            // Get all inventory items associated with the product
+            Query query = em.createQuery("SELECT i FROM Inventory i WHERE i.prodId = :prodId");
+            query.setParameter("prodId", product);
+            List<Inventory> inventoryList = query.getResultList();
 
-            // Delete all items from customer's cart related to the product
-            Query query2 = em.createQuery("DELETE FROM Cart c WHERE c.prodId = :prodId");
-            query2.setParameter("prodId", product);
-            query2.executeUpdate();
+            // Iterate over each inventory item and delete its corresponding cart item and the inventory item itself
+            for (Inventory inventory : inventoryList) {
+                // Delete cart item
+                Query deleteCartQuery = em.createQuery("DELETE FROM Cart c WHERE c.invId = :invId");
+                deleteCartQuery.setParameter("invId", inventory);
+                deleteCartQuery.executeUpdate();
+
+                // Delete inventory item
+                Query deleteInventoryQuery = em.createQuery("DELETE FROM Inventory i WHERE i = :invId");
+                deleteInventoryQuery.setParameter("invId", inventory);
+                deleteInventoryQuery.executeUpdate();
+            }
 
             // Delete all reviews related to the product
             Query query3 = em.createQuery("DELETE FROM Review r WHERE r.prodId = :prodId");

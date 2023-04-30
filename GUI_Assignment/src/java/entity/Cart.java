@@ -43,9 +43,9 @@ public class Cart implements Serializable {
     @JoinColumn(name = "CUST_ID", referencedColumnName = "CUST_ID")
     @ManyToOne
     private Customer custId;
-    @JoinColumn(name = "PROD_ID", referencedColumnName = "PROD_ID")
+    @JoinColumn(name = "INV_ID", referencedColumnName = "INV_ID")
     @ManyToOne
-    private Product prodId;
+    private Inventory invId;
 
     public Cart() {
     }
@@ -78,16 +78,16 @@ public class Cart implements Serializable {
         this.custId = custId;
     }
 
-    public Product getProdId() {
-        return prodId;
+    public Inventory getProdId() {
+        return invId;
     }
 
-    public void setProdId(Product prodId) {
-        this.prodId = prodId;
+    public void setInvId(Inventory invId) {
+        this.invId = invId;
     }
 
     public double getTotalAmount() {
-        return (double) prodId.getProdPrice() * cartQuantity;
+        return (double) invId.getProdId().getProdPrice() * cartQuantity;
     }
     
     @Override

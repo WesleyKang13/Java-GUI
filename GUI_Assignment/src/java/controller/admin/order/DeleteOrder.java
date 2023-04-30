@@ -1,6 +1,7 @@
 package controller.admin.order;
 
 import entity.CustOrder;
+import entity.Payment;
 import java.io.IOException;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
@@ -59,6 +60,9 @@ public class DeleteOrder extends HttpServlet {
 
             if (order != null) {
                 // Delete all order items related to the order
+                Payment payment = (Payment) em.createQuery("Select o.paytId FROM CustOrder o WHERE o = :orderId").setParameter("orderId", order).getSingleResult();
+                
+                // Delete all order items related to the order
                 Query query1 = em.createQuery("DELETE FROM OrderItem oi WHERE oi.orderId = :orderId");
                 query1.setParameter("orderId", order);
                 query1.executeUpdate();
@@ -70,6 +74,11 @@ public class DeleteOrder extends HttpServlet {
 
                 // Finally, delete the order
                 em.remove(order);
+                
+                // delete the payment
+                Query query0 = em.createQuery("DELETE FROM Payment p WHERE p = :payment");
+                query0.setParameter("payment", payment);
+                query0.executeUpdate();
             }
 
             // Commit transaction

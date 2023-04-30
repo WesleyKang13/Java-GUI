@@ -2,10 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller.admin.inquiry;
+package controller.customer.panel.review;
 
-import entity.Inquiry;
+import entity.CustOrder;
+import entity.Customer;
+import entity.Product;
+import entity.Review;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -18,15 +22,13 @@ import javax.transaction.UserTransaction;
 
 /**
  *
- * @author User
+ * @author yapwa
  */
-@WebServlet(name = "InquiryCustomer", urlPatterns = {"/pages/InquiryCustomer"})
-public class InquiryCustomer extends HttpServlet {
+@WebServlet(name = "CustomerReviewProduct", urlPatterns = {"/pages/customer/panel/ReviewProduct"})
+public class ReviewProduct extends HttpServlet {
 
     @PersistenceContext EntityManager em;
     @Resource UserTransaction utx;
-    
-    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -38,11 +40,8 @@ public class InquiryCustomer extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        {
         response.setContentType("text/html;charset=UTF-8");
-       
-        }
+        response.sendRedirect("LoadReview");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -71,56 +70,73 @@ public class InquiryCustomer extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        // Retrieve review parameters from HTTP request
+        int orderID = Integer.parseInt(request.getParameter("order_id"));
+        int prodID = Integer.parseInt(request.getParameter("prod_id"));
+        int custID = (int) request.getSession().getAttribute("customerId");
+        double score = Double.parseDouble(request.getParameter("review_score"));
+        String description = request.getParameter("review_comment");
+        String errorMsg="";
+        String successMsg="";
+        boolean forwardPage = true;
+
+        CustOrder order = em.find(CustOrder.class, orderID);
+        Product product = em.find(Product.class, prodID);
+        Customer customer = em.find(Customer.class, custID);
         
-        try{
+
+        try {
             // Begin transaction
             utx.begin();
             
-            //Get value from form
-            String name = (String)request.getParameter("name");
-            String email = (String)request.getParameter("email");
-            String subject = (String)request.getParameter("subject");
-            String description = (String)request.getParameter("message");
+            // Create new review object
+            Review review = new Review();
 
-            Inquiry inquiry = new Inquiry();
-            inquiry.setInqName(name);
-            inquiry.setInqEmail(email);
-            inquiry.setInqSubject(subject);
-            inquiry.setInqDescription(description);
+            // Set review properties
+            review.setCustId(customer);
+            review.setOrderId(order);
+            review.setProdId(product);
+            review.setReviewScore(score);
+            review.setReviewDescription(description);
 
-            em.persist(inquiry);
-            
+            // Persist new review in database
+            em.persist(review);
+
             // Commit transaction
             utx.commit();
-            
-        }catch (Exception ex) {
+
+            successMsg="Review ADDED Successfully!";
+        } catch (Exception ex) {
             try {
                 // Rollback transaction
                 utx.rollback();
             } catch (Exception e) {
+                errorMsg="Error Occurred: Please try again. ("+e.getMessage()+")";
                 throw new ServletException(e);
             }
+            errorMsg += "Error Occurred: Please try again. ("+ex.getMessage()+")";
+            
+            forwardPage=false;
+            //error page
             throw new ServletException(ex);
         }
         
-        
-//        request.setAttribute("name", name);
-//        request.setAttribute("email", email);
-//        request.setAttribute("subject", subject);
-//        request.setAttribute("message", description);
-//          
-       // Set the success message attribute
-        String successMessage = "Your message has been sent successfully!";
-        request.setAttribute("successMessage", successMessage);
-
-        // Forward the request to contactUs.jsp
-        request.getRequestDispatcher("contactUs.jsp").forward(request, response);
-        
-//        RequestDispatcher dispatcher = request.getRequestDispatcher("contactUs.jsp");
-//        dispatcher.forward(request, response);
-        
+        if(forwardPage){
+            String url = "LoadReview";
+            if(!successMsg.equals("")){
+                url +="?successMsg=" + successMsg;
+            }if(!errorMsg.equals("")){
+                url +="?errorMsg=" + errorMsg;
+            }
+            response.sendRedirect(url);
+        }
     }
-        
+
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
     @Override
     public String getServletInfo() {
         return "Short description";

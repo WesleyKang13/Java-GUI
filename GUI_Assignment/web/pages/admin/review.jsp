@@ -165,7 +165,12 @@
                         <td><%=replyDetail%></td>
                         <td>
                             <button class="actionRoundBtn" onclick="location.href='<%=ROOT_PATH+"pages/admin/LoadReview/replyReviewID/"+r.getReviewId()%>'"><i class="fa-solid fa-circle-info fa-spin"></i></button>
+                            <% 
+                                int userPermissionSession = session.getAttribute("userPermission") != null ? (Integer) session.getAttribute("userPermission") : 999 ;
+                                if(userPermissionSession == 0){ 
+                            %>
                             <button class="actionRoundBtn danger" onclick="if(confirm('Are you sure you want to delete this review?')) { location.href='<%=ROOT_PATH+"pages/admin/DeleteReview?deleteId="+r.getReviewId()%>'; }else{return false;}"><i class="fa-solid fa-trash fa-spin fa-spin"></i></button>
+                            <% } %>
                         </td>
                     </tr>
                     <% } %>
@@ -184,17 +189,6 @@
             <div class="text">
                 <h1>Reply Review</h1>
                 <p><strong>ID - <%=replyReview.getReviewId()+" by Customer ID "+replyReview.getCustId().getCustId()+" ("+replyReview.getCustId().getCustFullName()+")"%></strong></p>
-            </div>
-
-            <!--Notification Area-->
-            <div class="notificationBox success">
-                <span class="message">Record Deleted Successfully !</span>
-                <span class="closeBtn" onclick="this.parentElement.style.display='none';"><i class="fa-solid fa-xmark"></i></span> 
-            </div>
-
-            <div class="notificationBox error">
-                <span class="message">Error Message</span>
-                <span class="closeBtn" onclick="this.parentElement.style.display='none';"><i class="fa-solid fa-xmark"></i></span> 
             </div>
 
             <!-- Start Edit Review Form-->
@@ -250,6 +244,25 @@
                         </td>
                     </tr>
                     <tr>
+                        <td><strong>Product</strong></strong></td>
+                        <td>
+                            <table>
+                                <tr>
+                                    <td><strong>Product ID</strong></strong></td>
+                                    <td><%=replyReview.getProdId().getProdId()%></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Product Name</strong></strong></td>
+                                    <td><%=replyReview.getProdId().getProdName()%></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Product Type</strong></strong></td>
+                                    <td><%=replyReview.getProdId().getProdType()%></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
                         <td><strong>Score</strong></strong></td>
                         <td><%=replyReview.getReviewScore()%></td>
                     </tr>
@@ -285,7 +298,12 @@
         <div class="detail-action">
             <button class="editReviewBackBtn backBtn btn" onclick="location.href='<%=ROOT_PATH+"pages/admin/LoadReview"%>'" style="float: left;">Back</button>
             <button class="editBtn btn success">Edit</button>
+            <% 
+                int userPermissionSession = session.getAttribute("userPermission") != null ? (Integer) session.getAttribute("userPermission") : 999 ;
+                if(userPermissionSession == 0){ 
+            %>
             <button class="deleteBtn btn danger" onclick="if(confirm('Are you sure you want to delete this review?')) { location.href='<%=ROOT_PATH+"pages/admin/DeleteReview?deleteId="+replyReview.getReviewId()%>'; }else{return false;}">Delete</button>
+            <% } %>
         </div>
 
     </div>

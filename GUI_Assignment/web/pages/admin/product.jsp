@@ -175,7 +175,12 @@
                         <td><%=p.getProdType()%></td>
                         <td>
                             <button class="actionRoundBtn" onclick="location.href='<%=ROOT_PATH+"pages/admin/LoadProduct/editProductID/"+p.getProdId()%>'"><i class="fa-solid fa-circle-info fa-spin"></i></button>
+                    <% 
+                        int userPermissionSession = session.getAttribute("userPermission") != null ? (Integer) session.getAttribute("userPermission") : 999 ;
+                        if(userPermissionSession == 0){ 
+                    %>
                             <button class="actionRoundBtn danger" onclick="if(confirm('Are you sure you want to delete this product?')) { location.href='<%=ROOT_PATH+"pages/admin/DeleteProduct?deleteId="+p.getProdId()%>'; }else{return false;}"><i class="fa-solid fa-trash fa-spin fa-spin"></i></button>
+                    <% } %>
                         </td>
                     </tr>
                     <% } %>
@@ -193,16 +198,6 @@
         <div class="addProduct">
             <div class="text">
                 <h1>Add Product</h1>
-            </div>
-
-            <div class="notificationBox success">
-                <span class="message">Record Deleted Successfully !</span>
-                <span class="closeBtn" onclick="this.parentElement.style.display='none';"><i class="fa-solid fa-xmark"></i></span> 
-            </div>
-
-            <div class="notificationBox error">
-                <span class="message">Error Occurred, Please Try Again !</span>
-                <span class="closeBtn" onclick="this.parentElement.style.display='none';"><i class="fa-solid fa-xmark"></i></span> 
             </div>
 
             <form action="<%=ROOT_PATH+"pages/admin/AddNewProduct" %>" method="POST">
@@ -255,17 +250,6 @@
             <div class="text">
                 <h1>Product Detail</h1>
                 <p><strong>ID - <%=editProduct.getProdId()+" ("+editProduct.getProdName()+")"%></strong></p>
-            </div>
-
-            <!--Notification Area-->
-            <div class="notificationBox success">
-                <span class="message">Record Deleted Successfully !</span>
-                <span class="closeBtn" onclick="this.parentElement.style.display='none';"><i class="fa-solid fa-xmark"></i></span> 
-            </div>
-
-            <div class="notificationBox error">
-                <span class="message">Error Message</span>
-                <span class="closeBtn" onclick="this.parentElement.style.display='none';"><i class="fa-solid fa-xmark"></i></span> 
             </div>
 
             <!-- Start Edit Product Form-->
@@ -352,7 +336,13 @@
             <div class="detail-action">
                 <button class="editProductBackBtn backBtn btn" onclick="location.href='<%=ROOT_PATH+"pages/admin/LoadProduct"%>'" style="float: left;">Back</button>
                 <button class="editBtn btn success">Edit</button>
+                <% 
+                    int userPermissionSession = session.getAttribute("userPermission") != null ? (Integer) session.getAttribute("userPermission") : 999 ;
+                    if(userPermissionSession == 0){ 
+                %>
                 <button class="deleteBtn btn danger" onclick="if(confirm('Are you sure you want to delete this product?')) { location.href='<%=ROOT_PATH+"pages/admin/DeleteProduct?deleteId="+editProduct.getProdId()%>'; }else{return false;}">Delete</button>
+                
+                <% } %>
             </div>
         </div>
     <% } %>

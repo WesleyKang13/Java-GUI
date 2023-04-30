@@ -1,3 +1,4 @@
+<%@page import="entity.Product"%>
 <%@page import="entity.OrderItem"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
@@ -35,6 +36,8 @@
     List<CustOrder> orderList=(List<CustOrder>) request.getAttribute("orderList") != null ? (List<CustOrder>) request.getAttribute("orderList") : null;
     //Edit Order
     CustOrder orderDetail=(CustOrder) request.getAttribute("orderDetail") != null ? (CustOrder) request.getAttribute("orderDetail") : null;
+    CustOrder reviewOrder=(CustOrder) request.getAttribute("reviewOrder") != null ? (CustOrder) request.getAttribute("reviewOrder") : null;
+    Product reviewProduct =(Product) request.getAttribute("reviewProduct") != null ? (Product) request.getAttribute("reviewProduct") : null;
     
 %>
 
@@ -234,6 +237,9 @@
                               <td><strong>Quantity</strong></td>
                               <td><%=oi.getOrderItemQuantity()%></td>
                             </tr>
+                            <tr>
+                              <td colspan="2" style="text-align: center;"><button class="actionRoundBtn" onclick="location.href='<%=ROOT_PATH+"pages/customer/panel/LoadOrder/ReviewOrder/"+orderDetail.getOrderId()+"/ProdId/"+oi.getProdId().getProdId()%>'"><i class="fa-solid fa-comments fa-spin"></i></button></td>
+                            </tr>
                         </table>
                     </td>
                 </tr>
@@ -245,7 +251,41 @@
             <button class="orderDetailBackBtn backBtn btn" onclick="location.href='<%=ROOT_PATH+"pages/customer/panel/LoadOrder"%>'">Back</button>
         </div> 
     </div>
+    
+    <% } else if(reviewOrder != null){%>
+        <div class="reviewOrder container">
+            <h2>Leave a Review</h2>
+            <form action="<%=ROOT_PATH+"pages/customer/panel/ReviewProduct" %>" method="POST">
+            <table class="table vertical-table">
+                <input type="hidden" name="order_id" value="<%=reviewOrder.getOrderId()%>">
+                <input type="hidden" name="prod_id" value="<%=reviewProduct.getProdId()%>">
+                <tr>
+                    <td><strong>Order ID</strong></td>
+                    <td><%=reviewOrder.getOrderId()%></td>
+                </tr>
+                <tr>
+                    <td><strong>Product</strong></td>
+                    <td><%=reviewProduct.getProdId()+" - "+reviewProduct.getProdName()%></td>
+                </tr>
+                <tr>
+                    <td><strong>Score</strong></td>
+                    <td><input type="number" min="1" max="5" step="0.5" name="review_score"></td>
+                </tr>
+                <tr>
+                    <td><strong>Comment</strong></td>
+                    <td><input type="text" minlength="5" maxlength="500" name="review_comment"></td>
+                </tr>
+            </table>
+
+            <div class="addNew-action">
+                <button type="button" class="editCustBackBtn backBtn btn" onclick="if(confirm('Are you sure you want to go back?')) { location.href='<%=ROOT_PATH+"pages/customer/panel/LoadOrder" %>'; } else { return false; }" style="float: left;">Back</button>
+                <button type="submit" class="submitBtn btn success" onclick="if(confirm('Are you sure you want to add new review?')) { return true; } else { return false; }">Submit</button>
+                <button type="reset" class="resetBtn btn danger" onclick="if(confirm('Are you sure you want to reset the form?')) { this.form.reset(); } else { return false; }">Reset</button>
+            </div>
+        </form>
+        </div>
     <% } %>
+    
 </main>
 </body>
 </html>

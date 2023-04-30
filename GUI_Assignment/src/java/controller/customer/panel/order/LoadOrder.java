@@ -2,9 +2,11 @@ package controller.customer.panel.order;
 
 import entity.CustOrder;
 import entity.OrderItem;
+import entity.Product;
 import java.io.IOException;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.servlet.RequestDispatcher;
@@ -128,6 +130,33 @@ public class LoadOrder extends HttpServlet {
             // Set the result as an attribute for the request
             request.setAttribute("orderList", orderList);
             request.setAttribute("filter", filter);
+        }
+                
+        else if (pathParts[1].equals("ReviewOrder")) {
+            // Get the order and product IDs from the path
+            int orderID = Integer.parseInt(pathParts[2]);
+            int productID = Integer.parseInt(pathParts[4]);
+
+            // Query the database to check if the order and product exist
+            Query orderQuery = em.createQuery("SELECT o FROM CustOrder o WHERE o.orderId = :orderID");
+            orderQuery.setParameter("orderID", orderID);
+
+            Query productQuery = em.createQuery("SELECT p FROM Product p WHERE p.prodId = :productID");
+            productQuery.setParameter("productID", productID);
+            request.setAttribute("ROOT_PATH", "../../../../../../../");
+
+            try {
+                // Get the order and product objects
+                CustOrder order = (CustOrder) orderQuery.getSingleResult();
+                Product product = (Product) productQuery.getSingleResult();
+
+                // Set the order and product as attributes for the request
+                request.setAttribute("reviewOrder", order);
+                request.setAttribute("reviewProduct", product);
+            } catch (NoResultException e) {
+                // If the order or product does not exist, redirect to an error page
+                response.sendRedirect("errorPage.jsp");
+            }
         }
         
         else {

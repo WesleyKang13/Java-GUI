@@ -16,7 +16,7 @@
     
     //Redirect to home page if it's not admin
     int validatePermission = session.getAttribute("userPermission") != null ? (Integer)session.getAttribute("userPermission") : 999 ;
-    if(validatePermission == 999 || validatePermission != 0 && validatePermission != 1){
+    if(validatePermission == 999 || validatePermission != 0){
         System.out.println("helllllllo");
         response.sendRedirect(ROOT_PATH+"index.html");
     }
@@ -197,16 +197,6 @@
             <h1>Add Staff</h1>
         </div>
 
-        <div class="notificationBox success">
-            <span class="message">Record Deleted Successfully !</span>
-            <span class="closeBtn" onclick="this.parentElement.style.display='none';"><i class="fa-solid fa-xmark"></i></span> 
-        </div>
-
-        <div class="notificationBox error">
-            <span class="message">Error Occurred, Please Try Again !</span>
-            <span class="closeBtn" onclick="this.parentElement.style.display='none';"><i class="fa-solid fa-xmark"></i></span> 
-        </div>
-
         <form action="<%=ROOT_PATH+"pages/admin/AddNewStaff" %>" method="POST">
             <table class="table vertical-table">
                 <tr>
@@ -265,16 +255,6 @@
         <div class="text">
             <h1>Staff Detail</h1>
             <p><strong>ID <%=editStaff.getAdminId()%> - <%=editStaff.getAdminFullName()%></strong></p>
-        </div>
-
-        <div class="notificationBox success">
-            <span class="message">Record Deleted Successfully !</span>
-            <span class="closeBtn" onclick="this.parentElement.style.display='none';"><i class="fa-solid fa-xmark"></i></span> 
-        </div>
-
-        <div class="notificationBox error">
-            <span class="message">Error Message</span>
-            <span class="closeBtn" onclick="this.parentElement.style.display='none';"><i class="fa-solid fa-xmark"></i></span> 
         </div>
 
         <!-- Start Edit Staff Form-->

@@ -120,6 +120,11 @@
                         </a>
                     </li>
 
+                    <% 
+                        int userPermissionSession = session.getAttribute("userPermission") != null ? (Integer) session.getAttribute("userPermission") : 999 ;
+                        if(userPermissionSession == 0){ 
+                    %>
+                    
                     <li class="nav-link staff">
                         <a href="<%=ROOT_PATH + "pages/admin/LoadStaff"%>">
                             <i class="fa-solid fa-id-card-clip icon"></i>
@@ -128,11 +133,13 @@
                     </li>
 
                     <li class="nav-link report">
-                        <a href="<%=ROOT_PATH + "pages/admin/report.jsp"%>">
+                        <a href="<%=ROOT_PATH + "pages/admin/LoadSalesReport"%>">
                             <i class="fa-solid fa-chart-pie icon"></i>
                             <span class="text nav-text">Report *</span>
                         </a>
                     </li>
+                    
+                    <% } %>
 
                     <li class="nav-link inquiry">
                         <a href="<%=ROOT_PATH + "pages/admin/LoadInquiry"%>">

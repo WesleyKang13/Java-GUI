@@ -145,7 +145,12 @@
                         <td><%=inv.getInvShoeSize()%></td>
                         <td>
                             <button class="actionRoundBtn" onclick="location.href='<%=ROOT_PATH+"pages/admin/LoadInventory/editInventoryID/"+inv.getInvId()%>'"><i class="fa-solid fa-circle-info fa-spin"></i></button>
+                            <% 
+                                int userPermissionSession = session.getAttribute("userPermission") != null ? (Integer) session.getAttribute("userPermission") : 999 ;
+                                if(userPermissionSession == 0){ 
+                            %>
                             <button class="actionRoundBtn danger" onclick="if(confirm('Are you sure you want to delete this inventory?')) { location.href='<%=ROOT_PATH+"pages/admin/DeleteInventory?deleteId="+inv.getInvId()%>'; }else{return false;}"><i class="fa-solid fa-trash fa-spin fa-spin"></i></button>
+                            <% } %>
                         </td>
                     </tr>
                     <% } %>
@@ -163,16 +168,6 @@
         <div class="addInventory">
             <div class="text">
                 <h1>Add Inventory</h1>
-            </div>
-
-            <div class="notificationBox success">
-                <span class="message">Record Deleted Successfully !</span>
-                <span class="closeBtn" onclick="this.parentElement.style.display='none';"><i class="fa-solid fa-xmark"></i></span> 
-            </div>
-
-            <div class="notificationBox error">
-                <span class="message">Error Occurred, Please Try Again !</span>
-                <span class="closeBtn" onclick="this.parentElement.style.display='none';"><i class="fa-solid fa-xmark"></i></span> 
             </div>
 
             <form action="<%=ROOT_PATH+"pages/admin/AddNewInventory" %>" method="POST">
@@ -227,16 +222,6 @@
                 <p><strong>ID - <%=editInventory.getInvId()+" by Product ID "+editInventory.getProdId().getProdId()+" ("+editInventory.getProdId().getProdName()+")"%></strong></p>
             </div>
 
-            <!--Notification Area-->
-            <div class="notificationBox success">
-                <span class="message">Record Deleted Successfully !</span>
-                <span class="closeBtn" onclick="this.parentElement.style.display='none';"><i class="fa-solid fa-xmark"></i></span> 
-            </div>
-
-            <div class="notificationBox error">
-                <span class="message">Error Message</span>
-                <span class="closeBtn" onclick="this.parentElement.style.display='none';"><i class="fa-solid fa-xmark"></i></span> 
-            </div>
 
             <!-- Start Edit Inventory Form-->
             <form action="<%=ROOT_PATH+"pages/admin/UpdateInventory" %>" method="POST">
@@ -291,7 +276,12 @@
             <div class="detail-action">
                 <button class="editInventoryBackBtn backBtn btn" onclick="location.href='<%=ROOT_PATH+"pages/admin/LoadInventory"%>'" style="float: left;">Back</button>
                 <button class="editBtn btn success">Edit</button>
+                <% 
+                    int userPermissionSession = session.getAttribute("userPermission") != null ? (Integer) session.getAttribute("userPermission") : 999 ;
+                    if(userPermissionSession == 0){ 
+                %>
                 <button class="deleteBtn btn danger" onclick="if(confirm('Are you sure you want to delete this inventory?')) { location.href='<%=ROOT_PATH+"pages/admin/DeleteInventory?deleteId="+editInventory.getProdId()%>'; }else{return false;}">Delete</button>
+                <% } %>
             </div>
         </div>
     <% } %>

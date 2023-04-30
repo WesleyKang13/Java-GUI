@@ -1,3 +1,8 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Date"%>
+<%@page import="entity.OrderItem"%>
+<%@page import="java.util.List"%>
+<%@page import="controller.admin.report.ProductSales"%>
 <% String ROOT_PATH = "../../"; %>
 <jsp:include page="<%= ROOT_PATH + "pages/admin/sidebar.jsp"%>">
     <jsp:param name="ROOT_PATH" value="<%=ROOT_PATH%>" />
@@ -10,338 +15,58 @@
 <link rel="stylesheet" href="../../css/admin/report.css">
         
 <main>
-    <div class="reportTabs">
-        
-        <input type="radio" id="weekly" name="tab" checked="checked">
-        <label for="weekly">Weekly</label>
-        <div class="container reportList tab">
-            <div class="text">
-                <h1>Weekly Sales Report</h1>
-                <p>Start Date: <strong>DD-MM-YYYY</strong><span class="tab-space"></span>
-                    End Date: <strong>DD-MM-YYYY</strong></p>
-                <p>Generated Date: <strong>DD-MM-YYYY</strong></p>
-            </div>
-            
-            <table class="weekly report table horizontal-table">
-                <thead>
-                    <tr>
-                        <th>Year</th>
-                        <th>Product 1</th>
-                        <th>Product 2</th>
-                        <th>Product 3</th>
-                        <th>Product 4</th>
-                        <th>Product 5</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>2020</td>
-                        <td>
-                            ID: <strong>ABD001</strong><br>
-                            Name: <strong>Product 1</strong><br>
-                            Sales: <strong>RM9999.99</strong>
-                        </td>
-                        <td>
-                            ID: <strong>ABD001</strong><br>
-                            Name: <strong>Product 1</strong><br>
-                            Sales: <strong>RM9999.99</strong>
-                        </td>
-                        <td>
-                            ID: <strong>ABD001</strong><br>
-                            Name: <strong>Product 1</strong><br>
-                            Sales: <strong>RM9999.99</strong>
-                        </td>
-                        <td>
-                            ID: <strong>ABD001</strong><br>
-                            Name: <strong>Product 1</strong><br>
-                            Sales: <strong>RM9999.99</strong>
-                        </td>
-                        <td>
-                            ID: <strong>ABD001</strong><br>
-                            Name: <strong>Product 1</strong><br>
-                            Sales: <strong>RM9999.99</strong>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2020</td>
-                        <td>
-                            ID: <strong>ABD001</strong><br>
-                            Name: <strong>Product 1</strong><br>
-                            Sales: <strong>RM9999.99</strong>
-                        </td>
-                        <td>
-                            ID: <strong>ABD001</strong><br>
-                            Name: <strong>Product 1</strong><br>
-                            Sales: <strong>RM9999.99</strong>
-                        </td>
-                        <td>
-                            ID: <strong>ABD001</strong><br>
-                            Name: <strong>Product 1</strong><br>
-                            Sales: <strong>RM9999.99</strong>
-                        </td>
-                        <td>
-                            ID: <strong>ABD001</strong><br>
-                            Name: <strong>Product 1</strong><br>
-                            Sales: <strong>RM9999.99</strong>
-                        </td>
-                        <td>
-                            ID: <strong>ABD001</strong><br>
-                            Name: <strong>Product 1</strong><br>
-                            Sales: <strong>RM9999.99</strong>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2020</td>
-                        <td>
-                            ID: <strong>ABD001</strong><br>
-                            Name: <strong>Product 1</strong><br>
-                            Sales: <strong>RM9999.99</strong>
-                        </td>
-                        <td>
-                            ID: <strong>ABD001</strong><br>
-                            Name: <strong>Product 1</strong><br>
-                            Sales: <strong>RM9999.99</strong>
-                        </td>
-                        <td>
-                            ID: <strong>ABD001</strong><br>
-                            Name: <strong>Product 1</strong><br>
-                            Sales: <strong>RM9999.99</strong>
-                        </td>
-                        <td>
-                            ID: <strong>ABD001</strong><br>
-                            Name: <strong>Product 1</strong><br>
-                            Sales: <strong>RM9999.99</strong>
-                        </td>
-                        <td>
-                            ID: <strong>ABD001</strong><br>
-                            Name: <strong>Product 1</strong><br>
-                            Sales: <strong>RM9999.99</strong>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+    <%
+        //Redirect to home page if it's not admin
+        int validatePermission = session.getAttribute("userPermission") != null ? (Integer)session.getAttribute("userPermission") : 999 ;
+        if(validatePermission == 999 || validatePermission != 0){
+            response.sendRedirect(ROOT_PATH+"index.html");
+        }
+    %>
+    <%!
+        public static String convertTimestamp(Date timestamp) {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss"); // Create a date format object
+            String formattedDate = sdf.format(timestamp); // Format the date as a string
+            return formattedDate;
+        }
+    %>
+    <div class="container salesReport">
+        <h1 style="padding-bottom: 1.5rem">Sales Report</h1>
 
-        
-        <input type="radio" id="monthly" name="tab">
-        <label for="monthly">Monthly</label>
-        <div class="container reportList tab">
-            <div class="text">
-                <h1>Monthly Sales Report</h1>
-                <p>Start Date: <strong>DD-MM-YYYY</strong><span class="tab-space"></span>
-                    End Date: <strong>DD-MM-YYYY</strong></p>
-                <p>Generated Date: <strong>DD-MM-YYYY</strong></p>
-            </div>
-            
-            <table class="montly report table horizontal-table">
-                <thead>
-                    <tr>
-                        <th>Year</th>
-                        <th>Product 1</th>
-                        <th>Product 2</th>
-                        <th>Product 3</th>
-                        <th>Product 4</th>
-                        <th>Product 5</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>2020</td>
-                        <td>
-                            ID: <strong>ABD001</strong><br>
-                            Name: <strong>Product 1</strong><br>
-                            Sales: <strong>RM9999.99</strong>
-                        </td>
-                        <td>
-                            ID: <strong>ABD001</strong><br>
-                            Name: <strong>Product 1</strong><br>
-                            Sales: <strong>RM9999.99</strong>
-                        </td>
-                        <td>
-                            ID: <strong>ABD001</strong><br>
-                            Name: <strong>Product 1</strong><br>
-                            Sales: <strong>RM9999.99</strong>
-                        </td>
-                        <td>
-                            ID: <strong>ABD001</strong><br>
-                            Name: <strong>Product 1</strong><br>
-                            Sales: <strong>RM9999.99</strong>
-                        </td>
-                        <td>
-                            ID: <strong>ABD001</strong><br>
-                            Name: <strong>Product 1</strong><br>
-                            Sales: <strong>RM9999.99</strong>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2020</td>
-                        <td>
-                            ID: <strong>ABD001</strong><br>
-                            Name: <strong>Product 1</strong><br>
-                            Sales: <strong>RM9999.99</strong>
-                        </td>
-                        <td>
-                            ID: <strong>ABD001</strong><br>
-                            Name: <strong>Product 1</strong><br>
-                            Sales: <strong>RM9999.99</strong>
-                        </td>
-                        <td>
-                            ID: <strong>ABD001</strong><br>
-                            Name: <strong>Product 1</strong><br>
-                            Sales: <strong>RM9999.99</strong>
-                        </td>
-                        <td>
-                            ID: <strong>ABD001</strong><br>
-                            Name: <strong>Product 1</strong><br>
-                            Sales: <strong>RM9999.99</strong>
-                        </td>
-                        <td>
-                            ID: <strong>ABD001</strong><br>
-                            Name: <strong>Product 1</strong><br>
-                            Sales: <strong>RM9999.99</strong>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2020</td>
-                        <td>
-                            ID: <strong>ABD001</strong><br>
-                            Name: <strong>Product 1</strong><br>
-                            Sales: <strong>RM9999.99</strong>
-                        </td>
-                        <td>
-                            ID: <strong>ABD001</strong><br>
-                            Name: <strong>Product 1</strong><br>
-                            Sales: <strong>RM9999.99</strong>
-                        </td>
-                        <td>
-                            ID: <strong>ABD001</strong><br>
-                            Name: <strong>Product 1</strong><br>
-                            Sales: <strong>RM9999.99</strong>
-                        </td>
-                        <td>
-                            ID: <strong>ABD001</strong><br>
-                            Name: <strong>Product 1</strong><br>
-                            Sales: <strong>RM9999.99</strong>
-                        </td>
-                        <td>
-                            ID: <strong>ABD001</strong><br>
-                            Name: <strong>Product 1</strong><br>
-                            Sales: <strong>RM9999.99</strong>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+        <p>Generated Date: <strong><%=convertTimestamp(new Date())%></strong></p>
 
-        <input type="radio" id="yearly" name="tab">
-        <label for="yearly">Yearly</label>
-        <div class="container reportList tab">
-            <div class="text">
-                <h1>Yearly Sales Report</h1>
-                <p>Start Date: <strong>DD-MM-YYYY</strong><span class="tab-space"></span>
-                    End Date: <strong>DD-MM-YYYY</strong></p>
-                <p>Generated Date: <strong>DD-MM-YYYY</strong></p>
-            </div>
-            
-            <table class="yearly report table horizontal-table">
-                <thead>
-                    <tr>
-                        <th>Year</th>
-                        <th>Product 1</th>
-                        <th>Product 2</th>
-                        <th>Product 3</th>
-                        <th>Product 4</th>
-                        <th>Product 5</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>2020</td>
-                        <td>
-                            ID: <strong>ABD001</strong><br>
-                            Name: <strong>Product 1</strong><br>
-                            Sales: <strong>RM9999.99</strong>
-                        </td>
-                        <td>
-                            ID: <strong>ABD001</strong><br>
-                            Name: <strong>Product 1</strong><br>
-                            Sales: <strong>RM9999.99</strong>
-                        </td>
-                        <td>
-                            ID: <strong>ABD001</strong><br>
-                            Name: <strong>Product 1</strong><br>
-                            Sales: <strong>RM9999.99</strong>
-                        </td>
-                        <td>
-                            ID: <strong>ABD001</strong><br>
-                            Name: <strong>Product 1</strong><br>
-                            Sales: <strong>RM9999.99</strong>
-                        </td>
-                        <td>
-                            ID: <strong>ABD001</strong><br>
-                            Name: <strong>Product 1</strong><br>
-                            Sales: <strong>RM9999.99</strong>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2020</td>
-                        <td>
-                            ID: <strong>ABD001</strong><br>
-                            Name: <strong>Product 1</strong><br>
-                            Sales: <strong>RM9999.99</strong>
-                        </td>
-                        <td>
-                            ID: <strong>ABD001</strong><br>
-                            Name: <strong>Product 1</strong><br>
-                            Sales: <strong>RM9999.99</strong>
-                        </td>
-                        <td>
-                            ID: <strong>ABD001</strong><br>
-                            Name: <strong>Product 1</strong><br>
-                            Sales: <strong>RM9999.99</strong>
-                        </td>
-                        <td>
-                            ID: <strong>ABD001</strong><br>
-                            Name: <strong>Product 1</strong><br>
-                            Sales: <strong>RM9999.99</strong>
-                        </td>
-                        <td>
-                            ID: <strong>ABD001</strong><br>
-                            Name: <strong>Product 1</strong><br>
-                            Sales: <strong>RM9999.99</strong>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2020</td>
-                        <td>
-                            ID: <strong>ABD001</strong><br>
-                            Name: <strong>Product 1</strong><br>
-                            Sales: <strong>RM9999.99</strong>
-                        </td>
-                        <td>
-                            ID: <strong>ABD001</strong><br>
-                            Name: <strong>Product 1</strong><br>
-                            Sales: <strong>RM9999.99</strong>
-                        </td>
-                        <td>
-                            ID: <strong>ABD001</strong><br>
-                            Name: <strong>Product 1</strong><br>
-                            Sales: <strong>RM9999.99</strong>
-                        </td>
-                        <td>
-                            ID: <strong>ABD001</strong><br>
-                            Name: <strong>Product 1</strong><br>
-                            Sales: <strong>RM9999.99</strong>
-                        </td>
-                        <td>
-                            ID: <strong>ABD001</strong><br>
-                            Name: <strong>Product 1</strong><br>
-                            Sales: <strong>RM9999.99</strong>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+        <table class="weekly report table horizontal-table">
+            <% 
+            List<ProductSales> productList = (List<ProductSales>) request.getAttribute("productList");
+            if (productList != null) {
+                for(int i=0; i < productList.size();i++) {
+                ProductSales ps = productList.get(i);
+            %>
+                    
+         
+            <tr>
+                <td><strong>Product <%=i+1%></strong></td>
+                <td>
+                    <table>
+                            <tr>
+                                <td><strong>Product ID</strong></td>
+                                <td><strong>Product Name</strong></td>
+                                <td><strong>Sales Count</strong></td>
+                                <td><strong>Unit Price (RM)</strong></td>
+                                <td><strong>Total Sales (RM)</strong></td>
+                            </tr>
+
+                            <tr>
+                                <td><%=ps.getProductId().getProdId()%></td>
+                                <td><%=ps.getProductId().getProdName()%></td>
+                                <td><%=ps.getSalesCount()%></td>
+                                <td><%=String.format("%.2f",ps.getProductId().getProdPrice())%></td>
+                                <td><%=String.format("%.2f",ps.getProductId().getProdPrice()*ps.getSalesCount())%></td>
+                            </tr>
+                    </table>
+                </td>
+            </tr>
+            <% } } %>
+        </table>
     </div>
 </main>
 </body>

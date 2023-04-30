@@ -189,6 +189,25 @@
                 </td>
             </tr>
             <tr>
+                <td><strong>Product</strong></strong></td>
+                <td>
+                    <table>
+                        <tr>
+                            <td><strong>Product ID</strong></strong></td>
+                            <td><%=replyReview.getProdId().getProdId()%></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Product Name</strong></strong></td>
+                            <td><%=replyReview.getProdId().getProdName()%></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Product Type</strong></strong></td>
+                            <td><%=replyReview.getProdId().getProdType()%></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
                 <td><strong>Score</strong></strong></td>
                 <td><%=replyReview.getReviewScore()%></td>
             </tr>

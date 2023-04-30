@@ -70,3 +70,26 @@
   top: 0.5rem;
   right: 1rem;
 }
+
+
+
+/* FORM ACTION BUTTON */
+.reviewOrder .btn{
+  border-radius: var(--border-radius-4);
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin: 1rem .5rem 0rem;
+  transition: var(--tran-2);
+  opacity: .95;
+  float: right;
+}
+
+.reviewOrder .btn:hover{
+  opacity: 1;
+  transform: translate(-0.1rem, -0.1rem);
+}
+
+.reviewOrder {
+    
+    padding-bottom: 5.5rem;
+}

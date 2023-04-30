@@ -1,7 +1,9 @@
 package controller.admin.inventory;
 
+import entity.Inventory;
 import entity.Product;
 import java.io.IOException;
+import java.util.List;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -31,7 +33,7 @@ public class DeleteInventory extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.sendRedirect("LoadCustomer");
+        response.sendRedirect("LoadInventory");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -45,7 +47,7 @@ public class DeleteInventory extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String productId = (String) request.getParameter("deleteId");
+        String invId = (String) request.getParameter("deleteId");
         String errorMsg = "";
         String successMsg = "";
         boolean forwardPage = true;
@@ -55,37 +57,28 @@ public class DeleteInventory extends HttpServlet {
         utx.begin();
 
         // Find Product entity to be deleted
-        Product product = em.find(Product.class, Integer.valueOf(productId));
+        Inventory inventory = em.find(Inventory.class, Integer.valueOf(invId));
 
-        if (product != null) {
-            // Delete all inventory items related to the product
-            Query query1 = em.createQuery("DELETE FROM Inventory i WHERE i.prodId = :prodId");
-            query1.setParameter("prodId", product);
-            query1.executeUpdate();
+        if (inventory != null) {
 
-            // Delete all items from customer's cart related to the product
-            Query query2 = em.createQuery("DELETE FROM Cart c WHERE c.prodId = :prodId");
-            query2.setParameter("prodId", product);
-            query2.executeUpdate();
-
-            // Delete all reviews related to the product
-            Query query3 = em.createQuery("DELETE FROM Review r WHERE r.prodId = :prodId");
-            query3.setParameter("prodId", product);
-            query3.executeUpdate();
+            // Iterate over each inventory item and delete its corresponding cart item and the inventory item itself
             
-            // Delete all order_items related to the product
-            Query query4 = em.createQuery("DELETE FROM OrderItem oi WHERE oi.prodId = :prodId");
-            query4.setParameter("prodId", product);
-            query4.executeUpdate();
+            // Delete cart item
+            Query deleteCartQuery = em.createQuery("DELETE FROM Cart c WHERE c.invId = :invId");
+            deleteCartQuery.setParameter("invId", inventory);
+            deleteCartQuery.executeUpdate();
 
-            // Finally, delete the product
-            em.remove(product);
+            // Delete inventory item
+            Query deleteInventoryQuery = em.createQuery("DELETE FROM Inventory i WHERE i = :invId");
+            deleteInventoryQuery.setParameter("invId", inventory);
+            deleteInventoryQuery.executeUpdate();
+            
         }
 
         // Commit transaction
         utx.commit();
 
-        successMsg = "Product ID " + product.getProdId() + " DELETED Successfully!";
+        successMsg = "Inventory ID " + inventory.getInvId()+ " DELETED Successfully!";
     } catch (Exception ex) {
             try {
                 // Rollback transaction
@@ -101,7 +94,7 @@ public class DeleteInventory extends HttpServlet {
         }
 
         if (forwardPage) {
-            String url = "LoadProduct";
+            String url = "LoadInventory";
             if (!successMsg.equals("")) {
                 url += "?successMsg=" + successMsg;
             }
