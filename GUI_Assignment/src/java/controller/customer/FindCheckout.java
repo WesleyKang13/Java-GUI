@@ -23,31 +23,54 @@ public class FindCheckout extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-       int tempoCustId = 0; //example user id
-       int tempoInvId = 0;
-       try{
-           Customer customer = em.find(Customer.class, tempoCustId);
-           Inventory inventory = em.find(Inventory.class, tempoInvId);
-           request.setAttribute("customer", customer);
+        // Get the customer ID from the session
+        int customerId = (int) request.getSession().getAttribute("customerId");
 
-           // Query to search for a customer based on search value
-           Query query = em.createQuery(" SELECT c FROM Cart c JOIN c.prodId p JOIN p.inventoryList i WHERE c.custId = :custId AND i.invId = :invId");
-           query.setParameter("custId", customer);
-           query.setParameter("invId", inventory.getInvId());
-           
-           List<Cart> checkoutItems = query.getResultList();
+        try {
+            Customer customer = em.find(Customer.class, customerId);
+            request.setAttribute("customer", customer);
 
-           request.setAttribute("checkoutItems", checkoutItems);
+            // Query to search for a customer's cart items based on the customer ID
+            Query query = em.createQuery("SELECT c FROM Cart c WHERE c.custId = :custId");
+            query.setParameter("custId", customer);
 
-           RequestDispatcher dispatcher = request.getRequestDispatcher("checkout.jsp"); 
-           dispatcher.forward(request, response);
-           
-       }catch(IOException | ServletException ex){
-           try (PrintWriter out = response.getWriter()) {
+            List<Cart> checkoutItems = query.getResultList();
+
+            request.setAttribute("checkoutItems", checkoutItems);
+
+            // Calculate the total quantity and subtotal price
+            int totalQuantity = 0;
+            double subtotalPrice = 0.0;
+
+            for (Cart item : checkoutItems) {
+                totalQuantity += item.getCartQuantity();
+                
+                subtotalPrice += item.getProdId().getProdId().getProdPrice() * 
+                        item.getCartQuantity();
+            }
+
+            // Determine delivery fee
+            double deliveryFee = 0.0;
+            if (subtotalPrice < 200) {
+                deliveryFee = 25.0;
+                subtotalPrice += deliveryFee;
+            }
+
+            // Set the total quantity, subtotal price, and delivery fee in the request attributes
+            request.setAttribute("totalQuantity", totalQuantity);
+            request.setAttribute("subtotalPrice", subtotalPrice);
+            request.setAttribute("deliveryFee", deliveryFee);
+
+            RequestDispatcher dispatcher = request.getRequestDispatcher("checkout.jsp");
+            dispatcher.forward(request, response);
+        } catch (IOException | ServletException ex) {
+            try (PrintWriter out = response.getWriter()) {
                 out.println("Error");
                 out.println(ex.getMessage());
             }
-       }
+        }
+
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

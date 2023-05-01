@@ -21,13 +21,14 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "FindProduct", urlPatterns = {"/pages/product/FindProduct"})
 public class FindProduct extends HttpServlet {
     
-    @PersistenceContext EntityManager em;
+     @PersistenceContext private EntityManager em;
+
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+                
         try{
-            
+                
             Query q = em.createNamedQuery("Product.findAll");
             List<Product> productList = q.getResultList();
             request.setAttribute("productList", productList);
@@ -35,12 +36,12 @@ public class FindProduct extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("Products.jsp");
             dispatcher.forward(request, response);
             
-        }catch(Exception ex){
+        }catch(IOException | ServletException ex){
             try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<h1>Congratulation, you get an error!</h1>");
-            out.println("<h1>"+ex.getMessage()+"</h1>");
-        }
+                /* TODO output your page here. You may use following sample code. */
+                out.println("<h1>Congratulation, you get an error!</h1>");
+                out.println("<h1>"+ex.getMessage()+"</h1>");
+            }
         }
     }
 
@@ -56,7 +57,35 @@ public class FindProduct extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
+        String filterType = request.getParameter("productType");
+        
+        try {
+            Query q;
+
+           List<Product> productList = null;
+        if (filterType == null) {
+            // No filter selected, retrieve all products
+             q = em.createNamedQuery("Product.findAll");
+            productList = q.getResultList();
+        } else {
+            // Filter selected, retrieve products by type
+            q = em.createNamedQuery("Product.findByProdType");
+            q.setParameter("prodType", filterType);
+            productList = q.getResultList();
+        }
+
+            request.setAttribute("productList", productList);
+
+            RequestDispatcher dispatcher = request.getRequestDispatcher("Products.jsp");
+            dispatcher.forward(request, response);
+        } catch(IOException | ServletException ex) {
+            try (PrintWriter out = response.getWriter()) {
+                out.println("<h1>Congratulations, you have encountered an error!</h1>");
+                out.println("<h1>"+ex.getMessage()+"</h1>");
+            }
+        }
+
     }
 
     /**
@@ -70,7 +99,24 @@ public class FindProduct extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
+        String searchName = request.getParameter("prodName");
+        
+        try{
+            Query q = em.createQuery("Select p From Product p Where p.prodName LIKE :searchName OR p.prodBrand LIKE :searchName");
+            q.setParameter("searchName", "%" + searchName + "%");
+            List<Product> productList = q.getResultList();
+            request.setAttribute("productList", productList);
+            
+            RequestDispatcher dispatcher = request.getRequestDispatcher("Products.jsp");
+            dispatcher.forward(request, response);
+        }catch(IOException | ServletException ex){
+             try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<h1>Congratulation, you get an error!</h1>");
+            out.println("<h1>"+ex.getMessage()+"</h1>");
+        }
+    }
     }
 
     /**

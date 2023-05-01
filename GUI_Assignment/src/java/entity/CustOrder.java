@@ -164,5 +164,9 @@ public class CustOrder implements Serializable {
     public String toString() {
         return "entity.CustOrder[ orderId=" + orderId + " ]";
     }
+
+    public void setOrderShippingAddress(Customer customer) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
 }

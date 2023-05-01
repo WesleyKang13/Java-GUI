@@ -104,10 +104,7 @@ public class Cart implements Serializable {
             return false;
         }
         Cart other = (Cart) object;
-        if ((this.cartId == null && other.cartId != null) || (this.cartId != null && !this.cartId.equals(other.cartId))) {
-            return false;
-        }
-        return true;
+        return !((this.cartId == null && other.cartId != null) || (this.cartId != null && !this.cartId.equals(other.cartId)));
     }
 
     @Override

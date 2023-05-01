@@ -26,7 +26,6 @@ body h1{
 .checkout-table tr .items {
     overflow:hidden;
     background-color:#E8E8E8;
-    border-radius:10px;
     display:flex;
     width:80%;
     margin:0px;
@@ -55,6 +54,7 @@ body h1{
 }
 
 .checkout-table tr .summary{
+    vertical-align: top;
     line-height:50px;
     width:30%;
 }

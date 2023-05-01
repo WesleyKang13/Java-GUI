@@ -18,84 +18,208 @@
     </head>
     <body>
         <h1>Checkout bag</h1>
+        <script>
+            function validateForm() {
+                var address1 = document.forms["checkoutForm"]["address1"].value;
+                if (address1 == "") {
+                  alert("Please fill in the delivery address.");
+                  return false;
+                }
+
+                var paymentMethods = document.getElementsByName("paymentMethod");
+                var selectedPaymentMethod = false;
+                for (var i = 0; i < paymentMethods.length; i++) {
+                  if (paymentMethods[i].checked) {
+                    selectedPaymentMethod = true;
+                    break;
+                  }
+                }
+                
+                if (!selectedPaymentMethod) {
+                  alert("Please select a payment method.");
+                  return false;
+                }
+
+                if (document.getElementById("cashRadio").checked) {
+                  return true;
+                }
+
+                // Validation code for card payments
+                var cardType = document.getElementById("cardType").value;
+                var cardName = document.getElementById("cardName").value;
+                var cardNumber = document.getElementById("cardNumber").value;
+                var cardExp = document.getElementById("cardExp").value;
+                var cardCVV = document.getElementById("cardCVV").value;
+
+                if (cardType === "" || cardName === "" || cardExp === "" || cardCVV === "") {
+                  alert("Please fill in all the card details.");
+                  return false;
+                }
+                
+                // Card number validation
+                var cardNumberRegex = /^\d{16}$/;
+                if (!cardNumberRegex.test(cardNumber)) {
+                  alert("Please enter a valid 16-digit card number.");
+                  return false;
+                }
+
+                // Expiry date validation
+                var cardExpRegex = /^(0?[1-9]|1[0-2])\/([2-9][3-9])$/;
+                if (!cardExpRegex.test(cardExp)) {
+                  alert("Please enter a valid expiry date in the format of MM/YY.");
+                  return false;
+                }
+
+                var expMonth = parseInt(cardExp.split('/')[0]);
+                var expYear = parseInt(cardExp.split('/')[1]) + 2000;
+
+                if (expMonth < 1 || expMonth > 12) {
+                  alert("Please enter a valid month for expiry date.");
+                  return false;
+                }
+
+                var currentYear = new Date().getFullYear();
+                if (expYear < currentYear || expYear > currentYear + 10) {
+                  alert("Please enter a valid year for expiry date.");
+                  return false;
+                }
+
+                // CVV validation
+                var cardCVVRegex = /^\d{3}$/;
+                if (!cardCVVRegex.test(cardCVV)) {
+                  alert("Please enter a valid 3-digit CVV.");
+                  return false;
+                }
+            }
+        </script>
+
+
         
+        <form name="PaidOrder" method="POST" onsubmit="return validateForm()">
         <table class="checkout-table">
-            <tr>
+        <tr>
             <div class="details-container">
-                
-                <td class="items">
-                    <div class="image">
-                        <picture>
-                            <img src="../../assets/product/dummy1.jpg" alt="">
-                        </picture>
-                    </div>
-                        <%
-                            List<Cart> checkoutItems = (List<Cart>) request.getAttribute("checkoutItems") 
-                                    != null ? (List<Cart>) request.getAttribute("checkoutItems") : null;
+            <%
+            List<Cart> checkoutItems = (List<Cart>) request.getAttribute("checkoutItems");
+            if(checkoutItems != null){
+              for (Cart cartItem : checkoutItems) {
+            %>
+            <td class="items">
+              <div class="image">
+                <picture>
+                  <img src="../../assets/product/dummy1.jpg" alt="">
+                </picture>
+              </div>
+                <p class="items-details">
+                  Name: <%= cartItem.getInvProdId().getProdId().getProdName()%><br>
+                  Price (RM): <%= String.format("%.2f",cartItem.getTotalAmount())%><br>
+                  Quantity: <%= cartItem.getCartQuantity()%><br>
+                  Size chosen (UK): <%= cartItem.getInvProdId().getInvShoeSize() %><br>
+                  Color : <%= cartItem.getInvProdId().getInvColor() %><br>
+                </p>
+            <% } }%>
+              </td>
+            <td class="summary">
+                <h2>Checkout summary</h2>
+                <p class="summary-details">
+                    Total item(s): <strong>${totalQuantity}</strong><br>
+                    Estimated delivery &amp; handling(Rm): <strong>${deliveryFee}</strong><br>
+                    Subtotal (RM): <strong>${subtotalPrice}</strong><br>
+                </p>
 
-                            if(checkoutItems != null){
-                            for (Cart cartItem : checkoutItems) {
-                                Product product = cartItem.getProdId();
-                                Inventory inventory = product.getInventoryList().get(0);
-                        %>
-                    <p class="items-details">
-                        
-                        Name: <%= cartItem.getProdId().getProdName()%><br>
-                        Price (RM): <%= String.format("%.2f",cartItem.getTotalAmount())%><br>
-                        Quantity: <%= cartItem.getCartQuantity()%><br>
-                        Size chosen (UK): <%= inventory.getInvShoeSize() %><br>
-                        Color : <%= inventory.getInvColor() %><br>
+                <div class="shipping-details">
+                    <h3>Shipping address:</h3>
+                    <p>
+                        <label for="address1">Delivery address:</label>
+                        <br>
+                        <input type="text" name="address1" id="address1">
+                        <br>
                     </p>
-                    <% } }%>
-                </td>
+                </div>
+
+                <div class="paymentMethod">
+                    <h3>Payment method</h3>
+                    <input type="radio" value="DEBIT" name="paymentMethod" id="visaRadio">
+                    <label for="visaRadio"><i class="fa-solid fa-credit-card"></i> Debit Card</label>
+                    <br>
+                    <input type="radio" value="CREDIT" name="paymentMethod" id="creditCardRadio">
+                    <label for="creditCardRadio"><i class="fa-regular fa-credit-card"></i> Credit Card</label>
+                    <br>
+                    <input type="radio" value="CASH" name="paymentMethod" id="cashRadio">
+                    <label for="cashRadio"><i class="fa-solid fa-sack-dollar"></i> Cash</label>
+                    <br>
+                </div>
+
+                <div id="cardDetails" style="display:none;">
+                    <h3>Card details</h3>
+                    <label for="cardType">Card type:</label>
+                    <select name="cardType" id="cardType">
+                        <option value="">Please select</option>
+                        <option value="VISA">VISA</option>
+                        <option value="MasterCard">MasterCard</option>
+                    </select>
+                    <br>
+                    <label for="cardName">Name on card:</label>
+                    <input type="text" name="cardName" id="cardName">
+                    <br>
+                    <label for="cardNumber">Card number:</label>
+                    <input type="text" name="cardNumber" id="cardNumber">
+                    <br>
+                    <label for="cardExp">Expiry date:</label>
+                    <input type="text" name="cardExp" placeholder="MM/YY" id="cardExp">
+                    <br>
+                    <label for="cardCVV">CVV:</label>
+                    <input type="text" name="cardCVV" id="cardCVV">
+                    <br>
+                    <label for="shippingAddress">Shipping address:</label>
+                    <input type="text" name="shippingAddress" id="shippingAddress">
+                    <br>
+                </div>
                 
-            </div>
+                <script>
+                    const visaRadio = document.getElementById("visaRadio");
+                    const creditCardRadio = document.getElementById("creditCardRadio");
+                    const cashRadio = document.getElementById("cashRadio");
+                    const cardDetails = document.getElementById("cardDetails");
+                    const deliveryAddress = document.querySelector('input[name="address1"]');
 
-                <td class="summary">
+                    visaRadio.addEventListener("click", () => {
+                        cardDetails.style.display = "block";
+                    });
 
-                    <h2>Checkout summary</h2>
-                    <p class="summary-details">
-                        Total item(s): <strong>1</strong><br>
-                    Estimated delivery &handling : <strong>FREE</strong><br>
-                    Subtotal (RM): <strong>599.00</strong><br>
-                    </p>
+                    creditCardRadio.addEventListener("click", () => {
+                        cardDetails.style.display = "block";
+                    });
 
-                    <div class="shipping-details">
-                        <h3>Shipping address:</h3>
-                        <p>
-                            <label for="address1">Delivery address:</label>
-                            <br>
-                            <input type="text" name="address1">
-                            <br>
-                        </p>
-                    </div>
+                    cashRadio.addEventListener("click", () => {
+                        cardDetails.style.display = "none";
+                    });
 
-                    <div class="voucher">
-                        <h3>Voucher</h3>
-                        <select name="voucher" id="voucher">
-                            <option value="none"><h3>Apply voucher</h3></option>
-                            <option value=""></option>
-                            <option value=""></option>
-                        </select>
-                    </div>
-                        
-                    <div class="paymentMethod">
-                        <h3>Payment method</h3>
-                        <input type="radio" value="VISA" name="paymentMethod">
-                        <label for="visa"><i class="fa-solid fa-credit-card"></i> Debit Card</label>
-                        <br>
-                        <input type="radio" value="Credit card" name="paymentMethod">
-                        <label for="creditCard"><i class="fa-regular fa-credit-card"></i> Credit Card</label>
-                        <br>
-                        <input type="radio" value="cash" name="paymentMethod">
-                        <label for="cash"><i class="fa-solid fa-sack-dollar"></i> Cash</label>
-                        <br>
-                    </div>
+                </script>
+
                 
-                    <button class="checkout-button">Confirm</button>
-                </td>
-            </tr>
+                <a href="<%= ROOT_PATH + "/pages/product/PaidOrder?paymentMethod="%>" 
+                id="confirmPayment"
+                >Confirm</a>
+                
+                <script>
+                    function updateLink() {
+                        var paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
+                        var address = document.getElementById('address1').value;
+                        var link = document.getElementById("confirmPayment");
+                        link.href = '<%= ROOT_PATH %>/pages/product/FindCustOrder?paymentMethod=' + paymentMethod + '&address=' + encodeURIComponent(address);
+                    }
+
+                    // Add an event listener to the payment method radio buttons
+                    var paymentRadios = document.querySelectorAll('input[name="paymentMethod"]');
+                    paymentRadios.forEach(function(radio) {
+                      radio.addEventListener('change', updateLink);
+                    });
+                </script>
+          </td>
+        </tr>
         </table>
+        </form>
         
     </body>
 </html>

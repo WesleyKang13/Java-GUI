@@ -2,6 +2,7 @@ package controller.customer;
 
 import entity.Inventory;
 import entity.Product;
+import entity.Review;
 import java.awt.HeadlessException;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -46,37 +48,48 @@ public class FindDetails extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            int prodId = Integer.parseInt(request.getParameter("productId"));
-            TypedQuery<Object[]> query = em.createNamedQuery("Product.findByIdWithInventory", Object[].class);
-            query.setParameter("prodId", prodId);
-            List<Object[]> resultList = query.getResultList();
+        
+                try {
+                int prodId = Integer.parseInt(request.getParameter("productId"));
+                List<Review> reviewList = em.createQuery("SELECT r FROM Review r WHERE r.prodId.prodId = :prodId")
+                  .setParameter("prodId", prodId)
+                  .getResultList();
 
-            if (resultList.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Empty record");
+                if (reviewList.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "No reviews found for this product");
 
-            } else {
+                } else {
 
-                Product product = (Product) resultList.get(0)[0];
-
-                List<Inventory> inventoryList = new ArrayList<>();
-                for (Object[] obj : resultList) {
-                    inventoryList.add((Inventory) obj[1]);
+                double reviewScore = 0;
+                for (Review review : reviewList) {
+                    reviewScore += review.getReviewScore();
                 }
+                reviewScore /= reviewList.size();
 
+                Product product = em.find(Product.class, prodId);
+
+                List<Inventory> inventoryList = em.createQuery("SELECT i FROM Inventory i WHERE i.prodId.prodId = :prodId", Inventory.class)
+                        .setParameter("prodId", prodId)
+                        .getResultList();
+
+                request.setAttribute("reviewList", reviewList);
                 request.setAttribute("product", product);
                 request.setAttribute("inventoryList", inventoryList);
+                request.setAttribute("reviewScore", reviewScore);
                 RequestDispatcher dispatcher = request.getRequestDispatcher("ProductDetails.jsp");
                 dispatcher.forward(request, response);
             }
 
-        }catch(HeadlessException | IOException | NumberFormatException | ServletException ex){
+            }catch(HeadlessException | IOException | NumberFormatException | ServletException ex){
 
-            try (PrintWriter out = response.getWriter()) {
-                out.println("Error");
-                out.println(ex.getMessage());
+                try (PrintWriter out = response.getWriter()) {
+                    out.println("Error");
+                    out.println(ex.getMessage());
+                }
             }
-        }
+
+
+
     }
 
     /**

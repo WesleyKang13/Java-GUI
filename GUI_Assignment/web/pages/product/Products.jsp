@@ -19,9 +19,18 @@
                     </div>
     
                     <ul class="categories-filtering" style="display: none;"><!--Filter using java-->
-                        <li data-filter="">Men</li>
-                        <li data-filter="">Women</li>
-                        <li data-filter="">Kids</li>
+                        <% 
+                            List<Product> productListType = (List<Product>) request.getAttribute("productList");
+                            String currentFilter = request.getParameter("productType");
+                        %>
+                        <ul>
+                            <li><a href="<%= ROOT_PATH + "pages/product/FindProduct?productType=MEN"%>" <%=(currentFilter!=null && currentFilter.equals("Men")) ? "class=\"active\"" : ""%>>Men</a></li>
+                            <li><a href="<%= ROOT_PATH + "pages/product/FindProduct?productType=WOMEN"%>" <%=(currentFilter!=null && currentFilter.equals("Women")) ? "class=\"active\"" : ""%>>Women</a></li>
+                            <li><a href="<%= ROOT_PATH + "pages/product/FindProduct?productType=KIDS"%>" <%=(currentFilter!=null && currentFilter.equals("Kids")) ? "class=\"active\"" : ""%>>Kids</a></li>
+                            <% if (currentFilter != null) { %>
+                                <li><a href="<%= ROOT_PATH + "pages/product/FindProduct"%>">Cancel</a></li>
+                            <% } %>
+                        </ul>
                     </ul>
                 </div>
             </header>
@@ -33,20 +42,10 @@
                 <td>
                     <form action="FindProduct" method="post">
                         <div class="search">
-                            <input type="text" name="product_name" placeholder="e.g Niko, Adados"/>
+                            <input type="text" name="prodName" placeholder="e.g Niko, Adados"/>
                             <button type="submit"><i class="fa fa-search"></i></button>
                         </div>
                     </form>
-                </td>
-                <td class="third-col">
-                    <div class="filter-condition">
-                        <span>View as a</span>
-                        <select name="filtering" id="filtering">
-                            <option value="Default">Default</option>
-                            <option value="LowToHigh">Low to high</option>
-                            <option value="HighToLow">High to low</option>
-                        </select>
-                    </div>  
                 </td>
             </tr>
         </table>

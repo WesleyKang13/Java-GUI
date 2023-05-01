@@ -1,54 +1,48 @@
 package controller.customer;
 
-import entity.Cart;
-import entity.Customer;
+import entity.Review;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.math.BigDecimal;
-import java.util.ArrayList;
+import static java.lang.System.out;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.JOptionPane;
 
-@WebServlet(name = "FindCart", urlPatterns = {"/pages/customer/FindCart"})
-public class FindCart extends HttpServlet {
+@WebServlet(name = "FindReview", urlPatterns = {"/FindReview"})
+public class FindReview extends HttpServlet {
+
     @PersistenceContext EntityManager em;
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        
-        // Get the customer ID from the session
-        int customerId = (int) request.getSession().getAttribute("customerId");
-        
         try{
-            Customer customer = em.find(Customer.class, customerId);
-            
-            request.setAttribute("custId", customer);
-            
-            // Query to search for a customer based on search value
-            Query query = em.createQuery(" SELECT c FROM Cart c WHERE c.custId = :custId");
-            query.setParameter("custId", customer);
-            List<Cart> cartItems = query.getResultList();
-            
-            request.setAttribute("cartItems", cartItems);
-            
-            RequestDispatcher dispatcher = request.getRequestDispatcher("cart.jsp");
-            dispatcher.forward(request, response);
-        }catch(IOException | ServletException ex){
-            try (PrintWriter out = response.getWriter()) {
+            int prodId = Integer.parseInt(request.getParameter("productId"));
+            Query q = em.createNamedQuery("Review.findAll");
+            q.setParameter("prodId", prodId);
+            List<Review> reviews = q.getResultList();
+            if(reviews.isEmpty()){
+                JOptionPane.showMessageDialog(null, "No record");
+                
+            }else{
+                request.setAttribute("reviews", reviews);
+                
+            }
+        }catch(NumberFormatException ex){
+                try (PrintWriter out = response.getWriter()) {
                 out.println("Error");
                 out.println(ex.getMessage());
             }
         }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -119,9 +119,14 @@
 .reviews{
     position:absolute;
     margin-left:50px;
-    bottom:-78%;
-    font-size:20px;
+    bottom:-125%;
+    font-size:18px;
     line-height: 5rem;
+}
+
+.reviews .comments{
+    line-height:2rem;
+    text-transform: lowercase;
 }
 
 .reviews i{
@@ -147,7 +152,6 @@
 .modal-content {
     background-color: #fefefe;
     margin: auto;
-    padding: 20px;
     border: 1px solid #888;
     width: 80%;
 }

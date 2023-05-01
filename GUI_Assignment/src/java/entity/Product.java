@@ -62,6 +62,7 @@ public class Product implements Serializable {
     private String prodType;
     @OneToMany(mappedBy = "prodId")
     private List<Inventory> inventoryList;
+    private List<Review> reviewList;
 
     public Product() {
     }
@@ -126,7 +127,9 @@ public class Product implements Serializable {
     public void setInventoryList(List<Inventory> inventoryList) {
         this.inventoryList = inventoryList;
     }
-
+    
+    
+    
     @Override
     public int hashCode() {
         int hash = 0;

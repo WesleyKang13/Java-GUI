@@ -36,11 +36,11 @@
                   <i class="fa-solid fa-magnifying-glass"></i></button>
                 </div>
               </form>
-              <form action="#" method="get" >
+              <form action="<%=ROOT_PATH + "pages/customer/FindCheckout"%>" method="get" >
               <button type="submit" class="favourite-button">
-              <i class="fa-solid fa-heart"></i></button>
+              <i class="fa-solid fa-cash-register"></i></button>
               </form>
-              <form action="#" method="get">
+              <form action="<%=ROOT_PATH + "pages/customer/FindCart"%>" method="get">
               <button type="submit" class="cart-button">
               <i class="fa-solid fa-cart-shopping"></i></button>
             </form>
