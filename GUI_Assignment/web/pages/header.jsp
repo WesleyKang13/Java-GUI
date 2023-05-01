@@ -8,6 +8,8 @@
         <link href=<%= ROOT_PATH + "vendor/fontawesome-free-6.3.0-web/css/fontawesome.css"%> rel="stylesheet" type="text/css">
         <link href=<%= ROOT_PATH + "vendor/fontawesome-free-6.3.0-web/css/brands.css"%> rel="stylesheet" type="text/css">
         <link href=<%= ROOT_PATH + "vendor/fontawesome-free-6.3.0-web/css/solid.css"%> rel="stylesheet" type="text/css">
+        
+        <link rel="icon" type="image/x-icon" href="<%=ROOT_PATH + "banana.png"%>">
         <title>Banana's Shoe Store</title>
     </head>
     

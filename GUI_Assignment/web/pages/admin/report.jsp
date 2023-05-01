@@ -45,7 +45,8 @@
         }
     %>
     <div class="container salesReport">
-        <h1><%=filter.equals("MOST")?"Most":"Least"%> Product Sales Report</h1>
+        <h1 style="padding-bottom: 0.5rem"><%=getServletContext().getInitParameter("companyName")%></h1>
+        <h1 style="font-weight: 700"><%=filter.equals("MOST")?"Most":"Least"%> Product Sales Report</h1>
         
         <div class="filter" style="padding-bottom: 1rem">
             <button type="button" <%=validateFilter("MOST", filter)%> onclick="window.location.href='<%=ROOT_PATH+"pages/admin/LoadSalesReport"%>'" style="margin-right: 0.2rem">Most Sales</button>
@@ -92,7 +93,7 @@
             </tr>
             <% } } %>
         </table>
-        <p style="text-align:center;">copyright</p>
+        <p style="text-align:center;"><%=getServletContext().getInitParameter("copyright")%></p>
     </div>
     </div>
 </main>
@@ -104,12 +105,11 @@
         newWindow.document.write('<link href=<%=ROOT_PATH + "css/reset.css"%> rel="stylesheet">');
         newWindow.document.write('<link href=<%=ROOT_PATH + "css/admin/admin_general.css"%> rel="stylesheet">');
         newWindow.document.write('<link href=<%=ROOT_PATH + "css/admin/print.css"%> rel="stylesheet">');
-        newWindow.document.write('<html><head><title>Sales Report</title>');
-        newWindow.document.write('<h1 style="padding-bottom: 0.2rem; text-align:center;">Banana Shoe Store</h1>');
-        newWindow.document.write('<h3 style="padding-bottom: 1.5rem; text-align:center;">email@example.com</h3>');
+        newWindow.document.write('<html><head><title>Sales Performance Report</title></head><body>');
+        newWindow.document.write('<h1 style="padding-bottom: 0.2rem; text-align:center;"><%=getServletContext().getInitParameter("companyName")%></h1>');
+        newWindow.document.write('<h3 style="padding-bottom: 1.5rem; text-align:center;"><%=getServletContext().getInitParameter("companyEmail")%></h3>');
         newWindow.document.write('<h2 style="padding-bottom: 0.5rem; text-align:center;"><%=filter%> PRODUCT SALES REPORT</h2>');
         newWindow.document.write('<p style="text-align:center;">Generated Date: <strong><%=convertTimestamp(new Date())%></strong></p>');
-        newWindow.document.write('</head><body>');
         newWindow.document.write(content);
         newWindow.document.write('</body></html>');
         newWindow.document.close();

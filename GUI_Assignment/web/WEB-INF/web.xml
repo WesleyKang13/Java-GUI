@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app>
+    <context-param>
+        <param-name>companyName</param-name>
+        <param-value>Banana Shoe Store</param-value>
+    </context-param>
+    
+    <context-param>
+        <param-name>companyEmail</param-name>
+        <param-value>BananaShoe@example.com</param-value>
+    </context-param>
+    
+    <context-param>
+        <param-name>copyright</param-name>
+        <param-value>Copyright (c) Banana Shoe Store. All rights reserved.</param-value>
+    </context-param>
+    
+    <error-page>
+        <error-code>404</error-code>
+        <location>/pages/error.jsp</location>
+    </error-page>
+
+    <error-page>
+        <error-code>500</error-code>
+        <location>/pages/error.jsp</location>
+    </error-page>
+</web-app>

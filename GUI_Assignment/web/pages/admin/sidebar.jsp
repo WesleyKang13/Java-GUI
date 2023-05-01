@@ -61,14 +61,16 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     
-    <link href=<%=ROOT_PATH + "css/reset.css"%> rel="stylesheet">
-    <link href=<%=ROOT_PATH + "css/admin/admin_general.css"%> rel="stylesheet">
-    <link href=<%=ROOT_PATH + "css/admin/sidebar.css"%> rel="stylesheet">
+    <link href="<%=ROOT_PATH + "css/reset.css"%>" rel="stylesheet">
+    <link href="<%=ROOT_PATH + "css/admin/admin_general.css"%>" rel="stylesheet">
+    <link href="<%=ROOT_PATH + "css/admin/sidebar.css"%>" rel="stylesheet">
     
     <!-- Font Awesome -->
-    <link href=<%=ROOT_PATH + "vendor/fontawesome-free-6.3.0-web/css/fontawesome.css"%> rel="stylesheet">
-    <link href=<%=ROOT_PATH + "vendor/fontawesome-free-6.3.0-web/css/brands.css"%> rel="stylesheet">
-    <link href=<%=ROOT_PATH + "vendor/fontawesome-free-6.3.0-web/css/solid.css"%> rel="stylesheet">
+    <link href="<%=ROOT_PATH + "vendor/fontawesome-free-6.3.0-web/css/fontawesome.css"%>" rel="stylesheet">
+    <link href="<%=ROOT_PATH + "vendor/fontawesome-free-6.3.0-web/css/brands.css"%>" rel="stylesheet">
+    <link href="<%=ROOT_PATH + "vendor/fontawesome-free-6.3.0-web/css/solid.css"%>" rel="stylesheet">
+    
+    <link rel="icon" type="image/x-icon" href="<%=ROOT_PATH + "banana.png"%>">
     
     <title>Admin Panel | Banana's Shoe Store</title> 
 </head>
@@ -77,7 +79,7 @@
         <header>
             <div class="profile">
                 <span class="picture">
-                    <img src="https://dummyimage.com/300" alt="Profile Picture">
+                    <img src="<%=ROOT_PATH + "assets/user.png"%>" alt="Profile Picture">
                 </span>
 
                 <div class="text profile-text">
