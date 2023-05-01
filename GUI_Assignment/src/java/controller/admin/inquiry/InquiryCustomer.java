@@ -72,6 +72,7 @@ public class InquiryCustomer extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        String errorMsg="";
         try{
             // Begin transaction
             utx.begin();
@@ -97,10 +98,11 @@ public class InquiryCustomer extends HttpServlet {
             try {
                 // Rollback transaction
                 utx.rollback();
+                errorMsg = ex.getMessage();
             } catch (Exception e) {
-                throw new ServletException(e);
+                errorMsg += e.getMessage();
             }
-            throw new ServletException(ex);
+            response.sendRedirect("../../pages/error.jsp?errorMsg="+errorMsg);
         }
         
         

@@ -64,18 +64,18 @@ public class AddNewStaff extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String staffUserName = (String)request.getParameter("addNew_userName");
-        String staffPassword = (String)request.getParameter("addNew_password");
-        String staffFullName = (String)request.getParameter("addNew_fullName");
-        String staffPhoneNum = (String)request.getParameter("addNew_phoneNum");
-        String staffEmail = (String)request.getParameter("addNew_email");
-        String staffPosition = (String)request.getParameter("addNew_position");
-        String staffPermission = (String)request.getParameter("addNew_permission");
         String errorMsg="";
         String successMsg="";
         boolean forwardPage = true;
 
         try {
+            String staffUserName = (String)request.getParameter("addNew_userName");
+            String staffPassword = (String)request.getParameter("addNew_password");
+            String staffFullName = (String)request.getParameter("addNew_fullName");
+            String staffPhoneNum = (String)request.getParameter("addNew_phoneNum");
+            String staffEmail = (String)request.getParameter("addNew_email");
+            String staffPosition = (String)request.getParameter("addNew_position");
+            String staffPermission = (String)request.getParameter("addNew_permission");
             // Begin transaction
             utx.begin();
 
@@ -109,14 +109,13 @@ public class AddNewStaff extends HttpServlet {
                 // Rollback transaction
                 utx.rollback();
             } catch (Exception e) {
-                errorMsg="Error Occurred: Please try again. ("+e.getMessage()+")";
-                throw new ServletException(e);
+                errorMsg=e.getMessage();
             }
-            errorMsg += "Error Occurred: Please try again. ("+ex.getMessage()+")";
+            errorMsg += ex.getMessage();
 
             forwardPage=false;
             //error page
-            throw new ServletException(ex);
+            response.sendRedirect("../../pages/error.jsp?errorMsg="+errorMsg);
         }
 
         if(forwardPage){

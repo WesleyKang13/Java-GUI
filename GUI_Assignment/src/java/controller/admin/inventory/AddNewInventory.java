@@ -64,15 +64,16 @@ public class AddNewInventory extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String prodId = (String)request.getParameter("addNew_prodId");
-        int invQuantity = Integer.parseInt(request.getParameter("addNew_invQuantity"));
-        String invColor = (String) request.getParameter("addNew_invColor");
-        double invSize = Double.parseDouble(request.getParameter("addNew_invSize"));
         String errorMsg="";
         String successMsg="";
         boolean forwardPage = true;
 
         try {
+            String prodId = (String)request.getParameter("addNew_prodId");
+            int invQuantity = Integer.parseInt(request.getParameter("addNew_invQuantity"));
+            String invColor = (String) request.getParameter("addNew_invColor");
+            double invSize = Double.parseDouble(request.getParameter("addNew_invSize"));
+            
             // Begin transaction
             utx.begin();
             
@@ -96,14 +97,13 @@ public class AddNewInventory extends HttpServlet {
                 // Rollback transaction
                 utx.rollback();
             } catch (Exception e) {
-                errorMsg="Error Occurred: Please try again. ("+e.getMessage()+")";
-                throw new ServletException(e);
+                errorMsg=e.getMessage();
             }
-            errorMsg += "Error Occurred: Please try again. ("+ex.getMessage()+")";
+            errorMsg += ex.getMessage();
 
             forwardPage=false;
             //error page
-            throw new ServletException(ex);
+            response.sendRedirect("../../pages/error.jsp?errorMsg="+errorMsg);
         }
 
         if(forwardPage){

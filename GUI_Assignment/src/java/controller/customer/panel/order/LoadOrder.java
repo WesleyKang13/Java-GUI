@@ -39,7 +39,7 @@ public class LoadOrder extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/customer/panel/order.jsp");
             dispatcher.forward(request, response);
         }catch(Exception ex){
-            //error
+            response.sendRedirect("../../../pages/error.jsp?errorMsg="+ex.getMessage());
         }
     }
 
@@ -162,6 +162,7 @@ public class LoadOrder extends HttpServlet {
         else {
             //error
             forwardPage = false;
+            response.sendRedirect("../../../../pages/error.jsp?errorMsg=Wrong URL path!");
         }
 
         if (forwardPage) {

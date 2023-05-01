@@ -1,9 +1,7 @@
 package controller.admin.inventory;
 
 import entity.Inventory;
-import entity.Product;
 import java.io.IOException;
-import java.util.List;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -47,12 +45,12 @@ public class DeleteInventory extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String invId = (String) request.getParameter("deleteId");
         String errorMsg = "";
         String successMsg = "";
         boolean forwardPage = true;
 
     try {
+        String invId = (String) request.getParameter("deleteId");
         // Begin transaction
         utx.begin();
 
@@ -84,13 +82,13 @@ public class DeleteInventory extends HttpServlet {
                 // Rollback transaction
                 utx.rollback();
             } catch (Exception e) {
-                errorMsg = "Error Occurred: Please try again. (" + e.getMessage() + ")";
-                throw new ServletException(e);
+                errorMsg = e.getMessage();
             }
-            errorMsg += "Error Occurred: Please try again. (" + ex.getMessage() + ")";
+            errorMsg += ex.getMessage();
             forwardPage = false;
+            
             // error page
-            throw new ServletException(ex);
+            response.sendRedirect("../../pages/error.jsp?errorMsg="+errorMsg);
         }
 
         if (forwardPage) {

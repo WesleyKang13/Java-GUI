@@ -33,7 +33,7 @@ public class LoadProduct extends HttpServlet {
             dispatcher.forward(request, response);
             
         }catch(Exception ex){
-            //error
+            response.sendRedirect("../../pages/error.jsp?errorMsg="+ex.getMessage());
         }
     }
 
@@ -120,6 +120,7 @@ public class LoadProduct extends HttpServlet {
         else {
             //error
             forwardPage = false;
+            response.sendRedirect("../../../pages/error.jsp?errorMsg=Wrong URL path!");
         }
 
         if (forwardPage) {

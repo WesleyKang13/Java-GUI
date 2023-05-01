@@ -1,0 +1,16 @@
+
+/* Report */
+.container{
+    padding: 0.5rem;
+}
+
+table{
+    width: 95%;
+    margin: auto;
+}
+.report table tr td{
+    line-height: 1rem;
+    padding: 0.5rem;
+    background-color: var(--color-white);
+    font-size: 0.7rem;
+}

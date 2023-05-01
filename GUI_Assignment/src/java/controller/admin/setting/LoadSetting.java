@@ -1,13 +1,9 @@
 package controller.admin.setting;
 
 import entity.Admin;
-import entity.Inventory;
-import entity.Product;
 import java.io.IOException;
-import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,7 +30,7 @@ public class LoadSetting extends HttpServlet {
             dispatcher.forward(request, response);
             
         }catch(Exception ex){
-            //error
+            response.sendRedirect("../../../pages/error.jsp?errorMsg="+ex.getMessage());
         }
     }
 

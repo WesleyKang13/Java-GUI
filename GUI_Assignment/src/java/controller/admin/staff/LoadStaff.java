@@ -1,7 +1,6 @@
 package controller.admin.staff;
 
 import entity.Admin;
-import entity.CustOrder;
 import java.io.IOException;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -33,7 +32,7 @@ public class LoadStaff extends HttpServlet {
             dispatcher.forward(request, response);
             
         }catch(Exception ex){
-            //error
+            response.sendRedirect("../../pages/error.jsp?errorMsg="+ex.getMessage());
         }
     }
 
@@ -121,6 +120,7 @@ public class LoadStaff extends HttpServlet {
         else {
             //error
             forwardPage = false;
+            response.sendRedirect("../../pages/error.jsp?errorMsg=Wrong URL path");
         }
 
         if (forwardPage) {

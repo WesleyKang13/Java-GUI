@@ -3,7 +3,6 @@ package controller.admin.inventory;
 import entity.Inventory;
 import entity.Product;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -61,11 +60,6 @@ public class UpdateInventory extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String invId = (String)request.getParameter("edit_Id");
-        String invProdId = (String)request.getParameter("edit_invProduct");
-        String invQuantity = (String)request.getParameter("edit_invQuantity");
-        String invColor = (String)request.getParameter("edit_invColor");
-        String invSize = (String)request.getParameter("edit_invSize");
         String errorMsg="";
         String successMsg="";
         boolean forwardPage = true;
@@ -79,6 +73,12 @@ public class UpdateInventory extends HttpServlet {
 //        }
         
         try {
+            String invId = (String)request.getParameter("edit_Id");
+            String invProdId = (String)request.getParameter("edit_invProduct");
+            String invQuantity = (String)request.getParameter("edit_invQuantity");
+            String invColor = (String)request.getParameter("edit_invColor");
+            String invSize = (String)request.getParameter("edit_invSize");
+            
             // Begin transaction
             utx.begin();
 
@@ -101,14 +101,13 @@ public class UpdateInventory extends HttpServlet {
                 // Rollback transaction
                 utx.rollback();
             } catch (Exception e) {
-                errorMsg = "Error Occurred: Please try again. (" + e.getMessage() + ")";
-                throw new ServletException(e);
+                errorMsg = e.getMessage();
             }
-            errorMsg += "Error Occurred: Please try again. (" + ex.getMessage() + ")";
+            errorMsg += ex.getMessage();
 
             forwardPage = false;
             //error page
-            throw new ServletException(ex);
+            response.sendRedirect("../../pages/error.jsp?errorMsg="+errorMsg);
         }
 
         if (forwardPage) {

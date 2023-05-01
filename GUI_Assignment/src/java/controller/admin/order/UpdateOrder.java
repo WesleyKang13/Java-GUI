@@ -59,9 +59,6 @@ public class UpdateOrder extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String orderId = (String)request.getParameter("edit_Id");
-        String shippingAddress = (String)request.getParameter("edit_shippingAddress");
-        String status = (String)request.getParameter("edit_status");
         String errorMsg="";
         String successMsg="";
         boolean forwardPage = true;
@@ -73,6 +70,9 @@ public class UpdateOrder extends HttpServlet {
 //        }
         
         try {
+            String orderId = (String)request.getParameter("edit_Id");
+            String shippingAddress = (String)request.getParameter("edit_shippingAddress");
+            String status = (String)request.getParameter("edit_status");
             // Begin transaction
             utx.begin();
 
@@ -92,14 +92,13 @@ public class UpdateOrder extends HttpServlet {
                 // Rollback transaction
                 utx.rollback();
             } catch (Exception e) {
-                errorMsg="Error Occurred: Please try again. ("+e.getMessage()+")";
-                throw new ServletException(e);
+                errorMsg=e.getMessage();
             }
-            errorMsg += "Error Occurred: Please try again. ("+ex.getMessage()+")";
+            errorMsg += ex.getMessage();
             
             forwardPage=false;
             //error page
-            throw new ServletException(ex);
+            response.sendRedirect("../../pages/error.jsp?errorMsg="+errorMsg);
         }
         
         if(forwardPage){

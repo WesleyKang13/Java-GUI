@@ -1,7 +1,5 @@
 package controller.admin.review;
 
-import entity.Inventory;
-import entity.Product;
 import entity.Review;
 import java.io.IOException;
 import java.util.List;
@@ -34,7 +32,7 @@ public class LoadReview extends HttpServlet {
             dispatcher.forward(request, response);
             
         }catch(Exception ex){
-            //error
+            response.sendRedirect("../../pages/error.jsp?errorMsg="+ex.getMessage());
         }
     }
 
@@ -98,6 +96,7 @@ public class LoadReview extends HttpServlet {
         else {
             //error
             forwardPage = false;
+            response.sendRedirect("../../../pages/error.jsp?errorMsg=Wrong URL path!");
         }
 
         if (forwardPage) {

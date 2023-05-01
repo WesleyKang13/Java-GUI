@@ -3,11 +3,9 @@ package controller.admin.customer;
 import entity.Customer;
 import entity.User;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -66,17 +64,18 @@ public class AddNewCustomer extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String custUserName = (String)request.getParameter("addNew_userName");
-        String custPassword = (String)request.getParameter("addNew_password");
-        String custFullName = (String)request.getParameter("addNew_fullName");
-        String custPhoneNum = (String)request.getParameter("addNew_phoneNum");
-        String custEmail = (String)request.getParameter("addNew_email");
-        String custShippingAddress = (String)request.getParameter("addNew_shippingAddress");
         String errorMsg="";
         String successMsg="";
         boolean forwardPage = true;
 
         try {
+            String custUserName = (String)request.getParameter("addNew_userName");
+            String custPassword = (String)request.getParameter("addNew_password");
+            String custFullName = (String)request.getParameter("addNew_fullName");
+            String custPhoneNum = (String)request.getParameter("addNew_phoneNum");
+            String custEmail = (String)request.getParameter("addNew_email");
+            String custShippingAddress = (String)request.getParameter("addNew_shippingAddress");
+            
             // Begin transaction
             utx.begin();
 
@@ -109,14 +108,13 @@ public class AddNewCustomer extends HttpServlet {
                 // Rollback transaction
                 utx.rollback();
             } catch (Exception e) {
-                errorMsg="Error Occurred: Please try again. ("+e.getMessage()+")";
-                throw new ServletException(e);
+                errorMsg=e.getMessage();
             }
-            errorMsg += "Error Occurred: Please try again. ("+ex.getMessage()+")";
+            errorMsg += ex.getMessage();
 
             forwardPage=false;
             //error page
-            throw new ServletException(ex);
+            response.sendRedirect("../../pages/error.jsp?errorMsg="+errorMsg);
         }
 
         if(forwardPage){

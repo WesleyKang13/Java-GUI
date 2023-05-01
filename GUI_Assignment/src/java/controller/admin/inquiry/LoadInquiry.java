@@ -6,8 +6,6 @@ package controller.admin.inquiry;
 
 import entity.Inquiry;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.SQLException;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -39,10 +37,7 @@ public class LoadInquiry extends HttpServlet {
                  dispatcher.forward(request, response);
                  
              }catch(Exception ex){
-                 try (PrintWriter out = response.getWriter()) {
-                    out.println("<h1>Congratulation, you get an error!</h1>");
-                    out.println("<h1>"+ex.getMessage()+"</h1>");
-                }
+                response.sendRedirect("../../pages/error.jsp?errorMsg="+ex.getMessage());
              }
                 
           }

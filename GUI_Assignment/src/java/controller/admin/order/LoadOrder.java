@@ -124,6 +124,7 @@ public class LoadOrder extends HttpServlet {
         else {
             //error
             forwardPage = false;
+            response.sendRedirect("../../../pages/error.jsp?errorMsg=Wrong URL Path!");
         }
 
         if (forwardPage) {

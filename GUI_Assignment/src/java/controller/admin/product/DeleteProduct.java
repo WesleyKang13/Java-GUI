@@ -1,16 +1,9 @@
 package controller.admin.product;
 
 import java.util.List;
-import entity.Cart;
-import entity.CustOrder;
-import entity.Customer;
 import entity.Inventory;
-import entity.OrderItem;
 import entity.Product;
-import entity.Review;
-import entity.User;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -40,7 +33,7 @@ public class DeleteProduct extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.sendRedirect("LoadCustomer");
+        response.sendRedirect("LoadProduct");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -54,12 +47,12 @@ public class DeleteProduct extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String productId = (String) request.getParameter("deleteId");
         String errorMsg = "";
         String successMsg = "";
         boolean forwardPage = true;
 
     try {
+        String productId = (String) request.getParameter("deleteId");
         // Begin transaction
         utx.begin();
 
@@ -109,13 +102,12 @@ public class DeleteProduct extends HttpServlet {
                 // Rollback transaction
                 utx.rollback();
             } catch (Exception e) {
-                errorMsg = "Error Occurred: Please try again. (" + e.getMessage() + ")";
-                throw new ServletException(e);
+                errorMsg = e.getMessage();
             }
-            errorMsg += "Error Occurred: Please try again. (" + ex.getMessage() + ")";
+            errorMsg += ex.getMessage();
             forwardPage = false;
             // error page
-            throw new ServletException(ex);
+            response.sendRedirect("../../pages/error.jsp?errorMsg="+errorMsg);
         }
 
         if (forwardPage) {

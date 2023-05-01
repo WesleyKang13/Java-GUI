@@ -1,9 +1,32 @@
 
 /* Report */
+.report table{
+    width: 100%;
+}
+
 .report.table tr td{
   line-height: 1.5rem;
 }
 
 .report.table tr td{
     background-color: var(--color-white);
+}
+
+/* Customer List - START */
+ .salesReport .print{
+  position: absolute;
+  top: 5.5rem;
+  right: 5rem;
+  background-color: var(--color-white);
+  color: var(--color-danger);
+  font-weight: 700;
+  border: 0.2rem solid var(--color-danger);
+  border-radius: var(--border-radius-4);
+  transition: var(--tran-2);
+  opacity: 0.9;
+}
+
+ .salesReport .print:hover{
+  transform: scale(1.1);
+  opacity: 1;
 }

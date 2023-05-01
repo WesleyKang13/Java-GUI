@@ -32,7 +32,7 @@ public class DeleteOrder extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.sendRedirect("LoadCustomer");
+        response.sendRedirect("LoadOrder");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -46,12 +46,12 @@ public class DeleteOrder extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String orderId = (String) request.getParameter("deleteId");
         String errorMsg = "";
         String successMsg = "";
         boolean forwardPage = true;
 
         try {
+            String orderId = (String) request.getParameter("deleteId");
             // Begin transaction
             utx.begin();
 
@@ -90,13 +90,12 @@ public class DeleteOrder extends HttpServlet {
                 // Rollback transaction
                 utx.rollback();
             } catch (Exception e) {
-                errorMsg = "Error Occurred: Please try again. (" + e.getMessage() + ")";
-                throw new ServletException(e);
+                errorMsg = e.getMessage();
             }
-            errorMsg += "Error Occurred: Please try again. (" + ex.getMessage() + ")";
+            errorMsg += ex.getMessage();
             forwardPage = false;
             // error page
-            throw new ServletException(ex);
+            response.sendRedirect("../../pages/error.jsp?errorMsg="+errorMsg);
         }
 
         if (forwardPage) {

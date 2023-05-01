@@ -1,11 +1,8 @@
 package controller.admin.setting;
 
 import entity.Admin;
-import entity.Inventory;
-import entity.Product;
 import entity.User;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -64,12 +61,6 @@ public class UpdateUserInfo extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        int adminId = (int) request.getSession().getAttribute("adminId");
-        String adminUserName = (String)request.getParameter("userName");
-        String adminPassword = (String)request.getParameter("password");
-        String emailFullName = (String)request.getParameter("fullName");
-        String emailPhoneNum = (String)request.getParameter("phoneNum");
-        String emailEmail = (String)request.getParameter("email");
         String errorMsg="";
         String successMsg="";
         boolean forwardPage = true;
@@ -83,6 +74,12 @@ public class UpdateUserInfo extends HttpServlet {
 //        }
         
         try {
+            int adminId = (int) request.getSession().getAttribute("adminId");
+            String adminUserName = (String)request.getParameter("userName");
+            String adminPassword = (String)request.getParameter("password");
+            String emailFullName = (String)request.getParameter("fullName");
+            String emailPhoneNum = (String)request.getParameter("phoneNum");
+            String emailEmail = (String)request.getParameter("email");
             // Begin transaction
             utx.begin();
 
@@ -116,14 +113,13 @@ public class UpdateUserInfo extends HttpServlet {
                 // Rollback transaction
                 utx.rollback();
             } catch (Exception e) {
-                errorMsg = "Error Occurred: Please try again. (" + e.getMessage() + ")";
-                throw new ServletException(e);
+                errorMsg = e.getMessage();
             }
-            errorMsg += "Error Occurred: Please try again. (" + ex.getMessage() + ")";
+            errorMsg += ex.getMessage();
 
             forwardPage = false;
             //error page
-            throw new ServletException(ex);
+            response.sendRedirect("../../pages/error.jsp?errorMsg="+errorMsg);
         }
 
         if (forwardPage) {

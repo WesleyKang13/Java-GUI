@@ -59,12 +59,6 @@ public class UpdateProduct extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String prodId = (String)request.getParameter("edit_Id");
-        String prodName = (String)request.getParameter("edit_prodName");
-        String prodBrand = (String)request.getParameter("edit_prodBrand");
-        String prodPrice = (String)request.getParameter("edit_prodPrice");
-        String prodDesc = (String)request.getParameter("edit_prodDesc");
-        String type = (String)request.getParameter("edit_type");
         String errorMsg="";
         String successMsg="";
         boolean forwardPage = true;
@@ -79,6 +73,12 @@ public class UpdateProduct extends HttpServlet {
 //        }
         
         try {
+            String prodId = (String)request.getParameter("edit_Id");
+            String prodName = (String)request.getParameter("edit_prodName");
+            String prodBrand = (String)request.getParameter("edit_prodBrand");
+            String prodPrice = (String)request.getParameter("edit_prodPrice");
+            String prodDesc = (String)request.getParameter("edit_prodDesc");
+            String type = (String)request.getParameter("edit_type");
             // Begin transaction
             utx.begin();
 
@@ -101,14 +101,13 @@ public class UpdateProduct extends HttpServlet {
                 // Rollback transaction
                 utx.rollback();
             } catch (Exception e) {
-                errorMsg = "Error Occurred: Please try again. (" + e.getMessage() + ")";
-                throw new ServletException(e);
+                errorMsg = e.getMessage();
             }
-            errorMsg += "Error Occurred: Please try again. (" + ex.getMessage() + ")";
+            errorMsg += ex.getMessage();
 
             forwardPage = false;
             //error page
-            throw new ServletException(ex);
+            response.sendRedirect("../../pages/error.jsp?errorMsg="+errorMsg);
         }
 
         if (forwardPage) {

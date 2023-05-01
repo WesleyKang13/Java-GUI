@@ -73,7 +73,7 @@
                 <p><%=paymentList.size()%> record(s) found</p>
             </div>
 
-<%!
+            <%!
                 private String validateFilter(String value, String filter){
                     if (filter == null || filter.equals("all")) {
                         if (value.equals("all")) {
@@ -90,7 +90,7 @@
                 <button type="button" <%=validateFilter("all", filter)%> onclick="window.location.href='<%=ROOT_PATH+"pages/admin/LoadPayment"%>'">All</button>
                 <button type="button" <%=validateFilter("CASH", filter)%> value="CASH" onclick="filterMethods('CASH')">Cash</button>
                 <button type="button" <%=validateFilter("DEBIT", filter)%> value="DEBIT" onclick="filterMethods('DEBIT')">Debit Card</button>
-                <button type="button" <%=validateFilter("CREDIT", filter)%> value="CREDIT" onclick="filterMethods('CREDIT')">Creadit Card</button>
+                <button type="button" <%=validateFilter("CREDIT", filter)%> value="CREDIT" onclick="filterMethods('CREDIT')">Credit Card</button>
             </div>
 
             <script>

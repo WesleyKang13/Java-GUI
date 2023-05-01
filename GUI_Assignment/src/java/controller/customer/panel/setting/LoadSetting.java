@@ -32,7 +32,7 @@ public class LoadSetting extends HttpServlet {
             dispatcher.forward(request, response);
             
         }catch(Exception ex){
-            //error
+            response.sendRedirect("../../../pages/error.jsp?errorMsg="+ex.getMessage());
         }
     }
 

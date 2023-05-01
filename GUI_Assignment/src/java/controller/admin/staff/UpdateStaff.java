@@ -60,28 +60,19 @@ public class UpdateStaff extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String staffId = (String)request.getParameter("edit_Id");
-        String staffUserName = (String)request.getParameter("edit_userName");
-        String staffFullName = (String)request.getParameter("edit_fullName");
-        String staffPhoneNum = (String)request.getParameter("edit_phoneNum");
-        String staffEmail = (String)request.getParameter("edit_email");
-        String staffPosition = (String)request.getParameter("edit_position");
-        String staffPermission = (String)request.getParameter("edit_permission");
         String errorMsg="";
         String successMsg="";
         boolean forwardPage = true;
         
-//        try (PrintWriter out = response.getWriter()) {
-//            out.println("<h1>"+staffId+"</h1>");
-//            out.println("<h1>"+staffUserName+"</h1>");
-//            out.println("<h1>"+staffFullName+"</h1>");
-//            out.println("<h1>"+staffPhoneNum+"</h1>");
-//            out.println("<h1>"+staffEmail+"</h1>");
-//            out.println("<h1>"+staffPosition+"</h1>");
-//            out.println("<h1>"+staffPermission+"</h1>");
-//        }
-        
         try {
+            String staffId = (String)request.getParameter("edit_Id");
+            String staffUserName = (String)request.getParameter("edit_userName");
+            String staffFullName = (String)request.getParameter("edit_fullName");
+            String staffPhoneNum = (String)request.getParameter("edit_phoneNum");
+            String staffEmail = (String)request.getParameter("edit_email");
+            String staffPosition = (String)request.getParameter("edit_position");
+            String staffPermission = (String)request.getParameter("edit_permission");
+            
             // Begin transaction
             utx.begin();
 
@@ -106,14 +97,13 @@ public class UpdateStaff extends HttpServlet {
                 // Rollback transaction
                 utx.rollback();
             } catch (Exception e) {
-                errorMsg="Error Occurred: Please try again. ("+e.getMessage()+")";
-                throw new ServletException(e);
+                errorMsg=e.getMessage();
             }
-            errorMsg += "Error Occurred: Please try again. ("+ex.getMessage()+")";
+            errorMsg += ex.getMessage();
             
             forwardPage=false;
             //error page
-            throw new ServletException(ex);
+            response.sendRedirect("../../pages/error.jsp?errorMsg="+errorMsg);
         }
         
         if(forwardPage){

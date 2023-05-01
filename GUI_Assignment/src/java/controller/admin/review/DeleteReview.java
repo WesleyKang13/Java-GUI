@@ -1,13 +1,11 @@
 package controller.admin.review;
 
 
-import entity.Product;
 import entity.Review;
 import java.io.IOException;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -47,12 +45,12 @@ public class DeleteReview extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String reviewId = (String) request.getParameter("deleteId");
         String errorMsg = "";
         String successMsg = "";
         boolean forwardPage = true;
 
     try {
+        String reviewId = (String) request.getParameter("deleteId");
         // Begin transaction
         utx.begin();
 
@@ -71,13 +69,12 @@ public class DeleteReview extends HttpServlet {
                 // Rollback transaction
                 utx.rollback();
             } catch (Exception e) {
-                errorMsg = "Error Occurred: Please try again. (" + e.getMessage() + ")";
-                throw new ServletException(e);
+                errorMsg = e.getMessage();
             }
-            errorMsg += "Error Occurred: Please try again. (" + ex.getMessage() + ")";
+            errorMsg += ex.getMessage();
             forwardPage = false;
             // error page
-            throw new ServletException(ex);
+            response.sendRedirect("../../pages/error.jsp?errorMsg="+errorMsg);
         }
 
         if (forwardPage) {

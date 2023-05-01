@@ -1,10 +1,7 @@
 package controller.admin.report;
 
-import entity.Inventory;
-import entity.OrderItem;
 import entity.Product;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -37,8 +34,14 @@ public class LoadSalesReport extends HttpServlet {
         try{
             //Load all products in database
             Query query = em.createQuery("SELECT oi.prodId, SUM(oi.orderItemQuantity) FROM OrderItem oi GROUP BY oi.prodId ORDER BY SUM(oi.orderItemQuantity) DESC");
-query.setMaxResults(5);
-List<Object[]> salesList = query.getResultList();
+
+            if(request.getParameter("LeastReport") != null){
+                query = em.createQuery("SELECT oi.prodId, SUM(oi.orderItemQuantity) FROM OrderItem oi GROUP BY oi.prodId ORDER BY SUM(oi.orderItemQuantity)");
+                request.setAttribute("filter", "true");
+            }
+            
+            query.setMaxResults(5);
+            List<Object[]> salesList = query.getResultList();
 
             List<ProductSales> productList = new ArrayList<>();
             for (Object[] result : salesList) {
@@ -58,9 +61,7 @@ List<Object[]> salesList = query.getResultList();
             dispatcher.forward(request, response);
             
         }catch(Exception ex){
-            try (PrintWriter out = response.getWriter()) {
-            out.println("<h1>"+ex.getMessage()+"</h1>");
-        }
+            response.sendRedirect("../../pages/error.jsp?errorMsg="+ex.getMessage());
         }
     }
 

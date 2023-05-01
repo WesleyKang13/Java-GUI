@@ -51,12 +51,12 @@ public class DeleteCustomer extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String custId = (String)request.getParameter("deleteId");
         String errorMsg="";
         String successMsg="";
         boolean forwardPage = true;
         
         try {
+            String custId = (String)request.getParameter("deleteId");
             // Begin transaction
             utx.begin();
             
@@ -125,13 +125,12 @@ public class DeleteCustomer extends HttpServlet {
                 // Rollback transaction
                 utx.rollback();
             } catch (Exception e) {
-                errorMsg="Error Occurred: Please try again. ("+e.getMessage()+")";
-                throw new ServletException(e);
+                errorMsg=e.getMessage();
             }
-            errorMsg += "Error Occurred: Please try again. ("+ex.getMessage()+")";
+            errorMsg += ex.getMessage();
             forwardPage=false;
             //error page
-            throw new ServletException(ex);
+            response.sendRedirect("../../pages/error.jsp?errorMsg="+errorMsg);
         }
         
         if(forwardPage){

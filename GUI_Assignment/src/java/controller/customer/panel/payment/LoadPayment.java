@@ -40,9 +40,7 @@ public class LoadPayment extends HttpServlet {
             dispatcher.forward(request, response);
             
         }catch(Exception ex){
-                    try (PrintWriter out = response.getWriter()) {
-                        out.println("<h1>"+ex.getMessage()+"</h1>");
-                    }
+            response.sendRedirect("../../../pages/error.jsp?errorMsg="+ex.getMessage());
         }
     }
 
@@ -112,6 +110,7 @@ public class LoadPayment extends HttpServlet {
         else {
             //error
             forwardPage = false;
+            response.sendRedirect("../../../../pages/error.jsp?errorMsg=Wrong URL path!");
         }
 
         if (forwardPage) {

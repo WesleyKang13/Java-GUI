@@ -60,12 +60,6 @@ public class UpdateCustomer extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String custId = (String)request.getParameter("edit_Id");
-        String custUserName = (String)request.getParameter("edit_userName");
-        String custFullName = (String)request.getParameter("edit_fullName");
-        String custPhoneNum = (String)request.getParameter("edit_phoneNum");
-        String custEmail = (String)request.getParameter("edit_email");
-        String custShippingAddress = (String)request.getParameter("edit_shippingAddress");
         String errorMsg="";
         String successMsg="";
         boolean forwardPage = true;
@@ -80,6 +74,13 @@ public class UpdateCustomer extends HttpServlet {
 //        }
         
         try {
+            String custId = (String)request.getParameter("edit_Id");
+            String custUserName = (String)request.getParameter("edit_userName");
+            String custFullName = (String)request.getParameter("edit_fullName");
+            String custPhoneNum = (String)request.getParameter("edit_phoneNum");
+            String custEmail = (String)request.getParameter("edit_email");
+            String custShippingAddress = (String)request.getParameter("edit_shippingAddress");
+            
             // Begin transaction
             utx.begin();
 
@@ -103,14 +104,13 @@ public class UpdateCustomer extends HttpServlet {
                 // Rollback transaction
                 utx.rollback();
             } catch (Exception e) {
-                errorMsg="Error Occurred: Please try again. ("+e.getMessage()+")";
-                throw new ServletException(e);
+                errorMsg=e.getMessage();
             }
-            errorMsg += "Error Occurred: Please try again. ("+ex.getMessage()+")";
+            errorMsg += ex.getMessage();
             
             forwardPage=false;
             //error page
-            throw new ServletException(ex);
+            response.sendRedirect("../../pages/error.jsp?errorMsg="+errorMsg);
         }
         
         if(forwardPage){

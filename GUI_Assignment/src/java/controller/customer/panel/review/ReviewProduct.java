@@ -9,7 +9,6 @@ import entity.Customer;
 import entity.Product;
 import entity.Review;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -71,21 +70,22 @@ public class ReviewProduct extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // Retrieve review parameters from HTTP request
-        int orderID = Integer.parseInt(request.getParameter("order_id"));
-        int prodID = Integer.parseInt(request.getParameter("prod_id"));
-        int custID = (int) request.getSession().getAttribute("customerId");
-        double score = Double.parseDouble(request.getParameter("review_score"));
-        String description = request.getParameter("review_comment");
+        
         String errorMsg="";
         String successMsg="";
         boolean forwardPage = true;
-
-        CustOrder order = em.find(CustOrder.class, orderID);
-        Product product = em.find(Product.class, prodID);
-        Customer customer = em.find(Customer.class, custID);
         
-
         try {
+            int orderID = Integer.parseInt(request.getParameter("order_id"));
+            int prodID = Integer.parseInt(request.getParameter("prod_id"));
+            int custID = (int) request.getSession().getAttribute("customerId");
+            double score = Double.parseDouble(request.getParameter("review_score"));
+            String description = request.getParameter("review_comment");
+
+            CustOrder order = em.find(CustOrder.class, orderID);
+            Product product = em.find(Product.class, prodID);
+            Customer customer = em.find(Customer.class, custID);
+
             // Begin transaction
             utx.begin();
             
@@ -111,14 +111,13 @@ public class ReviewProduct extends HttpServlet {
                 // Rollback transaction
                 utx.rollback();
             } catch (Exception e) {
-                errorMsg="Error Occurred: Please try again. ("+e.getMessage()+")";
-                throw new ServletException(e);
+                errorMsg=e.getMessage();
             }
-            errorMsg += "Error Occurred: Please try again. ("+ex.getMessage()+")";
+            errorMsg += ex.getMessage();
             
             forwardPage=false;
             //error page
-            throw new ServletException(ex);
+            response.sendRedirect("../../../pages/error.jsp?errorMsg="+errorMsg);
         }
         
         if(forwardPage){
