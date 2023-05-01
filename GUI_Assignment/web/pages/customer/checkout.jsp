@@ -111,11 +111,11 @@
                 </picture>
               </div>
                 <p class="items-details">
-                  Name: <%= cartItem.getInvProdId().getProdId().getProdName()%><br>
+                  Name: <%= cartItem.getProdId().getProdId().getProdName()%><br>
                   Price (RM): <%= String.format("%.2f",cartItem.getTotalAmount())%><br>
                   Quantity: <%= cartItem.getCartQuantity()%><br>
-                  Size chosen (UK): <%= cartItem.getInvProdId().getInvShoeSize() %><br>
-                  Color : <%= cartItem.getInvProdId().getInvColor() %><br>
+                  Size chosen (UK): <%= cartItem.getProdId().getInvShoeSize() %><br>
+                  Color : <%= cartItem.getProdId().getInvColor() %><br>
                 </p>
             <% } }%>
               </td>

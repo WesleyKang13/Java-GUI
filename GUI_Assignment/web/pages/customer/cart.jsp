@@ -34,21 +34,21 @@
               int count =1;
               int invId = -1; // initialize invId
               for (Cart cartItem : cartItems) {
-                invId = cartItem.getInvProdId().getInvId(); // set invId
+                invId = cartItem.getProdId().getInvId(); // set invId
             %>
                 <tr>
                   <td><%= count++%></td>
-                  <th><%= cartItem.getInvProdId().getProdId().getProdName() %></th>
+                  <th><%= cartItem.getProdId().getProdId().getProdName() %></th>
                   <td>
                     <div class="quantity-container">
                       <input type="number" value="<%= cartItem.getCartQuantity() %>" min="1" max="100" step="1" name="quantity" class="quantity-input">
                       
                     </div>
                   </td>
-                  <td><%= cartItem.getInvProdId().getProdId().getProdPrice() %></td>
+                  <td><%= cartItem.getProdId().getProdId().getProdPrice() %></td>
                   <td><%= cartItem.getTotalAmount() %></td>
-                  <td><%= cartItem.getInvProdId().getInvColor() %></td>
-                  <td><%= cartItem.getInvProdId().getInvShoeSize() %></td>
+                  <td><%= cartItem.getProdId().getInvColor() %></td>
+                  <td><%= cartItem.getProdId().getInvShoeSize() %></td>
                 </tr>
             <% } %>
                 <div class="confirm-container">
