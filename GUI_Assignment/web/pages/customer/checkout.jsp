@@ -18,10 +18,100 @@
     </head>
     <body>
         <h1>Checkout bag</h1>
+        
+        <form action="<%= ROOT_PATH + "pages/product/PaidOrder"%>" method="POST" onsubmit="return confirm('Sure to Submit?')">
+        <table class="checkout-table">
+        <tr>
+            <div class="details-container">
+            <%
+            List<Cart> checkoutItems = (List<Cart>) request.getAttribute("checkoutItems");
+            if(checkoutItems != null){
+              for (Cart cartItem : checkoutItems) {
+            %>
+            <td class="items">
+              <div class="image">
+                <picture>
+                  <img src="../../assets/product/dummy1.jpg" alt="">
+                </picture>
+              </div>
+                <p class="items-details">
+                  Name: <%= cartItem.getProdId().getProdId().getProdName()%><br>
+                  Price (RM): <%= String.format("%.2f",cartItem.getTotalAmount())%><br>
+                  Quantity: <%= cartItem.getCartQuantity()%><br>
+                  Size chosen (UK): <%= cartItem.getProdId().getInvShoeSize() %><br>
+                  Color : <%= cartItem.getProdId().getInvColor() %><br>
+                </p>
+            <% } }%>
+              </td>
+            <td class="summary">
+                <h2>Checkout summary</h2>
+                <p class="summary-details">
+                    Total item(s): <strong>${totalQuantity}</strong><br>
+                    Estimated delivery &amp; handling(Rm): <strong>${deliveryFee}</strong><br>
+                    Subtotal (RM): <strong>${subtotalPrice}</strong><br>
+                    <input type="hidden" name="subTotalPrice" value="${subtotalPrice}">
+                </p>
+
+                <div class="shipping-details">
+                    <h3>Shipping address:</h3>
+                    <p>
+                        <label for="address1">Delivery address:</label>
+                        <br>
+                        <input type="text" name="address1" id="address1">
+                        <br>
+                    </p>
+                </div>
+
+                <div class="paymentMethod">
+                    <h3>Payment method</h3>
+                    <input type="radio" value="DEBIT" name="paymentMethod" id="visaRadio">
+                    <label for="visaRadio"><i class="fa-solid fa-credit-card"></i> Debit Card</label>
+                    <br>
+                    <input type="radio" value="CREDIT" name="paymentMethod" id="creditCardRadio">
+                    <label for="creditCardRadio"><i class="fa-regular fa-credit-card"></i> Credit Card</label>
+                    <br>
+                    <input type="radio" value="CASH" name="paymentMethod" id="cashRadio">
+                    <label for="cashRadio"><i class="fa-solid fa-sack-dollar"></i> Cash</label>
+                    <br>
+                </div>
+
+                <div id="cardDetails" style="display:none;">
+                    <h3>Card details</h3>
+                    <label for="cardType">Card type:</label>
+                    <select name="cardType" id="cardType">
+                        <option value="">Please select</option>
+                        <option value="VISA">VISA</option>
+                        <option value="MasterCard">MasterCard</option>
+                    </select>
+                    <br>
+                    <label for="cardName">Name on card:</label>
+                    <input type="text" name="cardName" id="cardName">
+                    <br>
+                    <label for="cardNumber">Card number:</label>
+                    <input type="text" name="cardNumber" id="cardNumber">
+                    <br>
+                    <label for="cardExp">Expiry date:</label>
+                    <input type="text" name="cardExp" placeholder="MM/YY" id="cardExp">
+                    <br>
+                    <label for="cardCVV">CVV:</label>
+                    <input type="text" name="cardCVV" id="cardCVV">
+                    <br>
+                    <label for="shippingAddress">Shipping address:</label>
+                    <input type="text" name="shippingAddress" id="shippingAddress">
+                    <br>
+                </div>
+
+                
+                <button type="submit" id="confirmPayment" onclick="return validateForm()">Confirm</a>
+          </td>
+        </tr>
+        </table>
+        </form>
+                
         <script>
             function validateForm() {
-                var address1 = document.forms["checkoutForm"]["address1"].value;
-                if (address1 == "") {
+                var address1 = document.getElementById("address1").value;
+                if (address1 === "") {
                   alert("Please fill in the delivery address.");
                   return false;
                 }
@@ -91,136 +181,38 @@
                   return false;
                 }
             }
+            
+            const visaRadio = document.getElementById("visaRadio");
+            const creditCardRadio = document.getElementById("creditCardRadio");
+            const cashRadio = document.getElementById("cashRadio");
+            const cardDetails = document.getElementById("cardDetails");
+            const deliveryAddress = document.querySelector('input[name="address1"]');
+
+            visaRadio.addEventListener("click", () => {
+                cardDetails.style.display = "block";
+            });
+
+            creditCardRadio.addEventListener("click", () => {
+                cardDetails.style.display = "block";
+            });
+
+            cashRadio.addEventListener("click", () => {
+                cardDetails.style.display = "none";
+            });
+            
+            function updateLink() {
+                var paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
+                var address = document.getElementById('address1').value;
+                var link = document.getElementById("confirmPayment");
+                link.href = '<%= ROOT_PATH %>/pages/product/FindCustOrder?paymentMethod=' + paymentMethod + '&address=' + encodeURIComponent(address);
+            }
+
+            // Add an event listener to the payment method radio buttons
+            var paymentRadios = document.querySelectorAll('input[name="paymentMethod"]');
+            paymentRadios.forEach(function(radio) {
+              radio.addEventListener('change', updateLink);
+            });
         </script>
-
-
-        
-        <form name="PaidOrder" method="POST" onsubmit="return validateForm()">
-        <table class="checkout-table">
-        <tr>
-            <div class="details-container">
-            <%
-            List<Cart> checkoutItems = (List<Cart>) request.getAttribute("checkoutItems");
-            if(checkoutItems != null){
-              for (Cart cartItem : checkoutItems) {
-            %>
-            <td class="items">
-              <div class="image">
-                <picture>
-                  <img src="../../assets/product/dummy1.jpg" alt="">
-                </picture>
-              </div>
-                <p class="items-details">
-                  Name: <%= cartItem.getProdId().getProdId().getProdName()%><br>
-                  Price (RM): <%= String.format("%.2f",cartItem.getTotalAmount())%><br>
-                  Quantity: <%= cartItem.getCartQuantity()%><br>
-                  Size chosen (UK): <%= cartItem.getProdId().getInvShoeSize() %><br>
-                  Color : <%= cartItem.getProdId().getInvColor() %><br>
-                </p>
-            <% } }%>
-              </td>
-            <td class="summary">
-                <h2>Checkout summary</h2>
-                <p class="summary-details">
-                    Total item(s): <strong>${totalQuantity}</strong><br>
-                    Estimated delivery &amp; handling(Rm): <strong>${deliveryFee}</strong><br>
-                    Subtotal (RM): <strong>${subtotalPrice}</strong><br>
-                </p>
-
-                <div class="shipping-details">
-                    <h3>Shipping address:</h3>
-                    <p>
-                        <label for="address1">Delivery address:</label>
-                        <br>
-                        <input type="text" name="address1" id="address1">
-                        <br>
-                    </p>
-                </div>
-
-                <div class="paymentMethod">
-                    <h3>Payment method</h3>
-                    <input type="radio" value="DEBIT" name="paymentMethod" id="visaRadio">
-                    <label for="visaRadio"><i class="fa-solid fa-credit-card"></i> Debit Card</label>
-                    <br>
-                    <input type="radio" value="CREDIT" name="paymentMethod" id="creditCardRadio">
-                    <label for="creditCardRadio"><i class="fa-regular fa-credit-card"></i> Credit Card</label>
-                    <br>
-                    <input type="radio" value="CASH" name="paymentMethod" id="cashRadio">
-                    <label for="cashRadio"><i class="fa-solid fa-sack-dollar"></i> Cash</label>
-                    <br>
-                </div>
-
-                <div id="cardDetails" style="display:none;">
-                    <h3>Card details</h3>
-                    <label for="cardType">Card type:</label>
-                    <select name="cardType" id="cardType">
-                        <option value="">Please select</option>
-                        <option value="VISA">VISA</option>
-                        <option value="MasterCard">MasterCard</option>
-                    </select>
-                    <br>
-                    <label for="cardName">Name on card:</label>
-                    <input type="text" name="cardName" id="cardName">
-                    <br>
-                    <label for="cardNumber">Card number:</label>
-                    <input type="text" name="cardNumber" id="cardNumber">
-                    <br>
-                    <label for="cardExp">Expiry date:</label>
-                    <input type="text" name="cardExp" placeholder="MM/YY" id="cardExp">
-                    <br>
-                    <label for="cardCVV">CVV:</label>
-                    <input type="text" name="cardCVV" id="cardCVV">
-                    <br>
-                    <label for="shippingAddress">Shipping address:</label>
-                    <input type="text" name="shippingAddress" id="shippingAddress">
-                    <br>
-                </div>
-                
-                <script>
-                    const visaRadio = document.getElementById("visaRadio");
-                    const creditCardRadio = document.getElementById("creditCardRadio");
-                    const cashRadio = document.getElementById("cashRadio");
-                    const cardDetails = document.getElementById("cardDetails");
-                    const deliveryAddress = document.querySelector('input[name="address1"]');
-
-                    visaRadio.addEventListener("click", () => {
-                        cardDetails.style.display = "block";
-                    });
-
-                    creditCardRadio.addEventListener("click", () => {
-                        cardDetails.style.display = "block";
-                    });
-
-                    cashRadio.addEventListener("click", () => {
-                        cardDetails.style.display = "none";
-                    });
-
-                </script>
-
-                
-                <a href="<%= ROOT_PATH + "/pages/product/PaidOrder?paymentMethod="%>" 
-                id="confirmPayment"
-                >Confirm</a>
-                
-                <script>
-                    function updateLink() {
-                        var paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
-                        var address = document.getElementById('address1').value;
-                        var link = document.getElementById("confirmPayment");
-                        link.href = '<%= ROOT_PATH %>/pages/product/FindCustOrder?paymentMethod=' + paymentMethod + '&address=' + encodeURIComponent(address);
-                    }
-
-                    // Add an event listener to the payment method radio buttons
-                    var paymentRadios = document.querySelectorAll('input[name="paymentMethod"]');
-                    paymentRadios.forEach(function(radio) {
-                      radio.addEventListener('change', updateLink);
-                    });
-                </script>
-          </td>
-        </tr>
-        </table>
-        </form>
-        
     </body>
 </html>
 

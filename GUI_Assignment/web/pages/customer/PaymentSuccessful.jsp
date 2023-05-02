@@ -1,3 +1,4 @@
+<%@page import="entity.CustOrder"%>
 <%@page import="entity.Payment"%>
 <%@page import="entity.Customer"%>
 <% String ROOT_PATH = "../../"; %>
@@ -7,8 +8,9 @@
 
 <%
         
-    Payment p = (Payment)request.getAttribute("payment");
-    Customer customer = (Customer)request.getAttribute("customer");
+    Customer customer = session.getAttribute("customer")!=null?(Customer)session.getAttribute("customer"):null;
+    CustOrder order = session.getAttribute("order")!=null?(CustOrder)session.getAttribute("order"):null;
+    Payment payment = session.getAttribute("payment")!=null?(Payment)session.getAttribute("payment"):null;
 
 %>
 
@@ -49,20 +51,12 @@
                          
                         <table>
                              <tr>
-                                <td>
-                                   Customer Name:
-                                </td>
-                                <td>
-                                    <input  type="text" value="<%=customer.getCustFullName()%>" readonly/>
-                                </td>
+                                <td>Customer Name:</td>
+                                <td><%=customer.getCustFullName()%></td>
                             </tr>
                              <tr>
-                                <td>
-                                   Phone Number:
-                                </td>
-                                <td>
-                                    <input  type="text" value="<%=customer.getCustPhoneNum()%>" readonly/>
-                                </td>
+                                <td>Phone Number:</td>
+                                <td><%=customer.getCustPhoneNum()%></td>
                             </tr>
                             <tr>
                                 <td>
