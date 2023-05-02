@@ -15,7 +15,7 @@
         <div class="container-about">
              <img class="about_US" src="./../assets/homepage/1913108.jpg">
              <h1 class="heading1">About Us</h1>
-             <p class="about_us">At Banana Shoe, 
+             <p class="about_us">At <%=getServletContext().getInitParameter("companyName")%>, 
              we believe that every step you take should be a confident and stylish one. 
              That's why we offer a wide selection of shoes for all occasions, 
              from casual to dressy, all at affordable prices.</p>
@@ -30,7 +30,7 @@
             <div class="grid-item">
                 <img class="svg-image2" src="./../assets/homepage/icons8-price-tag-64.png">
                 <h2>Affordable Price</h2>
-                <p class="about_us1">Banana Shoe provides our customers with 
+                <p class="about_us1"><%=getServletContext().getInitParameter("companyName")%> provides our customers with 
                     high-quality shoes at affordable prices.</p>
             </div>
             <div class="grid-item">
@@ -71,7 +71,7 @@
             <div class="grid-profile1">
                 <img class="svg-image6" src="./../assets/homepage/fetchimage.webp">
                 <h2>Wet Wet</h2>
-                <p class="about_us1">Founder Of Banana Shoe</p>
+                <p class="about_us1">Founder Of <%=getServletContext().getInitParameter("companyName")%></p>
                 <p class="about_us1">Age: 2</p>
                 <p class="about_us1">Height: 30cm</p>
                 <p class="about_us1">Status: Unknown</p> 
@@ -80,7 +80,7 @@
             <div class="grid-profile2">
                 <img class="svg-image6" src="./../assets/homepage/MV5BNjhlYTE2YjUtYzgxMS00OWY1LTk3YzItY2RjMmQ2MjM0MjMzXkEyXkFqcGdeQXVyMzkyOTg1MzE@._V1_QL75_UY281_CR94,0,190,281_.jpg"">
                 <h2>Timothyyyyyy</h2>
-                <p class="about_us1">COO Of Banana Shoe</p>
+                <p class="about_us1">COO Of <%=getServletContext().getInitParameter("companyName")%></p>
                 <p class="about_us1">Age: 89</p>
                 <p class="about_us1">Height: 50cm</p>
                 <p class="about_us1">Status: Married</p> 
@@ -89,7 +89,7 @@
             <div class="grid-profile3">
                  <img class="svg-image6" src="./../assets/homepage/images.jfif">
                  <h2>Meng Meng</h2>
-                 <p class="about_us1">CAO Of Banana Shoe</p>
+                 <p class="about_us1">CAO Of <%=getServletContext().getInitParameter("companyName")%></p>
                  <p class="about_us1">Age: 55</p>
                  <p class="about_us1">Height: 90cm</p>
                  <p class="about_us1">Status: Married</p> 
@@ -98,7 +98,7 @@
              <div class="grid-profile3">
                  <img class="svg-image6" src="./../assets/homepage/download.jfif">
                  <h2>TonTon</h2>
-                 <p class="about_us1">CFO Of Banana Shoe</p>
+                 <p class="about_us1">CFO Of <%=getServletContext().getInitParameter("companyName")%></p>
                  <p class="about_us1">Age: 25</p>
                  <p class="about_us1">Height: 20cm</p>
                  <p class="about_us1">Status: Married</p> 
@@ -107,7 +107,7 @@
              <div class="grid-profile3">
                  <img class="svg-image6" src="./../assets/homepage/andrew.jfif">
                  <h2>Adriel The Mermaid</h2>
-                 <p class="about_us1">CMO Of Banana Shoe</p>
+                 <p class="about_us1">CMO Of <%=getServletContext().getInitParameter("companyName")%></p>
                  <p class="about_us1">Age: 95</p>
                  <p class="about_us1">Height: 2000cm</p>
                  <p class="about_us1">Status: Married</p> 
@@ -116,7 +116,7 @@
               <div class="grid-profile3">
                  <img class="svg-image6" src="./../assets/homepage/FpmuUeOakAI9zZW.jfif">
                  <h2>Ivanvan~</h2>
-                 <p class="about_us1">CTO Of Banana Shoe</p>
+                 <p class="about_us1">CTO Of <%=getServletContext().getInitParameter("companyName")%></p>
                  <p class="about_us1">Age: 55</p>
                  <p class="about_us1">Height: 5cm</p>
                  <p class="about_us1">Status: Married</p> 

@@ -19,7 +19,7 @@
         //Redirect to home page if it's not admin
         int validatePermission = session.getAttribute("userPermission") != null ? (Integer)session.getAttribute("userPermission") : 999 ;
         if(validatePermission == 999 || validatePermission != 0){
-            response.sendRedirect(ROOT_PATH+"index.html");
+            response.sendRedirect(ROOT_PATH+"index.jsp");
         }
         
         String filter = request.getAttribute("filter") == null ? "MOST" : "LEAST";
@@ -59,21 +59,13 @@
         <button class="print btn" onclick="printContent()" style="padding:0.5rem;"><i class="fa-solid fa-print"></i></button>
         <div class="printable-content">
         <table class="weekly report table horizontal-table">
-            <% 
-            List<ProductSales> productList = (List<ProductSales>) request.getAttribute("productList");
-            if (productList != null) {
-                for(int i=0; i < productList.size();i++) {
-                ProductSales ps = productList.get(i);
-            %>
                     
          
             <tr>
                 <td>
                     <table>
                             <tr>
-                                <td colspan="5" style="background:var(--color-shadow);"><strong>Product <%=i+1%></strong></td>
-                            </tr>
-                            <tr>
+                                <td style="padding-right: 0.5rem;"><strong>#</td>
                                 <td><strong>Product ID</strong></td>
                                 <td><strong>Product Name</strong></td>
                                 <td><strong>Sales Count</strong></td>
@@ -81,17 +73,24 @@
                                 <td><strong>Total Sales (RM)</strong></td>
                             </tr>
 
+            <% 
+            List<ProductSales> productList = (List<ProductSales>) request.getAttribute("productList");
+            if (productList != null) {
+                for(int i=0; i < productList.size();i++) {
+                ProductSales ps = productList.get(i);
+            %>
                             <tr>
+                                <td style="padding-right: 0.5rem;"><%=i+1%></td>
                                 <td><%=ps.getProductId().getProdId()%></td>
                                 <td><%=ps.getProductId().getProdName()%></td>
                                 <td><%=ps.getSalesCount()%></td>
                                 <td><%=String.format("%.2f",ps.getProductId().getProdPrice())%></td>
                                 <td><%=String.format("%.2f",ps.getProductId().getProdPrice()*ps.getSalesCount())%></td>
                             </tr>
+            <% } } %>
                     </table>
                 </td>
             </tr>
-            <% } } %>
         </table>
         <p style="text-align:center;"><%=getServletContext().getInitParameter("copyright")%></p>
     </div>

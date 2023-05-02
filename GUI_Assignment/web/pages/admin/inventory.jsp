@@ -18,7 +18,7 @@
     int validatePermission = session.getAttribute("userPermission") != null ? (Integer)session.getAttribute("userPermission") : 999 ;
     if(validatePermission == 999 || validatePermission != 0 && validatePermission != 1){
         System.out.println("helllllllo");
-        response.sendRedirect(ROOT_PATH+"index.html");
+        response.sendRedirect(ROOT_PATH+"index.jsp");
     }
     
     //Get inventorys information from controller (LoadInventory.jsp)

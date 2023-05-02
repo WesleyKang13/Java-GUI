@@ -37,7 +37,7 @@
                     <% if(request.getAttribute("errorMsg")!=null){ %>
                             <h3 style="text-align:center;">Error: <%=request.getAttribute("errorMsg")%></h3>
                     <% } %>
-                    <h3 style="text-align:center;">[<a href="<%= ROOT_PATH + "index.html"%>">Back to Home Page</a>]</h3>
+                    <h3 style="text-align:center;">[<a href="<%= ROOT_PATH + "index.jsp"%>">Back to Home Page</a>]</h3>
                 </td>
             </tr>
     </table>

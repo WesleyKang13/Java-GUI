@@ -6,6 +6,7 @@ package controller.admin.inquiry;
 
 import entity.Inquiry;
 import java.io.IOException;
+import java.util.Date;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -88,6 +89,7 @@ public class InquiryCustomer extends HttpServlet {
             inquiry.setInqEmail(email);
             inquiry.setInqSubject(subject);
             inquiry.setInqDescription(description);
+            inquiry.setInqCreatedDate(new Date());
 
             em.persist(inquiry);
             

@@ -29,7 +29,7 @@
     //Redirect to home page if it's not customer
     int validatePermission = session.getAttribute("userPermission") != null ? (Integer)session.getAttribute("userPermission") : 999 ;
     if(validatePermission == 999 || validatePermission != 2){
-        response.sendRedirect(ROOT_PATH+"index.html");
+        response.sendRedirect(ROOT_PATH+"index.jsp");
     }
     
     //Get payments information from controller (LoadPayment.jsp)

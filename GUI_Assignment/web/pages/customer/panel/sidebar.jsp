@@ -123,7 +123,7 @@
                     </li>
 
                     <li class="nav-link home">
-                        <a href="<%=ROOT_PATH+"index.html"%>">
+                        <a href="<%=ROOT_PATH+"index.jsp"%>">
                             <i class="fa-solid fa-house icon"></i>
                             <span class="text nav-text">Home Page</span>
                         </a>

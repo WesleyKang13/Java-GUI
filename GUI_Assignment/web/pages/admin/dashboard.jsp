@@ -14,7 +14,7 @@
     //Redirect to home page if it's not admin
     int validatePermission = session.getAttribute("userPermission") != null ? (Integer)session.getAttribute("userPermission") : 999 ;
     if(validatePermission == 999 || validatePermission != 0 && validatePermission != 1){
-        response.sendRedirect(ROOT_PATH+"index.html");
+        response.sendRedirect(ROOT_PATH+"index.jsp");
     }
 %>
 <main>
@@ -23,7 +23,7 @@
         <h2>Please Select Action Below:</h2>
     </div>
     <div class="card-container">
-        <a href="<%=ROOT_PATH+"index.html"%>" class="card">
+        <a href="<%=ROOT_PATH+"index.jsp"%>" class="card">
             <i class="fa-solid fa-house icon"></i>
             <h2 class="text nav-text">Home Page</h2>
         </a>

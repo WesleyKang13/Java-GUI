@@ -14,7 +14,7 @@
             <div class="text-container">
               <h1>Have Questions?</h1>
               <h2>Shoot us an email!</h2>
-              <p>At Banana Shoe, we offer affordable and stylish footwear that matches your unique style. Our high-quality shoes come with excellent customer service to help you find the perfect pair for any occasion
+              <p>At <%=getServletContext().getInitParameter("companyName")%>, we offer affordable and stylish footwear that matches your unique style. Our high-quality shoes come with excellent customer service to help you find the perfect pair for any occasion
               <br />
               <br />
               Have a question for us or feedback? Contact us today to learn more about our products and services!</p>
@@ -26,10 +26,10 @@
       <br/>
       <div class="address">
          <h4>Address:</h4>
-         <p><i class="fa-solid fa-location-dot"></i> Banana Town Lot Banana 123 i love timothy</p>
+         <p><i class="fa-solid fa-location-dot"></i> Banana Town Lot Banana 123</p>
          <br/>
          <h4>Email:</h4>
-         <p><i class="fa-solid fa-envelope"></i> TimothyLover@gay.com</p>
+         <p><i class="fa-solid fa-envelope"></i> <%=getServletContext().getInitParameter("companyEmail")%></p>
          <br/>
          <h4>Call Us:</h4>
          <p><i class="fa-solid fa-phone"></i>  21343121491</p>

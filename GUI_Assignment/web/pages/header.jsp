@@ -10,7 +10,7 @@
         <link href=<%= ROOT_PATH + "vendor/fontawesome-free-6.3.0-web/css/solid.css"%> rel="stylesheet" type="text/css">
         
         <link rel="icon" type="image/x-icon" href="<%=ROOT_PATH + "banana.png"%>">
-        <title>Banana's Shoe Store</title>
+        <title><%=getServletContext().getInitParameter("companyName")%></title>
     </head>
     
     <header>
@@ -18,13 +18,13 @@
         <div style="background-color: #B8B8B8; padding-top: 15px;">
           <div class="container">
             <ul class="main-ul">
-              <li class="logo"><a href="<%=ROOT_PATH + "index.html"%>"><img src=<%=ROOT_PATH + "banana.png"%> class="icons"></a></li>
-              <li class="li-1"><a href=<%=ROOT_PATH + "home.jsp"%>>Home</a></li>
-              <li class="li-2"><a href="#">New &amp; Featured</a></li>
-              <li class="li-3"><a href="#">Brand</a></li>
-              <li class="li-3"><a href="#">Men</a></li>
-              <li class="li-3"><a href="#">Women</a></li>
-              <li class="li-3"><a href="#">Kids</a></li>
+              <li class="logo" style="margin-right: 70px; top: 50%;  left: 50%; transform: translate(-50%, -20%);">
+              <a href="<%=ROOT_PATH + "index.jsp"%>"><img src=<%=ROOT_PATH + "banana.png"%> class="icons"></a></li>
+              <li class="li-1"><a href=<%=ROOT_PATH + "index.jsp"%>>Home</a></li>
+              <li class="li-2"><a href=<%=ROOT_PATH + "pages/product/FindProduct"%>>Product</a></li>
+              <li class="li-3"><a href=<%=ROOT_PATH + "pages/product/FindProduct?productType=MEN"%>>Men</a></li>
+              <li class="li-3"><a href=<%=ROOT_PATH + "pages/product/FindProduct?productType=WOMEN"%>>Women</a></li>
+              <li class="li-3"><a href=<%=ROOT_PATH + "pages/product/FindProduct?productType=KIDS"%>>Kids</a></li>
               <li class="li-3"><a href=<%=ROOT_PATH + "pages/contactUs.jsp"%>>Help</a></li>
               <li class="li-3"><a href="<%=ROOT_PATH + "pages/aboutUs.jsp"%>">About Us</a></li>
             </ul>

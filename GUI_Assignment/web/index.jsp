@@ -10,7 +10,7 @@
         <link href=<%= ROOT_PATH + "vendor/fontawesome-free-6.3.0-web/css/fontawesome.css"%> rel="stylesheet" type="text/css">
         <link href=<%= ROOT_PATH + "vendor/fontawesome-free-6.3.0-web/css/brands.css"%> rel="stylesheet" type="text/css">
         <link href=<%= ROOT_PATH + "vendor/fontawesome-free-6.3.0-web/css/solid.css"%> rel="stylesheet" type="text/css">
-        <title>Banana's Shoe Store</title>
+        
  </head>
  
  
@@ -31,8 +31,8 @@
      <div class="image-container">
         <div style="position: relative;">
         <div class="body-container">
-        <img src="./assets/homepage/istockphoto-1324624694-170667a.jpg" style="width: 1170px; height:700px;">
-        <a href="#" class="button-link"><button style="border-radius: 50px;">Shop</button></a>
+        <img src="./assets/homepage/running-01.jpg" style="width: 1170px; height:700px;">
+        <a href=<%=ROOT_PATH + "pages/product/FindProduct"%> class="button-link"><button style="border-radius: 50px;">Shop</button></a>
         </div>
         </div>
     </div>
@@ -42,27 +42,27 @@
       <div class="mySlides fade">
         <div class="numbertext">1 / 5</div>
         <img src="./assets/homepage/5d2df70f21a86126ee75f087.webp" style="width:1170px; height: 510px;">
-        <a href="#" class="button-link2"><button class="button-promotion" style="border-radius: 50px; size: 1000px; "><strong>BUY NOW</strong></button></a>
+<!--        <a href="#" class="button-link2"><button class="button-promotion" style="border-radius: 50px; size: 1000px; "><strong>BUY NOW</strong></button></a>-->
       </div>
       <div class="mySlides fade">
         <div class="numbertext">2 / 5</div>
         <img src="./assets/homepage/landscape-1490382030-nike-2by1.jpg" style="width:1170px; height: 510px;">
-        <a href="#" class="button-link2"><button class="button-promotion" style="border-radius: 50px;"><strong>BUY NOW</strong></button></a>
+<!--        <a href="#" class="button-link2"><button class="button-promotion" style="border-radius: 50px;"><strong>BUY NOW</strong></button></a>-->
       </div> 
       <div class="mySlides fade">
         <div class="numbertext">3 / 5</div>
         <img src="./assets/homepage/landscape-1504099087-lead-ajxxxii-rossa-scissors-tw-original.jpg" style="width:1170px; height: 510px;">
-        <a href="#" class="button-link2"><button class="button-promotion" style="border-radius: 50px;"><strong>BUY NOW</strong></button></a>
+<!--        <a href="#" class="button-link2"><button class="button-promotion" style="border-radius: 50px;"><strong>BUY NOW</strong></button></a>-->
       </div>
       <div class="mySlides fade">
         <div class="numbertext">4 / 5</div>
         <img src="./assets/homepage/E-4aSHXVcBEnsWN.jpg" style="width:1170px; height: 510px;">
-        <a href="#" class="button-link2"><button class="button-promotion" style="border-radius: 50px;"><strong>BUY NOW</strong></button></a>
+<!--        <a href="#" class="button-link2"><button class="button-promotion" style="border-radius: 50px;"><strong>BUY NOW</strong></button></a>-->
       </div>
       <div class="mySlides fade">
         <div class="numbertext">5 / 5</div>
         <img src="./assets/homepage/5b71921c959f341c008b4efe.webp" style="width:1170px; height: 510px;">
-        <a href="#" class="button-link2"><button class="button-promotion" style="border-radius: 50px;"><strong>BUY NOW</strong></button></a>
+<!--        <a href="#" class="button-link2"><button class="button-promotion" style="border-radius: 50px;"><strong>BUY NOW</strong></button></a>-->
       </div>
       <a class="prev" onclick="plusSlides(-1)"><i class="fa-solid fa-chevron-left"></i></a>
       <a class="next" onclick="plusSlides(1)"><i class="fa-solid fa-chevron-right"></i></a>
@@ -81,15 +81,15 @@
     <div class="image-container">
         <div class="body-container">
         <img src="./assets/homepage/79b50ced-3832-4aa4-bc3a-a963c5950e1b.webp" style="width: 380px; height:450px;">
-        <a href="#" class="button-link3"><button class="arrival-button" style="border-radius: 50px;" class="arrial-button">Men's</button></a>
+        <a href=<%=ROOT_PATH + "pages/product/FindProduct?productType=MEN"%> class="button-link3"><button class="arrival-button" style="border-radius: 50px;" class="arrial-button">Men's</button></a>
         </div>
         <div class="body-container">
         <img src="./assets/homepage/69bb9b94-5771-4b28-b436-4053764876c6.webp"  style="width: 380px; height:450px;" alt="image2">
-        <a href="#" class="button-link4"><button class="arrival-button" style="border-radius: 50px; padding-right:80px;">Women's</button></a>
+        <a href=<%=ROOT_PATH + "pages/product/FindProduct?productType=WOMEN"%> class="button-link4"><button class="arrival-button" style="border-radius: 50px; padding-right:80px;">Women's</button></a>
         </div>
         <div class="body-container">
         <img src="./assets/homepage/cee09af6-6ecc-4eb0-8148-eac6f9153931.webp"  style="width: 380px; height:450px;" alt="image3">
-        <a href="#" class="button-link5"><button class="arrival-button" style="border-radius: 50px;">Kids's</button></a>
+        <a href=<%=ROOT_PATH + "pages/product/FindProduct?productType=KIDS"%> class="button-link5"><button class="arrival-button" style="border-radius: 50px;">Kids's</button></a>
         </div>
         </div>
     <!--End New Arrivals-->
@@ -99,19 +99,19 @@
         <div style="position: relative;">
         <div class="body-container">
         <img src="./assets/homepage/renew-run-4-road-running-shoes-lxfK8c.jfif" style="width: 380px; height:400px;" >
-        <a href="#" class="button-link6"><button class="essential-button" style="border-radius: 50px;">Men's</button></a>
+        <a href=<%=ROOT_PATH + "pages/product/FindProduct?productType=MEN"%> class="button-link6"><button class="essential-button" style="border-radius: 50px;">Men's</button></a>
         </div>
         </div>
         <div style="position: relative;">
         <div class="body-container">
         <img src="./assets/homepage/d8e2dff5-ce00-4cda-849b-641e6157ef92.webp"  style="width: 380px; height:400px;" alt="image2">
-        <a href="#" class="button-link6"><button  class="essential-button"  style="border-radius: 50px; padding-right:80px;">Women's</button></a>
+        <a href=<%=ROOT_PATH + "pages/product/FindProduct?productType=WOMEN"%> class="button-link6"><button  class="essential-button"  style="border-radius: 50px; padding-right:80px;">Women's</button></a>
         </div>
         </div>
         <div style="position: relative;">    
         <div class="body-container">
         <img src="./assets/homepage/1990f818-45b2-49a8-92fb-595aa580bf55.webp"  style="width: 380px; height:400px;" alt="image2">
-        <a href="#" class="button-link6"><button  class="essential-button" style="border-radius: 50px;">Kids's</button></a>
+        <a href=<%=ROOT_PATH + "pages/product/FindProduct?productType=KIDS"%> class="button-link6"><button  class="essential-button" style="border-radius: 50px;">Kids's</button></a>
         </div>
         </div>
         </div>

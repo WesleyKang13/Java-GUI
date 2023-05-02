@@ -31,7 +31,7 @@ public class LogoutAccount extends HttpServlet {
         HttpSession session = request.getSession();
         session.invalidate();
         
-        response.sendRedirect("../index.html");
+        response.sendRedirect("../index.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
