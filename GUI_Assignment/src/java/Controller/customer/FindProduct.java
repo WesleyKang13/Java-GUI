@@ -76,6 +76,9 @@ public class FindProduct extends HttpServlet {
         }
 
             request.setAttribute("productList", productList);
+            if(request.getParameter("NoCheckout")!=null){
+                request.setAttribute("NoCheckout", request.getParameter("NoCheckout"));
+            }
 
             RequestDispatcher dispatcher = request.getRequestDispatcher("Products.jsp");
             dispatcher.forward(request, response);

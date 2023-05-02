@@ -2,7 +2,10 @@ package controller.customer;
 
 import entity.CustOrder;
 import entity.Customer;
+import entity.Inventory;
+import entity.OrderItem;
 import entity.Payment;
+import entity.Product;
 import java.io.IOException;
 import java.util.Date;
 import javax.annotation.Resource;
@@ -63,7 +66,7 @@ public class PaidOrder extends HttpServlet {
         
         String paymentMethod = request.getParameter("paymentMethod");
         String shippingAddress = request.getParameter("address1");
-        String totalPrice = request.getParameter("subTotalPrice"); //testing
+        String totalPrice = request.getParameter("subTotalPrice");
                 
             try{
                 Customer customer = em.find(Customer.class, customerId);
@@ -88,20 +91,39 @@ public class PaidOrder extends HttpServlet {
                 newOrder.setDate(new Date());
 
                 em.persist(newOrder);
-                utx.commit();
+                em.flush();
+                
+                String[] productValues = request.getParameterValues("product");
+                String[] productQuantityValues = request.getParameterValues("productQuantity");
+                if (productValues != null) {
+                    for (int i = 0; i < productValues.length; i++) {
+                        int p = Integer.parseInt(productValues[i]);
+                        int q = Integer.parseInt(productQuantityValues[i]);
+                        Product productOrdered = em.find(Product.class, p);
+                        
+                        //create new orderItemId and set orderId, prodId and quantity
+                        OrderItem newOrderItem = new OrderItem();
+                        newOrderItem.setOrderId(newOrder);
+                        newOrderItem.setProdId(productOrdered);
+                        newOrderItem.setOrderItemQuantity(q);
+                        
+                        em.persist(newOrderItem);
+                    }
+                }
                 
                 //Clear cart after make order
-                Query query = em.createQuery("DELETE FROM Cart c WHERE c.custId = :custId");
-                query.setParameter("custId", customer);
+                Query query = em.createQuery("DELETE FROM Cart c WHERE c.custId.custId = :custId");
+                query.setParameter("custId", customerId);
                 query.executeUpdate();
                 
+                utx.commit();
                 //Set necessary info for Payment Successful page
                 HttpSession session = request.getSession();
                 session.setAttribute("customer", customer);
                 session.setAttribute("order", newOrder);
                 session.setAttribute("payment", payment);
                 
-                //response.sendRedirect("pages/customer/PaymentSuccessful.jsp");
+                response.sendRedirect("../customer/PaymentSuccessful.jsp");
                 
             }catch(Exception ex){
                 response.sendRedirect("../../pages/error.jsp?errorMsg="+ex.getMessage());

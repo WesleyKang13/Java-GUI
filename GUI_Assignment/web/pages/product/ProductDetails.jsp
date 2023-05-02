@@ -123,8 +123,6 @@
                         <p><%= detail.getProdId().getProdDescription() %> </p>
                         
                         <br>
-                        
-                        
                             <button type="submit" 
                             style="position:absolute; 
                             top:93%;
@@ -137,7 +135,10 @@
                             cursor: pointer;
                             font-size:20px;"
                             >Add to cart</button>
+                        
+                            
                         </form>
+                        
                        <% } %>
                     </div>
 

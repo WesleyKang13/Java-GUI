@@ -102,8 +102,6 @@
                 <button type="button" <%=validateFilter("MEN", filter)%> value="MEN" onclick="filterProducts('MEN')">Men</button>
                 <button type="button" <%=validateFilter("WOMEN", filter)%> value="WOMEN" onclick="filterProducts('WOMEN')">Women</button>
                 <button type="button" <%=validateFilter("KIDS", filter)%> value="KIDS" onclick="filterProducts('KIDS')">Kids</button>
-                <button type="button" <%=validateFilter("COUPLE", filter)%> value="COUPLE" onclick="filterProducts('COUPLE')">Couple</button>
-                <button type="button" <%=validateFilter("FAMILY", filter)%> value="FAMILY" onclick="filterProducts('FAMILY')">Family</button>
             </div>
 
             <script>
@@ -225,8 +223,6 @@
                                 <option value="MEN" >MEN</option>
                                 <option value="WOMEN" >WOMEN</option>
                                 <option value="KIDS" >KIDS</option>
-                                <option value="COUPLE" >COUPLE</option>
-                                <option value="FAMILY" >FAMILY</option>
                             </select>
                         </td>
                     </tr>
@@ -288,8 +284,6 @@
                                 <option value="MEN" <%=validateType("MEN", editProduct.getProdType())%>>MEN</option>
                                 <option value="WOMEN" <%=validateType("WOMEN", editProduct.getProdType())%>>WOMEN</option>
                                 <option value="KIDS" <%=validateType("KIDS", editProduct.getProdType())%>>KIDS</option>
-                                <option value="COUPLE" <%=validateType("COUPLE", editProduct.getProdType())%>>COUPLE</option>
-                                <option value="FAMILY" <%=validateType("FAMILY", editProduct.getProdType())%>>FAMILY</option>
                             </select>
                         </td>
                     </tr>

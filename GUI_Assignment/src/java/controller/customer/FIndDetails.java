@@ -32,7 +32,7 @@ public class FindDetails extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        response.sendRedirect("../../index.html");
+        response.sendRedirect("../../index.jsp");
 
     }
 
@@ -55,10 +55,7 @@ public class FindDetails extends HttpServlet {
                   .setParameter("prodId", prodId)
                   .getResultList();
 
-                if (reviewList.isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "No reviews found for this product");
-
-                } else {
+               
 
                 double reviewScore = 0;
                 for (Review review : reviewList) {
@@ -78,9 +75,9 @@ public class FindDetails extends HttpServlet {
                 request.setAttribute("reviewScore", reviewScore);
                 RequestDispatcher dispatcher = request.getRequestDispatcher("ProductDetails.jsp");
                 dispatcher.forward(request, response);
-            }
+            
 
-            }catch(HeadlessException | IOException | NumberFormatException | ServletException ex){
+            }catch(Exception ex){
 
                 try (PrintWriter out = response.getWriter()) {
                     out.println("Error");

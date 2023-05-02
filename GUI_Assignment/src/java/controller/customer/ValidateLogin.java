@@ -69,7 +69,9 @@ public class ValidateLogin extends HttpServlet {
             String account = request.getParameter("account");  
             String password = request.getParameter("password"); 
             
+            
             try {
+                
                 // Query to search for a user based on search value
                 Query query = em.createQuery("SELECT u FROM User u WHERE u.userName = :input OR u.userEmail = :input");
                 query.setParameter("input", account);
@@ -89,8 +91,9 @@ public class ValidateLogin extends HttpServlet {
                         Customer customer = (Customer) custQuery.getSingleResult();
                         session.setAttribute("customerId", customer.getCustId());
                         session.setAttribute("customerFullName", customer.getCustFullName());
+                        session.setAttribute("customerAddress", customer.getCustShippingAddress());
                         session.setAttribute("userPermission", 2);
-                        response.sendRedirect("../home.jsp?successLogin=true");
+                        response.sendRedirect("../index.jsp?successLogin=true");
                     } catch (NoResultException ex) {
                         // User is not a customer, check if user is an admin
                         Query adminQuery = em.createQuery("SELECT a FROM Admin a WHERE a.userId.userId = :userId");

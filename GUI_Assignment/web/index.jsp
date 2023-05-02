@@ -20,7 +20,7 @@
 %>
     <script>
         window.onload = function() {
-            alert("Login Successful ! Welcome, <%=session.getAttribute("userName")%> !");
+            alert("Login Successful! Welcome, <%=session.getAttribute("userName")%>!");
         };
     </script>
 <% } %>

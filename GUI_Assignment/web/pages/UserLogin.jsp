@@ -13,7 +13,17 @@
   <link href=<%= ROOT_PATH + "vendor/fontawesome-free-6.3.0-web/css/solid.css"%> rel="stylesheet" type="text/css">
 
 
+<%
+    if(request.getSession().getAttribute("customerId") != null){
+        String message = "You are logged in.";
+        request.setAttribute("message", message);
+        String redirectUrl = "../index.jsp";
+        String alertScript = "<script>alert('" + message + "');</script>";
+        response.getWriter().write(alertScript);
+        response.setHeader("Refresh", "0; URL=" + redirectUrl);
+    }
 
+%>
 <%
     boolean loginFail = request.getParameter("loginFail") != null ? true : false;
     if(loginFail){ 

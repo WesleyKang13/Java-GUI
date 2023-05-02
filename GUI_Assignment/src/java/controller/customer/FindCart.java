@@ -25,25 +25,34 @@ public class FindCart extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        
-        // Get the customer ID from the session
-        int customerId = (int) request.getSession().getAttribute("customerId");
-        
         try{
-            Customer customer = em.find(Customer.class, customerId);
+            if(request.getSession().getAttribute("customerId") == null){
+                String message = "You must be logged in first in order to perform the following action";
+                request.setAttribute("message", message);
+                String redirectUrl = "../../pages/UserLogin.jsp";
+                String alertScript = "<script>alert('" + message + "');</script>";
+                response.getWriter().write(alertScript);
+                response.setHeader("Refresh", "0; URL=" + redirectUrl);
+            }
+            else{
+                // Get the customer ID from the session
+                int customerId = (int) request.getSession().getAttribute("customerId");
             
-            request.setAttribute("custId", customer);
-            
-            // Query to search for a customer based on search value
-            Query query = em.createQuery(" SELECT c FROM Cart c WHERE c.custId = :custId");
-            query.setParameter("custId", customer);
-            List<Cart> cartItems = query.getResultList();
-            
-            request.setAttribute("cartItems", cartItems);
-            
-            RequestDispatcher dispatcher = request.getRequestDispatcher("cart.jsp");
-            dispatcher.forward(request, response);
-        }catch(IOException | ServletException ex){
+                Customer customer = em.find(Customer.class, customerId);
+
+                request.setAttribute("custId", customer);
+
+                // Query to search for a customer based on search value
+                Query query = em.createQuery(" SELECT c FROM Cart c WHERE c.custId = :custId");
+                query.setParameter("custId", customer);
+                List<Cart> cartItems = query.getResultList();
+
+                request.setAttribute("cartItems", cartItems);
+
+                RequestDispatcher dispatcher = request.getRequestDispatcher("cart.jsp");
+                dispatcher.forward(request, response);
+            }
+        }catch(Exception ex){
             try (PrintWriter out = response.getWriter()) {
                 out.println("Error");
                 out.println(ex.getMessage());

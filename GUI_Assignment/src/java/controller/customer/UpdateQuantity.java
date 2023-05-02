@@ -1,29 +1,29 @@
 package controller.customer;
 
 import entity.Cart;
-import entity.Customer;
-import entity.Inventory;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.UserTransaction;
-import java.io.PrintWriter;
 
-@WebServlet(name = "UpdateCart", urlPatterns = {"/pages/product/UpdateCart"})
-public class UpdateCart extends HttpServlet {
+@WebServlet(name = "UpdateQuantity", urlPatterns = {"/pages/product/UpdateQuantity"})
+public class UpdateQuantity extends HttpServlet {
     
     @PersistenceContext EntityManager em;
+    @Resource UserTransaction utx;
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            response.sendRedirect("FindProduct");
+            response.sendRedirect("FindCart");
         }
     
 
@@ -51,55 +51,44 @@ public class UpdateCart extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     
-    @Resource UserTransaction utx;
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        // Check if a customer is logged in
-        if(request.getSession().getAttribute("customerId") == null) {
-            // If not, redirect to the login page
-            String message = "You must be logged in first in order to perform the following action";
-            request.setAttribute("message", message);
-            String redirectUrl = "../../pages/UserLogin.jsp";
-            String alertScript = "<script>alert('" + message + "');</script>";
-            response.getWriter().write(alertScript);
-            response.setHeader("Refresh", "0; URL=" + redirectUrl);
-        } else {
-            // Get the customer ID from the session
-            int customerId = (int) request.getSession().getAttribute("customerId");
-            int productId = Integer.parseInt(request.getParameter("productId"));
-            String color = request.getParameter("color");
-            float size = Float.parseFloat(request.getParameter("size"));
-            try{
-                Customer customer = em.find(Customer.class, customerId);
-                
-                Inventory inventory = (Inventory) em.createQuery("SELECT i FROM Inventory i WHERE i.prodId.prodId = :productId AND i.invColor = :color AND i.invShoeSize = :size")
-                             .setParameter("productId", productId)
-                             .setParameter("color", color)
-                             .setParameter("size", size)
-                             .getSingleResult();
-                
+        String[] quantities = request.getParameterValues("quantity");
+        String[] cartIds = request.getParameterValues("cartId");
+        
+            try {
                 utx.begin();
+                
+                for (int i=0;i<cartIds.length;i++) {
+                    //String cartId : cartIds
+                    int cartIdInt = Integer.parseInt(cartIds[i]);
+                    int quantityInt = Integer.parseInt(quantities[i]);
+                
+                    Cart cart = em.find(Cart.class, cartIdInt);
 
-                Cart cart = new Cart();
-                cart.setCustId(customer);
-                cart.setInvId(inventory);
-                cart.setCartQuantity(1); 
-                em.persist(cart);
-
+                    cart.setCartQuantity(quantityInt);
+                    em.merge(cart);
+                    
+                    if(quantityInt < 1){
+                        em.createQuery("Delete FROM Cart c WHERE c.cartId =:cartId")
+                                .setParameter("cartId", cartIdInt).executeUpdate();
+                    }
+                    
+                }
+                
                 utx.commit();
-
-                response.sendRedirect("FindProduct");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("../customer/FindCart");
+                dispatcher.forward(request, response);
                 
             }catch(Exception ex){
-                    try (PrintWriter out = response.getWriter()) {
+
+                try (PrintWriter out = response.getWriter()) {
                     out.println("Error");
                     out.println(ex.getMessage());
                 }
-            }
-        }
-
+            } 
     }
 
     /**

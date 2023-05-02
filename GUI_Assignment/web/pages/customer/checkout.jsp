@@ -17,6 +17,7 @@
         <link href="../../css/customer/checkout.css" rel="stylesheet">
     </head>
     <body>
+        
         <h1>Checkout bag</h1>
         
         <form action="<%= ROOT_PATH + "pages/product/PaidOrder"%>" method="POST" onsubmit="return confirm('Sure to Submit?')">
@@ -27,6 +28,7 @@
             List<Cart> checkoutItems = (List<Cart>) request.getAttribute("checkoutItems");
             if(checkoutItems != null){
               for (Cart cartItem : checkoutItems) {
+              
             %>
             <td class="items">
               <div class="image">
@@ -34,6 +36,9 @@
                   <img src="../../assets/product/dummy1.jpg" alt="">
                 </picture>
               </div>
+                
+                <input type="hidden" name="product" value="<%=cartItem.getProdId().getProdId().getProdId()%>"/>
+                <input type="hidden" name="productQuantity" value="<%=cartItem.getCartQuantity()%>"/>
                 <p class="items-details">
                   Name: <%= cartItem.getProdId().getProdId().getProdName()%><br>
                   Price (RM): <%= String.format("%.2f",cartItem.getTotalAmount())%><br>
@@ -48,7 +53,7 @@
                 <p class="summary-details">
                     Total item(s): <strong>${totalQuantity}</strong><br>
                     Estimated delivery &amp; handling(Rm): <strong>${deliveryFee}</strong><br>
-                    Subtotal (RM): <strong>${subtotalPrice}</strong><br>
+                    Subtotal (RM): <strong>${String.format("%.2f",subtotalPrice)}</strong><br>
                     <input type="hidden" name="subTotalPrice" value="${subtotalPrice}">
                 </p>
 
@@ -57,7 +62,7 @@
                     <p>
                         <label for="address1">Delivery address:</label>
                         <br>
-                        <input type="text" name="address1" id="address1">
+                        <input type="text" name="address1" id="address1" value="<%=session.getAttribute("customerAddress")%>">
                         <br>
                     </p>
                 </div>

@@ -11,6 +11,10 @@
 <link href=<%= ROOT_PATH + "vendor/fontawesome-free-6.3.0-web/css/solid.css"%> rel="stylesheet" type="text/css">
 
     <body>
+        
+        <% if(request.getAttribute("NoCheckout")!=null){ %>
+            <script>alert('No items in cart.');</script>
+        <% } %>
         <main>
             <header>
                 <div class="header-li">

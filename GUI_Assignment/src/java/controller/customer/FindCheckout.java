@@ -22,47 +22,62 @@ public class FindCheckout extends HttpServlet {
     @PersistenceContext EntityManager em;
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        // Get the customer ID from the session
-        int customerId = (int) request.getSession().getAttribute("customerId");
 
         try {
-            Customer customer = em.find(Customer.class, customerId);
-            request.setAttribute("customer", customer);
-
-            // Query to search for a customer's cart items based on the customer ID
-            Query query = em.createQuery("SELECT c FROM Cart c WHERE c.custId = :custId");
-            query.setParameter("custId", customer);
-
-            List<Cart> checkoutItems = query.getResultList();
-
-            request.setAttribute("checkoutItems", checkoutItems);
-
-            // Calculate the total quantity and subtotal price
-            int totalQuantity = 0;
-            double subtotalPrice = 0.0;
-
-            for (Cart item : checkoutItems) {
-                totalQuantity += item.getCartQuantity();
+            
+            if(request.getSession().getAttribute("customerId") == null){
+                String message = "You must be logged in first in order to perform the following action";
+                request.setAttribute("message", message);
+                String redirectUrl = "../../pages/UserLogin.jsp";
+                String alertScript = "<script>alert('" + message + "');</script>";
+                response.getWriter().write(alertScript);
+                response.setHeader("Refresh", "0; URL=" + redirectUrl);
+            }else{
                 
-                subtotalPrice += item.getProdId().getProdId().getProdPrice() * 
-                        item.getCartQuantity();
+                int customerId = (int) request.getSession().getAttribute("customerId");
+                Customer customer = em.find(Customer.class, customerId);
+                request.setAttribute("customer", customer);
+
+                // Query to search for a customer's cart items based on the customer ID
+                Query query = em.createQuery("SELECT c FROM Cart c WHERE c.custId = :custId");
+                query.setParameter("custId", customer);
+
+                List<Cart> checkoutItems = query.getResultList();
+
+                if(checkoutItems.isEmpty()){
+                    response.sendRedirect("../../pages/product/FindProduct?NoCheckout=true");
+                }
+
+                request.setAttribute("checkoutItems", checkoutItems);
+
+                // Calculate the total quantity and subtotal price
+                int totalQuantity = 0;
+                double subtotalPrice = 0.0;
+
+                for (Cart item : checkoutItems) {
+                    totalQuantity += item.getCartQuantity();
+
+                    subtotalPrice += item.getProdId().getProdId().getProdPrice() * 
+                            item.getCartQuantity();
+                }
+
+                // Determine delivery fee
+                double deliveryFee = 0.0;
+                if (subtotalPrice < 200) {
+                    deliveryFee = 25.0;
+                    subtotalPrice += deliveryFee;
+                }
+
+                // Set the total quantity, subtotal price, and delivery fee in the request attributes
+                request.setAttribute("totalQuantity", totalQuantity);
+                request.setAttribute("subtotalPrice", subtotalPrice);
+                request.setAttribute("deliveryFee", deliveryFee);
+
+                if(!response.isCommitted()){
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("checkout.jsp");
+                    dispatcher.forward(request, response);
+                }
             }
-
-            // Determine delivery fee
-            double deliveryFee = 0.0;
-            if (subtotalPrice < 200) {
-                deliveryFee = 25.0;
-                subtotalPrice += deliveryFee;
-            }
-
-            // Set the total quantity, subtotal price, and delivery fee in the request attributes
-            request.setAttribute("totalQuantity", totalQuantity);
-            request.setAttribute("subtotalPrice", subtotalPrice);
-            request.setAttribute("deliveryFee", deliveryFee);
-
-            RequestDispatcher dispatcher = request.getRequestDispatcher("checkout.jsp");
-            dispatcher.forward(request, response);
         } catch (IOException | ServletException ex) {
             try (PrintWriter out = response.getWriter()) {
                 out.println("Error");

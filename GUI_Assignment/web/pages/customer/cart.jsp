@@ -17,7 +17,8 @@
     <body>
         <h1 style="margin-left:20px;">Shopping cart</h1>
         
-        <table class="cart-table">
+        <form action="<%=ROOT_PATH + "pages/product/UpdateQuantity"%>" method="post">
+        <table class="cart-table"
             <tr class="table-headers">
               <th>No</th>
               <th>Product Name</th>
@@ -36,25 +37,27 @@
               for (Cart cartItem : cartItems) {
                 invId = cartItem.getProdId().getInvId(); // set invId
             %>
+            
                 <tr>
                   <td><%= count++%></td>
                   <th><%= cartItem.getProdId().getProdId().getProdName() %></th>
                   <td>
                     <div class="quantity-container">
-                      <input type="number" value="<%= cartItem.getCartQuantity() %>" min="1" max="100" step="1" name="quantity" class="quantity-input">
+                      <input type="number" value="<%= cartItem.getCartQuantity() %>" max="100" step="1" name="quantity" class="quantity-input">
                       
                     </div>
                   </td>
                   <td><%= cartItem.getProdId().getProdId().getProdPrice() %></td>
-                  <td><%= cartItem.getTotalAmount() %></td>
+                  <td><%= String.format("%.2f", cartItem.getTotalAmount()) %></td>
                   <td><%= cartItem.getProdId().getInvColor() %></td>
                   <td><%= cartItem.getProdId().getInvShoeSize() %></td>
                 </tr>
+                <input type="hidden" name="cartId" value="<%= cartItem.getCartId() %>" />
             <% } %>
                 <div class="confirm-container">
-                    <button id="confirm-button" class="confirm-button" style="display: none;">Confirm change</button>
+                    <button type="submit" id="confirm-button" class="confirm-button" style="display: none;">Confirm change</button>
                 </div>
-                <a href="<%= ROOT_PATH + "/pages/customer/FindCheckout?custId=" + cartItems.get(0).getCustId().getCustId() + "&invId=" + invId %>" 
+                <a href="<%= ROOT_PATH + "pages/customer/FindCheckout"%>" 
                 style="
                     color:white;
                     background-color:black;
@@ -72,7 +75,7 @@
               </tr>
             <% } %>
         </table>
-        
+        </form>
         <script>
             // get all quantity input elements
             const quantityInputs = document.querySelectorAll(".quantity-input");
