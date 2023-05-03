@@ -79,43 +79,7 @@ public class RegisterCustomer extends HttpServlet {
         String shippingAddress = request.getParameter("shippingAddress");
         String successMsg="";
         
-        //validation user inputs
-        //email regex(format)
-        String emailRegex = "^([a-zA-Z0-9_\\.-]+)@([a-zA-Z0-9_\\.-]+)\\.([a-zA-Z]{2,5})$";
-        boolean emailIsValid = accEmail.matches(emailRegex);
-        boolean validation = true;
-
-        PrintWriter out = response.getWriter();
-        if(!emailIsValid){
-            response.setContentType("text/html");
-            out.println("<html><body>");
-            out.println("<h2>Please enter a valid Email!</h2>");
-            out.println("</body></html>");
-            validation = false;
-        }
-
-
-        if(accPhone.length() != 10 ){
-            response.setContentType("text/html");
-            out.println("<html><body>");
-            out.println("<h2>Please enter a valid 10-digit phone number.</h2>");
-            out.println("</body></html>");
-            validation = false;
-        }
-
-
-        if(accPass.equals(confirmPass) == false){
-            response.setContentType("text/html");
-            out.println("<html><body>");
-            out.println("<h2>The first password field does not match with the second password field!</h2>");
-            out.println("</body></html>");
-            validation = false;
-        }
-        if(!validation){
-         out.println("<a href='CustomerRegister.jsp'>Back to Register</a>");
-        }
-        
-        if(validation){
+    
             try{
                 // Begin transaction
                 utx.begin();
@@ -153,7 +117,7 @@ public class RegisterCustomer extends HttpServlet {
 //            RequestDispatcher dispatcher = request.getRequestDispatcher("../UserLogin.jsp");
 //            dispatcher.forward(request, response);
             response.sendRedirect("../UserLogin.jsp?registerSuccessful="+successMsg);
-        }
+//        }
 
     }
 
