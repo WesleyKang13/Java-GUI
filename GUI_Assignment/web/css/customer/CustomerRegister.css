@@ -51,7 +51,7 @@ span:nth-child(2) {
     outline:none;
 }
  #togglePassword {
-  margin-left: -35px;
+  margin-left: -25px;
   cursor: pointer;
 }
 #password{
@@ -116,11 +116,7 @@ span:nth-child(2) {
     font-size:30px;
     font-weight:bold;
   }
-  input{
   
-    margin:10px;
-  }
- 
   input[type=submit],input[type=reset]{
     color:black;
     cursor:pointer;

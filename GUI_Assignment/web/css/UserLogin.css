@@ -47,32 +47,6 @@ label{
   font-size:1vw;
 }
 
-.socialmedia{
-  position:relative;
-  top:100px;
-  border:1px solid black;
-  padding:5px;
-  width:40%;
-  font-size:1.3em;
-  font-weight:bold;
-  text-decoration:none;
-  color:black;
-}
-#facebook{
- position:relative; 
-  top:70px;
-}
-#facebook:hover{
-  color:#3B5998;
-  border:2px solid black;
-}
-#google:hover{
-  color:#dd4b39;
-  border:2px solid black;
-}
-#key{
-  margin-right: -3px;
-}
 #togglePassword {
   margin-left: -24px;
   cursor: pointer;
@@ -99,7 +73,10 @@ label{
   text-decoration:none;
 }
 
-
+#password{
+    margin-right:22px;
+    
+}
 
 .grid-container {
   display: grid;

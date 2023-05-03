@@ -9,7 +9,7 @@
 <link href=<%= ROOT_PATH + "vendor/fontawesome-free-6.3.0-web/css/solid.css"%> rel="stylesheet" type="text/css">
 
 <title>Customer Registration</title>
-    
+
 <body>
     <div class="grid-container">
         <div id="user_register" class="grid-item">
@@ -24,7 +24,7 @@
             <p id="registerwel">Welcome to Banana</p>
         <form action="RegisterCustomer" method="post">
             <table cellspacing="0" cellpadding="10" style="margin: 0 auto;">
-                
+                   
                 <tr>
                     <td>
                     <i class="fa-solid fa-user"></i>
@@ -64,7 +64,7 @@
                     </td> 
                     <td>
                     <input type="password"  name="accPass" id="password" placeholder="******" maxlength="300" required/>
-                    <i class="bi bi-eye-slash" id="togglePassword"></i>   
+                    <i class="fa-regular fa-eye" id="togglePassword"></i>   
                     </td>
                 </tr>
                 <tr>
@@ -140,7 +140,22 @@
             e.preventDefault();
         });
         
-        
+       function validateForm(event) {
+            event.preventDefault(); // prevent default form submission
+
+            const phoneNumberInput = document.getElementById('phone-number-input');
+            const phoneNumber = phoneNumberInput.value;
+            const phoneNumberRegex = /^\d{10}$/; // regex for 10-digit phone number
+            const phoneNumberIsValid = phoneNumberRegex.test(phoneNumber);
+
+            if (phoneNumberIsValid) {
+              // If phone number is valid, submit the form
+              event.target.submit();
+            } else {
+              // If phone number is invalid, display error message
+              alert('Please enter a valid 10-digit phone number.');
+            } 
+        }
         
     </script>
     

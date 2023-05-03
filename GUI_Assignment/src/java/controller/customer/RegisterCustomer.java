@@ -75,8 +75,45 @@ public class RegisterCustomer extends HttpServlet {
         String accIc = request.getParameter("accIc");
         String accPhone = request.getParameter("accPhone");
         String accPass = request.getParameter("accPass");
+        String confirmPass = request.getParameter("confirmPass");
         String shippingAddress = request.getParameter("shippingAddress");
         String successMsg="";
+        
+        //validation user inputs
+        //email regex(format)
+        String emailRegex = "^([a-zA-Z0-9_\\.-]+)@([a-zA-Z0-9_\\.-]+)\\.([a-zA-Z]{2,5})$";
+        boolean emailIsValid = accEmail.matches(emailRegex);
+        
+
+        PrintWriter out = response.getWriter();
+        
+            if(!emailIsValid){
+                response.setContentType("text/html");
+                out.println("<html><body>");
+                out.println("<h2>Please enter a valid Email!</h2>");
+                out.println("</body></html>");
+                
+            }
+          
+            
+            if(accPhone.length() != 10 ){
+                response.setContentType("text/html");
+                out.println("<html><body>");
+                out.println("<h2>Please enter a valid 10-digit phone number.</h2>");
+                out.println("</body></html>");
+              
+            }
+              
+              
+            if(!accPass.equals(confirmPass)){
+                response.setContentType("text/html");
+                out.println("<html><body>");
+                out.println("<h2>The first password field does not match with the second password field!</h2>");
+                out.println("</body></html>");
+           
+            }
+             out.println("<a href='CustomerRegister.jsp'>Back to Register</a>");
+                
         
         try{
             // Begin transaction
@@ -112,10 +149,10 @@ public class RegisterCustomer extends HttpServlet {
         }
         
         
-        //Set info and forward page
-        request.setAttribute("registerSuccessful", successMsg);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("../UserLogin.jsp");
-        
+            //Set info and forward page
+            request.setAttribute("registerSuccessful", successMsg);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("../UserLogin.jsp");
+
     }
 
     /**
