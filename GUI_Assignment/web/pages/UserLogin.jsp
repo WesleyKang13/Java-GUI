@@ -14,7 +14,7 @@
 
 
 <%
-    if(request.getSession().getAttribute("customerId") != null){
+    if(request.getSession().getAttribute("userPermission") != null){
         String message = "You are logged in.";
         request.setAttribute("message", message);
         String redirectUrl = "../index.jsp";

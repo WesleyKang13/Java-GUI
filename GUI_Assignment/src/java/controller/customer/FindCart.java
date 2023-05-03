@@ -26,10 +26,20 @@ public class FindCart extends HttpServlet {
             throws ServletException, IOException {
         
         try{
-            if(request.getSession().getAttribute("customerId") == null){
+            if(request.getSession().getAttribute("userPermission") == null){
+                
                 String message = "You must be logged in first in order to perform the following action";
                 request.setAttribute("message", message);
                 String redirectUrl = "../../pages/UserLogin.jsp";
+                String alertScript = "<script>alert('" + message + "');</script>";
+                response.getWriter().write(alertScript);
+                response.setHeader("Refresh", "0; URL=" + redirectUrl);
+            }
+            
+            if((int)request.getSession().getAttribute("userPermission")==0 ||(int)request.getSession().getAttribute("userPermission")==1){
+                String message = "Admin/Staff not allow purchase items, please register a customer account.";
+                request.setAttribute("message", message);
+                String redirectUrl = "../../index.jsp";
                 String alertScript = "<script>alert('" + message + "');</script>";
                 response.getWriter().write(alertScript);
                 response.setHeader("Refresh", "0; URL=" + redirectUrl);
