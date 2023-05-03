@@ -34,6 +34,16 @@
         };
     </script>
 <% } %>
+<%
+    String registerSuccessful = request.getParameter("registerSuccessful") != null ? (String) request.getParameter("registerSuccessful") : null;
+    if(registerSuccessful!=null){ 
+%>
+    <script>
+        window.onload = function() {
+            alert("<%=registerSuccessful%>");
+        };
+    </script>
+<% } %>
 
     <form action="ValidateLogin" method="post">
         

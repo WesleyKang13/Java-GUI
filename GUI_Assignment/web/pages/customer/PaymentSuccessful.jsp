@@ -78,9 +78,9 @@
                             </tr>
                         </table>
                                 <br>
-                                <a href="<%=ROOT_PATH+"pages/customer/panel/LoadOrder/orderID/"+order.getOrderId()%>" class="#">Product Order Details</a>
+                                <a href="<%=ROOT_PATH+"pages/customer/panel/LoadOrder/orderID/"+order.getOrderId()%>" class="#">Click Me to view Product Order Details</a>
                         <p><strong>*We advise you to keep this receipt for future reference.*</strong></p>
-                        <a href="" class="back" style="text-align: center; text-decoration:none;">
+                        <a href="<%=ROOT_PATH+"index.jsp"%>" class="back" style="text-align: center; text-decoration:none;">
                             Back to Home Page
                         </a>
                         

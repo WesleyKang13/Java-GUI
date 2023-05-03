@@ -64,7 +64,6 @@
                     </td> 
                     <td>
                     <input type="password"  name="accPass" id="password" placeholder="******" maxlength="300" required/>
-                    <i class="fa-regular fa-eye" id="togglePassword"></i>   
                     </td>
                 </tr>
                 <tr>
@@ -72,7 +71,7 @@
                     <i class="fa-solid fa-user-lock"></i>
                     </td> 
                     <td>
-                    <input type="password"  name="comfirmPass" id="password2" placeholder=" Comfirm Password:" maxlength="300" required/>
+                    <input type="password"  name="confirmPass" id="password2" placeholder=" Comfirm Password:" maxlength="300" required/>
                     
                     </td>
                 </tr>
@@ -118,46 +117,6 @@
              </div>
         </div>
     </div>
-
-    <script>
-        const togglePassword = document.querySelector("#togglePassword");
-        const password = document.querySelector("#password");
-        const password2 = document.querySelector("#password2");
-
-        togglePassword.addEventListener("click", function () {
-            // toggle the type attribute
-            const type = password.getAttribute("type") === "password" ? "text" : "password";
-            password.setAttribute("type", type);
-            password2.setAttribute("type", type);
-
-            // toggle the icon
-            this.classList.toggle("bi-eye");
-        });
-    
-        // prevent form submit
-        const form = document.querySelector("form");
-        form.addEventListener('submit', function (e) {
-            e.preventDefault();
-        });
-        
-       function validateForm(event) {
-            event.preventDefault(); // prevent default form submission
-
-            const phoneNumberInput = document.getElementById('phone-number-input');
-            const phoneNumber = phoneNumberInput.value;
-            const phoneNumberRegex = /^\d{10}$/; // regex for 10-digit phone number
-            const phoneNumberIsValid = phoneNumberRegex.test(phoneNumber);
-
-            if (phoneNumberIsValid) {
-              // If phone number is valid, submit the form
-              event.target.submit();
-            } else {
-              // If phone number is invalid, display error message
-              alert('Please enter a valid 10-digit phone number.');
-            } 
-        }
-        
-    </script>
     
 <!-- Include footer page -->
 <jsp:include page="<%= ROOT_PATH + "pages/footer.jsp"%>">

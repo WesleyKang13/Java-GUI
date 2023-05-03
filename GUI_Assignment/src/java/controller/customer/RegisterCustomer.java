@@ -83,75 +83,77 @@ public class RegisterCustomer extends HttpServlet {
         //email regex(format)
         String emailRegex = "^([a-zA-Z0-9_\\.-]+)@([a-zA-Z0-9_\\.-]+)\\.([a-zA-Z]{2,5})$";
         boolean emailIsValid = accEmail.matches(emailRegex);
-        
+        boolean validation = true;
 
         PrintWriter out = response.getWriter();
-        
-            if(!emailIsValid){
-                response.setContentType("text/html");
-                out.println("<html><body>");
-                out.println("<h2>Please enter a valid Email!</h2>");
-                out.println("</body></html>");
-                
-            }
-          
-            
-            if(accPhone.length() != 10 ){
-                response.setContentType("text/html");
-                out.println("<html><body>");
-                out.println("<h2>Please enter a valid 10-digit phone number.</h2>");
-                out.println("</body></html>");
-              
-            }
-              
-              
-            if(!accPass.equals(confirmPass)){
-                response.setContentType("text/html");
-                out.println("<html><body>");
-                out.println("<h2>The first password field does not match with the second password field!</h2>");
-                out.println("</body></html>");
-           
-            }
-             out.println("<a href='CustomerRegister.jsp'>Back to Register</a>");
-                
-        
-        try{
-            // Begin transaction
-            utx.begin();
+        if(!emailIsValid){
+            response.setContentType("text/html");
+            out.println("<html><body>");
+            out.println("<h2>Please enter a valid Email!</h2>");
+            out.println("</body></html>");
+            validation = false;
+        }
 
-            // Create and Update User fields
-            User user = new User();
-            user.setUserEmail(accEmail);
-            user.setUserName(username);
-            user.setUserPassword(accPass);
 
-            // Persist User entity to generate userId
-            em.persist(user);
-            em.flush(); // flush changes to the database to generate the id
+        if(accPhone.length() != 10 ){
+            response.setContentType("text/html");
+            out.println("<html><body>");
+            out.println("<h2>Please enter a valid 10-digit phone number.</h2>");
+            out.println("</body></html>");
+            validation = false;
+        }
 
-            // Create and Update Customer entity with generated userId
-            Customer customer = new Customer();
-            customer.setCustFullName(fullname);
-            customer.setCustPhoneNum(accPhone);
-            customer.setCustShippingAddress(shippingAddress);
-            customer.setUserId(user); // set the generated user id as the foreign key
 
-            // Persist Customer entity
-            em.persist(customer);
-
-            // Commit transaction
-            utx.commit();
-            
-            
-            successMsg= "Welcome, "+customer.getCustFullName()+". Please Log In!";
-        }catch(Exception ex){
-            //error
+        if(accPass.equals(confirmPass) == false){
+            response.setContentType("text/html");
+            out.println("<html><body>");
+            out.println("<h2>The first password field does not match with the second password field!</h2>");
+            out.println("</body></html>");
+            validation = false;
+        }
+        if(!validation){
+         out.println("<a href='CustomerRegister.jsp'>Back to Register</a>");
         }
         
-        
+        if(validation){
+            try{
+                // Begin transaction
+                utx.begin();
+
+                // Create and Update User fields
+                User user = new User();
+                user.setUserEmail(accEmail);
+                user.setUserName(username);
+                user.setUserPassword(accPass);
+
+                // Persist User entity to generate userId
+                em.persist(user);
+                em.flush(); // flush changes to the database to generate the id
+
+                // Create and Update Customer entity with generated userId
+                Customer customer = new Customer();
+                customer.setCustFullName(fullname);
+                customer.setCustPhoneNum(accPhone);
+                customer.setCustShippingAddress(shippingAddress);
+                customer.setUserId(user); // set the generated user id as the foreign key
+
+                // Persist Customer entity
+                em.persist(customer);
+
+                // Commit transaction
+                utx.commit();
+
+
+                successMsg= "Welcome, "+customer.getCustFullName()+". Please Log In!";
+            }catch(Exception ex){
+                //error
+            }
             //Set info and forward page
-            request.setAttribute("registerSuccessful", successMsg);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("../UserLogin.jsp");
+//            request.setAttribute("registerSuccessful", successMsg);
+//            RequestDispatcher dispatcher = request.getRequestDispatcher("../UserLogin.jsp");
+//            dispatcher.forward(request, response);
+            response.sendRedirect("../UserLogin.jsp?registerSuccessful="+successMsg);
+        }
 
     }
 
