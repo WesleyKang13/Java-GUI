@@ -197,7 +197,7 @@
                 <h1>Add Product</h1>
             </div>
 
-            <form action="<%=ROOT_PATH+"pages/admin/AddNewProduct" %>" method="POST">
+            <form action="<%=ROOT_PATH+"pages/admin/AddNewProduct" %>" method="POST" onsubmit="return confirm('Are you sure you want to add new product?')">
                 <table class="table vertical-table">
                     <tr>
                         <td><strong>Name</strong></strong></td>
@@ -209,7 +209,7 @@
                     </tr>
                     <tr>
                         <td><strong>Price (RM)</strong></strong></td>
-                        <td><input type="text" name="addNew_prodPrice" id="addNew_prodPrice"></td>
+                        <td><input type="number" step="0.01" min="1" name="addNew_prodPrice" id="addNew_prodPrice"></td>
                     </tr>
                     <tr>
                         <td><strong>Description</strong></strong></td>
@@ -230,12 +230,49 @@
 
                 <div class="addNew-action">
                     <button type="button" class="editCustBackBtn backBtn btn" onclick="if(confirm('Are you sure you want to go back?')) { location.href='<%=ROOT_PATH+"pages/admin/LoadProduct" %>'; } else { return false; }" style="float: left;">Back</button>
-                    <button type="submit" class="submitBtn btn success" onclick="if(confirm('Are you sure you want to add new product?')) { return true; } else { return false; }">Submit</button>
+                    <button type="submit" class="submitBtn btn success" onclick="return validateAddProduct();">Submit</button>
                     <button type="reset" class="resetBtn btn danger" onclick="if(confirm('Are you sure you want to reset the form?')) { this.form.reset(); } else { return false; }">Reset</button>
                 </div>
             </form>
         </div>
+                    
+        <script>
+            function validateAddProduct() {
+                // Get form inputs
+                var prodName = document.getElementById("addNew_prodName").value;
+                var prodBrand = document.getElementById("addNew_prodBrand").value;
+                var prodDesc = document.getElementById("addNew_prodDesc").value;
+                var type = document.getElementById("addNew_type").value;
+                var errorStatus = true;
+                var errorMsg="";
 
+                // Perform validation
+                if (prodName.length < 5 ) {
+                    errorMsg += "Please enter a product name more than 5 characters.\n";
+                    errorStatus = false;
+                }
+                if (prodBrand.length < 5 ) {
+                    errorMsg += "Please enter a product brand more than 5 characters.\n";
+                    errorStatus = false;
+                }
+                if (prodDesc.length < 5) {
+                    errorMsg += "Please enter a product description more than 5 characters.\n";
+                    errorStatus = false;
+                }
+                if (type === "#") {
+                    errorMsg += "Please select a product type.\n";
+                    errorStatus = false;
+                }
+                
+                if(!errorStatus){
+                    alert(errorMsg);
+                    return false;
+                }
+
+                // If all inputs are valid, submit the form
+                return true;
+            }
+        </script>
 
         <% 
             //Start Edit Product
@@ -248,7 +285,7 @@
             </div>
 
             <!-- Start Edit Product Form-->
-            <form action="<%=ROOT_PATH+"pages/admin/UpdateProduct" %>" method="POST">
+            <form action="<%=ROOT_PATH+"pages/admin/UpdateProduct" %>" method="POST" onsubmit="return confirm('Are you sure you want to edit this product?');">
                 <input type="hidden" name="edit_Id" id="edit_Id" value="<%=editProduct.getProdId()%>">
                 <table class="table vertical-table">
                     <tr>
@@ -321,7 +358,7 @@
 
                 <div class="edit-action hide">
                     <button type="button" class="delete btn danger" onclick="if(confirm('Are you sure you want to cancel?')) { history.go(0); }" style="float: left;">Cancel</button>
-                    <button type="submit" class="edit btn success" onclick="if(confirm('Are you sure you want to edit this product?')) { return true; }else{return false;}">Save</button>
+                    <button type="submit" class="edit btn success" onclick="return validateEditProduct();">Save</button>
                 </div>
             </form>
             <!--End Edit Product Form-->
@@ -337,6 +374,41 @@
                 
                 <% } %>
             </div>
+            
+            <script>
+                function validateEditProduct() {
+                    // Get form inputs
+                    var prodName = document.getElementById("edit_prodName").value;
+                    var prodBrand = document.getElementById("edit_prodBrand").value;
+                    var prodDesc = document.getElementById("edit_prodDesc").value;
+                    var errorStatus = true;
+                    var errorMsg="";
+
+                    // Perform validation
+                    if (prodName.length < 5 ) {
+                        errorMsg += "Please enter a product name more than 5 characters.\n";
+                        errorStatus = false;
+                    }
+                    if (prodBrand.length < 5 ) {
+                        errorMsg += "Please enter a product brand more than 5 characters.\n";
+                        errorStatus = false;
+                    }
+                    if (prodDesc.length < 5) {
+                        errorMsg += "Please enter a product description more than 5 characters.\n";
+                        errorStatus = false;
+                    }
+
+                    if(!errorStatus){
+                        alert(errorMsg);
+                        return false;
+                    }
+
+                    // If all inputs are valid, submit the form
+                    return true;
+                }
+            </script>
+            
+            
         </div>
     <% } %>
     

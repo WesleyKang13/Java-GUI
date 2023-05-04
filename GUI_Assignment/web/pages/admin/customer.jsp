@@ -163,45 +163,106 @@
             <h1>Add Customer</h1>
         </div>
 
-        <form action="<%=ROOT_PATH+"pages/admin/AddNewCustomer" %>" method="POST">
+        <form action="<%=ROOT_PATH+"pages/admin/AddNewCustomer" %>" method="POST" onsubmit="return confirm('Are you sure you want to edit this customer?')">
             <table class="table vertical-table">
                 <tr>
                     <td><strong>User Name</strong></td>
-                    <td><input type="text" name="addNew_userName"></td>
+                    <td><input type="text" name="addNew_userName" id="addNew_userName"></td>
                 </tr>
                 <tr>
                     <td><strong>Password</strong></td>
-                    <td><input type="password" name="addNew_password"></td>
+                    <td><input type="password" name="addNew_password" id="addNew_password"></td>
                 </tr>
                 <tr>
                     <td><strong>Confirm Password</strong></td>
-                    <td><input type="password" name="addNew_confirmPassword"></td>
+                    <td><input type="password" name="addNew_confirmPassword" id="addNew_confirmPassword"></td>
                 </tr>
                 <tr>
                     <td><strong>Full Name</strong></td>
-                    <td><input type="text" name="addNew_fullName"></td>
+                    <td><input type="text" name="addNew_fullName" id="addNew_fullName"></td>
                 </tr>
                 <tr>
                     <td><strong>Phone Number</strong></td>
-                    <td><input type="text" name="addNew_phoneNum"></td>
+                    <td><input type="text" name="addNew_phoneNum" id="addNew_phoneNum"></td>
                 </tr>
                 <tr>
                     <td><strong>Email</strong></td>
-                    <td><input type="email" name="addNew_email"></td>
+                    <td><input type="email" name="addNew_email" id="addNew_email"></td>
                 </tr>
                 <tr>
                     <td><strong>Shipping Address</strong></td>
-                    <td><input type="text" name="addNew_shippingAddress"></td>
+                    <td><input type="text" name="addNew_shippingAddress" id="addNew_shippingAddress"></td>
                 </tr>
             </table>
 
             <div class="addNew-action">
                 <button type="button" class="editCustBackBtn backBtn btn" onclick="if(confirm('Are you sure you want to go back?')) { location.href='<%=ROOT_PATH+"pages/admin/LoadCustomer" %>'; } else { return false; }" style="float: left;">Back</button>
-                <button type="submit" class="submitBtn btn success" onclick="if(confirm('Are you sure you want to add new customer?')) { return true; } else { return false; }">Submit</button>
+                <button type="submit" class="submitBtn btn success" onclick="return validateAddCustomer();">Submit</button>
                 <button type="reset" class="resetBtn btn danger" onclick="if(confirm('Are you sure you want to reset the form?')) { this.form.reset(); } else { return false; }">Reset</button>
             </div>
         </form>
     </div>
+                
+    <script>
+        function validateAddCustomer() {
+
+            var phoneNumInput = document.getElementById("addNew_phoneNum");
+            var emailInput = document.getElementById("addNew_email");
+            var fullnameInput = document.getElementById("addNew_fullName").value;
+            var usernameInput = document.getElementById("addNew_userName").value;
+            var shippingAddressInput = document.getElementById("addNew_shippingAddress").value;
+            var passwordInput = document.getElementById("addNew_password").value;
+            var confirmPasswordInput = document.getElementById("addNew_confirmPassword").value;
+
+            var errorMsg="";
+            var validate=true;
+            var phoneNumRegex = /\d$/; // regex to match 10 digit phone number
+            var emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/; // regex to match email address
+
+            if (usernameInput.trim().length < 5) {
+              errorMsg += "Username must have at least 5 characters.\n";
+              validate=false;
+            }
+            
+            if (fullnameInput.trim().length < 5) {
+                errorMsg += "Full name must have at least 5 characters.\n";
+                validate=false;
+            }
+            
+            if (passwordInput.trim().length < 5) {
+                errorMsg += "Password must have at least 5 characters.\n";
+                validate=false;
+            }
+            
+            if (passwordInput !== confirmPasswordInput) {
+                errorMsg += "Password and confirm must be match.\n";
+                validate=false;
+            }
+
+            if (shippingAddressInput.trim().length < 5) {
+              errorMsg += "Shipping address must have at least 5 characters.\n";
+              validate=false;
+            }
+            
+            // validate phone number
+            if (!phoneNumRegex.test(phoneNumInput.value)) {
+                errorMsg += "Invalid phone number format.\n";
+                validate=false;
+            }
+
+            // validate email address
+            if (!emailRegex.test(emailInput.value)) {
+                errorMsg += "Invalid email address format.\n";
+                validate=false;
+            }
+            
+            if(validate===false){
+                alert(errorMsg);
+                return false;
+            }
+            return true;
+        }
+    </script>
 
     <%
         //Start Edit Customer
@@ -299,38 +360,40 @@
             var usernameInput = document.getElementById("edit_userName").value;
             var shippingAddressInput = document.getElementById("edit_shippingAddress").value;
 
+            var errorMsg="";
+            var validate=true;
             var phoneNumRegex = /\d$/; // regex to match 10 digit phone number
             var emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/; // regex to match email address
 
             if (usernameInput.trim().length < 5) {
-              errorMsgBox.style.display = "block";
-              errorMsgBox.querySelector(".message").textContent = "Username must have at least 5 characters.";
-              return false;
+              errorMsg += "Username must have at least 5 characters.\n";
+              validate=false;
             }
             
             if (fullnameInput.trim().length < 5) {
-                errorMsgBox.style.display = "block";
-                errorMsgBox.querySelector(".message").textContent = "Full name must have at least 5 characters.";
-                return false;
+                errorMsg += "Full name must have at least 5 characters.\n";
+                validate=false;
             }
 
             if (shippingAddressInput.trim().length < 5) {
-              errorMsgBox.style.display = "block";
-              errorMsgBox.querySelector(".message").textContent = "Shipping address must have at least 5 characters.";
-              return false;
+              errorMsg += "Shipping address must have at least 5 characters.\n";
+              validate=false;
             }
             
             // validate phone number
             if (!phoneNumRegex.test(phoneNumInput.value)) {
-                errorMsgBox.querySelector(".message").innerHTML = "Invalid phone number format";
-                errorMsgBox.style.display = "block"; // show error box
-                return false;
+                errorMsg += "Invalid phone number format.\n";
+                validate=false;
             }
 
             // validate email address
             if (!emailRegex.test(emailInput.value)) {
-                errorMsgBox.querySelector(".message").innerHTML = "Invalid email address format";
-                errorMsgBox.style.display = "block"; // show error box
+                errorMsg += "Invalid email address format.\n";
+                validate=false;
+            }
+            
+            if(validate===false){
+                alert(errorMsg);
                 return false;
             }
 

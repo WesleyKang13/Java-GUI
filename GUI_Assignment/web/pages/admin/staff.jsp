@@ -58,7 +58,7 @@
             <h1>Staff List</h1>
             <% //Display search value when searching
                 if(searchValue!=null){
-                        out.print("<h3 style='padding-bottom:0.4rem;'>Searching - "+searchValue+" (<a href='"+ROOT_PATH+"pages/admin/LoadStaff'>Reset</a>)</h3>");
+                    out.print("<h3 style='padding-bottom:0.4rem;'>Searching - "+searchValue+" (<a href='"+ROOT_PATH+"pages/admin/LoadStaff'>Reset</a>)</h3>");
                 }
             %>
             <p><%=staffList.size()%> record(s) found</p>
@@ -196,41 +196,41 @@
             <h1>Add Staff</h1>
         </div>
 
-        <form action="<%=ROOT_PATH+"pages/admin/AddNewStaff" %>" method="POST">
+        <form action="<%=ROOT_PATH+"pages/admin/AddNewStaff" %>" method="POST" onsubmit="return confirm('Are you sure you want to add new staff?');">
             <table class="table vertical-table">
                 <tr>
                     <td><strong>User Name</strong></td>
-                    <td><input type="text" name="addNew_userName"></td>
+                    <td><input type="text" name="addNew_userName" id="addNew_userName"></td>
                 </tr>
                 <tr>
                     <td><strong>Password</strong></td>
-                    <td><input type="password" name="addNew_password"></td>
+                    <td><input type="password" name="addNew_password" id="addNew_password"></td>
                 </tr>
                 <tr>
                     <td><strong>Confirm Password</strong></td>
-                    <td><input type="password" name="addNew_confirmPassword"></td>
+                    <td><input type="password" name="addNew_confirmPassword" id="addNew_confirmPassword"></td>
                 </tr>
                 <tr>
                     <td><strong>Full Name</strong></td>
-                    <td><input type="text" name="addNew_fullName"></td>
+                    <td><input type="text" name="addNew_fullName" id="addNew_fullName"></td>
                 </tr>
                 <tr>
                     <td><strong>Phone Number</strong></td>
-                    <td><input type="text" name="addNew_phoneNum"></td>
+                    <td><input type="text" name="addNew_phoneNum" id="addNew_phoneNum"></td>
                 </tr>
                 <tr>
                     <td><strong>Email</strong></td>
-                    <td><input type="email" name="addNew_email"></td>
+                    <td><input type="email" name="addNew_email" id="addNew_email"></td>
                 </tr>
                 <tr>
                     <td><strong>Position</strong></td>
-                    <td><input type="text" name="addNew_position"></td>
+                    <td><input type="text" name="addNew_position" id="addNew_position"></td>
                 </tr>
                 <tr>
                     <td><strong>Permission</strong></td>
                     <td> 
-                        <select name="addNew_permission">
-                            <option value="">Please Select</option>
+                        <select name="addNew_permission" id="addNew_permission">
+                            <option value="#">Please Select</option>
                             <option value="0">Administrator</option>
                             <option value="1">Staff</option>
                         </select>
@@ -240,12 +240,86 @@
 
             <div class="addNew-action">
                 <button type="button" class="editCustBackBtn backBtn btn" onclick="if(confirm('Are you sure you want to go back?')) { location.href='<%=ROOT_PATH+"pages/admin/LoadStaff" %>'; } else { return false; }" style="float: left;">Back</button>
-                <button type="submit" class="submitBtn btn success" onclick="if(confirm('Are you sure you want to add new staff?')) { return true; } else { return false; }">Submit</button>
+                <button type="submit" class="submitBtn btn success" onclick="return validateAddStaff();">Submit</button>
                 <button type="reset" class="resetBtn btn danger" onclick="if(confirm('Are you sure you want to reset the form?')) { this.form.reset(); } else { return false; }">Reset</button>
             </div>
         </form>
     </div>
 
+    <script>
+        function validateAddStaff() {
+            // Get input fields
+            var userName = document.getElementById("addNew_userName").value.trim();
+            var password = document.getElementById("addNew_password").value.trim();
+            var confirmPassword = document.getElementById("addNew_confirmPassword").value.trim();
+            var fullName = document.getElementById("addNew_fullName").value.trim();
+            var phoneNum = document.getElementById("addNew_phoneNum").value.trim();
+            var email = document.getElementById("addNew_email").value.trim();
+            var position = document.getElementById("addNew_position").value.trim();
+            var permission = document.getElementById("addNew_permission").value;
+            
+            var errorMsg="";
+            var validate=true;
+            var phoneNumRegex = /\d$/; // regex to match 10 digit phone number
+            var emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/; // regex to match email address
+
+            // Check if any input field is empty or less than 5 characters
+            if (userName.length < 5) {
+              errorMsg += "Username must have at least 5 characters.\n";
+              validate=false;
+            }
+            
+            if (password.length < 5) {
+                errorMsg += "Password must have at least 5 characters.\n";
+                validate=false;
+            }
+            
+            if (password !== confirmPassword) {
+                errorMsg += "Password and confirm must be match.\n";
+                validate=false;
+            }
+            
+            if (fullName.length < 5) {
+                errorMsg += "Full name must have at least 5 characters.\n";
+                validate=false;
+            }
+
+            // validate phone number
+            if (!phoneNumRegex.test(phoneNum)) {
+                errorMsg += "Invalid phone number format.\n";
+                validate=false;
+            }
+
+            // validate email address
+            if (!emailRegex.test(email)) {
+                errorMsg += "Invalid email address format.\n";
+                validate=false;
+            }
+
+            // Check if password and confirm password match
+            if (password !== confirmPassword) {
+                alert("Password and Confirm Password do not match.");
+                return false;
+            }
+            
+            if (position.length < 5) {
+                errorMsg += "Position must have at least 5 characters.\n";
+                validate=false;
+            }
+            
+            if (permission === "#") {
+                errorMsg += "Please select a permission.\n";
+                validate=false;
+            }
+
+            if(!validate){
+                alert(errorMsg);
+                return false;
+            }
+            // Validation successful
+            return true;
+        }
+    </script>
     <%
         //Start Edit Staff
         }else if(editStaff != null){
@@ -257,7 +331,7 @@
         </div>
 
         <!-- Start Edit Staff Form-->
-        <form action="<%=ROOT_PATH+"pages/admin/UpdateStaff" %>" method="POST">
+        <form action="<%=ROOT_PATH+"pages/admin/UpdateStaff" %>" method="POST" onsubmit="return confirm('Are you sure you want to edit this staff?')">
             <table class="table vertical-table">
                 <tr>
                     <td><strong>ID </strong><small>(*ID can't be modified)</small></td>
@@ -294,7 +368,6 @@
                     <td><strong>Permission</strong></td>
                     <td> 
                         <select name="edit_permission" id="edit_permission" disabled>
-                            <option value="">Please Select</option>
                             <option value="0" <%=validatePermission(0, editStaff.getAdminPermission())%>>Administrator</option>
                             <option value="1" <%=validatePermission(1, editStaff.getAdminPermission())%>>Staff</option>
                         </select>
@@ -304,7 +377,7 @@
 
             <div class="edit-action hide">
                 <button type="button" class="delete btn danger" onclick="if(confirm('Are you sure you want to cancel?')) { history.go(0); }" style="float: left;">Cancel</button>
-                <button type="submit" class="edit btn success" onclick="if(confirm('Are you sure you want to edit this staff?')) { return true; }else{return false;}">Save</button>
+                <button type="submit" class="edit btn success" onclick="return validateEditStaff();">Save</button>
             </div>
         </form>
         <!--End Edit Staff Form-->
@@ -334,6 +407,54 @@
                 document.getElementById('edit_position').removeAttribute("disabled");
                 document.getElementById('edit_permission').removeAttribute("disabled");
             });
+        }
+        
+        function validateEditStaff() {
+            // Get input fields
+            var userName = document.getElementById("edit_userName").value.trim();
+            var fullName = document.getElementById("edit_fullName").value.trim();
+            var phoneNum = document.getElementById("edit_phoneNum").value.trim();
+            var email = document.getElementById("edit_email").value.trim();
+            var position = document.getElementById("edit_position").value.trim();
+            
+            var errorMsg="";
+            var validate=true;
+            var phoneNumRegex = /\d$/; // regex to match 10 digit phone number
+            var emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/; // regex to match email address
+
+            // Check if any input field is empty or less than 5 characters
+            if (userName.length < 5) {
+              errorMsg += "Username must have at least 5 characters.\n";
+              validate=false;
+            }
+            
+            if (fullName.length < 5) {
+                errorMsg += "Full name must have at least 5 characters.\n";
+                validate=false;
+            }
+
+            // validate phone number
+            if (!phoneNumRegex.test(phoneNum)) {
+                errorMsg += "Invalid phone number format.\n";
+                validate=false;
+            }
+
+            // validate email address
+            if (!emailRegex.test(email)) {
+                errorMsg += "Invalid email address format.\n";
+                validate=false;
+            }
+            
+            if (position.length < 5) {
+                errorMsg += "Position must have at least 5 characters.\n";
+                validate=false;
+            }
+            if(!validate){
+                alert(errorMsg);
+                return false;
+            }
+            // Validation successful
+            return true;
         }
     </script>
 </main>
