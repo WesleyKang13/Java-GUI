@@ -17,7 +17,6 @@
     //Redirect to home page if it's not admin
     int validatePermission = session.getAttribute("userPermission") != null ? (Integer)session.getAttribute("userPermission") : 999 ;
     if(validatePermission == 999 || validatePermission != 0 && validatePermission != 1){
-        System.out.println("helllllllo");
         response.sendRedirect(ROOT_PATH+"index.jsp");
     }
     
@@ -189,7 +188,7 @@
                     </tr>
                     <tr>
                         <td><strong>Quantity</strong></strong></td>
-                        <td><input type="text" name="addNew_invQuantity" id="addNew_invQuantity"></td>
+                        <td><input type="number" step="1" min="1" name="addNew_invQuantity" id="addNew_invQuantity"></td>
                     </tr>
                     <tr>
                         <td><strong>Color</strong></strong></td>
@@ -197,7 +196,7 @@
                     </tr>
                     <tr>
                         <td><strong>Size</strong></strong></td>
-                        <td><input type="text" name="addNew_invSize" id="addNew_invSize"></td>
+                        <td><input type="number" step="0.5" min="1" name="addNew_invSize" id="addNew_invSize"></td>
                     </tr>
                 </table>
 
@@ -254,7 +253,7 @@
                     </tr>
                     <tr>
                         <td><strong>Quantity</strong></strong></td>
-                        <td><input type="text" name="edit_invQuantity" id="edit_invQuantity" value="<%=editInventory.getInvQuantity()%>" disabled></td>
+                        <td><input type="number" step="1" min="1" name="edit_invQuantity" id="edit_invQuantity" value="<%=editInventory.getInvQuantity()%>" disabled></td>
                     </tr>
                     <tr>
                         <td><strong>Color</strong></strong></td>
@@ -262,7 +261,7 @@
                     </tr>
                     <tr>
                         <td><strong>Size</strong></strong></td>
-                        <td><input type="text" name="edit_invSize" id="edit_invSize" value="<%=editInventory.getInvShoeSize()%>" disabled></td>
+                        <td><input type="number" step="0.5" min="1" name="edit_invSize" id="edit_invSize" value="<%=editInventory.getInvShoeSize()%>" disabled></td>
                     </tr>
                 </table>
 

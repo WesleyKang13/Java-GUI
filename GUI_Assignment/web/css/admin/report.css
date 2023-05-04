@@ -8,7 +8,7 @@
   line-height: 1.5rem;
 }
 
-.report.table tr td{
+.report.table tbody tr td{
     background-color: var(--color-white);
 }
 

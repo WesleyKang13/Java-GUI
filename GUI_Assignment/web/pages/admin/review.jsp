@@ -279,7 +279,7 @@
                     %>
                     <tr>
                         <td><strong>Reply Message</strong></strong></td>
-                        <td><input type="text" name="edit_replyMsg" id="edit_replyMsg" value="<%=replyMsg%>" disabled></td>
+                        <td><input type="text" name="edit_replyMsg" id="edit_replyMsg" value="<%=replyMsg%>" disabled required></td>
                     </tr>
                 </table>
 

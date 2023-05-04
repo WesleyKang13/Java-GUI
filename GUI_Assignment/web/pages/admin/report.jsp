@@ -61,36 +61,34 @@
         <table class="weekly report table horizontal-table">
                     
          
-            <tr>
-                <td>
-                    <table>
-                            <tr>
-                                <td style="padding-right: 0.5rem;"><strong>#</td>
-                                <td><strong>Product ID</strong></td>
-                                <td><strong>Product Name</strong></td>
-                                <td><strong>Sales Count</strong></td>
-                                <td><strong>Unit Price (RM)</strong></td>
-                                <td><strong>Total Sales (RM)</strong></td>
-                            </tr>
-
+            <thead>
+                <tr>
+                    <td style="padding-right: 0.5rem;"><strong>#</td>
+                    <td><strong>Product ID</strong></td>
+                    <td><strong>Product Name</strong></td>
+                    <td><strong>Sales Count</strong></td>
+                    <td><strong>Unit Price (RM)</strong></td>
+                    <td><strong>Total Sales (RM)</strong></td>
+                </tr>
+            </thead>
+            <tbody>
             <% 
             List<ProductSales> productList = (List<ProductSales>) request.getAttribute("productList");
             if (productList != null) {
                 for(int i=0; i < productList.size();i++) {
                 ProductSales ps = productList.get(i);
             %>
-                            <tr>
-                                <td style="padding-right: 0.5rem;"><%=i+1%></td>
-                                <td><%=ps.getProductId().getProdId()%></td>
-                                <td><%=ps.getProductId().getProdName()%></td>
-                                <td><%=ps.getSalesCount()%></td>
-                                <td><%=String.format("%.2f",ps.getProductId().getProdPrice())%></td>
-                                <td><%=String.format("%.2f",ps.getProductId().getProdPrice()*ps.getSalesCount())%></td>
-                            </tr>
+                <tr>
+                    <td style="padding-right: 0.5rem;"><%=i+1%></td>
+                    <td><%=ps.getProductId().getProdId()%></td>
+                    <td><%=ps.getProductId().getProdName()%></td>
+                    <td><%=ps.getSalesCount()%></td>
+                    <td><%=String.format("%.2f",ps.getProductId().getProdPrice())%></td>
+                    <td><%=String.format("%.2f",ps.getProductId().getProdPrice()*ps.getSalesCount())%></td>
+                </tr>
             <% } } %>
-                    </table>
-                </td>
-            </tr>
+            </tbody>
+
         </table>
         <p style="text-align:center;"><%=getServletContext().getInitParameter("copyright")%></p>
     </div>
