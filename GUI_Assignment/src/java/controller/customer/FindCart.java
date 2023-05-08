@@ -34,6 +34,7 @@ public class FindCart extends HttpServlet {
                 String alertScript = "<script>alert('" + message + "');</script>";
                 response.getWriter().write(alertScript);
                 response.setHeader("Refresh", "0; URL=" + redirectUrl);
+                return;
             }
             
             if((int)request.getSession().getAttribute("userPermission")==0 ||(int)request.getSession().getAttribute("userPermission")==1){
