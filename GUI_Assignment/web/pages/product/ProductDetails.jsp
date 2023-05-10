@@ -166,7 +166,7 @@
                         int emptyStars = 5 - fullStars;
                     %>    
                     <div class="reviews"> 
-                         <h3>Reviews (<%= reviewScore %>) 
+                         <h3>Reviews (<%= String.format("%.2f",reviewScore) %>) 
                              <% for (int i = 0; i < fullStars; i++) { %>
                                  <i class="fa fa-star" style="color: yellow;"></i>
                              <% } %>
